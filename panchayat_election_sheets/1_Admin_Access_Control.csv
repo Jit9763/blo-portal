@@ -1,0 +1,33 @@
+﻿User_ID,Username,Password,Full_Name,Role,Panchayat_Code,Gram_Panchayat,Allowed_Wards,Mobile_No,Status
+ADM001,admin,admin@2026,मुख्य चुनाव व्यवस्थापक (Super Admin),SUPER_ADMIN,ALL,सभी 30 ग्राम पंचायत,ALL,9876543210,ACTIVE
+ADM002,control_room,control@2026,कंट्रोल रूम इंचार्ज (Election Control),SUPER_ADMIN,ALL,सभी 30 ग्राम पंचायत,ALL,9876543211,ACTIVE
+USR_GP01,gp01_incharge,gp01#2026,एकलसिंहा प्रभारी,PANCHAYAT_ADMIN,GP01,एकलसिंहा,"1,2,3,4,5,6,7,8,9",,ACTIVE
+USR_GP02,gp02_incharge,gp02#2026,कनई कलां प्रभारी,PANCHAYAT_ADMIN,GP02,कनई कलां,"1,2,3,4,5,6,7,8,9",,ACTIVE
+USR_GP03,gp03_incharge,gp03#2026,करांटी प्रभारी,PANCHAYAT_ADMIN,GP03,करांटी,"1,2,3,4,5,6,7",,ACTIVE
+USR_GP04,gp04_incharge,gp04#2026,कुम्हारिया प्रभारी,PANCHAYAT_ADMIN,GP04,कुम्हारिया,"1,2,3,4,5,6,7,8,9,10,11",,ACTIVE
+USR_GP05,gp05_incharge,gp05#2026,कैरोट प्रभारी,PANCHAYAT_ADMIN,GP05,कैरोट,"1,2,3,4,5,6,7,8,9,10,11",,ACTIVE
+USR_GP06,gp06_incharge,gp06#2026,खेड़ी आंशिक प्रभारी,PANCHAYAT_ADMIN,GP06,खेड़ी आंशिक,"1,2,3,4,5,6,7,8,9,10,11",,ACTIVE
+USR_GP07,gp07_incharge,gp07#2026,गुढ़ाखुर्द प्रभारी,PANCHAYAT_ADMIN,GP07,गुढ़ाखुर्द,"1,2,3,4,5,6,7,8,9,10,11",,ACTIVE
+USR_GP08,gp08_incharge,gp08#2026,घणा प्रभारी,PANCHAYAT_ADMIN,GP08,घणा,"1,2,3,4,5,6,7",,ACTIVE
+USR_GP09,gp09_incharge,gp09#2026,चापानेरी प्रभारी,PANCHAYAT_ADMIN,GP09,चापानेरी,"1,2,3,4,5,6,7,8,9,10,11",,ACTIVE
+USR_GP10,gp10_incharge,gp10#2026,छछूंदरा प्रभारी,PANCHAYAT_ADMIN,GP10,छछूंदरा,"1,2,3,4,5,6,7,8,9,10,11",,ACTIVE
+USR_GP11,gp11_incharge,gp11#2026,देवपुरा प्रभारी,PANCHAYAT_ADMIN,GP11,देवपुरा,"1,2,3,4,5,6,7,8,9,10,11",,ACTIVE
+USR_GP12,gp12_incharge,gp12#2026,देवलिया कलां प्रभारी,PANCHAYAT_ADMIN,GP12,देवलिया कलां,"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15",,ACTIVE
+USR_GP13,gp13_incharge,gp13#2026,धांतोल प्रभारी,PANCHAYAT_ADMIN,GP13,धांतोल,"1,2,3,4,5,6,7,8,9",,ACTIVE
+USR_GP14,gp14_incharge,gp14#2026,नांदसी आंशिक प्रभारी,PANCHAYAT_ADMIN,GP14,नांदसी आंशिक,"8,9,10,11,1,2,3,4,5,6,7",,ACTIVE
+USR_GP15,gp15_incharge,gp15#2026,नागोला प्रभारी,PANCHAYAT_ADMIN,GP15,नागोला,"1,2,3,4,5,6,7,8,9,10,11,12,13",,ACTIVE
+USR_GP16,gp16_incharge,gp16#2026,पड़ांगा प्रभारी,PANCHAYAT_ADMIN,GP16,पड़ांगा,"1,2,3,4,5,6,7",,ACTIVE
+USR_GP17,gp17_incharge,gp17#2026,पाडलिया प्रभारी,PANCHAYAT_ADMIN,GP17,पाडलिया,"1,2,3,4,5,6,7,8,9",,ACTIVE
+USR_GP18,gp18_incharge,gp18#2026,बगराई प्रभारी,PANCHAYAT_ADMIN,GP18,बगराई,"1,2,3,4,5,6,7",,ACTIVE
+USR_GP19,gp19_incharge,gp19#2026,बड़गांव प्रभारी,PANCHAYAT_ADMIN,GP19,बड़गांव,"1,2,3,4,5,6,7,8,9,10,11,12,13",,ACTIVE
+USR_GP20,gp20_incharge,gp20#2026,बड़ली प्रभारी,PANCHAYAT_ADMIN,GP20,बड़ली,"1,2,3,4,5,6,7,8,9,10,11",,ACTIVE
+USR_GP21,gp21_incharge,gp21#2026,बांदनवाड़ा प्रभारी,PANCHAYAT_ADMIN,GP21,बांदनवाड़ा,"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17",,ACTIVE
+USR_GP22,gp22_incharge,gp22#2026,बूबकिया आंशिक प्रभारी,PANCHAYAT_ADMIN,GP22,बूबकिया आंशिक,"3,5,6,7,8,9,11,1,2,4,10",,ACTIVE
+USR_GP23,gp23_incharge,gp23#2026,भिनाय प्रभारी,PANCHAYAT_ADMIN,GP23,भिनाय,"1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21",,ACTIVE
+USR_GP24,gp24_incharge,gp24#2026,राताकोट प्रभारी,PANCHAYAT_ADMIN,GP24,राताकोट,"1,2,3,4,5,6,7,8,9",,ACTIVE
+USR_GP25,gp25_incharge,gp25#2026,राममालिया प्रभारी,PANCHAYAT_ADMIN,GP25,राममालिया,"1,2,3,4,5,6,7",,ACTIVE
+USR_GP26,gp26_incharge,gp26#2026,लामगरा प्रभारी,PANCHAYAT_ADMIN,GP26,लामगरा,"1,2,3,4,5,6,7,8,9,10,11",,ACTIVE
+USR_GP27,gp27_incharge,gp27#2026,सिंगावल प्रभारी,PANCHAYAT_ADMIN,GP27,सिंगावल,"1,2,3,4,5,6,7,8,9",,ACTIVE
+USR_GP28,gp28_incharge,gp28#2026,सोबड़ी आंशिक प्रभारी,PANCHAYAT_ADMIN,GP28,सोबड़ी आंशिक,"1,2,3,4,5,6,7",,ACTIVE
+USR_GP29,gp29_incharge,gp29#2026,सोलखुर्द प्रभारी,PANCHAYAT_ADMIN,GP29,सोलखुर्द,"1,2,3,4,5,6,7,8,9",,ACTIVE
+USR_GP30,gp30_incharge,gp30#2026,हियालिया प्रभारी,PANCHAYAT_ADMIN,GP30,हियालिया,"1,2,3,4,5,6,7",,ACTIVE
