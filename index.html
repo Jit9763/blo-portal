@@ -130,17 +130,25 @@
 
         <!-- Navigation Tabs -->
         <div class="nav-tabs-wrapper">
-          <button class="nav-tab active" data-tab="searchTab" onclick="switchTab('searchTab')">
+          <button class="nav-tab active" data-tab="dashboardTab" onclick="switchTab('dashboardTab')">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+            होम / डैशबोर्ड (Home)
+          </button>
+          <button class="nav-tab" data-tab="searchTab" onclick="switchTab('searchTab')">
             <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             मतदाता खोज (Search)
+          </button>
+          <button class="nav-tab" data-tab="alphaTab" onclick="switchTab('alphaTab')">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
+            वर्णमाला सूची (A-Z / अ-ज्ञ)
+          </button>
+          <button class="nav-tab" data-tab="bulkSlipTab" onclick="switchTab('bulkSlipTab')">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+            मत पर्ची डाउनलोड (9/12/15)
           </button>
           <button class="nav-tab" data-tab="directoryTab" onclick="switchTab('directoryTab')">
             <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10M6 14h6"/></svg>
             वार्डवार सूची (Directory)
-          </button>
-          <button class="nav-tab" data-tab="dashboardTab" onclick="switchTab('dashboardTab')">
-            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
-            डैशबोर्ड (Stats)
           </button>
           <button class="nav-tab" data-tab="settingsTab" onclick="switchTab('settingsTab')">
             <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -173,11 +181,11 @@
       <!-- ==============================================
            TAB 1: SMART VOTER SEARCH
            ============================================== -->
-      <section id="searchTab" class="tab-pane active">
+      <section id="searchTab" class="tab-pane">
         <div class="search-hero card">
           <div class="search-hero-content">
             <h2 class="section-title">🔍 मतदाता खोजें (Search Voter)</h2>
-            <p class="section-subtitle">नाम, पिता/पति का नाम, मकान संख्या या EPIC पहचान पत्र संख्या से तुरंत खोजें</p>
+            <p class="section-subtitle">वार्ड, गाँव, मोहल्ला, नाम, पिता/पति का नाम, मकान संख्या या EPIC पहचान पत्र संख्या से तुरंत खोजें</p>
 
             <!-- Search Input Controls -->
             <div class="search-bar-row">
@@ -208,6 +216,15 @@
               </div>
 
               <div class="filter-item">
+                <label for="filterDeliveryStatus">पर्ची वितरण स्थिति:</label>
+                <select id="filterDeliveryStatus" class="form-select" onchange="performSearch()">
+                  <option value="ALL">सभी (All)</option>
+                  <option value="PENDING">बची हुई पर्चियाँ (बाकी)</option>
+                  <option value="DELIVERED">दी गई पर्चियाँ (वितरित)</option>
+                </select>
+              </div>
+
+              <div class="filter-item">
                 <label for="filterGender">लिंग (Gender):</label>
                 <select id="filterGender" class="form-select" onchange="performSearch()">
                   <option value="ALL">सभी (All)</option>
@@ -228,6 +245,28 @@
                 </select>
               </div>
             </div>
+
+            <!-- Multi-Filter Chips Section (As shown in video) -->
+            <div class="filter-chips-section" id="filterChipsContainer">
+              <div class="chips-group">
+                <div class="chips-label">
+                  <span>🏢 वार्ड के अनुसार फ़िल्टर (Wards):</span>
+                </div>
+                <div class="chips-wrapper" id="wardFilterChips">
+                  <!-- Rendered dynamically -->
+                </div>
+              </div>
+
+              <div class="chips-group mt-2">
+                <div class="chips-label">
+                  <span>🏡 राजस्व ग्राम / गाँव (Villages):</span>
+                </div>
+                <div class="chips-wrapper" id="villageFilterChips">
+                  <!-- Rendered dynamically -->
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 
@@ -262,6 +301,195 @@
             <button class="chip-btn" onclick="quickFillSearch('सुरेश')">सुरेश</button>
             <button class="chip-btn" onclick="quickFillSearch('जाट')">जाट</button>
             <button class="chip-btn" onclick="quickFillSearch('वैष्णव')">वैष्णव</button>
+          </div>
+      </section>
+
+      <!-- ==============================================
+           TAB: ALPHABETICAL VOTER LIST (अ से ज्ञ & A-Z)
+           ============================================== -->
+      <section id="alphaTab" class="tab-pane">
+        <div class="card">
+          <div class="card-header-row" style="flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h2 class="section-title">🔤 वर्णक्रमानुसार मतदाता नामावली (Alphabetical Roll)</h2>
+              <p class="section-subtitle">हिंदी (अ से ज्ञ) अथवा English (A to Z) क्रम में मतदाताओं की वर्णमाला सूची एवं त्वरित पर्ची वितरण ट्रैकिंग</p>
+            </div>
+            <!-- Language & Delivery Toggles -->
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center;">
+              <div class="btn-group">
+                <button class="btn btn-sm btn-primary" id="alphaLangBtnHi" onclick="setAlphaLanguage('hi')">हिंदी (अ - ज्ञ)</button>
+                <button class="btn btn-sm btn-outline" id="alphaLangBtnEn" onclick="setAlphaLanguage('en')">English (A - Z)</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Alpha Filters Row -->
+          <div class="filters-row mt-3">
+            <div class="filter-item">
+              <label for="alphaGpSelect">ग्राम पंचायत:</label>
+              <select id="alphaGpSelect" class="form-select" onchange="onAlphaGpChanged()">
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <div class="filter-item">
+              <label for="alphaWardSelect">वार्ड संख्या:</label>
+              <select id="alphaWardSelect" class="form-select" onchange="renderAlphabeticalList()">
+                <option value="ALL">-- सभी वार्ड --</option>
+              </select>
+            </div>
+            <div class="filter-item">
+              <label for="alphaStatusFilter">पर्ची स्थिति:</label>
+              <select id="alphaStatusFilter" class="form-select" onchange="renderAlphabeticalList()">
+                <option value="ALL">सभी मतदाता</option>
+                <option value="PENDING">केवल बाकी पर्चियाँ</option>
+                <option value="DELIVERED">केवल दी गई पर्चियाँ</option>
+              </select>
+            </div>
+            <div class="filter-item flex-grow">
+              <label for="alphaSearchFilter">वर्णमाला में त्वरित खोज:</label>
+              <input type="text" id="alphaSearchFilter" class="form-input" placeholder="नाम टाइप करें..." oninput="renderAlphabeticalList()">
+            </div>
+          </div>
+
+          <!-- Main Alpha List & Right Index Scroller Container -->
+          <div class="alpha-container mt-4">
+            <div class="alpha-main-content" id="alphaListContainer">
+              <!-- Rendered dynamically with letter sections -->
+            </div>
+
+            <!-- Sticky Alphabet Index Scroller Bar (As seen in video) -->
+            <div class="alpha-scroller-bar" id="alphaIndexScroller">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================
+           TAB: BULK VOTER SLIP GENERATOR (9, 12, 15 SLIPS PER A4)
+           ============================================== -->
+      <section id="bulkSlipTab" class="tab-pane">
+        <div class="bulk-controls-card">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+            <div>
+              <span class="gatekeeper-badge">🇮🇳 कार्यालय उपखंड मजिस्ट्रेट (SDM) एवं निर्वाचक रजिस्ट्रीकरण पदाधिकारी, भिनाय</span>
+              <h2 class="section-title mt-1">🖨️ आधिकारिक मतदाता सूचना पर्ची बल्क जनरेटर एवं डाउनलोड</h2>
+              <p class="section-subtitle">9, 12, 15 पर्चियाँ प्रति A4 पेज अथवा 58mm थर्मल ब्लूटूथ प्रिंटर फॉर्मेट में डाउनलोड एवं प्रिंट करें</p>
+            </div>
+          </div>
+
+          <!-- Official Administrative Notice Banner -->
+          <div style="background:#eff6ff; border-left:4px solid #1e3a8a; padding:0.75rem 1rem; border-radius:0 var(--radius-md) var(--radius-md) 0; margin:1rem 0; font-size:0.85rem; color:#1e3a8a; line-height:1.4;">
+            <strong>⚖️ आधिकारिक रूप से मान्य प्रारूप:</strong> यह पर्ची उपखंड अधिकारी (SDM) / राज्य निर्वाचन आयोग द्वारा प्राधिकृत <strong>आधिकारिक मतदाता सूचना पर्ची (Official Voter Information Slip)</strong> है। इसमें किसी भी चुनाव लड़ने वाले उम्मीदवार, फोटो या चुनाव चिन्ह का उल्लेख नहीं है। यह सीधे मतदान केंद्र में प्रवेश व पहचान सत्यापन हेतु प्रयुक्त होती है।
+          </div>
+
+          <!-- Top Filter Selection Row -->
+          <div class="filters-row">
+            <div class="filter-item">
+              <label for="bulkGpSelect"><strong>ग्राम पंचायत:</strong></label>
+              <select id="bulkGpSelect" class="form-select form-select-lg" onchange="onBulkGpChanged()">
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <label for="bulkWardSelect"><strong>वार्ड संख्या:</strong></label>
+              <select id="bulkWardSelect" class="form-select form-select-lg" onchange="updateBulkGenerator()">
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <label for="bulkDeliveryScope"><strong>वितरण दायरा (Scope):</strong></label>
+              <select id="bulkDeliveryScope" class="form-select form-select-lg" onchange="updateBulkGenerator()">
+                <option value="ALL">सभी मतदाता (All Electors)</option>
+                <option value="PENDING" selected>केवल बची हुई पर्चियाँ (Only Pending Slips)</option>
+                <option value="DELIVERED">केवल दी गई पर्चियाँ (Delivered)</option>
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <label for="bulkHouseFilter"><strong>मकान संख्या (वैकल्पिक):</strong></label>
+              <input type="text" id="bulkHouseFilter" class="form-input" placeholder="उदा. 12 या भील बस्ती" oninput="updateBulkGenerator()">
+            </div>
+          </div>
+
+          <!-- Layout Grid Selector (9, 12, 15, Thermal) -->
+          <div class="bulk-layout-grid-selector">
+            <!-- Option 9 Slips -->
+            <div class="layout-choice-card" id="layoutCard9" onclick="selectBulkLayout(9)">
+              <div class="layout-badge">सुपाठ्य / Large</div>
+              <div class="layout-icon">📄</div>
+              <div class="layout-title">9 पर्चियाँ / A4 पेज</div>
+              <div class="layout-desc">3 कॉलम × 3 पंक्तियाँ • बड़े अक्षर, स्पष्ट विवरण व QR कोड</div>
+            </div>
+
+            <!-- Option 12 Slips (User's Exact 4x3 Format) -->
+            <div class="layout-choice-card active" id="layoutCard12" onclick="selectBulkLayout(12)">
+              <div class="layout-badge">मानक 4×3 डिज़ाइन</div>
+              <div class="layout-icon">📑</div>
+              <div class="layout-title">12 पर्चियाँ / A4 पेज</div>
+              <div class="layout-desc">3 कॉलम × 4 पंक्तियाँ • प्रशासनिक मानक, उत्कृष्ट संतुलन व बचत</div>
+            </div>
+
+            <!-- Option 15 Slips -->
+            <div class="layout-choice-card" id="layoutCard15" onclick="selectBulkLayout(15)">
+              <div class="layout-badge">अधिकतम बचत</div>
+              <div class="layout-icon">🖨️</div>
+              <div class="layout-title">15 पर्चियाँ / A4 पेज</div>
+              <div class="layout-desc">3 कॉलम × 5 पंक्तियाँ • बी.एल.ओ. सघन वितरण हेतु सुपर कॉम्पैक्ट</div>
+            </div>
+
+            <!-- Option Thermal 58mm -->
+            <div class="layout-choice-card" id="layoutCardThermal" onclick="selectBulkLayout('thermal')">
+              <div class="layout-badge">ब्लूटूथ प्रिंट</div>
+              <div class="layout-icon">🧾</div>
+              <div class="layout-title">58mm थर्मल पर्ची</div>
+              <div class="layout-desc">मोबाइल ब्लूटूथ प्रिंटर से घर-घर लाइव रसीद पर्ची प्रिंट</div>
+            </div>
+          </div>
+
+          <!-- Color Theme & Print Actions Bar -->
+          <div class="bulk-meta-bar">
+            <!-- Theme Indicator -->
+            <div style="display:flex; align-items:center; gap:0.65rem;">
+              <span class="text-sm font-bold" style="color:#000000;">प्रिंट मोड:</span>
+              <span class="badge" style="background:#000000; color:#ffffff; padding:0.35rem 0.75rem; font-size:0.8rem; border-radius:4px; font-weight:700;">
+                ⚫ 100% शुद्ध B&W (बिना बैकग्राउंड कलर, लेज़र/ज़ेरॉक्स हेतु सर्वोत्तम)
+              </span>
+            </div>
+
+            <!-- Statistics Summary -->
+            <div class="bulk-stat-pill">
+              <span>चयनित मतदाता: <strong id="bulkSelectedVoterCount">0</strong></span>
+              <span>•</span>
+              <span>आवश्यक A4 पेज: <strong id="bulkTotalPagesCount">0</strong></span>
+            </div>
+
+            <!-- Print Actions -->
+            <div class="bulk-action-row">
+              <button class="btn btn-outline btn-sm" onclick="markCurrentBatchDelivered()">
+                ✅ इस बैच को 'वितरित' मार्क करें
+              </button>
+              <button class="btn btn-primary" onclick="printBulkSlips()">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+                🖨️ A4 PDF डाउनलोड / सीधे प्रिंट करें
+              </button>
+            </div>
+          </div>
+
+          <!-- Live Interactive Page Previewer -->
+          <div class="preview-wrapper">
+            <div class="preview-nav-bar">
+              <button class="btn-sm btn-outline-white" id="btnBulkPrevPage" onclick="changeBulkPage(-1)">◀ पिछला पेज</button>
+              <span class="page-indicator-pill" id="bulkPageIndicator">पेज 1 of 1</span>
+              <button class="btn-sm btn-outline-white" id="btnBulkNextPage" onclick="changeBulkPage(1)">अगला पेज ▶</button>
+            </div>
+
+            <!-- The Scaled A4 Sheet -->
+            <div class="a4-preview-page a4-grid-12 theme-bw" id="bulkPreviewSheet">
+              <!-- Rendered dynamically -->
+            </div>
           </div>
         </div>
       </section>
@@ -363,21 +591,54 @@
       </section>
 
       <!-- ==============================================
-           TAB 3: DASHBOARD & STATS
+           TAB: DASHBOARD & STATS (ACTIVE HOMEPAGE)
            ============================================== -->
-      <section id="dashboardTab" class="tab-pane">
-        <div class="dashboard-header card">
-          <h2 class="section-title">📊 पंचायत एवं वार्ड चुनाव सांख्यिकी (Election Dashboard)</h2>
-          <p class="section-subtitle">पंचायत समिति भिनाय की सभी 30 ग्राम पंचायतों एवं 312 वार्डों का संपूर्ण विश्लेषण</p>
+      <section id="dashboardTab" class="tab-pane active">
+        <!-- Distribution Meter (As featured in Video) -->
+        <div class="meter-card">
+          <div class="meter-header-row">
+            <div class="meter-title-wrap">
+              <div class="meter-icon-badge">🗳️</div>
+              <div>
+                <h2 class="meter-title">मतदाता सूचना पर्ची वितरण मीटर (Slip Distribution)</h2>
+                <p class="meter-sub">घर-घर पर्ची वितरण स्थिति एवं वास्तविक समय मॉनिटरिंग</p>
+              </div>
+            </div>
+            <div class="meter-counts-summary">
+              <span class="meter-big-num" id="meterDeliveredCount">0</span>
+              <span class="meter-total-text">पर्ची दी गई • <strong id="meterPendingCount">0</strong> बाकी</span>
+            </div>
+          </div>
 
-          <!-- KPI Cards Grid -->
+          <div class="meter-progress-track">
+            <div class="meter-progress-fill" id="meterProgressFill" style="width: 0%;"></div>
+          </div>
+
+          <div class="meter-quick-filters">
+            <span class="text-sm font-bold" style="align-self:center; color:#475569;">त्वरित फ़िल्टर:</span>
+            <button class="meter-filter-btn active" id="btnFilterMeterAll" onclick="setMeterFilter('ALL')">
+              <span>📋 सभी निर्वाचक</span>
+            </button>
+            <button class="meter-filter-btn" id="btnFilterMeterPending" onclick="setMeterFilter('PENDING')">
+              <span>⏳ बची हुई पर्चियाँ</span>
+              <span class="badge" id="meterPendingBadge">0</span>
+            </button>
+            <button class="meter-filter-btn" id="btnFilterMeterDelivered" onclick="setMeterFilter('DELIVERED')">
+              <span>✅ दी गई सूची</span>
+              <span class="badge" id="meterDeliveredBadge">0</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- KPI Summary Cards -->
+        <div class="dashboard-header card">
           <div class="kpi-grid">
             <div class="kpi-card bg-gradient-blue">
               <div class="kpi-icon">🏛️</div>
               <div class="kpi-info">
                 <span class="kpi-title">कुल ग्राम पंचायत</span>
                 <strong class="kpi-num" id="kpiTotalGps">30</strong>
-                <span class="kpi-sub">GP01 से GP30</span>
+                <span class="kpi-sub">GP01 से GP30 भिनाय</span>
               </div>
             </div>
 
@@ -404,9 +665,55 @@
               <div class="kpi-info">
                 <span class="kpi-title">कुल पंजीकृत मतदाता</span>
                 <strong class="kpi-num" id="kpiTotalVoters">1,12,000+</strong>
-                <span class="kpi-sub">अनुमानित निर्वाचक</span>
+                <span class="kpi-sub">समग्र निर्वाचक नामावली</span>
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- Video Style Breakdown: मूल सूची, परिवर्धन सूची, विलोपित मतदाता, प्रभावी मतदाता -->
+        <div class="stats-split-grid">
+          <div class="stats-card-box">
+            <div class="stats-card-icon" style="background:#eff6ff; color:#1d4ed8;">📜</div>
+            <div>
+              <div class="stats-card-val text-blue" id="kpiMainRollCount">-</div>
+              <div class="stats-card-lbl">मूल सूची (Main Roll)</div>
+            </div>
+          </div>
+
+          <div class="stats-card-box">
+            <div class="stats-card-icon" style="background:#fef3c7; color:#d97706;">➕</div>
+            <div>
+              <div class="stats-card-val text-amber" id="kpiSupplementRollCount">-</div>
+              <div class="stats-card-lbl">परिवर्धन सूची (Supplement)</div>
+            </div>
+          </div>
+
+          <div class="stats-card-box">
+            <div class="stats-card-icon" style="background:#fee2e2; color:#dc2626;">❌</div>
+            <div>
+              <div class="stats-card-val text-red" id="kpiDeletedCount">-</div>
+              <div class="stats-card-lbl">विलोपित मतदाता (Deleted)</div>
+            </div>
+          </div>
+
+          <div class="stats-card-box">
+            <div class="stats-card-icon" style="background:#ecfdf5; color:#059669;">✔️</div>
+            <div>
+              <div class="stats-card-val text-green" id="kpiEffectiveCount">-</div>
+              <div class="stats-card-lbl">प्रभावी मतदाता (Effective)</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ward-wise Delivery Progress List (As seen in Video) -->
+        <div class="card mb-4">
+          <div class="card-header-row">
+            <h3 class="card-title">वार्ड अनुसार पर्ची वितरण प्रगति (Ward-wise Delivery Tracker)</h3>
+            <span class="text-sm text-muted">क्लिक करके सीधे उस वार्ड की पर्चियाँ देखें</span>
+          </div>
+          <div class="ward-progress-grid" id="wardProgressGridContainer">
+            <!-- Populated dynamically -->
           </div>
         </div>
 
@@ -539,7 +846,7 @@
           <!-- Top Header -->
           <div class="slip-header">
             <div class="slip-emblem">
-              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23ffffff' stroke='%231e3a8a' stroke-width='4'/><circle cx='50' cy='50' r='38' fill='none' stroke='%23f97316' stroke-width='3'/><path d='M50 15 L50 85 M15 50 L85 50 M25 25 L75 75 M25 75 L75 25' stroke='%231e3a8a' stroke-width='2'/><circle cx='50' cy='50' r='10' fill='%231e3a8a'/></svg>" alt="Emblem" class="slip-emblem-img">
+              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23ffffff' stroke='%23000000' stroke-width='4'/><circle cx='50' cy='50' r='38' fill='none' stroke='%23000000' stroke-width='2'/><path d='M50 15 L50 85 M15 50 L85 50 M25 25 L75 75 M25 75 L75 25' stroke='%23000000' stroke-width='2'/><circle cx='50' cy='50' r='10' fill='%23000000'/></svg>" alt="Emblem" class="slip-emblem-img">
             </div>
             <div class="slip-header-titles">
               <h2 class="slip-gov-title">राजस्थान राज्य निर्वाचन आयोग</h2>
@@ -617,20 +924,20 @@
               <div class="mock-qr" id="slipQrGraphic">
                 <svg viewBox="0 0 100 100" width="60" height="60">
                   <rect width="100" height="100" fill="white"/>
-                  <rect x="5" y="5" width="30" height="30" fill="#1e3a8a"/>
+                  <rect x="5" y="5" width="30" height="30" fill="#000000"/>
                   <rect x="10" y="10" width="20" height="20" fill="white"/>
-                  <rect x="14" y="14" width="12" height="12" fill="#1e3a8a"/>
-                  <rect x="65" y="5" width="30" height="30" fill="#1e3a8a"/>
+                  <rect x="14" y="14" width="12" height="12" fill="#000000"/>
+                  <rect x="65" y="5" width="30" height="30" fill="#000000"/>
                   <rect x="70" y="10" width="20" height="20" fill="white"/>
-                  <rect x="74" y="14" width="12" height="12" fill="#1e3a8a"/>
-                  <rect x="5" y="65" width="30" height="30" fill="#1e3a8a"/>
+                  <rect x="74" y="14" width="12" height="12" fill="#000000"/>
+                  <rect x="5" y="65" width="30" height="30" fill="#000000"/>
                   <rect x="10" y="70" width="20" height="20" fill="white"/>
-                  <rect x="14" y="74" width="12" height="12" fill="#1e3a8a"/>
-                  <rect x="42" y="10" width="14" height="14" fill="#1e3a8a"/>
-                  <rect x="42" y="32" width="14" height="28" fill="#1e3a8a"/>
-                  <rect x="65" y="42" width="28" height="14" fill="#1e3a8a"/>
-                  <rect x="60" y="65" width="14" height="28" fill="#1e3a8a"/>
-                  <rect x="80" y="80" width="14" height="14" fill="#1e3a8a"/>
+                  <rect x="14" y="74" width="12" height="12" fill="#000000"/>
+                  <rect x="42" y="10" width="14" height="14" fill="#000000"/>
+                  <rect x="42" y="32" width="14" height="28" fill="#000000"/>
+                  <rect x="65" y="42" width="28" height="14" fill="#000000"/>
+                  <rect x="60" y="65" width="14" height="28" fill="#000000"/>
+                  <rect x="80" y="80" width="14" height="14" fill="#000000"/>
                 </svg>
               </div>
               <div class="slip-qr-text">
@@ -652,13 +959,45 @@
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-5.46-4.45-9.92-9.91-9.92zm5.78 14.07c-.24.68-1.4 1.3-1.95 1.37-.52.07-1.19.1-3.41-.8-2.84-1.15-4.66-4.04-4.8-4.23-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.37.24-.28.53-.35.7-.35.18 0 .36.01.52.02.17.01.4-.06.62.47.24.57.81 1.98.88 2.13.07.15.12.33.02.53-.1.2-.15.32-.3.5-.15.17-.31.39-.45.52-.15.15-.31.31-.13.62.18.31.8 1.32 1.72 2.14 1.18 1.05 2.18 1.38 2.49 1.53.31.15.49.13.67-.08.18-.21.78-.91.99-1.22.21-.31.42-.26.7-.15.28.1 1.79.84 2.1 1 .31.15.52.23.6.35.08.13.08.73-.16 1.41z"/></svg>
           व्हाट्सएप पर भेजें
         </button>
+        <button class="btn btn-outline" onclick="printThermalSingleSlip()">
+          🧾 58mm थर्मल प्रिंट
+        </button>
         <button class="btn btn-primary" onclick="printVoterSlip()">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
-          पर्ची प्रिंट करें (Print)
+          A4 पर्ची प्रिंट करें
         </button>
       </div>
     </div>
   </div>
+
+  <!-- Dedicated Bulk Slip Printing Sheets (Populated only during bulk print) -->
+  <div id="bulkPrintContainer" style="display:none;"></div>
+
+  <!-- Mobile Bottom Navigation Bar (Matches mobile view in Video) -->
+  <nav class="mobile-bottom-nav no-print">
+    <div class="bottom-nav-inner">
+      <button class="bottom-nav-item active" data-tab="dashboardTab" onclick="switchTab('dashboardTab')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        <span>होम</span>
+      </button>
+      <button class="bottom-nav-item" data-tab="searchTab" onclick="switchTab('searchTab')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <span>खोज</span>
+      </button>
+      <button class="bottom-nav-item" data-tab="alphaTab" onclick="switchTab('alphaTab')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
+        <span>वर्णमाला</span>
+      </button>
+      <button class="bottom-nav-item" data-tab="bulkSlipTab" onclick="switchTab('bulkSlipTab')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
+        <span>पर्ची प्रिंट</span>
+      </button>
+      <button class="bottom-nav-item" data-tab="directoryTab" onclick="switchTab('directoryTab')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10M6 14h6"/></svg>
+        <span>नामावली</span>
+      </button>
+    </div>
+  </nav>
 
   <!-- Toast Notification Container -->
   <div id="toastContainer" class="toast-container no-print"></div>

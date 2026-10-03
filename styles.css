@@ -1351,39 +1351,33 @@ body {
 }
 
 /* ==========================================================================
-   OFFICIAL VOTER SLIP (मतदाता सूचना पर्ची) - MASTER TEMPLATE
+/* ==========================================================================
+   OFFICIAL VOTER SLIP (मतदाता सूचना पर्ची) - MASTER TEMPLATE (STRICT B&W)
    ========================================================================== */
 .official-voter-slip {
-  background: #ffffff;
-  border: 3px double #1e3a8a;
-  border-radius: var(--radius-md);
+  background: #ffffff !important;
+  border: 2px solid #000000;
+  border-radius: var(--radius-sm);
   padding: 1.25rem;
-  color: #0f172a;
+  color: #000000;
   font-family: var(--font-hindi);
   position: relative;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: none;
 }
 
+/* Watermark removed for 100% clean B&W without any background shading */
 .official-voter-slip::after {
-  content: 'SEC RAJASTHAN 2026';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-30deg);
-  font-size: 3.5rem;
-  font-weight: 900;
-  color: rgba(30, 58, 138, 0.03);
-  pointer-events: none;
-  white-space: nowrap;
+  display: none !important;
 }
 
 .slip-header {
   display: flex;
   align-items: center;
   gap: 1rem;
-  border-bottom: 2px solid #1e3a8a;
+  border-bottom: 2px solid #000000;
   padding-bottom: 0.75rem;
   margin-bottom: 0.75rem;
+  background: #ffffff;
 }
 
 .slip-emblem {
@@ -1405,20 +1399,21 @@ body {
 .slip-gov-title {
   font-size: 1.2rem;
   font-weight: 800;
-  color: #1e3a8a;
+  color: #000000;
   line-height: 1.15;
 }
 
 .slip-sub-title {
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--color-saffron-dark);
+  color: #000000;
 }
 
 .slip-doc-type {
   display: inline-block;
-  background: #1e3a8a;
-  color: #ffffff;
+  background: #ffffff;
+  color: #000000;
+  border: 1.5px solid #000000;
   font-size: 0.75rem;
   font-weight: 800;
   padding: 0.15rem 0.65rem;
@@ -1430,19 +1425,20 @@ body {
 .slip-subbar {
   display: flex;
   justify-content: space-between;
-  background: #f1f5f9;
-  border: 1px solid #cbd5e1;
+  background: #ffffff !important;
+  border: 1.5px solid #000000;
   padding: 0.4rem 0.75rem;
   border-radius: var(--radius-sm);
   font-size: 0.85rem;
   margin-bottom: 0.85rem;
   flex-wrap: wrap;
   gap: 0.5rem;
+  color: #000000;
 }
 
 .slip-highlight {
-  color: #b91c1c;
-  font-weight: 800;
+  color: #000000;
+  font-weight: 900;
 }
 
 .slip-details-grid {
@@ -1450,42 +1446,46 @@ body {
   flex-direction: column;
   gap: 0.45rem;
   font-size: 0.92rem;
+  color: #000000;
 }
 
 .slip-row {
   display: flex;
-  border-bottom: 1px dashed #e2e8f0;
+  border-bottom: 1px dashed #000000;
   padding-bottom: 0.35rem;
 }
 
 .slip-col-label {
   width: 42%;
-  color: #475569;
+  color: #000000;
   font-weight: 600;
 }
 
 .slip-col-val {
   width: 58%;
+  color: #000000;
 }
 
 .slip-serial-badge {
-  background: #fee2e2;
-  color: #b91c1c;
+  background: #ffffff !important;
+  color: #000000 !important;
   padding: 0.15rem 0.55rem;
   border-radius: var(--radius-sm);
   font-size: 1.05rem;
-  border: 1px solid #fca5a5;
+  font-weight: 900;
+  border: 1.5px solid #000000;
 }
 
 .slip-voter-name {
   font-size: 1.1rem;
-  color: #1e3a8a;
+  color: #000000;
+  font-weight: 800;
 }
 
 .slip-row-split {
   display: flex;
   gap: 1rem;
-  border-bottom: 1px dashed #e2e8f0;
+  border-bottom: 1px dashed #000000;
   padding-bottom: 0.35rem;
 }
 
@@ -1496,17 +1496,19 @@ body {
 }
 
 .slip-epic {
-  color: #0369a1;
+  color: #000000;
+  font-weight: 800;
   letter-spacing: 0.5px;
 }
 
 .slip-booth-box {
-  background: #eff6ff;
-  border: 1.5px solid #93c5fd;
+  background: #ffffff !important;
+  border: 1.5px solid #000000;
   border-radius: var(--radius-sm);
   padding: 0.65rem 0.85rem;
   margin-top: 0.45rem;
   margin-bottom: 0.45rem;
+  color: #000000;
 }
 
 .slip-booth-header {
@@ -1515,21 +1517,23 @@ body {
   align-items: center;
   font-size: 0.8rem;
   margin-bottom: 0.25rem;
+  color: #000000;
 }
 
 .booth-badge {
-  background: #1e3a8a;
-  color: #ffffff;
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #000000;
   padding: 0.15rem 0.45rem;
   border-radius: var(--radius-sm);
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: 800;
 }
 
 .slip-booth-name {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #1e3a8a;
+  color: #000000;
   line-height: 1.3;
 }
 
@@ -1537,19 +1541,21 @@ body {
   display: flex;
   gap: 0.85rem;
   align-items: center;
-  border-top: 1.5px solid #1e3a8a;
+  border-top: 1.5px solid #000000;
   padding-top: 0.65rem;
   margin-top: 0.65rem;
+  background: #ffffff;
 }
 
 .slip-qr-box {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  border: 1px solid #cbd5e1;
+  border: 1px solid #000000;
   padding: 0.35rem;
   border-radius: var(--radius-sm);
   background: #ffffff;
+  color: #000000;
 }
 
 .mock-qr svg {
@@ -1560,25 +1566,27 @@ body {
   display: flex;
   flex-direction: column;
   font-size: 0.65rem;
-  color: #475569;
+  color: #000000;
 }
 
 .qr-verify-txt {
   font-weight: 700;
-  color: #1e3a8a;
+  color: #000000;
 }
 
 .qr-code-txt {
   font-family: monospace;
+  color: #000000;
 }
 
 .slip-note-box {
   flex: 1;
   font-size: 0.72rem;
-  color: #64748b;
+  color: #000000;
   line-height: 1.3;
-  border-left: 2px solid var(--color-saffron);
+  border-left: 2px solid #000000;
   padding-left: 0.5rem;
+  background: #ffffff;
 }
 
 /* ==========================================================================
@@ -1613,13 +1621,951 @@ body {
 }
 
 /* ==========================================================================
-   PRINT MEDIA STYLESHEET (CRITICAL FOR OFFICIAL VOTER SLIP)
+   DISTRIBUTION METER & ADVANCED STATS (VIDEO APP COMPLIANT)
+   ========================================================================== */
+.meter-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  border: 1.5px solid #e2e8f0;
+  margin-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.meter-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981 0%, #3b82f6 50%, #f59e0b 100%);
+}
+
+.meter-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.meter-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.meter-icon-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #ecfdf5;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.meter-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.meter-sub {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.meter-counts-summary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.meter-big-num {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #059669;
+  line-height: 1;
+}
+
+.meter-total-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.meter-progress-track {
+  width: 100%;
+  height: 14px;
+  background: #f1f5f9;
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.meter-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+  border-radius: var(--radius-full);
+  transition: width 0.4s ease;
+}
+
+.meter-quick-filters {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.meter-filter-btn {
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid #cbd5e1;
+  background: #f8fafc;
+  color: #334155;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.meter-filter-btn:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+}
+
+.meter-filter-btn.active {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+.meter-filter-btn.active-green {
+  background: #059669;
+  color: #ffffff;
+  border-color: #059669;
+}
+
+.meter-filter-btn.active-amber {
+  background: #d97706;
+  color: #ffffff;
+  border-color: #d97706;
+}
+
+/* Ward-wise Delivery Tracker */
+.ward-progress-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.ward-progress-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ward-progress-item:hover {
+  border-color: #3b82f6;
+  background: #f0fdf4;
+  transform: translateY(-2px);
+}
+
+.ward-item-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.ward-item-title {
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 0.9rem;
+}
+
+.ward-item-stat {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #059669;
+}
+
+.ward-mini-bar {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.ward-mini-fill {
+  height: 100%;
+  background: #10b981;
+  border-radius: 3px;
+}
+
+/* Supplementary & Deleted Voters Stats Row */
+.stats-split-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.stats-card-box {
+  background: #ffffff;
+  border-radius: var(--radius-md);
+  padding: 1.1rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.stats-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.stats-card-val {
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #0f172a;
+}
+
+.stats-card-lbl {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-top: 0.15rem;
+}
+
+/* ==========================================================================
+   MULTI-FILTER CHIPS (VIDEO APP STYLE)
+   ========================================================================== */
+.filter-chips-section {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed #cbd5e1;
+}
+
+.chips-group {
+  margin-bottom: 0.85rem;
+}
+
+.chips-group:last-child {
+  margin-bottom: 0;
+}
+
+.chips-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 0.45rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.chips-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.filter-chip {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  user-select: none;
+}
+
+.filter-chip:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+}
+
+.filter-chip.active {
+  background: #1e3a8a;
+  color: #ffffff;
+  border-color: #1e3a8a;
+  box-shadow: 0 2px 6px rgba(30, 58, 138, 0.25);
+}
+
+.filter-chip .chip-count {
+  background: rgba(0, 0, 0, 0.08);
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.filter-chip.active .chip-count {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   ALPHABETICAL LIST VIEW (HINDI अ-ज्ञ & ENGLISH A-Z)
+   ========================================================================== */
+.alpha-container {
+  display: flex;
+  gap: 1.25rem;
+  position: relative;
+}
+
+.alpha-main-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.alpha-scroller-bar {
+  width: 38px;
+  position: sticky;
+  top: 80px;
+  height: calc(100vh - 100px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 0.4rem 0;
+  box-shadow: var(--shadow-sm);
+  scrollbar-width: none;
+}
+
+.alpha-scroller-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.alpha-letter-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #475569;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.alpha-letter-btn:hover {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.alpha-letter-btn.active {
+  background: #1e3a8a;
+  color: #ffffff;
+}
+
+.alpha-section-header {
+  background: #f8fafc;
+  border-left: 4px solid #1e3a8a;
+  padding: 0.65rem 1rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1e3a8a;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin: 1.5rem 0 0.85rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 70px;
+  z-index: 5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.alpha-voter-row {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  margin-bottom: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  transition: all 0.2s;
+}
+
+.alpha-voter-row:hover {
+  border-color: #93c5fd;
+  box-shadow: var(--shadow-sm);
+}
+
+.alpha-voter-left {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.alpha-serial-badge {
+  background: #1e3a8a;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 6px;
+  min-width: 44px;
+  text-align: center;
+}
+
+.alpha-voter-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.alpha-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.alpha-voter-name {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+
+.alpha-voter-sub {
+  font-size: 0.82rem;
+  color: #64748b;
+  margin-top: 0.2rem;
+}
+
+.badge-supplement {
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fde68a;
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* Slip Delivery Checkbox Switch */
+.delivery-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1.5px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.delivery-toggle-btn:hover {
+  background: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.delivery-toggle-btn.is-delivered {
+  background: #ecfdf5;
+  border-color: #10b981;
+  color: #065f46;
+}
+
+.delivery-toggle-btn .toggle-icon {
+  font-size: 1rem;
+}
+
+/* ==========================================================================
+   BULK VOTER SLIP GENERATOR ENGINE (9, 12, 15 SLIPS PER A4 & THERMAL)
+   ========================================================================== */
+.bulk-controls-card {
+  background: #ffffff;
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+  border: 1.5px solid #e2e8f0;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 1.5rem;
+}
+
+.bulk-layout-grid-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+
+.layout-choice-card {
+  border: 2px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #f8fafc;
+  position: relative;
+}
+
+.layout-choice-card:hover {
+  border-color: #3b82f6;
+  background: #f0f7ff;
+}
+
+.layout-choice-card.active {
+  border-color: #1e3a8a;
+  background: #eff6ff;
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+}
+
+.layout-badge {
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  background: #f97316;
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.layout-icon {
+  font-size: 1.8rem;
+  margin-bottom: 0.35rem;
+}
+
+.layout-title {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #0f172a;
+}
+
+.layout-desc {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-top: 0.25rem;
+}
+
+.bulk-meta-bar {
+  background: #f1f5f9;
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.bulk-stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.bulk-stat-pill strong {
+  font-size: 1.15rem;
+  color: #1e3a8a;
+}
+
+.bulk-action-row {
+  display: flex;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Interactive A4 Sheet Live Preview */
+.preview-wrapper {
+  background: #334155;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preview-nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 820px;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.page-indicator-pill {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.a4-preview-page {
+  background: #ffffff;
+  width: 100%;
+  max-width: 800px;
+  aspect-ratio: 1 / 1.414; /* Exact A4 proportions */
+  border-radius: 4px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
+  padding: 12px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: grid;
+}
+
+/* 9 Slips (3 cols x 3 rows) */
+.a4-grid-9 {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 8px;
+}
+
+/* 12 Slips (3 cols x 4 rows) */
+.a4-grid-12 {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 6px;
+}
+
+/* 15 Slips (3 cols x 5 rows) */
+.a4-grid-15 {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 5px;
+}
+
+/* 58mm Thermal Preview */
+.a4-thermal {
+  max-width: 320px;
+  aspect-ratio: auto;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 8px;
+}
+
+/* ==========================================================================
+   OFFICIAL GOVERNMENT VOTER SLIP CARD (100% CANDIDATE-FREE)
+   ========================================================================== */
+.official-mini-slip {
+  background: #ffffff;
+  border: 1.5px solid #000000;
+  border-radius: 2px;
+  padding: 4px 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  font-family: var(--font-body);
+  color: #000000;
+}
+
+/* Cutting Line */
+.official-mini-slip::after {
+  content: '✂ - - - - - - - - - - - - - - - - - - - -';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 6px;
+  color: #94a3b8;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+/* Strict 100% Monochrome Black & White Slip (No Background Fills) */
+.official-mini-slip {
+  background: #ffffff !important;
+  border: 1.5px solid #000000 !important;
+  border-radius: 2px;
+  padding: 4px 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  font-family: var(--font-body);
+  color: #000000 !important;
+}
+
+/* Cutting Line */
+.official-mini-slip::after {
+  content: '✂ - - - - - - - - - - - - - - - - - - - -';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 6px;
+  color: #000000;
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.mini-slip-header {
+  border-bottom: 1px solid #000000;
+  padding-bottom: 2px;
+  margin-bottom: 3px;
+  text-align: center;
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.mini-slip-gov-title {
+  font-size: 7.5pt;
+  font-weight: 800;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: #000000 !important;
+}
+
+.mini-slip-doc-type {
+  font-size: 6.5pt;
+  font-weight: 800;
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #000000 !important;
+  display: inline-block;
+  padding: 0.5px 5px;
+  border-radius: 2px;
+  margin-top: 1px;
+}
+
+.mini-slip-subbar {
+  display: flex;
+  justify-content: space-between;
+  font-size: 6.5pt;
+  font-weight: 700;
+  border-bottom: 1px dashed #000000;
+  padding-bottom: 2px;
+  margin-bottom: 3px;
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.mini-serial-box {
+  border: 1.5px solid #000000 !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  padding: 0 4px;
+  font-size: 7.5pt;
+  font-weight: 900;
+}
+
+.mini-details-table {
+  font-size: 6.8pt;
+  line-height: 1.25;
+  flex: 1;
+  color: #000000 !important;
+}
+
+.mini-detail-row {
+  display: flex;
+  margin-bottom: 1.5px;
+}
+
+.mini-lbl {
+  width: 48px;
+  color: #000000 !important;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.mini-val {
+  font-weight: 700;
+  color: #000000 !important;
+  flex: 1;
+  word-break: break-word;
+}
+
+.mini-booth-box {
+  border: 1px solid #000000 !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  padding: 2px 4px;
+  font-size: 6.2pt;
+  margin: 2px 0;
+  border-radius: 2px;
+}
+
+.mini-slip-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px dashed #000000;
+  padding-top: 2px;
+  margin-top: 2px;
+  font-size: 5.5pt;
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+.mini-qr-code {
+  width: 26px;
+  height: 26px;
+}
+
+.mini-sig-text {
+  text-align: right;
+  font-weight: 700;
+  font-size: 5.5pt;
+  color: #000000 !important;
+}
+
+/* Scaling variations for 9 vs 12 vs 15 slips */
+.a4-grid-9 .official-mini-slip {
+  padding: 7px 9px;
+}
+.a4-grid-9 .mini-slip-gov-title {
+  font-size: 8.5pt;
+}
+.a4-grid-9 .mini-details-table {
+  font-size: 8pt;
+  line-height: 1.35;
+}
+.a4-grid-9 .mini-booth-box {
+  font-size: 7.5pt;
+  padding: 3px 5px;
+}
+.a4-grid-9 .mini-qr-code {
+  width: 32px;
+  height: 32px;
+}
+
+.a4-grid-15 .official-mini-slip {
+  padding: 3px 4px;
+}
+.a4-grid-15 .mini-slip-gov-title {
+  font-size: 6.8pt;
+}
+.a4-grid-15 .mini-details-table {
+  font-size: 6.2pt;
+  line-height: 1.15;
+}
+.a4-grid-15 .mini-booth-box {
+  font-size: 5.8pt;
+  padding: 1px 3px;
+}
+.a4-grid-15 .mini-qr-code {
+  width: 22px;
+  height: 22px;
+}
+
+/* ==========================================================================
+   MOBILE BOTTOM NAVIGATION BAR
+   ========================================================================== */
+.mobile-bottom-nav {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  z-index: 1000;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+  padding: 0.35rem 0.5rem;
+}
+
+.bottom-nav-inner {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  background: transparent;
+  border: none;
+  padding: 0.35rem 0.5rem;
+  color: #64748b;
+  font-size: 0.68rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all 0.15s;
+}
+
+.bottom-nav-item.active {
+  color: #1e3a8a;
+}
+
+.bottom-nav-item svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* ==========================================================================
+   PRINT MEDIA STYLESHEET (MATHEMATICALLY ACCURATE A4 & THERMAL)
    ========================================================================== */
 @media print {
+  @page {
+    size: A4 portrait;
+    margin: 4mm 5mm;
+  }
+
   body {
     background: #ffffff !important;
     color: #000000 !important;
-    font-size: 11pt;
+    font-size: 10pt;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
   .no-print,
@@ -1631,11 +2577,14 @@ body {
   .modal-overlay:not(.print-active),
   .modal-header,
   .modal-footer,
-  .toast-container {
+  .toast-container,
+  .mobile-bottom-nav,
+  .bulk-controls-card,
+  .preview-wrapper {
     display: none !important;
   }
 
-  /* When printing single voter slip from modal */
+  /* Single Slip Modal Print */
   body.printing-slip .modal-overlay {
     position: static !important;
     background: transparent !important;
@@ -1660,17 +2609,101 @@ body {
     border: 2px solid #000000 !important;
     box-shadow: none !important;
     page-break-inside: avoid;
+    break-inside: avoid;
     width: 100%;
-    max-width: 140mm; /* Perfect 5.5 inch width for slip printer or 2-per-page A4 */
-    margin: 10mm auto;
-    padding: 8mm;
+    max-width: 140mm;
+    margin: 5mm auto;
+    padding: 6mm;
   }
 
-  body.printing-slip .official-voter-slip::after {
-    display: none;
+  /* Bulk Slip Print Container */
+  body.printing-bulk #mainPortalApp,
+  body.printing-bulk .app-content {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
   }
 
-  /* When printing ward list */
+  body.printing-bulk #bulkSlipTab {
+    display: block !important;
+  }
+
+  #bulkPrintContainer {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .print-page-sheet {
+    width: 200mm !important;
+    height: 287mm !important;
+    max-height: 287mm !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    display: grid !important;
+    box-sizing: border-box !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  .print-page-sheet:last-child {
+    page-break-after: auto !important;
+    break-after: auto !important;
+  }
+
+  /* 9 Slips per A4 Page */
+  body.layout-9 .print-page-sheet {
+    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-rows: repeat(3, 1fr) !important;
+    gap: 2.5mm !important;
+  }
+
+  /* 12 Slips per A4 Page (Exact 4x3) */
+  body.layout-12 .print-page-sheet {
+    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-rows: repeat(4, 1fr) !important;
+    gap: 2mm !important;
+  }
+
+  /* 15 Slips per A4 Page */
+  body.layout-15 .print-page-sheet {
+    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-rows: repeat(5, 1fr) !important;
+    gap: 1.5mm !important;
+  }
+
+  .official-mini-slip {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    border: 1.5px solid #000000 !important;
+    box-shadow: none !important;
+  }
+
+  /* Thermal Print Layout */
+  body.printing-thermal {
+    width: 58mm !important;
+  }
+
+  body.printing-thermal .print-page-sheet {
+    width: 58mm !important;
+    height: auto !important;
+    max-height: none !important;
+    display: block !important;
+    page-break-after: always !important;
+  }
+
+  body.printing-thermal .official-mini-slip {
+    width: 54mm !important;
+    margin-bottom: 5mm !important;
+    padding: 4mm 2mm !important;
+  }
+
+  /* Ward List Print */
   body.printing-ward-list .directory-table-card {
     border: none !important;
     box-shadow: none !important;
@@ -1679,27 +2712,49 @@ body {
 
   body.printing-ward-list .data-table {
     border: 1px solid #000000 !important;
-    font-size: 9pt !important;
+    font-size: 8.5pt !important;
   }
 
   body.printing-ward-list .data-table th,
   body.printing-ward-list .data-table td {
     border: 1px solid #000000 !important;
-    padding: 4px 6px !important;
+    padding: 3px 5px !important;
   }
 }
 
-/* Responsive adjustments */
+/* ==========================================================================
+   RESPONSIVE DESIGN ADJUSTMENTS
+   ========================================================================== */
+@media (max-width: 900px) {
+  .alpha-container {
+    flex-direction: column;
+  }
+  .alpha-scroller-bar {
+    width: 100%;
+    height: auto;
+    position: static;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0.5rem;
+  }
+}
+
 @media (max-width: 768px) {
+  .mobile-bottom-nav {
+    display: block;
+  }
+
+  body {
+    padding-bottom: 60px; /* Space for bottom nav */
+  }
+
   .navbar-inner {
     flex-direction: column;
     align-items: flex-start;
   }
 
   .nav-tabs-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    justify-content: flex-start;
+    display: none; /* Replaced by mobile bottom nav on small viewports */
   }
 
   .search-bar-row {
@@ -1725,6 +2780,11 @@ body {
   }
 
   .slip-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .bulk-meta-bar {
     flex-direction: column;
     align-items: flex-start;
   }
