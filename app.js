@@ -1,10 +1,42 @@
 function getVoterPhotoUrl(voter) {
   if (!voter) return 'https://api.dicebear.com/7.x/identicon/svg?seed=voter';
-  if (voter.panchayat_en && voter.ward_no && voter.serial_no) {
-    const wNum = String(voter.ward_no).padStart(2, '0');
-    return `https://raw.githubusercontent.com/Jit9763/voter-photos/main/${voter.panchayat_en}/W${wNum}/${voter.serial_no}.webp`;
+
+  let pEn = voter.panchayat_en || voter.panchayatEn || voter.p_en;
+  if (!pEn) {
+    const code = voter.panchayat_code || voter.panchayatCode || voter.gram_panchayat || voter.p_hi;
+    if (code) {
+      const gp = State.panchayats.find(p => 
+        p.code.toLowerCase() === String(code).toLowerCase() ||
+        p.name_en.toLowerCase() === String(code).toLowerCase() ||
+        p.name_hi === String(code)
+      );
+      if (gp) pEn = gp.name_en;
+    }
   }
-  return voter.photo_url || voter.photo || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(voter.epic_no || voter.serial_no || '1')}`;
+
+  const FOLDER_MAP = {
+    'badgaon': 'Badgaon', 'badli': 'Badli', 'bagrai': 'Bagrai', 'bandanwara': 'Bandanwara',
+    'bhinay': 'Bhinay', 'boobkiya': 'Boobkiya', 'chapaneri': 'Chapaneri', 'chhachhundra': 'Chhachhundra',
+    'devpura': 'DEVPURA', 'devliyakalan': 'Devliyakalan', 'dhantol': 'Dhantol', 'ekalsingha': 'Ekalsingha',
+    'ghana': 'Ghana', 'gudhakhurd': 'GudhaKhurd', 'hiyaliya': 'Hiyaliya', 'kanaikalan': 'Kanaikalan',
+    'karanti': 'Karanti', 'kerot': 'Kerot', 'khedi': 'Khedi', 'kumhariya': 'Kumhariya',
+    'lamgra': 'Lamgra', 'nagola': 'Nagola', 'nandsi': 'Nandsi', 'padanga': 'Padanga',
+    'padliya': 'Padliya', 'rammaliya': 'Rammaliya', 'ratakot': 'Ratakot', 'singawal': 'Singawal',
+    'sobdi': 'Sobdi', 'solkhurd': 'Solkhurd'
+  };
+
+  const rawWard = String(voter.ward_no || voter.ward || voter.w || '1').replace(/\D/g, '');
+  const wardNo = parseInt(rawWard, 10) || 1;
+  const rawSerial = String(voter.serial_no || voter.serial || voter.serialNo || voter.s || '1').replace(/\D/g, '');
+  const serialNo = parseInt(rawSerial, 10) || 1;
+
+  if (pEn) {
+    const folder = FOLDER_MAP[pEn.toLowerCase()] || pEn;
+    const wNum = String(wardNo).padStart(2, '0');
+    return `https://raw.githubusercontent.com/Jit9763/voter-photos/main/${folder}/W${wNum}/${serialNo}.webp`;
+  }
+
+  return voter.photo_url || voter.photo || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(voter.epic_no || voter.epic || serialNo || '1')}`;
 }
 
 /**
@@ -67,6 +99,84 @@ document.addEventListener('DOMContentLoaded', () => {
   initUiElements();
 });
 
+
+// ==========================================================================
+// Helper: Get GP Wards reliably
+// ==========================================================================
+function getGpWards(gp) {
+  if (!gp) return [];
+  if (Array.isArray(gp.wards) && gp.wards.length > 0) return gp.wards;
+  const list = gp.ward_list || [];
+  if (list.length > 0) {
+    return list.map(w => ({
+      ward_no: typeof w === 'object' ? (w.ward_no || w.no) : parseInt(w, 10),
+      village: (gp.villages && gp.villages[0]) ? gp.villages[0] : gp.name_hi,
+      voters: Math.round((gp.total_voters || 3000) / list.length)
+    }));
+  }
+  const total = gp.total_wards || 10;
+  const arr = [];
+  for (let i = 1; i <= total; i++) {
+    arr.push({
+      ward_no: i,
+      village: (gp.villages && gp.villages[0]) ? gp.villages[0] : gp.name_hi,
+      voters: Math.round((gp.total_voters || 3000) / total)
+    });
+  }
+  return arr;
+}
+
+const loadedGps = new Set();
+async function ensurePanchayatVotersLoaded(gpCode) {
+  if (!gpCode || gpCode === 'ALL') return;
+  const gp = State.panchayats.find(p => p.code === gpCode || p.name_en.toLowerCase() === gpCode.toLowerCase());
+  if (!gp) return;
+  if (loadedGps.has(gp.code)) return;
+
+  try {
+    const res = await fetch(`data/${gp.name_en}.json`);
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        // Map compact array [w, s, epic, name, rel_name, rel_type, house, age, g, status, del_c, del_r]
+        const mapped = data.map(r => {
+          if (Array.isArray(r)) {
+            return {
+              panchayat_code: gp.code,
+              panchayat_en: gp.name_en,
+              gram_panchayat: gp.name_hi,
+              ward_no: r[0],
+              serial_no: r[1],
+              epic_no: r[2],
+              voter_name: r[3],
+              relative_name: r[4],
+              relative_relation: r[5] || 'पिता',
+              house_no: r[6] || '-',
+              age: r[7] || 0,
+              gender: r[8] || 'M',
+              status: r[9] || 'सक्रिय',
+              deletion_code: r[10] || '',
+              deletion_reason: r[11] || '',
+              polling_station_no: 1,
+              polling_station_name: `रा.उ.मा.वि. ${gp.name_hi}`
+            };
+          }
+          return r;
+        });
+
+        // Replace any partial initial sample rows for this GP with complete official data
+        State.voters = State.voters.filter(v => v.panchayat_code !== gp.code && v.panchayat_en !== gp.name_en);
+        State.voters.push(...mapped);
+        loadedGps.add(gp.code);
+        return true;
+      }
+    }
+  } catch (err) {
+    console.warn(`Local data load for ${gp.name_en} skipped:`, err);
+  }
+  return false;
+}
+
 function initMasterData() {
   if (window.MASTER_DATA) {
     State.panchayats = window.MASTER_DATA.panchayats || [];
@@ -77,18 +187,20 @@ function initMasterData() {
     if (appsScriptInput && State.config.appsScriptUrl) {
       appsScriptInput.value = State.config.appsScriptUrl;
     }
-    
-    // Check cached voters
-    const cachedVoters = localStorage.getItem('panchayat_voters_cache');
-    if (cachedVoters) {
-      try {
-        State.voters = JSON.parse(cachedVoters);
-      } catch (e) {
-        State.voters = window.MASTER_DATA.initial_voters || [];
+
+    // Strictly normalize wards for all 30 panchayats
+    State.panchayats.forEach(gp => {
+      gp.wards = getGpWards(gp);
+    });
+
+    // Clean initial voters with normalized panchayat_en
+    State.voters = window.MASTER_DATA.initial_voters || [];
+    State.voters.forEach(v => {
+      if (!v.panchayat_en && v.panchayat_code) {
+        const gp = State.panchayats.find(p => p.code === v.panchayat_code);
+        if (gp) v.panchayat_en = gp.name_en;
       }
-    } else {
-      State.voters = window.MASTER_DATA.initial_voters || [];
-    }
+    });
 
     // Check cached admins
     const cachedAdmins = localStorage.getItem('panchayat_admins_cache');
@@ -394,26 +506,30 @@ function populateGpFilterDropdowns() {
   onBulkGpChanged();
 }
 
-function onGpFilterChanged() {
+async function onGpFilterChanged() {
   const gpCode = document.getElementById('filterGp').value;
   const wardSelect = document.getElementById('filterWard');
-  wardSelect.innerHTML = '<option value="ALL">-- सभी वार्ड --</option>';
+  if (wardSelect) {
+    wardSelect.innerHTML = '<option value="ALL">-- सभी वार्ड --</option>';
 
-  if (gpCode !== 'ALL') {
-    const gp = State.panchayats.find(p => p.code === gpCode);
-    if (gp && gp.wards) {
-      const allowedWards = getAllowedWardsList(gpCode);
-      gp.wards.forEach(w => {
-        if (allowedWards === 'ALL' || allowedWards.includes(String(w.ward_no))) {
-          const opt = document.createElement('option');
-          opt.value = w.ward_no;
-          opt.textContent = `वार्ड नं. ${w.ward_no} (${w.village || gp.name_hi})`;
-          wardSelect.appendChild(opt);
-        }
-      });
+    if (gpCode !== 'ALL') {
+      const gp = State.panchayats.find(p => p.code === gpCode);
+      if (gp) {
+        const wards = (gp.wards && gp.wards.length > 0) ? gp.wards : getGpWards(gp);
+        const allowedWards = getAllowedWardsList(gpCode);
+        wards.forEach(w => {
+          if (allowedWards === 'ALL' || allowedWards.includes(String(w.ward_no))) {
+            const opt = document.createElement('option');
+            opt.value = w.ward_no;
+            opt.textContent = `वार्ड नं. ${w.ward_no} (${w.village || gp.name_hi})`;
+            wardSelect.appendChild(opt);
+          }
+        });
+      }
     }
   }
 
+  await ensurePanchayatVotersLoaded(gpCode);
   populateFilterChips();
   performSearch();
 }
@@ -1155,14 +1271,16 @@ function renderAlphabeticalList() {
 // ==========================================================================
 // TAB: BULK VOTER SLIP GENERATOR (9, 12, 15 SLIPS PER A4 & 58MM THERMAL)
 // ==========================================================================
-function onBulkGpChanged() {
+async function onBulkGpChanged() {
   const gpCode = document.getElementById('bulkGpSelect').value;
   const wardSelect = document.getElementById('bulkWardSelect');
+  if (!wardSelect) return;
   wardSelect.innerHTML = '<option value="ALL">-- सभी वार्ड --</option>';
 
   const gp = State.panchayats.find(p => p.code === gpCode);
-  if (gp && gp.wards) {
-    gp.wards.forEach(w => {
+  if (gp) {
+    const wards = (gp.wards && gp.wards.length > 0) ? gp.wards : getGpWards(gp);
+    wards.forEach(w => {
       const opt = document.createElement('option');
       opt.value = w.ward_no;
       opt.textContent = `वार्ड नं. ${w.ward_no} (${w.village || gp.name_hi})`;
@@ -1170,6 +1288,7 @@ function onBulkGpChanged() {
     });
   }
 
+  await ensurePanchayatVotersLoaded(gpCode);
   State.bulkPage = 1;
   updateBulkGenerator();
 }
@@ -1433,15 +1552,17 @@ function markCurrentBatchDelivered() {
 // ==========================================================================
 let currentWardVoters = [];
 
-function onDirGpChanged() {
+async function onDirGpChanged() {
   const gpCode = document.getElementById('dirGpSelect').value;
   const wardSelect = document.getElementById('dirWardSelect');
+  if (!wardSelect) return;
   wardSelect.innerHTML = '';
 
   const gp = State.panchayats.find(p => p.code === gpCode);
-  if (gp && gp.wards) {
+  if (gp) {
+    const wards = (gp.wards && gp.wards.length > 0) ? gp.wards : getGpWards(gp);
     const allowedWards = getAllowedWardsList(gpCode);
-    gp.wards.forEach(w => {
+    wards.forEach(w => {
       if (allowedWards === 'ALL' || allowedWards.includes(String(w.ward_no))) {
         const opt = document.createElement('option');
         opt.value = w.ward_no;
@@ -1452,66 +1573,57 @@ function onDirGpChanged() {
 
     // Populate booth dropdown
     const boothSelect = document.getElementById('dirBoothSelect');
-    boothSelect.innerHTML = '<option value="ALL">-- सभी मतदान केंद्र --</option>';
-    if (gp.booths) {
-      gp.booths.forEach(b => {
-        const opt = document.createElement('option');
-        opt.value = b.booth_no;
-        opt.textContent = `बूथ ${b.booth_no}: ${b.booth_name_hi}`;
-        boothSelect.appendChild(opt);
-      });
+    if (boothSelect) {
+      boothSelect.innerHTML = '<option value="ALL">-- सभी मतदान केंद्र --</option>';
+      if (gp.booths) {
+        gp.booths.forEach(b => {
+          const opt = document.createElement('option');
+          opt.value = b.booth_no;
+          opt.textContent = `बूथ ${b.booth_no}: ${b.booth_name_hi}`;
+          boothSelect.appendChild(opt);
+        });
+      }
     }
   }
 
-  loadWardVoters();
+  // Pre-load full voters for selected GP
+  await ensurePanchayatVotersLoaded(gpCode);
+  await loadWardVoters();
 }
 
-function loadWardVoters() {
+async function loadWardVoters() {
   const gpCode = document.getElementById('dirGpSelect').value;
   const wardNo = document.getElementById('dirWardSelect').value;
 
   const gp = State.panchayats.find(p => p.code === gpCode);
   if (!gp) return;
 
+  // Ensure full voters data loaded for this GP
+  await ensurePanchayatVotersLoaded(gpCode);
+
   const wardInfo = gp.wards ? gp.wards.find(w => String(w.ward_no) === String(wardNo)) : null;
 
-  // Filter cached voters
+  // Filter voters for this specific ward
   currentWardVoters = State.voters.filter(
-    v => v.panchayat_code === gpCode && String(v.ward_no) === String(wardNo)
+    v => (v.panchayat_code === gpCode || v.panchayat_en === gp.name_en) && String(v.ward_no) === String(wardNo)
   );
 
-  // If no explicit voters, generate structured rows
-  if (currentWardVoters.length === 0) {
-    const sampleTemplate = [
-      { name: 'रामेश्वर लाल', en: 'Rameshwar Lal', rel: 'पिता', relName: 'सुखदेव जाट', age: 45, gender: 'M' },
-      { name: 'कौशल्या देवी', en: 'Kaushalya Devi', rel: 'पति', relName: 'रामेश्वर लाल', age: 41, gender: 'F' },
-      { name: 'सुरेश कुमार', en: 'Suresh Kumar', rel: 'पिता', relName: 'रामेश्वर लाल', age: 22, gender: 'M' },
-      { name: 'कैलाश चंद', en: 'Kailash Chand', rel: 'पिता', relName: 'रूघनाथ राम', age: 52, gender: 'M' },
-      { name: 'कमला देवी', en: 'Kamla Devi', rel: 'पति', relName: 'कैलाश चंद', age: 48, gender: 'F' }
-    ];
-
-    const booth = (gp.booths && gp.booths.length > 0) ? gp.booths[0] : { booth_no: 1, booth_name_hi: `राजकीय विद्यालय ${gp.name_hi}` };
-
-    sampleTemplate.forEach((s, idx) => {
-      currentWardVoters.push({
-        panchayat_code: gpCode,
-        gram_panchayat: gp.name_hi,
-        ward_no: parseInt(wardNo, 10),
-        revenue_village: wardInfo ? wardInfo.village : gp.name_hi,
-        polling_station_no: booth.booth_no,
-        polling_station_name: booth.booth_name_hi,
-        serial_no: idx + 1,
-        voter_name: s.name,
-        voter_name_en: s.en,
-        relative_relation: s.rel,
-        relative_name: s.relName,
-        house_no: String(idx + 1),
-        age: s.age,
-        gender: s.gender,
-        epic_no: `RJ/${gpCode.slice(2)}/${100000 + idx + parseInt(wardNo, 10) * 10}`,
-        section_part: '1'
-      });
-    });
+  // If not yet in cache, fetch directly from Google Sheet Apps Script API
+  if (currentWardVoters.length === 0 && State.config.appsScriptUrl) {
+    try {
+      const resp = await fetch(`${State.config.appsScriptUrl}?action=getVoters&panchayat=${encodeURIComponent(gp.name_hi)}&ward=${wardNo}&limit=500`);
+      const data = await resp.json();
+      if (data && data.success && Array.isArray(data.voters) && data.voters.length > 0) {
+        data.voters.forEach(v => {
+          if (!v.panchayat_en) v.panchayat_en = gp.name_en;
+          if (!v.panchayat_code) v.panchayat_code = gp.code;
+        });
+        State.voters.push(...data.voters);
+        currentWardVoters = data.voters;
+      }
+    } catch (e) {
+      console.warn('Apps Script ward fetch warning:', e);
+    }
   }
 
   // Update Ward Info Bar
@@ -1573,8 +1685,8 @@ function renderDirectoryTable(votersList) {
       <td><strong>${voter.serial_no || idx + 1}</strong></td>
       <td>
         <div style="display:flex; align-items:center; gap:8px;">
-          <div class="voter-photo-box" style="width:34px; height:40px; border-radius:3px;">
-            <img src="${getVoterPhotoUrl(voter)}" alt="${voter.voter_name}" class="voter-card-photo" onerror="this.style.display='none';" />
+          <div class="voter-photo-box" style="width:36px; height:44px; border-radius:3px;">
+            <img src="${getVoterPhotoUrl(voter)}" alt="${voter.voter_name}" class="voter-card-photo" loading="lazy" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/identicon/svg?seed=' + encodeURIComponent(voter.epic_no || voter.serial_no || '1');" />
           </div>
           <div>
             <strong>${voter.voter_name}</strong>
