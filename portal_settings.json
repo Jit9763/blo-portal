@@ -1,0 +1,31 @@
+{
+  "master_portal": {
+    "name": "मास्टर एडमिन पोर्टल (Master Control)",
+    "repo": "https://github.com/Jit9763/pan",
+    "url": "https://jit9763.github.io/pan/",
+    "status": "ACTIVE",
+    "last_sync": "2026-10-05 23:35"
+  },
+  "voter_portal": {
+    "name": "पब्लिक / प्रत्याशी वोटर पोर्टल (Client Portal)",
+    "repo": "https://github.com/Jit9763/voter-portal",
+    "url": "https://jit9763.github.io/voter-portal/",
+    "status": "ACTIVE",
+    "modules": {
+      "search": true,
+      "alpha": true,
+      "slips": true,
+      "candidate_edit": true
+    },
+    "allowed_panchayats": "ALL"
+  },
+  "blo_portal": {
+    "name": "बी.एल.ओ. एवं प्रकोष्ठ पोर्टल (BLO & Cell Portal)",
+    "repo": "https://github.com/Jit9763/blo-portal",
+    "url": "https://jit9763.github.io/blo-portal/",
+    "status": "ACTIVE",
+    "block_bulk_slips": true,
+    "scope_restricted": true,
+    "cell_directory": true
+  }
+}

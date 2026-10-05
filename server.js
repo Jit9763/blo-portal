@@ -243,6 +243,38 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
+    // Multi-Portal Settings & Master Sync Endpoints
+    if (pathname === '/api/portal-settings' && req.method === 'GET') {
+      const p = path.join(__dirname, 'portal_settings.json');
+      if (fs.existsSync(p)) {
+        res.end(fs.readFileSync(p, 'utf8'));
+      } else {
+        res.end(JSON.stringify({ error: 'Settings not found' }));
+      }
+      return;
+    }
+
+    if (pathname === '/api/portal-settings' && req.method === 'POST') {
+      try {
+        const data = await parseJsonBody(req);
+        const p = path.join(__dirname, 'portal_settings.json');
+        fs.writeFileSync(p, JSON.stringify(data, null, 2), 'utf8');
+        res.end(JSON.stringify({ success: true, settings: data }));
+      } catch(e) {
+        res.writeHead(500);
+        res.end(JSON.stringify({ success: false, error: e.message }));
+      }
+      return;
+    }
+
+    if (pathname === '/api/sync-all-portals' && req.method === 'POST') {
+      const { exec } = require('node:child_process');
+      exec('git add . && git commit -m "sync: 1-click tri-portal sync" && git push origin main && git push voter-portal main && git push blo-portal main', { cwd: __dirname }, (error, stdout, stderr) => {
+        res.end(JSON.stringify({ success: !error, output: stdout || (error ? error.message : 'OK') }));
+      });
+      return;
+    }
+
     // Master Directory API Endpoint
     // Directory Update Endpoint
     if (pathname === '/api/directory/update' && req.method === 'POST') {

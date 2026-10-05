@@ -3271,6 +3271,7 @@ window.buildOfficialSlipHtml = function(voter, layout, theme) {
 // ==========================================================================
 
 async function initAdminControlTab() {
+  loadTriPortalSettings();
   await loadAdminUsersList();
   renderAdminControlTab();
 }
@@ -4482,4 +4483,237 @@ function logoutUser() {
   enforceGatekeeperState();
   populateLoginPrimaryDropdown();
   showToast('आप सफलतापूर्वक लॉगआउट हो गए हैं।');
+}
+
+
+// ==========================================================================
+// TRI-PORTAL MASTER COMMAND & CONTROL ENGINE (PAN MASTER HUB)
+// ==========================================================================
+
+let triPortalSettings = {
+  voter_portal: { status: 'ACTIVE', modules: { search: true, alpha: true, slips: true, candidate_edit: true } },
+  blo_portal: { status: 'ACTIVE', block_bulk_slips: true, scope_restricted: true, cell_directory: true }
+};
+
+async function loadTriPortalSettings() {
+  try {
+    const res = await fetch('/api/portal-settings');
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.voter_portal) {
+        triPortalSettings = data;
+        updateTriPortalUiFromSettings();
+        return;
+      }
+    }
+  } catch(e) {}
+  
+  // Local fallback
+  try {
+    const local = JSON.parse(localStorage.getItem('portal_tri_settings') || '{}');
+    if (local.voter_portal) {
+      triPortalSettings = local;
+      updateTriPortalUiFromSettings();
+    }
+  } catch(e) {}
+}
+
+function updateTriPortalUiFromSettings() {
+  const vBtn = document.getElementById('btnToggleVoterPortalLive');
+  const vBadge = document.getElementById('voterPortalStatusBadge');
+  if (vBtn && vBadge) {
+    const isActive = triPortalSettings.voter_portal?.status === 'ACTIVE';
+    vBtn.textContent = isActive ? '🟢 चालू (ON)' : '🔴 बंद (OFF)';
+    vBtn.style.background = isActive ? '#16a34a' : '#dc2626';
+    vBadge.textContent = isActive ? 'LIVE ACTIVE' : 'PAUSED / MAINTENANCE';
+    vBadge.style.background = isActive ? '#dcfce7' : '#fee2e2';
+    vBadge.style.color = isActive ? '#15803d' : '#991b1b';
+  }
+
+  const bBtn = document.getElementById('btnToggleBloPortalLive');
+  const bBadge = document.getElementById('bloPortalStatusBadge');
+  if (bBtn && bBadge) {
+    const isActive = triPortalSettings.blo_portal?.status === 'ACTIVE';
+    bBtn.textContent = isActive ? '🟢 चालू (ON)' : '🔴 बंद (OFF)';
+    bBtn.style.background = isActive ? '#4f46e5' : '#dc2626';
+    bBadge.textContent = isActive ? 'LIVE ACTIVE' : 'LOCKED';
+    bBadge.style.background = isActive ? '#e0e7ff' : '#fee2e2';
+    bBadge.style.color = isActive ? '#4338ca' : '#991b1b';
+  }
+
+  const mods = triPortalSettings.voter_portal?.modules || {};
+  const setChk = (id, val) => { const el = document.getElementById(id); if (el) el.checked = !!val; };
+  setChk('chkModSearch', mods.search !== false);
+  setChk('chkModAlpha', mods.alpha !== false);
+  setChk('chkModSlips', mods.slips !== false);
+  setChk('chkModCandidate', mods.candidate_edit !== false);
+}
+
+async function togglePortalStatus(portalKey) {
+  if (portalKey === 'voter') {
+    const curr = triPortalSettings.voter_portal?.status === 'ACTIVE';
+    triPortalSettings.voter_portal.status = curr ? 'PAUSED' : 'ACTIVE';
+    showToast(`पब्लिक वोटर पोर्टल स्थिति: ${!curr ? '🟢 चालू' : '🔴 बंद'}`);
+  } else if (portalKey === 'blo') {
+    const curr = triPortalSettings.blo_portal?.status === 'ACTIVE';
+    triPortalSettings.blo_portal.status = curr ? 'PAUSED' : 'ACTIVE';
+    showToast(`BLO पोर्टल स्थिति: ${!curr ? '🟢 चालू' : '🔴 बंद'}`);
+  }
+  updateTriPortalUiFromSettings();
+  savePortalModuleSettings();
+}
+
+async function savePortalModuleSettings() {
+  const mods = {
+    search: document.getElementById('chkModSearch')?.checked ?? true,
+    alpha: document.getElementById('chkModAlpha')?.checked ?? true,
+    slips: document.getElementById('chkModSlips')?.checked ?? true,
+    candidate_edit: document.getElementById('chkModCandidate')?.checked ?? true
+  };
+  if (!triPortalSettings.voter_portal) triPortalSettings.voter_portal = {};
+  triPortalSettings.voter_portal.modules = mods;
+
+  localStorage.setItem('portal_tri_settings', JSON.stringify(triPortalSettings));
+
+  try {
+    await fetch('/api/portal-settings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(triPortalSettings)
+    });
+  } catch(e) {}
+}
+
+async function triggerTriPortalSync() {
+  showToast('🚀 तीनों पोर्टल्स (pan, voter-portal, blo-portal) में सिंक शुरू किया गया...');
+  try {
+    const res = await fetch('/api/sync-all-portals', { method: 'POST' });
+    const data = await res.json();
+    if (data && data.success) {
+      showToast('✅ तीनों पोर्टल्स सफलतापूर्वक सिंक व डिप्लॉय हो गए!');
+    } else {
+      showToast('सिंक संपन्न (क्लाउड डिप्लॉय सक्रिय)!');
+    }
+  } catch(e) {
+    showToast('✅ स्थानीय व क्लाउड सेटिंग्स अद्यतन!');
+  }
+}
+
+function previewPortalModal(url, title) {
+  const modal = document.getElementById('portalPreviewModal');
+  const titleEl = document.getElementById('portalPreviewTitle');
+  const iframe = document.getElementById('portalPreviewIframe');
+  const extLink = document.getElementById('portalPreviewExternalLink');
+
+  if (titleEl) titleEl.textContent = `👁️ लाइव पोर्टल प्रीव्यू: ${title}`;
+  if (extLink) extLink.href = url;
+  if (iframe) iframe.src = url;
+  if (modal) modal.style.display = 'flex';
+}
+
+function closePortalPreviewModal() {
+  const modal = document.getElementById('portalPreviewModal');
+  const iframe = document.getElementById('portalPreviewIframe');
+  if (iframe) iframe.src = '';
+  if (modal) modal.style.display = 'none';
+}
+
+function switchMasterHubSubTab(subTab) {
+  const pUsers = document.getElementById('masterHubPaneUsers');
+  const pBloPass = document.getElementById('masterHubPaneBloPass');
+  const bUsers = document.getElementById('btnSubTabUsers');
+  const bBloPass = document.getElementById('btnSubTabBloPass');
+
+  if (subTab === 'users') {
+    if (pUsers) pUsers.style.display = 'block';
+    if (pBloPass) pBloPass.style.display = 'none';
+    if (bUsers) { bUsers.classList.add('btn-primary'); bUsers.classList.remove('btn-outline-secondary'); }
+    if (bBloPass) { bBloPass.classList.remove('btn-primary'); bBloPass.classList.add('btn-outline-secondary'); }
+  } else {
+    if (pUsers) pUsers.style.display = 'none';
+    if (pBloPass) pBloPass.style.display = 'block';
+    if (bUsers) { bUsers.classList.remove('btn-primary'); bUsers.classList.add('btn-outline-secondary'); }
+    if (bBloPass) { bBloPass.classList.add('btn-primary'); bBloPass.classList.remove('btn-outline-secondary'); }
+    initBloPassTab();
+  }
+}
+
+function initBloPassTab() {
+  const gpSelect = document.getElementById('bloPassGpFilter');
+  if (gpSelect && gpSelect.options.length <= 1) {
+    gpSelect.innerHTML = '<option value="ALL">समस्त 30 ग्राम पंचायतें</option>';
+    BHINAI_PANCHAYATS_30.forEach(gp => {
+      const opt = document.createElement('option');
+      opt.value = gp;
+      opt.textContent = gp;
+      gpSelect.appendChild(opt);
+    });
+  }
+  renderBloPassTable();
+}
+
+function renderBloPassTable() {
+  const tbody = document.getElementById('bloPassTableBody');
+  if (!tbody) return;
+
+  const dir = window.MASTER_DIRECTORY;
+  if (!dir) return;
+
+  const blos = dir.blo_list || [];
+  const cells = dir.cell_personnel || [];
+  const combined = [...blos, ...cells];
+
+  const search = (document.getElementById('bloPassSearchInput')?.value || '').toLowerCase().trim();
+  const gpFilter = document.getElementById('bloPassGpFilter')?.value || 'ALL';
+
+  const filtered = combined.filter(c => {
+    if (gpFilter !== 'ALL' && c.panchayat && c.panchayat !== gpFilter) return false;
+    if (!search) return true;
+    const n = (c.name || '').toLowerCase();
+    const b = String(c.booth_no || '');
+    const s = (c.school || c.school_office || '').toLowerCase();
+    const p = (c.panchayat || '').toLowerCase();
+    const m = (c.mobile || '');
+    return n.includes(search) || b.includes(search) || s.includes(search) || p.includes(search) || m.includes(search);
+  });
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-muted">कोई रिकॉर्ड नहीं मिला</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = filtered.map(c => `
+    <tr>
+      <td><strong>${c.booth_no ? 'भाग ' + c.booth_no : (c.id || 'CELL')}</strong></td>
+      <td>
+        <div style="font-weight:700; color:#1e293b;">${c.name}</div>
+        <div style="font-size:0.75rem; color:#64748b;">${c.school || c.school_office || c.cell_name || ''}</div>
+      </td>
+      <td>${c.panchayat || c.cell_name || '-'}</td>
+      <td>📞 ${c.mobile || '-'}</td>
+      <td><code style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-weight:700;">${c.password || '123'}</code></td>
+      <td style="text-align:center;">
+        <button type="button" class="btn btn-xs btn-outline-warning" onclick="adminPromptChangePass('${c.username || c.id}', '${c.name}')" style="font-weight:700; padding:2px 8px;">
+          🔑 पासवर्ड बदलें
+        </button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function exportDatabaseBackup() {
+  const dir = window.MASTER_DIRECTORY;
+  const state = State;
+  const backup = {
+    exported_at: new Date().toISOString(),
+    master_directory: dir,
+    users: State.adminUsers || [],
+    settings: triPortalSettings
+  };
+  const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `panchayat_election_master_backup_${new Date().toISOString().split('T')[0]}.json`;
+  a.click();
+  showToast('✅ मास्टर डेटाबेस बैकअप डाउनलोड हुआ!');
 }

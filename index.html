@@ -182,9 +182,9 @@
             <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
             <span>👤 प्रत्याशी प्रोफाइल</span>
           </button>
-          <button class="nav-tab" data-tab="adminControlTab" id="adminControlNavTab" onclick="switchTab('adminControlTab')" style="display:none; background: #fef3c7; color: #b45309; border: 1px solid #fde68a; font-weight:700;">
-            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span>⚡ यूजर व पोर्टल नियंत्रण</span>
+          <button class="nav-tab" data-tab="adminControlTab" id="adminControlNavTab" onclick="switchTab('adminControlTab')" style="display:none; background: #fef3c7; color: #b45309; border: 1px solid #fde68a; font-weight:800;">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+            <span>🌐 त्रि-पोर्टल मास्टर कमांड हब</span>
           </button>
           <button class="nav-tab" data-tab="settingsTab" id="settingsNavTab" onclick="switchTab('settingsTab')">
             <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -938,76 +938,195 @@
            TAB: MASTER ADMIN USER & PORTAL CONTROL (यूजर व पोर्टल नियंत्रण)
            ============================================================== -->
       <section id="adminControlTab" class="tab-pane">
-        <div class="card admin-control-card">
-          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+        <div class="card admin-control-card mb-4" style="border: 2px solid #f59e0b;">
+          <!-- Master Header -->
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3 pb-3" style="border-bottom: 2px solid #fde68a;">
             <div>
-              <span class="gatekeeper-badge" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">⚡ केंद्रीय एडमिन कमांड सेंटर</span>
-              <h2 class="section-title mt-1">उपयोगकर्ता एवं पोर्टल नियंत्रण केंद्र (User & Portal Control)</h2>
-              <p class="section-subtitle">प्रभारियों के खाते जोड़ें, पासवर्ड बदलें, सक्रिय/निष्क्रिय करें, अनुमत पंचायत, वार्ड व टैब्स असाइन करें।</p>
+              <span class="gatekeeper-badge" style="background:#fef3c7; color:#b45309; border-color:#fde68a; font-weight:800; font-size:0.85rem;">⚡ सुपर एडमिन केंद्रीय कमान कक्ष (Master Controller)</span>
+              <h2 class="section-title mt-1" style="font-size:1.4rem; color:#1e293b;">🌐 त्रि-पोर्टल मास्टर कमांड हब (Tri-Portal Command & Control Hub)</h2>
+              <p class="section-subtitle" style="font-size:0.92rem; color:#475569;">इस मुख्य एडमिन पोर्टल (pan) से अन्य दोनों पोर्टल्स—पब्लिक वोटर पोर्टल (voter-portal) एवं बी.एल.ओ. पोर्टल (blo-portal)—को एक क्लिक में नियंत्रित करें।</p>
             </div>
-            <div class="d-flex gap-2">
+            <div class="d-flex gap-2 flex-wrap">
+              <button class="btn btn-warning" onclick="triggerTriPortalSync()" style="font-weight:800; background:#f59e0b; color:#fff; border:none; box-shadow:0 2px 4px rgba(245,158,11,0.3); padding:8px 16px;">
+                <span>🚀 तीनों पोर्टल्स को 1-क्लिक में सिंक व डिप्लॉय करें</span>
+              </button>
               <button class="btn btn-success" onclick="openAddUserModal()">
-                <span>➕ नया उपयोगकर्ता जोड़ें</span>
+                <span>➕ नया प्रत्याशी खाता जोड़ें</span>
               </button>
-              <button class="btn btn-outline-primary" onclick="syncAllAdminStateToCloud()">
-                <span>🔄 क्लाउड सिंक करें</span>
+              <button class="btn btn-outline-primary" onclick="initAdminControlTab()">
+                <span>🔄 रिफ्रेश स्थिति</span>
               </button>
             </div>
           </div>
 
-          <!-- Quick Stats Row -->
-          <div class="admin-stats-grid mb-3">
-            <div class="stat-card">
-              <div class="stat-value" id="adminTotalUsersCount">0</div>
-              <div class="stat-label">कुल पंजीकृत उपयोगकर्ता</div>
+          <!-- TRI-PORTAL LIVE STATUS & CONTROL CARDS -->
+          <div class="row-3col mb-4" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:16px;">
+            
+            <!-- PORTAL 1: MASTER ADMIN (PAN) -->
+            <div class="card p-3" style="background:#f8fafc; border:2px solid #3b82f6; border-radius:12px;">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span style="font-size:1.6rem;">👑</span>
+                <span class="badge" style="background:#dbeafe; color:#1e40af; font-weight:800; padding:4px 8px; border-radius:6px;">MASTER CONTROLLER</span>
+              </div>
+              <h3 style="font-size:1.1rem; color:#1e3a8a; margin:0 0 4px 0;">1. मास्टर एडमिन पोर्टल (pan)</h3>
+              <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;">repo: <code>Jit9763/pan</code> | मुख्य नियंत्रण केंद्र</p>
+              
+              <div style="font-size:0.83rem; color:#334155; line-height:1.4; margin-bottom:12px; background:#fff; padding:8px 10px; border-radius:6px; border:1px solid #e2e8f0;">
+                <div>📍 स्थिति: <strong style="color:#16a34a;">🟢 सदैव एक्टिव (Master Node)</strong></div>
+                <div>📊 कवरेज: <strong>सभी 30 ग्राम पंचायतें (पूर्ण एक्सेस)</strong></div>
+                <div>🗂️ डायरेक्टरी: <strong>575 अधिकृत संपर्क (पटवारी, BLO, PEEO)</strong></div>
+              </div>
+
+              <div class="d-flex gap-2">
+                <a href="https://jit9763.github.io/pan/" target="_blank" class="btn btn-sm btn-outline-primary flex-1 text-center" style="font-weight:700; text-decoration:none;">
+                  🖥️ लाइव लिंक
+                </a>
+                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="exportDatabaseBackup()">
+                  💾 बैकअप
+                </button>
+              </div>
             </div>
-            <div class="stat-card" style="border-left: 4px solid #16a34a;">
-              <div class="stat-value" id="adminActiveUsersCount" style="color:#16a34a;">0</div>
-              <div class="stat-label">सक्रिय (Active) खाते</div>
+
+            <!-- PORTAL 2: VOTER & CANDIDATE (VOTER-PORTAL) -->
+            <div class="card p-3" style="background:#f0fdf4; border:2px solid #10b981; border-radius:12px;">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span style="font-size:1.6rem;">🗳️</span>
+                <span class="badge" id="voterPortalStatusBadge" style="background:#dcfce7; color:#15803d; font-weight:800; padding:4px 8px; border-radius:6px;">LIVE ACTIVE</span>
+              </div>
+              <h3 style="font-size:1.1rem; color:#065f46; margin:0 0 4px 0;">2. पब्लिक व प्रत्याशी पोर्टल (voter-portal)</h3>
+              <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;">repo: <code>Jit9763/voter-portal</code> | आम जनता व प्रत्याशी</p>
+              
+              <div style="font-size:0.83rem; color:#334155; line-height:1.5; margin-bottom:12px; background:#fff; padding:8px 10px; border-radius:6px; border:1px solid #e2e8f0;">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span>पब्लिक पोर्टल मास्टर स्विच:</span>
+                  <button type="button" class="btn btn-xs" id="btnToggleVoterPortalLive" onclick="togglePortalStatus('voter')" style="font-weight:700; background:#16a34a; color:#fff; padding:3px 8px; border-radius:4px; border:none; cursor:pointer;">🟢 चालू (ON)</button>
+                </div>
+                <div class="d-flex flex-wrap gap-2 mt-1" style="font-size:0.75rem;">
+                  <label style="cursor:pointer;"><input type="checkbox" id="chkModSearch" checked onchange="savePortalModuleSettings()"> खोज</label>
+                  <label style="cursor:pointer;"><input type="checkbox" id="chkModAlpha" checked onchange="savePortalModuleSettings()"> अ-ज्ञ सूची</label>
+                  <label style="cursor:pointer;"><input type="checkbox" id="chkModSlips" checked onchange="savePortalModuleSettings()"> पर्ची प्रिंट</label>
+                  <label style="cursor:pointer;"><input type="checkbox" id="chkModCandidate" checked onchange="savePortalModuleSettings()"> प्रत्याशी संपादन</label>
+                </div>
+              </div>
+
+              <div class="d-flex gap-2">
+                <a href="https://jit9763.github.io/voter-portal/" target="_blank" class="btn btn-sm btn-outline-success flex-1 text-center" style="font-weight:700; text-decoration:none;">
+                  🖥️ लाइव पोर्टल
+                </a>
+                <button type="button" class="btn btn-sm btn-success" onclick="previewPortalModal('https://jit9763.github.io/voter-portal/', 'पब्लिक वोटर पोर्टल')">
+                  👁️ प्रीव्यू
+                </button>
+              </div>
             </div>
-            <div class="stat-card" style="border-left: 4px solid #dc2626;">
-              <div class="stat-value" id="adminInactiveUsersCount" style="color:#dc2626;">0</div>
-              <div class="stat-label">निष्क्रिय (Deactive) खाते</div>
+
+            <!-- PORTAL 3: BLO & CELL (BLO-PORTAL) -->
+            <div class="card p-3" style="background:#eff6ff; border:2px solid #6366f1; border-radius:12px;">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <span style="font-size:1.6rem;">📍</span>
+                <span class="badge" id="bloPortalStatusBadge" style="background:#e0e7ff; color:#4338ca; font-weight:800; padding:4px 8px; border-radius:6px;">LIVE ACTIVE</span>
+              </div>
+              <h3 style="font-size:1.1rem; color:#312e81; margin:0 0 4px 0;">3. BLO व प्रकोष्ठ पोर्टल (blo-portal)</h3>
+              <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;">repo: <code>Jit9763/blo-portal</code> | 126 बी.एल.ओ. एवं 13 प्रकोष्ठ</p>
+              
+              <div style="font-size:0.83rem; color:#334155; line-height:1.5; margin-bottom:12px; background:#fff; padding:8px 10px; border-radius:6px; border:1px solid #e2e8f0;">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <span>BLO लॉगिन मास्टर स्विच:</span>
+                  <button type="button" class="btn btn-xs" id="btnToggleBloPortalLive" onclick="togglePortalStatus('blo')" style="font-weight:700; background:#4f46e5; color:#fff; padding:3px 8px; border-radius:4px; border:none; cursor:pointer;">🟢 चालू (ON)</button>
+                </div>
+                <div style="font-size:0.75rem; color:#4338ca; margin-top:2px;">
+                  🔒 <strong>प्रतिबंध:</strong> थोक पर्ची प्रिंटिंग अवरुद्ध | केवल अपना भाग/बूथ एक्सेस
+                </div>
+              </div>
+
+              <div class="d-flex gap-2">
+                <a href="https://jit9763.github.io/blo-portal/" target="_blank" class="btn btn-sm btn-outline-primary flex-1 text-center" style="font-weight:700; text-decoration:none;">
+                  🖥️ लाइव पोर्टल
+                </a>
+                <button type="button" class="btn btn-sm btn-primary" onclick="previewPortalModal('https://jit9763.github.io/blo-portal/', 'BLO व प्रकोष्ठ पोर्टल')">
+                  👁️ प्रीव्यू
+                </button>
+              </div>
             </div>
-            <div class="stat-card" style="border-left: 4px solid #0284c7;">
-              <div class="stat-value" id="adminTotalGpsCount">33</div>
-              <div class="stat-label">कवर ग्राम पंचायतें</div>
+
+          </div>
+
+          <!-- SUB-NAVIGATION FOR MASTER HUB -->
+          <div class="d-flex gap-2 mb-3 pb-2" style="border-bottom:1px solid #e2e8f0;">
+            <button type="button" class="btn btn-sm btn-primary" id="btnSubTabUsers" onclick="switchMasterHubSubTab('users')" style="font-weight:700;">
+              👥 1. प्रत्याशी व यूजर खाते (Accounts)
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" id="btnSubTabBloPass" onclick="switchMasterHubSubTab('bloPass')" style="font-weight:700;">
+              🔑 2. 126 BLO व प्रकोष्ठ त्वरित पासवर्ड कंट्रोल
+            </button>
+          </div>
+
+          <!-- SUB-PANE 1: USER & CANDIDATE ACCOUNTS -->
+          <div id="masterHubPaneUsers">
+            <!-- Filter & Search Toolbar -->
+            <div class="admin-toolbar-row mb-3 d-flex gap-2 flex-wrap">
+              <div class="search-input-wrapper flex-1" style="min-width:260px;">
+                <input type="text" id="adminUserSearchInput" class="form-input" placeholder="🔍 यूजरनेम, नाम या पंचायत से खोजें..." oninput="filterAdminUsersTable()">
+              </div>
+              <select id="adminStatusFilterSelect" class="form-select" style="max-width:200px; font-weight:600;" onchange="filterAdminUsersTable()">
+                <option value="ALL">समस्त खाते (All)</option>
+                <option value="ACTIVE">केवल सक्रिय (Active)</option>
+                <option value="INACTIVE">केवल निष्क्रिय (Inactive)</option>
+              </select>
+            </div>
+
+            <!-- Single Row Master User Table -->
+            <div class="table-responsive admin-users-table-wrapper" style="overflow-x:auto;">
+              <table class="table admin-users-table" id="masterAdminUsersTable" style="min-width:1100px;">
+                <thead>
+                  <tr>
+                    <th style="width:140px;">यूजर ID</th>
+                    <th style="width:160px;">नाम व मोबाइल</th>
+                    <th style="width:140px;">पासवर्ड</th>
+                    <th style="width:110px;">स्थिति (Status)</th>
+                    <th style="width:150px;">अनुमत पंचायत</th>
+                    <th style="width:100px;">अनुमत वार्ड</th>
+                    <th>अनुमत टैब्स (Allowed Tabs)</th>
+                    <th style="width:130px;">प्रत्याशी मोड</th>
+                    <th style="width:130px; text-align:center;">कार्रवाई</th>
+                  </tr>
+                </thead>
+                <tbody id="masterAdminUsersTbody">
+                  <!-- Dynamically populated rows -->
+                </tbody>
+              </table>
             </div>
           </div>
 
-          <!-- Filter & Search Toolbar -->
-          <div class="admin-toolbar-row mb-3 d-flex gap-2 flex-wrap">
-            <div class="search-input-wrapper flex-1" style="min-width:260px;">
-              <input type="text" id="adminUserSearchInput" class="form-input" placeholder="🔍 यूजरनेम, नाम या पंचायत से खोजें..." oninput="filterAdminUsersTable()">
+          <!-- SUB-PANE 2: 126 BLO & CELL PASSWORD QUICK MANAGER -->
+          <div id="masterHubPaneBloPass" style="display:none;">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+              <div class="search-input-wrapper flex-1" style="min-width:260px;">
+                <input type="text" id="bloPassSearchInput" class="form-input" placeholder="🔍 भाग संख्या (1-126), BLO नाम, विद्यालय या प्रकोष्ठ से खोजें..." oninput="renderBloPassTable()">
+              </div>
+              <select id="bloPassGpFilter" class="form-select" style="max-width:220px; font-weight:600;" onchange="renderBloPassTable()">
+                <option value="ALL">समस्त 30 ग्राम पंचायतें</option>
+              </select>
             </div>
-            <select id="adminStatusFilterSelect" class="form-select" style="max-width:200px; font-weight:600;" onchange="filterAdminUsersTable()">
-              <option value="ALL">समस्त खाते (All)</option>
-              <option value="ACTIVE">केवल सक्रिय (Active)</option>
-              <option value="INACTIVE">केवल निष्क्रिय (Inactive)</option>
-            </select>
+
+            <div class="table-responsive" style="max-height:480px; overflow-y:auto; border:1px solid #e2e8f0; border-radius:8px;">
+              <table class="table table-sm" style="width:100%; font-size:0.85rem;">
+                <thead style="background:#f1f5f9; position:sticky; top:0;">
+                  <tr>
+                    <th style="width:90px;">भाग सं./ID</th>
+                    <th>नाम व विद्यालय/कार्यालय</th>
+                    <th style="width:130px;">ग्राम पंचायत/प्रकोष्ठ</th>
+                    <th style="width:120px;">मोबाइल नंबर</th>
+                    <th style="width:100px;">पासवर्ड</th>
+                    <th style="width:110px; text-align:center;">पासवर्ड बदलें</th>
+                  </tr>
+                </thead>
+                <tbody id="bloPassTableBody">
+                  <!-- Populated dynamically -->
+                </tbody>
+              </table>
+            </div>
           </div>
 
-          <!-- Single Row Master User Table -->
-          <div class="table-responsive admin-users-table-wrapper" style="overflow-x:auto;">
-            <table class="table admin-users-table" id="masterAdminUsersTable" style="min-width:1100px;">
-              <thead>
-                <tr>
-                  <th style="width:140px;">यूजर ID</th>
-                  <th style="width:160px;">नाम व मोबाइल</th>
-                  <th style="width:140px;">पासवर्ड</th>
-                  <th style="width:110px;">स्थिति (Status)</th>
-                  <th style="width:150px;">अनुमत पंचायत</th>
-                  <th style="width:100px;">अनुमत वार्ड</th>
-                  <th>अनुमत टैब्स (Allowed Tabs)</th>
-                  <th style="width:130px;">प्रत्याशी मोड</th>
-                  <th style="width:130px; text-align:center;">कार्रवाई</th>
-                </tr>
-              </thead>
-              <tbody id="masterAdminUsersTbody">
-                <!-- Dynamically populated rows -->
-              </tbody>
-            </table>
-          </div>
         </div>
       </section>
 
@@ -1745,6 +1864,25 @@
           </button>
         </div>
       </form>
+    </div>
+  </div>
+
+
+  <!-- ==============================================================
+       MODAL: PORTAL PREVIEW MODAL (लाइव पोर्टल प्रीव्यू)
+       ============================================================== -->
+  <div id="portalPreviewModal" class="modal-overlay" style="display:none;" onclick="if(event.target===this) closePortalPreviewModal()">
+    <div class="modal-card" style="max-width:95vw; width:1200px; height:85vh; display:flex; flex-direction:column; padding:0; border-radius:12px; overflow:hidden;">
+      <div class="modal-header" style="background:#1e3a8a; color:#fff; padding:12px 18px; display:flex; justify-content:space-between; align-items:center;">
+        <h3 class="modal-title" style="color:#fff; margin:0;" id="portalPreviewTitle">👁️ लाइव पोर्टल प्रीव्यू</h3>
+        <div class="d-flex gap-2 align-items-center">
+          <a id="portalPreviewExternalLink" href="#" target="_blank" class="btn btn-sm btn-outline-light" style="color:#fff; border-color:#fff;">नए टैब में खोलें ↗</a>
+          <button class="modal-close" style="color:#fff; background:transparent; border:none; font-size:1.2rem; cursor:pointer;" onclick="closePortalPreviewModal()">✕</button>
+        </div>
+      </div>
+      <div style="flex:1; background:#f1f5f9; position:relative;">
+        <iframe id="portalPreviewIframe" src="" style="width:100%; height:100%; border:none;"></iframe>
+      </div>
     </div>
   </div>
 
