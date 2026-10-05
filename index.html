@@ -1005,5 +1005,82 @@
   <!-- Scripts -->
   <script src="master_data.js"></script>
   <script src="app.js"></script>
+
+  <!-- Super Admin: Add New User Modal -->
+  <div id="addUserModal" class="modal-overlay no-print" style="display:none;" onclick="if(event.target===this) closeAddUserModal()">
+    <div class="modal-container" style="max-width:540px;">
+      <div class="modal-header">
+        <h3 class="modal-title">➕ नया उपयोगकर्ता जोड़ें (Add User)</h3>
+        <button class="modal-close-btn" onclick="closeAddUserModal()">✕</button>
+      </div>
+      <div class="modal-body" style="padding:1.25rem;">
+        <form id="addUserForm" onsubmit="handleCreateUser(event)">
+          <div class="form-group" style="margin-bottom:0.85rem;">
+            <label><strong>उपयोगकर्ता नाम (Username) *:</strong></label>
+            <input type="text" id="newUsername" class="form-input" required placeholder="उदा. sobdi_operator">
+          </div>
+          <div class="form-group" style="margin-bottom:0.85rem;">
+            <label><strong>पासवर्ड (Password) *:</strong></label>
+            <input type="text" id="newPassword" class="form-input" required placeholder="सुरक्षित पासवर्ड दर्ज करें">
+          </div>
+          <div class="form-group" style="margin-bottom:0.85rem;">
+            <label><strong>प्रभारी का पूरा नाम *:</strong></label>
+            <input type="text" id="newFullName" class="form-input" required placeholder="उदा. सुरेश शर्मा">
+          </div>
+          <div class="form-group" style="margin-bottom:0.85rem;">
+            <label><strong>मोबाइल नंबर:</strong></label>
+            <input type="text" id="newMobile" class="form-input" placeholder="10 अंकों का मोबाइल">
+          </div>
+          <div class="form-group" style="margin-bottom:0.85rem;">
+            <label><strong>पद (Role):</strong></label>
+            <select id="newRole" class="form-select">
+              <option value="PANCHAYAT_AGENT">पंचायत प्रभारी (Panchayat Agent)</option>
+              <option value="BOOTH_AGENT">बूथ एजेंट / वालंटियर (Booth Agent)</option>
+              <option value="SUPER_ADMIN">सुपर एडमिन (Super Admin - All Access)</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:0.85rem;">
+            <label><strong>आवंटित पंचायत (Assigned Panchayat):</strong></label>
+            <select id="newPanchayat" class="form-select">
+              <option value="ALL">-- सभी 30 पंचायतें (ALL) --</option>
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label><strong>आवंटित वार्ड (Assigned Wards):</strong></label>
+            <input type="text" id="newWards" class="form-input" value="ALL" placeholder="ALL या कॉमा से अलग करें जैसे 1,2,3">
+          </div>
+          <div style="display:flex; justify-content:flex-end; gap:8px;">
+            <button type="button" class="btn btn-outline" onclick="closeAddUserModal()">रद्द करें</button>
+            <button type="submit" class="btn btn-primary">यूजर बनाएं एवं सहेजें</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Super Admin: Change Password Modal -->
+  <div id="changePasswordModal" class="modal-overlay no-print" style="display:none;" onclick="if(event.target===this) closeChangePasswordModal()">
+    <div class="modal-container" style="max-width:440px;">
+      <div class="modal-header">
+        <h3 class="modal-title">🔑 पासवर्ड बदलें (Change Password)</h3>
+        <button class="modal-close-btn" onclick="closeChangePasswordModal()">✕</button>
+      </div>
+      <div class="modal-body" style="padding:1.25rem;">
+        <div class="form-group" style="margin-bottom:0.85rem;">
+          <label><strong>यूजरनेम:</strong></label>
+          <input type="text" id="cpUsername" class="form-input" readonly style="background:#f8fafc; font-weight:700;">
+        </div>
+        <div class="form-group" style="margin-bottom:1.25rem;">
+          <label><strong>नया पासवर्ड दर्ज करें:</strong></label>
+          <input type="text" id="cpNewPassword" class="form-input" placeholder="नया पासवर्ड">
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:8px;">
+          <button type="button" class="btn btn-outline" onclick="closeChangePasswordModal()">रद्द करें</button>
+          <button type="button" class="btn btn-primary" onclick="confirmPasswordChange()">पासवर्ड अपडेट करें</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </body>
 </html>

@@ -19,6 +19,7 @@ const State = {
   panchayats: [],
   adminUsers: [],
   voters: [],
+  deletedVoters: [],
   currentUser: null,
   currentSlipVoter: null,
   activeTab: 'dashboardTab',
@@ -43,7 +44,8 @@ const State = {
   
   config: {
     adminSheetUrl: '',
-    voterSheetUrl: ''
+    voterSheetUrl: '',
+    appsScriptUrl: 'https://script.google.com/macros/s/AKfycbzhZ-VdcGJ_nUuG40vm-MyMNJEnLfTgk3kBqyhi1OIefCgW9Smw0XweLTUd7D6o710lpA/exec'
   }
 };
 
@@ -60,6 +62,12 @@ function initMasterData() {
   if (window.MASTER_DATA) {
     State.panchayats = window.MASTER_DATA.panchayats || [];
     State.adminUsers = window.MASTER_DATA.admin_users || [];
+    State.deletedVoters = window.MASTER_DATA.deleted_voters || [];
+    State.config.appsScriptUrl = localStorage.getItem('panchayat_apps_script_url') || 'https://script.google.com/macros/s/AKfycbzhZ-VdcGJ_nUuG40vm-MyMNJEnLfTgk3kBqyhi1OIefCgW9Smw0XweLTUd7D6o710lpA/exec';
+    const appsScriptInput = document.getElementById('appsScriptUrlInput');
+    if (appsScriptInput && State.config.appsScriptUrl) {
+      appsScriptInput.value = State.config.appsScriptUrl;
+    }
     
     // Check cached voters
     const cachedVoters = localStorage.getItem('panchayat_voters_cache');
@@ -703,21 +711,30 @@ function renderVoterCards(votersList) {
     const isFemale = voter.gender === 'F';
     const relationLabel = voter.relative_relation || 'पिता/पति';
     const voterKey = getVoterKey(voter);
-    const isDel = isVoterDelivered(voter);
+    const isDelivered = isVoterDelivered(voter);
+    const isDeleted = voter.status === 'निरस्त';
+    const photoUrl = voter.photo_url || voter.photo || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(voter.epic_no || voter.serial_no || '1')}`;
 
     card.innerHTML = `
       <div>
         <div class="card-top-row">
           <div class="voter-avatar-wrapper">
-            <div class="voter-avatar ${isFemale ? 'female' : ''}">
-              ${voter.voter_name ? voter.voter_name.charAt(0) : 'म'}
+            <div class="voter-photo-box">
+              <img src="${photoUrl}" alt="${voter.voter_name}" class="voter-card-photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+              <div class="voter-avatar ${isFemale ? 'female' : ''}" style="display:none; width:100%; height:100%; border-radius:0;">
+                ${voter.voter_name ? voter.voter_name.charAt(0) : 'म'}
+              </div>
             </div>
             <div>
               <div class="voter-name-hindi">${voter.voter_name}</div>
               <div class="voter-name-english">${voter.voter_name_en || ''}</div>
+              ${isDel ? `<span class="badge-deleted">⚠️ विलोपित [कोड: ${voter.deletion_code || 'O'} - ${voter.deletion_reason || 'अन्य'}]</span>` : ''}
             </div>
           </div>
-          <span class="voter-sr-badge">सरल क्र. ${voter.serial_no || '-'}</span>
+          <div style="text-align:right;">
+            <span class="voter-sr-badge">सरल क्र. ${voter.serial_no || '-'}</span>
+            ${isDel ? `<div style="font-size:0.68rem; color:#dc2626; font-weight:800; margin-top:3px;">घटक 2 (विलोपित)</div>` : ''}
+          </div>
         </div>
 
         <div class="card-meta-list">
@@ -750,9 +767,9 @@ function renderVoterCards(votersList) {
       </div>
 
       <div style="margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px dashed #cbd5e1; display:flex; justify-content:space-between; align-items:center;">
-        <button class="delivery-toggle-btn ${isDel ? 'is-delivered' : ''}" onclick="toggleVoterDelivery('${voterKey}', event)">
-          <span class="toggle-icon">${isDel ? '✅' : '⬜'}</span>
-          <span>${isDel ? 'पर्ची दी गई' : 'पर्ची बाकी'}</span>
+        <button class="delivery-toggle-btn ${isDelivered ? 'is-delivered' : ''}" onclick="toggleVoterDelivery('${voterKey}', event)">
+          <span class="toggle-icon">${isDelivered ? '✅' : '⬜'}</span>
+          <span>${isDelivered ? 'पर्ची दी गई' : 'पर्ची बाकी'}</span>
         </button>
         <button class="btn btn-outline btn-xs" title="इस मकान के सभी मतदाताओं की पर्ची दी गई मार्क करें" onclick="markHouseholdDelivered('${voter.house_no}', '${voter.panchayat_code}', '${voter.ward_no}')">
           🏠 मकान के सभी
@@ -1037,9 +1054,9 @@ function renderAlphabeticalList() {
         </div>
 
         <div style="display:flex; align-items:center; gap:0.65rem;">
-          <button class="delivery-toggle-btn ${isDel ? 'is-delivered' : ''}" onclick="toggleVoterDelivery('${voterKey}', event)">
-            <span class="toggle-icon">${isDel ? '✅' : '⬜'}</span>
-            <span>${isDel ? 'पर्ची दी गई' : 'पर्ची बाकी'}</span>
+          <button class="delivery-toggle-btn ${isDelivered ? 'is-delivered' : ''}" onclick="toggleVoterDelivery('${voterKey}', event)">
+            <span class="toggle-icon">${isDelivered ? '✅' : '⬜'}</span>
+            <span>${isDelivered ? 'पर्ची दी गई' : 'पर्ची बाकी'}</span>
           </button>
           <button class="btn btn-outline btn-xs" onclick='openVoterSlipModal(${JSON.stringify(voter)})'>
             📄 पर्ची
@@ -1120,6 +1137,8 @@ function updateBulkGenerator() {
   const houseFilter = (document.getElementById('bulkHouseFilter') ? document.getElementById('bulkHouseFilter').value : '').trim().toLowerCase();
 
   let voters = State.voters.filter(v => {
+    // Strictly skip deleted voters from bulk slips
+    if (v.status === 'निरस्त') return false;
     if (gpCode && v.panchayat_code !== gpCode) return false;
     if (wardNo !== 'ALL' && String(v.ward_no) !== String(wardNo)) return false;
 
@@ -1471,8 +1490,15 @@ function renderDirectoryTable(votersList) {
     tr.innerHTML = `
       <td><strong>${voter.serial_no || idx + 1}</strong></td>
       <td>
-        <strong>${voter.voter_name}</strong>
-        <div class="text-sm text-muted">${voter.voter_name_en || ''}</div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          <div class="voter-photo-box" style="width:34px; height:40px; border-radius:3px;">
+            <img src="${voter.photo_url || voter.photo || 'https://api.dicebear.com/7.x/identicon/svg?seed=' + encodeURIComponent(voter.epic_no || voter.serial_no || '1')}" alt="${voter.voter_name}" class="voter-card-photo" onerror="this.style.display='none';" />
+          </div>
+          <div>
+            <strong>${voter.voter_name}</strong>
+            <div class="text-sm text-muted">${voter.voter_name_en || ''}</div>
+          </div>
+        </div>
       </td>
       <td>${voter.relative_relation || 'पिता'}: ${voter.relative_name || '-'}</td>
       <td><strong>${voter.house_no || '-'}</strong></td>
@@ -1753,6 +1779,12 @@ function loadDefaultMasterData() {
   if (window.MASTER_DATA) {
     State.voters = window.MASTER_DATA.initial_voters || [];
     State.adminUsers = window.MASTER_DATA.admin_users || [];
+    State.deletedVoters = window.MASTER_DATA.deleted_voters || [];
+    State.config.appsScriptUrl = localStorage.getItem('panchayat_apps_script_url') || 'https://script.google.com/macros/s/AKfycbzhZ-VdcGJ_nUuG40vm-MyMNJEnLfTgk3kBqyhi1OIefCgW9Smw0XweLTUd7D6o710lpA/exec';
+    const appsScriptInput = document.getElementById('appsScriptUrlInput');
+    if (appsScriptInput && State.config.appsScriptUrl) {
+      appsScriptInput.value = State.config.appsScriptUrl;
+    }
     localStorage.removeItem('panchayat_voters_cache');
     localStorage.removeItem('panchayat_admins_cache');
     showToast('मूल 1,126+ मतदाताओं का मास्टर डेटा पुनर्स्थापित किया गया।');
@@ -1813,3 +1845,304 @@ function showToast(message) {
     setTimeout(() => toast.remove(), 300);
   }, 3500);
 }
+
+
+
+// ==========================================================================
+// SUPER ADMIN USER MANAGEMENT & GOOGLE APPS SCRIPT API INTEGRATION
+// ==========================================================================
+
+function renderSuperAdminUsers() {
+  const tbody = document.getElementById('superAdminUsersTableBody');
+  const box = document.getElementById('superAdminUserMgmtBox');
+  if (!tbody || !box) return;
+
+  // Only visible to SUPER_ADMIN
+  if (!State.currentUser || State.currentUser.role !== 'SUPER_ADMIN') {
+    box.style.display = 'none';
+    return;
+  }
+  box.style.display = 'block';
+
+  tbody.innerHTML = '';
+  if (!State.adminUsers || State.adminUsers.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="padding:15px; text-align:center; color:#64748b;">कोई उपयोगकर्ता उपलब्ध नहीं है।</td></tr>';
+    return;
+  }
+
+  State.adminUsers.forEach((user, idx) => {
+    const isAct = (user.status || 'ACTIVE').toUpperCase() === 'ACTIVE';
+    const tr = document.createElement('tr');
+    tr.style.borderBottom = '1px solid #f1f5f9';
+    tr.innerHTML = `
+      <td style="padding:8px 12px; font-weight:700; color:#1e293b;">${user.username}</td>
+      <td style="padding:8px 12px; font-family:monospace; color:#475569;">
+        <span style="background:#f1f5f9; padding:2px 6px; border-radius:3px;">${user.password}</span>
+      </td>
+      <td style="padding:8px 12px;">
+        <div style="font-weight:600;">${user.full_name || user.username}</div>
+        <div style="font-size:0.75rem; color:#64748b;">${user.mobile || user.phone || '-'}</div>
+      </td>
+      <td style="padding:8px 12px;">
+        <span style="font-size:0.75rem; font-weight:700; color:${user.role==='SUPER_ADMIN'?'#b91c1c':'#0369a1'}; background:${user.role==='SUPER_ADMIN'?'#fee2e2':'#e0f2fe'}; padding:2px 6px; border-radius:3px;">
+          ${user.role}
+        </span>
+      </td>
+      <td style="padding:8px 12px; font-size:0.82rem;">${user.assigned_panchayats || user.panchayat_code || 'ALL'}</td>
+      <td style="padding:8px 12px; font-size:0.82rem;">${user.assigned_wards || user.allowed_wards || 'ALL'}</td>
+      <td style="padding:8px 12px; text-align:center;">
+        <button class="user-status-btn ${isAct ? 'active' : 'inactive'}" onclick="toggleUserStatus('${user.username}')">
+          ${isAct ? '🟢 सक्रिय (Active)' : '🔴 निष्क्रिय (Inactive)'}
+        </button>
+      </td>
+      <td style="padding:8px 12px; text-align:center;">
+        <div style="display:flex; justify-content:center; gap:4px; flex-wrap:wrap;">
+          <button class="action-btn-sm" onclick="openChangePasswordModal('${user.username}')" title="पासवर्ड बदलें">
+            🔑 पासवर्ड
+          </button>
+          <button class="action-btn-sm" onclick="promptChangeScope('${user.username}')" title="पंचायत व वार्ड अधिकार बदलें">
+            🛡️ अधिकार
+          </button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// Modal controls for Add User
+function openAddUserModal() {
+  const modal = document.getElementById('addUserModal');
+  const gpSelect = document.getElementById('newPanchayat');
+  if (gpSelect) {
+    gpSelect.innerHTML = '<option value="ALL">-- सभी 30 पंचायतें (ALL) --</option>';
+    State.panchayats.forEach(p => {
+      gpSelect.innerHTML += `<option value="${p.name_en}">${p.name_hi} (${p.name_en})</option>`;
+    });
+  }
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeAddUserModal() {
+  const modal = document.getElementById('addUserModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function handleCreateUser(e) {
+  e.preventDefault();
+  const username = document.getElementById('newUsername').value.trim();
+  const password = document.getElementById('newPassword').value.trim();
+  const fullName = document.getElementById('newFullName').value.trim();
+  const mobile = document.getElementById('newMobile').value.trim();
+  const role = document.getElementById('newRole').value;
+  const panchayat = document.getElementById('newPanchayat').value;
+  const wards = document.getElementById('newWards').value.trim() || 'ALL';
+
+  if (!username || !password) {
+    showToast('कृपया यूजरनेम व पासवर्ड दर्ज करें!');
+    return;
+  }
+
+  const newUser = {
+    user_id: `USR${State.adminUsers.length + 1}`,
+    username: username,
+    password: password,
+    full_name: fullName,
+    mobile: mobile,
+    role: role,
+    assigned_panchayats: panchayat,
+    assigned_wards: wards,
+    status: 'ACTIVE',
+    created_at: new Date().toISOString()
+  };
+
+  State.adminUsers.push(newUser);
+  localStorage.setItem('panchayat_admins_cache', JSON.stringify(State.adminUsers));
+  renderSuperAdminUsers();
+  closeAddUserModal();
+  showToast(`नया यूजर '${username}' जोड़ा गया।`);
+
+  // Sync to Google Sheet Apps Script if connected
+  postToAppsScript({
+    action: 'addUser',
+    userData: newUser,
+    adminUsername: State.currentUser.username
+  });
+}
+
+// Password Change
+function openChangePasswordModal(username) {
+  const modal = document.getElementById('changePasswordModal');
+  document.getElementById('cpUsername').value = username;
+  document.getElementById('cpNewPassword').value = '';
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeChangePasswordModal() {
+  const modal = document.getElementById('changePasswordModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function confirmPasswordChange() {
+  const username = document.getElementById('cpUsername').value;
+  const newPassword = document.getElementById('cpNewPassword').value.trim();
+
+  if (!newPassword) {
+    showToast('कृपया नया पासवर्ड दर्ज करें!');
+    return;
+  }
+
+  const u = State.adminUsers.find(x => x.username.toLowerCase() === username.toLowerCase());
+  if (u) {
+    u.password = newPassword;
+    localStorage.setItem('panchayat_admins_cache', JSON.stringify(State.adminUsers));
+    renderSuperAdminUsers();
+    closeChangePasswordModal();
+    showToast(`'${username}' का पासवर्ड सफलतापूर्वक बदला गया!`);
+
+    postToAppsScript({
+      action: 'updatePassword',
+      username: username,
+      newPassword: newPassword,
+      adminUsername: State.currentUser.username
+    });
+  }
+}
+
+// Scope Change
+function promptChangeScope(username) {
+  const u = State.adminUsers.find(x => x.username.toLowerCase() === username.toLowerCase());
+  if (!u) return;
+
+  const newGp = prompt(`उपयोगकर्ता '${username}' के लिए आवंटित पंचायत दर्ज करें (उदा. Sobdi, Bhinay, या ALL):`, u.assigned_panchayats || u.panchayat_code || 'ALL');
+  if (newGp === null) return;
+
+  const newWards = prompt(`उपयोगकर्ता '${username}' के लिए आवंटित वार्ड दर्ज करें (उदा. 1,2,3 या ALL):`, u.assigned_wards || u.allowed_wards || 'ALL');
+  if (newWards === null) return;
+
+  u.assigned_panchayats = newGp.trim();
+  u.assigned_wards = newWards.trim();
+  localStorage.setItem('panchayat_admins_cache', JSON.stringify(State.adminUsers));
+  renderSuperAdminUsers();
+  showToast(`'${username}' के अधिकार अपडेट कर दिए गए!`);
+
+  postToAppsScript({
+    action: 'updateUserScope',
+    username: username,
+    assignedPanchayats: newGp.trim(),
+    assignedWards: newWards.trim(),
+    adminUsername: State.currentUser.username
+  });
+}
+
+// Toggle Status
+function toggleUserStatus(username) {
+  const u = State.adminUsers.find(x => x.username.toLowerCase() === username.toLowerCase());
+  if (!u) return;
+
+  const cur = (u.status || 'ACTIVE').toUpperCase();
+  const next = cur === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
+  u.status = next;
+  localStorage.setItem('panchayat_admins_cache', JSON.stringify(State.adminUsers));
+  renderSuperAdminUsers();
+  showToast(`'${username}' को ${next === 'ACTIVE' ? 'सक्रिय (Active)' : 'निष्क्रिय (Inactive)'} किया गया!`);
+
+  postToAppsScript({
+    action: 'toggleUserStatus',
+    username: username,
+    status: next,
+    adminUsername: State.currentUser.username
+  });
+}
+
+// Google Apps Script Connectivity
+function saveAppsScriptUrlAndSync() {
+  const input = document.getElementById('appsScriptUrlInput');
+  const url = input ? input.value.trim() : '';
+
+  if (!url) {
+    showToast('कृपया मान्य Google Apps Script Web App URL दर्ज करें!');
+    return;
+  }
+
+  State.config.appsScriptUrl = url;
+  localStorage.setItem('panchayat_apps_script_url', url);
+  showToast('Google Apps Script URL सहेजा गया। कनेक्शन जाँचा जा रहा है...');
+  testAppsScriptPing();
+}
+
+async function testAppsScriptPing() {
+  const url = State.config.appsScriptUrl || localStorage.getItem('panchayat_apps_script_url');
+  if (!url) {
+    showToast('⚠️ पहले Google Apps Script Web App URL दर्ज करें!');
+    return;
+  }
+
+  try {
+    const res = await fetch(`${url}?action=ping`);
+    const data = await res.json();
+    if (data && data.success) {
+      showToast(`✅ Apps Script कनेक्शन सफल: ${data.message}`);
+      syncUsersWithAppsScript();
+    } else {
+      showToast('⚠️ Apps Script से अमान्य उत्तर प्राप्त हुआ।');
+    }
+  } catch (err) {
+    showToast(`⚠️ कनेक्शन त्रुटि: ${err.message}`);
+  }
+}
+
+async function syncUsersWithAppsScript() {
+  const url = State.config.appsScriptUrl || localStorage.getItem('panchayat_apps_script_url');
+  if (!url) return;
+
+  try {
+    const res = await fetch(`${url}?action=getUsers`);
+    const data = await res.json();
+    if (data && data.success && data.users && data.users.length > 0) {
+      State.adminUsers = data.users.map(u => ({
+        username: u.username,
+        password: u.password,
+        full_name: u.fullName || u.username,
+        mobile: u.mobile || '',
+        role: u.role || 'PANCHAYAT_AGENT',
+        assigned_panchayats: u.assignedPanchayats || 'ALL',
+        assigned_wards: u.assignedWards || 'ALL',
+        status: u.status || 'ACTIVE'
+      }));
+      localStorage.setItem('panchayat_admins_cache', JSON.stringify(State.adminUsers));
+      renderSuperAdminUsers();
+      showToast(`Google Sheet से ${State.adminUsers.length} उपयोगकर्ताओं का डेटा लाइव सिंक हो गया!`);
+    }
+  } catch (e) {
+    console.warn('Apps Script Users Sync Warning:', e);
+  }
+}
+
+async function postToAppsScript(payload) {
+  const url = State.config.appsScriptUrl || localStorage.getItem('panchayat_apps_script_url');
+  if (!url) return;
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (data && data.success) {
+      showToast(`☁️ Google Sheet अपडेट: ${data.message || 'सफलतापूर्वक सहेजा गया'}`);
+    }
+  } catch (err) {
+    console.warn('Apps Script POST Warning:', err);
+  }
+}
+
+// Hook renderSuperAdminUsers into switchTab
+const origSwitchTab = window.switchTab;
+window.switchTab = function(tabId) {
+  if (origSwitchTab) origSwitchTab(tabId);
+  if (tabId === 'settingsTab') {
+    renderSuperAdminUsers();
+  }
+};

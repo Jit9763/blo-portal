@@ -2789,3 +2789,97 @@ body {
     align-items: flex-start;
   }
 }
+
+
+/* On-Screen Voter Photo Styling */
+.voter-photo-box {
+  width: 46px;
+  height: 54px;
+  flex-shrink: 0;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1.5px solid #1e3a8a;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+}
+
+.voter-card-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.badge-deleted {
+  background: #fee2e2 !important;
+  color: #b91c1c !important;
+  border: 1px solid #f87171 !important;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.badge-active {
+  background: #dcfce7 !important;
+  color: #15803d !important;
+  border: 1px solid #86efac !important;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+}
+
+.user-status-btn {
+  padding: 3px 8px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.user-status-btn.active {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #86efac;
+}
+.user-status-btn.inactive {
+  background: #fee2e2;
+  color: #991b1b;
+  border-color: #fca5a5;
+}
+
+.action-btn-sm {
+  padding: 3px 7px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #1e293b;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.action-btn-sm:hover {
+  background: #f1f5f9;
+}
+
+/* Ensure Photos are strictly hidden in all print layouts */
+@media print {
+  .voter-photo-box,
+  .voter-card-photo,
+  .voter-avatar,
+  .voter-photo-img,
+  .badge-deleted,
+  .badge-active {
+    display: none !important;
+  }
+}
