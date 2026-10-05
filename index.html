@@ -49,12 +49,22 @@
 
         <form id="gatekeeperLoginForm" onsubmit="handleGatekeeperLogin(event)">
           <div class="form-group">
-            <label for="gatekeeperUsername">
-              <strong>यूजरनेम (Username):</strong>
+            <label for="gatekeeperUserSelect">
+              <strong>अधिकृत उपयोगकर्ता चुनें (Select Active User) *:</strong>
             </label>
-            <div class="input-with-icon">
+            <div class="input-with-icon" id="userSelectWrapper">
               <span class="input-icon">👤</span>
-              <input type="text" id="gatekeeperUsername" class="form-input" placeholder="यूजरनेम दर्ज करें (उदा. admin या gp11_incharge)" required autocomplete="username">
+              <select id="gatekeeperUserSelect" class="form-select" onchange="onLoginUserSelectChange(this.value)" style="font-weight:600; cursor:pointer;">
+                <option value="">-- कृपया अपना अधिकृत खाता चुनें --</option>
+              </select>
+            </div>
+            <input type="hidden" id="gatekeeperUsername" value="">
+            <div style="font-size: 0.78rem; color: #64748b; margin-top: 5px; display: flex; justify-content: space-between; align-items: center;">
+              <span><span style="color:#16a34a; font-weight:700;">●</span> केवल सक्रिय (Active) खाते सूचीबद्ध हैं</span>
+              <a href="javascript:void(0)" onclick="toggleManualUsername()" id="toggleManualUserBtn" style="color: #2563eb; text-decoration: underline; font-weight:500;">या मैन्युअल टाइप करें</a>
+            </div>
+            <div id="manualUsernameDiv" style="display:none; margin-top: 8px;">
+              <input type="text" id="manualUsernameInput" class="form-input" placeholder="यूजरनेम टाइप करें (उदा. superadmin)" oninput="onManualUsernameInput(this.value)">
             </div>
           </div>
 

@@ -153,38 +153,96 @@ function enforceGatekeeperState() {
   }
 }
 
-function handleGatekeeperLogin(event) {
+async function handleGatekeeperLogin(event) {
   event.preventDefault();
   const username = document.getElementById('gatekeeperUsername').value.trim();
   const password = document.getElementById('gatekeeperPassword').value.trim();
   const remember = document.getElementById('gatekeeperRememberMe').checked;
   const errorMsg = document.getElementById('gatekeeperError');
 
-  const user = State.adminUsers.find(
+  if (!username) {
+    errorMsg.textContent = 'कृपया सूची से अपना अधिकृत खाता चुनें या यूजरनेम दर्ज करें!';
+    errorMsg.style.display = 'block';
+    errorMsg.style.color = '#b91c1c';
+    return;
+  }
+
+  if (!password) {
+    errorMsg.textContent = 'कृपया पासवर्ड दर्ज करें!';
+    errorMsg.style.display = 'block';
+    errorMsg.style.color = '#b91c1c';
+    return;
+  }
+
+  // 1. Local Cache Check
+  const localUser = State.adminUsers.find(
     u => u.username.toLowerCase() === username.toLowerCase() && u.password === password
   );
 
-  if (user) {
-    if (user.status && user.status.toUpperCase() === 'INACTIVE') {
-      errorMsg.textContent = 'यह उपयोगकर्ता खाता निष्क्रिय (Inactive) है। व्यवस्थापक से संपर्क करें।';
+  if (localUser) {
+    const s = String(localUser.status || 'ACTIVE').toUpperCase();
+    if (s === 'INACTIVE' || s === 'DEACTIVE' || s === 'निष्क्रिय') {
+      errorMsg.textContent = 'यह उपयोगकर्ता खाता निष्क्रिय (Inactive) कर दिया गया है। सुपर एडमिन से संपर्क करें।';
       errorMsg.style.display = 'block';
+      errorMsg.style.color = '#b91c1c';
       return;
     }
 
-    State.currentUser = user;
-    if (remember) {
-      localStorage.setItem('panchayat_user_session', JSON.stringify(user));
-    } else {
-      sessionStorage.setItem('panchayat_user_session', JSON.stringify(user));
-    }
-
-    errorMsg.style.display = 'none';
-    enforceGatekeeperState();
-    showToast(`सफलतापूर्वक लॉगिन! स्वागत है, ${user.full_name}`);
-  } else {
-    errorMsg.textContent = 'अमान्य यूजरनेम या पासवर्ड! कृपया पुनः जांच कर दर्ज करें।';
-    errorMsg.style.display = 'block';
+    completeGatekeeperLogin(localUser, remember);
+    return;
   }
+
+  // 2. Live Cloud Authentication via Apps Script (in case password changed in Google Sheet)
+  const appsScriptUrl = State.config.appsScriptUrl || localStorage.getItem('panchayat_apps_script_url');
+  if (appsScriptUrl) {
+    errorMsg.textContent = '🔄 Google Sheet से पासवर्ड सत्यापित हो रहा है...';
+    errorMsg.style.display = 'block';
+    errorMsg.style.color = '#2563eb';
+
+    try {
+      const q = new URLSearchParams({ action: 'login', username: username, password: password });
+      const resp = await fetch(`${appsScriptUrl}?${q.toString()}`);
+      const data = await resp.json();
+
+      if (data && data.success && data.user) {
+        const uIdx = State.adminUsers.findIndex(x => x.username.toLowerCase() === username.toLowerCase());
+        if (uIdx !== -1) {
+          State.adminUsers[uIdx].password = password;
+          State.adminUsers[uIdx].status = data.user.status || 'ACTIVE';
+          State.adminUsers[uIdx].assigned_panchayats = data.user.assignedPanchayats;
+          State.adminUsers[uIdx].assigned_wards = data.user.assignedWards;
+          localStorage.setItem('panchayat_admins_cache', JSON.stringify(State.adminUsers));
+        }
+        completeGatekeeperLogin(data.user, remember);
+        return;
+      } else {
+        errorMsg.textContent = (data && data.error) ? data.error : 'अमान्य यूजरनेम या पासवर्ड!';
+        errorMsg.style.color = '#b91c1c';
+        return;
+      }
+    } catch (netErr) {
+      console.warn('Live login verification warning:', netErr);
+    }
+  }
+
+  errorMsg.textContent = 'अमान्य यूजरनेम या पासवर्ड! कृपया पुनः जांच कर दर्ज करें।';
+  errorMsg.style.color = '#b91c1c';
+  errorMsg.style.display = 'block';
+}
+
+function completeGatekeeperLogin(user, remember) {
+  State.currentUser = user;
+  if (remember) {
+    localStorage.setItem('panchayat_user_session', JSON.stringify(user));
+  } else {
+    sessionStorage.setItem('panchayat_user_session', JSON.stringify(user));
+  }
+
+  const errorMsg = document.getElementById('gatekeeperError');
+  if (errorMsg) errorMsg.style.display = 'none';
+
+  enforceGatekeeperState();
+  showToast(`सफलतापूर्वक लॉगिन! स्वागत है, ${user.fullName || user.full_name || user.username}`);
 }
 
 function fillGatekeeper(username, password) {
@@ -2146,3 +2204,116 @@ window.switchTab = function(tabId) {
     renderSuperAdminUsers();
   }
 };
+
+
+// ==========================================================================
+// Active Users Login Dropdown & Live Auth Sync
+// ==========================================================================
+function populateLoginUserDropdown() {
+  const select = document.getElementById('gatekeeperUserSelect');
+  if (!select) return;
+
+  const currentVal = select.value || '';
+  const activeUsers = (State.adminUsers || []).filter(u => {
+    const s = String(u.status || 'ACTIVE').toUpperCase();
+    return s === 'ACTIVE' || s === 'सक्रिय';
+  });
+
+  select.innerHTML = '<option value="">-- कृपया अपना अधिकृत खाता चुनें --</option>';
+
+  const superAdmins = activeUsers.filter(u => u.role === 'SUPER_ADMIN' || u.role === 'CONTROL_ROOM');
+  const agents = activeUsers.filter(u => u.role !== 'SUPER_ADMIN' && u.role !== 'CONTROL_ROOM');
+
+  if (superAdmins.length > 0) {
+    const optgroup = document.createElement('optgroup');
+    optgroup.label = '⚡ निर्वाचन नियंत्रण कक्ष / सुपर एडमिन';
+    superAdmins.forEach(u => {
+      const opt = document.createElement('option');
+      opt.value = u.username;
+      opt.textContent = `${u.fullName || u.username} (${u.username})`;
+      optgroup.appendChild(opt);
+    });
+    select.appendChild(optgroup);
+  }
+
+  if (agents.length > 0) {
+    const optgroup = document.createElement('optgroup');
+    optgroup.label = '🏛️ ग्राम पंचायत प्रभारी (Panchayat Incharges)';
+    agents.forEach(u => {
+      const opt = document.createElement('option');
+      opt.value = u.username;
+      const gpName = u.assignedPanchayats && u.assignedPanchayats !== 'ALL' ? ` [${u.assignedPanchayats}]` : '';
+      opt.textContent = `${u.fullName || u.username}${gpName} (${u.username})`;
+      optgroup.appendChild(opt);
+    });
+    select.appendChild(optgroup);
+  }
+
+  if (currentVal) {
+    select.value = currentVal;
+    const hiddenUser = document.getElementById('gatekeeperUsername');
+    if (hiddenUser) hiddenUser.value = currentVal;
+  }
+}
+
+function onLoginUserSelectChange(username) {
+  const hiddenUser = document.getElementById('gatekeeperUsername');
+  if (hiddenUser) hiddenUser.value = username;
+
+  const errorMsg = document.getElementById('gatekeeperError');
+  if (errorMsg) errorMsg.style.display = 'none';
+
+  if (username) {
+    const passInput = document.getElementById('gatekeeperPassword');
+    if (passInput) passInput.focus();
+  }
+}
+
+function toggleManualUsername() {
+  const manualDiv = document.getElementById('manualUsernameDiv');
+  const selectWrapper = document.getElementById('userSelectWrapper');
+  const toggleBtn = document.getElementById('toggleManualUserBtn');
+  const manualInput = document.getElementById('manualUsernameInput');
+
+  if (!manualDiv) return;
+
+  if (manualDiv.style.display === 'none') {
+    manualDiv.style.display = 'block';
+    selectWrapper.style.display = 'none';
+    toggleBtn.textContent = 'वापस सूची से चुनें (Select from list)';
+    if (manualInput) manualInput.focus();
+  } else {
+    manualDiv.style.display = 'none';
+    selectWrapper.style.display = 'flex';
+    toggleBtn.textContent = 'या मैन्युअल टाइप करें';
+    const select = document.getElementById('gatekeeperUserSelect');
+    if (select && select.value) {
+      document.getElementById('gatekeeperUsername').value = select.value;
+    }
+  }
+}
+
+function onManualUsernameInput(val) {
+  const hiddenUser = document.getElementById('gatekeeperUsername');
+  if (hiddenUser) hiddenUser.value = val.trim();
+}
+
+async function syncLatestActiveUsersFromAppsScript() {
+  const url = State.config.appsScriptUrl || localStorage.getItem('panchayat_apps_script_url');
+  if (!url) return;
+
+  try {
+    const res = await fetch(`${url}?action=getUsers`);
+    const data = await res.json();
+    if (data && data.success && Array.isArray(data.users) && data.users.length > 0) {
+      State.adminUsers = data.users;
+      localStorage.setItem('panchayat_admins_cache', JSON.stringify(data.users));
+      populateLoginUserDropdown();
+      if (document.getElementById('superAdminUsersTable')) {
+        renderSuperAdminUsers();
+      }
+    }
+  } catch (err) {
+    console.warn('Silent sync of active users warning:', err);
+  }
+}
