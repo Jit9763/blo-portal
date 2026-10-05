@@ -854,7 +854,7 @@
         <!-- THE ACTUAL PRINTABLE VOTER SLIP -->
         <div id="printableVoterSlip" class="official-voter-slip">
           <!-- Top Header -->
-          <div class="slip-header">
+          <div class="slip-header" style="position:relative;">
             <div class="slip-emblem">
               <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23ffffff' stroke='%23000000' stroke-width='4'/><circle cx='50' cy='50' r='38' fill='none' stroke='%23000000' stroke-width='2'/><path d='M50 15 L50 85 M15 50 L85 50 M25 25 L75 75 M25 75 L75 25' stroke='%23000000' stroke-width='2'/><circle cx='50' cy='50' r='10' fill='%23000000'/></svg>" alt="Emblem" class="slip-emblem-img">
             </div>
@@ -862,6 +862,13 @@
               <h2 class="slip-gov-title">राजस्थान राज्य निर्वाचन आयोग</h2>
               <h3 class="slip-sub-title">पंचायती राज आम चुनाव - 2026</h3>
               <div class="slip-doc-type">मतदाता सूचना पर्ची (VOTER INFORMATION SLIP)</div>
+            </div>
+            <!-- On-Screen Verified Photo (Strictly Hidden during Print) -->
+            <div class="slip-modal-photo-wrap no-print" style="margin-left:auto; display:flex; flex-direction:column; align-items:center;">
+              <div class="voter-photo-box" style="width: 50px; height: 60px; border-radius: 4px;">
+                <img id="slipModalPhotoImg" src="" alt="Voter Photo" class="voter-card-photo" onerror="this.style.display='none';" />
+              </div>
+              <span style="font-size:0.65rem; color:#475569; font-weight:700; margin-top:2px;">सत्यापित फ़ोटो</span>
             </div>
           </div>
 
@@ -881,7 +888,7 @@
 
             <div class="slip-row">
               <div class="slip-col-label">मतदाता का नाम (Elector's Name):</div>
-              <div class="slip-col-val"><strong class="slip-voter-name" id="slipVoterName">रामेश्वर लाल</strong> (<span id="slipVoterNameEn">Rameshwar Lal</span>)</div>
+              <div class="slip-col-val"><strong class="slip-voter-name" id="slipVoterName">रामेश्वर लाल</strong> <span id="slipVoterNameEnWrapper" style="display:none;">(<span id="slipVoterNameEn"></span>)</span></div>
             </div>
 
             <div class="slip-row">

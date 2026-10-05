@@ -825,12 +825,12 @@ function quickFillSearch(term) {
   performSearch();
 }
 
-function performSearch() {
-  const query = (document.getElementById('voterSearchInput').value || '').trim().toLowerCase();
-  const selectedGp = document.getElementById('filterGp').value;
-  const selectedWard = document.getElementById('filterWard').value;
-  const selectedGender = document.getElementById('filterGender').value;
-  const selectedAge = document.getElementById('filterAge').value;
+async function performSearch() {
+  const query = (document.getElementById('voterSearchInput') ? document.getElementById('voterSearchInput').value : '').trim().toLowerCase();
+  const selectedGp = document.getElementById('filterGp') ? document.getElementById('filterGp').value : 'ALL';
+  const selectedWard = document.getElementById('filterWard') ? document.getElementById('filterWard').value : 'ALL';
+  const selectedGender = document.getElementById('filterGender') ? document.getElementById('filterGender').value : 'ALL';
+  const selectedAge = document.getElementById('filterAge') ? document.getElementById('filterAge').value : 'ALL';
   const selectedDelivery = document.getElementById('filterDeliveryStatus') ? document.getElementById('filterDeliveryStatus').value : 'ALL';
 
   const container = document.getElementById('voterResultsContainer');
@@ -838,31 +838,51 @@ function performSearch() {
   const countBadge = document.getElementById('resultsCountBadge');
   const scopeNote = document.getElementById('resultsScopeNote');
 
+  // Pre-load GP voters if specific GP selected
+  if (selectedGp !== 'ALL') {
+    await ensurePanchayatVotersLoaded(selectedGp);
+  }
+
+  const allowedGps = getAllowedGps().map(p => p.code);
+
   let results = State.voters.filter(voter => {
     // 1. Strict Jurisdiction
-    if (State.currentUser.role !== 'SUPER_ADMIN') {
-      if (voter.panchayat_code !== State.currentUser.panchayat_code) return false;
+    if (State.currentUser && State.currentUser.role !== 'SUPER_ADMIN') {
+      const assigned = (State.currentUser.assigned_panchayats || State.currentUser.panchayat_code || '').toLowerCase();
+      if (assigned && assigned !== 'all') {
+        const pCode = (voter.panchayat_code || '').toLowerCase();
+        const pEn = (voter.panchayat_en || '').toLowerCase();
+        if (pCode !== assigned && pEn !== assigned) return false;
+      }
       const allowedWards = getAllowedWardsList(voter.panchayat_code);
       if (allowedWards !== 'ALL' && !allowedWards.includes(String(voter.ward_no))) return false;
     }
 
-    // 2. Dropdowns
+    // 2. Dropdown Filters
     if (selectedGp !== 'ALL' && voter.panchayat_code !== selectedGp) return false;
     if (selectedWard !== 'ALL' && String(voter.ward_no) !== String(selectedWard)) return false;
-    if (selectedGender !== 'ALL' && voter.gender !== selectedGender) return false;
+
+    // Gender Filter (Normalize Hindi/English)
+    if (selectedGender !== 'ALL') {
+      const isFem = voter.gender === 'F' || voter.gender === 'महिला' || voter.gender === 'स्त्री';
+      const gCode = isFem ? 'F' : 'M';
+      if (gCode !== selectedGender) return false;
+    }
 
     // Delivery Status Filter
     if (selectedDelivery === 'PENDING' && isVoterDelivered(voter)) return false;
     if (selectedDelivery === 'DELIVERED' && !isVoterDelivered(voter)) return false;
 
     // Village Chip Filter
-    if (State.activeFilterVillage !== 'ALL' && (voter.revenue_village || voter.gram_panchayat) !== State.activeFilterVillage) {
-      return false;
+    if (State.activeFilterVillage && State.activeFilterVillage !== 'ALL') {
+      if ((voter.revenue_village || voter.gram_panchayat) !== State.activeFilterVillage) {
+        return false;
+      }
     }
 
     // Age filter
     if (selectedAge !== 'ALL') {
-      const age = parseInt(voter.age, 10);
+      const age = parseInt(voter.age, 10) || 0;
       if (selectedAge === '18-25' && (age < 18 || age > 25)) return false;
       if (selectedAge === '26-40' && (age < 26 || age > 40)) return false;
       if (selectedAge === '41-60' && (age < 41 || age > 60)) return false;
@@ -881,21 +901,27 @@ function performSearch() {
     return matchNameHi || matchNameEn || matchRelative || matchHouse || matchEpic || matchSerial;
   });
 
-  countBadge.textContent = `${results.length} मतदाता मिले`;
-  scopeNote.textContent = query 
-    ? `खोज शब्द "${query}" के अनुसार परिणाम` 
-    : (State.currentUser.role === 'SUPER_ADMIN' ? 'समस्त पंचायतों में परिणाम' : `${State.currentUser.gram_panchayat} के परिणाम`);
+  if (countBadge) countBadge.textContent = `${results.length.toLocaleString('hi-IN')} मतदाता मिले`;
+  if (scopeNote) {
+    scopeNote.textContent = query 
+      ? `खोज "${query}" के अनुसार परिणाम` 
+      : (selectedGp !== 'ALL' ? `${selectedGp} में कुल निर्वाचक` : 'समस्त पंचायतों में परिणाम');
+  }
 
   if (results.length === 0) {
-    container.innerHTML = '';
-    placeholder.style.display = 'block';
-    placeholder.querySelector('h3').textContent = 'कोई मतदाता नहीं मिला';
-    placeholder.querySelector('p').textContent = 'दिए गए नाम या फ़िल्टर से कोई रिकॉर्ड मैच नहीं हुआ।';
+    if (container) container.innerHTML = '';
+    if (placeholder) {
+      placeholder.style.display = 'block';
+      const h3 = placeholder.querySelector('h3');
+      const p = placeholder.querySelector('p');
+      if (h3) h3.textContent = 'कोई मतदाता नहीं मिला';
+      if (p) p.textContent = 'दिए गए नाम, वार्ड या फ़िल्टर से कोई रिकॉर्ड मैच नहीं हुआ।';
+    }
     return;
   }
 
-  placeholder.style.display = 'none';
-  renderVoterCards(results.slice(0, 60));
+  if (placeholder) placeholder.style.display = 'none';
+  renderVoterCards(results.slice(0, 100));
 }
 
 function renderVoterCards(votersList) {
@@ -926,12 +952,12 @@ function renderVoterCards(votersList) {
             <div>
               <div class="voter-name-hindi">${voter.voter_name}</div>
               <div class="voter-name-english">${voter.voter_name_en || ''}</div>
-              ${isDel ? `<span class="badge-deleted">⚠️ विलोपित [कोड: ${voter.deletion_code || 'O'} - ${voter.deletion_reason || 'अन्य'}]</span>` : ''}
+              ${isDeleted ? `<span class="badge-deleted">⚠️ विलोपित [कोड: ${voter.deletion_code || 'O'} - ${voter.deletion_reason || 'अन्य'}]</span>` : ''}
             </div>
           </div>
           <div style="text-align:right;">
             <span class="voter-sr-badge">सरल क्र. ${voter.serial_no || '-'}</span>
-            ${isDel ? `<div style="font-size:0.68rem; color:#dc2626; font-weight:800; margin-top:3px;">घटक 2 (विलोपित)</div>` : ''}
+            ${isDeleted ? `<div style="font-size:0.68rem; color:#dc2626; font-weight:800; margin-top:3px;">घटक 2 (विलोपित)</div>` : ''}
           </div>
         </div>
 
@@ -1016,13 +1042,30 @@ function openVoterSlipModal(voter) {
   document.getElementById('slipWardNo').textContent = String(voter.ward_no).padStart(2, '0');
   document.getElementById('slipSerialNo').textContent = voter.serial_no || '01';
   document.getElementById('slipVoterName').textContent = voter.voter_name;
-  document.getElementById('slipVoterNameEn').textContent = voter.voter_name_en || '';
+  
+  // Clean English Name without empty ()
+  const enWrapper = document.getElementById('slipVoterNameEnWrapper');
+  const enSpan = document.getElementById('slipVoterNameEn');
+  if (voter.voter_name_en && voter.voter_name_en.trim()) {
+    if (enSpan) enSpan.textContent = voter.voter_name_en.trim();
+    if (enWrapper) enWrapper.style.display = 'inline';
+  } else {
+    if (enSpan) enSpan.textContent = '';
+    if (enWrapper) enWrapper.style.display = 'none';
+  }
+
+  // On-screen photo in modal
+  const modalPhoto = document.getElementById('slipModalPhotoImg');
+  if (modalPhoto) {
+    modalPhoto.src = getVoterPhotoUrl(voter);
+    modalPhoto.style.display = 'block';
+  }
   
   const relLabel = voter.relative_relation || 'पिता/पति';
   document.getElementById('slipRelationLabel').textContent = `${relLabel} का नाम`;
   document.getElementById('slipRelativeName').textContent = voter.relative_name || '-';
 
-  const isFemale = voter.gender === 'F';
+  const isFemale = voter.gender === 'F' || voter.gender === 'महिला';
   document.getElementById('slipGender').textContent = isFemale ? 'महिला (Female)' : 'पुरुष (Male)';
   document.getElementById('slipAge').textContent = `${voter.age} वर्ष`;
   document.getElementById('slipHouseNo').textContent = voter.house_no || '-';
@@ -1076,7 +1119,7 @@ function shareVoterSlipWhatsApp() {
 ---------------------------------------
 📋 *आधिकारिक मतदाता सूचना पर्ची*
 ---------------------------------------
-👤 *मतदाता का नाम:* ${v.voter_name} (${v.voter_name_en || ''})
+👤 *मतदाता का नाम:* ${v.voter_name}${v.voter_name_en && v.voter_name_en.trim() ? ` (${v.voter_name_en.trim()})` : ''}
 👨‍👩‍👧 *${v.relative_relation || 'पिता/पति'}:* ${v.relative_name}
 🔢 *सरल क्रमांक (Serial No.):* ${v.serial_no}
 🏢 *ग्राम पंचायत:* ${v.gram_panchayat}
@@ -1112,23 +1155,27 @@ function setAlphaLanguage(lang) {
   renderAlphabeticalList();
 }
 
-function onAlphaGpChanged() {
+async function onAlphaGpChanged() {
   const gpCode = document.getElementById('alphaGpSelect').value;
   const wardSelect = document.getElementById('alphaWardSelect');
-  wardSelect.innerHTML = '<option value="ALL">-- सभी वार्ड --</option>';
+  if (wardSelect) {
+    wardSelect.innerHTML = '<option value="ALL">-- सभी वार्ड --</option>';
 
-  if (gpCode !== 'ALL') {
-    const gp = State.panchayats.find(p => p.code === gpCode);
-    if (gp && gp.wards) {
-      gp.wards.forEach(w => {
-        const opt = document.createElement('option');
-        opt.value = w.ward_no;
-        opt.textContent = `वार्ड नं. ${w.ward_no}`;
-        wardSelect.appendChild(opt);
-      });
+    if (gpCode !== 'ALL') {
+      const gp = State.panchayats.find(p => p.code === gpCode);
+      if (gp) {
+        const wards = (gp.wards && gp.wards.length > 0) ? gp.wards : getGpWards(gp);
+        wards.forEach(w => {
+          const opt = document.createElement('option');
+          opt.value = w.ward_no;
+          opt.textContent = `वार्ड नं. ${w.ward_no}`;
+          wardSelect.appendChild(opt);
+        });
+      }
     }
   }
 
+  await ensurePanchayatVotersLoaded(gpCode);
   renderAlphabeticalList();
 }
 
