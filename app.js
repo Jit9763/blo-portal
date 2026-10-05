@@ -1,3 +1,12 @@
+function getVoterPhotoUrl(voter) {
+  if (!voter) return 'https://api.dicebear.com/7.x/identicon/svg?seed=voter';
+  if (voter.panchayat_en && voter.ward_no && voter.serial_no) {
+    const wNum = String(voter.ward_no).padStart(2, '0');
+    return `photos/${voter.panchayat_en}/W${wNum}/${voter.serial_no}.webp`;
+  }
+  return voter.photo_url || voter.photo || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(voter.epic_no || voter.serial_no || '1')}`;
+}
+
 /**
  * ==========================================================================
  * Panchayat Chunav 2026 - Master Portal Application Engine (app.js)
@@ -771,7 +780,7 @@ function renderVoterCards(votersList) {
     const voterKey = getVoterKey(voter);
     const isDelivered = isVoterDelivered(voter);
     const isDeleted = voter.status === 'निरस्त';
-    const photoUrl = voter.photo_url || voter.photo || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(voter.epic_no || voter.serial_no || '1')}`;
+    const photoUrl = getVoterPhotoUrl(voter);
 
     card.innerHTML = `
       <div>
@@ -1550,7 +1559,7 @@ function renderDirectoryTable(votersList) {
       <td>
         <div style="display:flex; align-items:center; gap:8px;">
           <div class="voter-photo-box" style="width:34px; height:40px; border-radius:3px;">
-            <img src="${voter.photo_url || voter.photo || 'https://api.dicebear.com/7.x/identicon/svg?seed=' + encodeURIComponent(voter.epic_no || voter.serial_no || '1')}" alt="${voter.voter_name}" class="voter-card-photo" onerror="this.style.display='none';" />
+            <img src="${getVoterPhotoUrl(voter)}" alt="${voter.voter_name}" class="voter-card-photo" onerror="this.style.display='none';" />
           </div>
           <div>
             <strong>${voter.voter_name}</strong>
