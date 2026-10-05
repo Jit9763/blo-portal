@@ -1,0 +1,118 @@
+{
+  "version": "2.0.0",
+  "last_updated": "2026-10-05T16:05:42.413Z",
+  "users": [
+    {
+      "id": "admin",
+      "username": "admin",
+      "password": "admin123",
+      "full_name": "मुख्य ब्लॉक व्यवस्थापक (Super Admin)",
+      "mobile": "9828000000",
+      "role": "SUPER_ADMIN",
+      "status": "ACTIVE",
+      "allowed_panchayats": "ALL",
+      "allowed_wards": "ALL",
+      "allowed_tabs": [
+        "dashboardTab",
+        "searchTab",
+        "alphaTab",
+        "bulkSlipTab",
+        "directoryTab",
+        "candidateProfileTab",
+        "adminControlTab",
+        "settingsTab"
+      ],
+      "candidate_mode": "user_edit",
+      "created_at": "2026-10-05T16:01:54.775Z",
+      "updated_at": "2026-10-05T16:01:54.775Z"
+    },
+    {
+      "id": "bubakiya_sarpanch",
+      "username": "bubakiya_sarpanch",
+      "password": "123",
+      "full_name": "श्री रामेश्वर जाट (सरपंच प्रत्याशी)",
+      "mobile": "9829123456",
+      "role": "PANCHAYAT_AGENT",
+      "status": "ACTIVE",
+      "allowed_panchayats": "बूबकिया",
+      "allowed_wards": "ALL",
+      "allowed_tabs": [
+        "searchTab",
+        "alphaTab",
+        "bulkSlipTab",
+        "candidateProfileTab"
+      ],
+      "candidate_mode": "user_edit",
+      "created_at": "2026-10-05T16:01:54.777Z",
+      "updated_at": "2026-10-05T16:01:54.777Z"
+    },
+    {
+      "id": "ward3_panch",
+      "username": "ward3_panch",
+      "password": "123",
+      "full_name": "श्रीमती गीता देवी (वार्ड पंच प्रत्याशी)",
+      "mobile": "9414000000",
+      "role": "PANCHAYAT_AGENT",
+      "status": "ACTIVE",
+      "allowed_panchayats": "बूबकिया",
+      "allowed_wards": "3",
+      "allowed_tabs": [
+        "searchTab",
+        "bulkSlipTab",
+        "candidateProfileTab"
+      ],
+      "candidate_mode": "user_edit",
+      "created_at": "2026-10-05T16:01:54.779Z",
+      "updated_at": "2026-10-05T16:01:54.779Z"
+    },
+    {
+      "id": "bhinai_incharge",
+      "username": "bhinai_incharge",
+      "password": "123",
+      "full_name": "भिनाय मुख्यालय प्रभारी",
+      "mobile": "9829000111",
+      "role": "PANCHAYAT_AGENT",
+      "status": "ACTIVE",
+      "allowed_panchayats": "भिनाय",
+      "allowed_wards": "ALL",
+      "allowed_tabs": [
+        "searchTab",
+        "alphaTab",
+        "bulkSlipTab",
+        "directoryTab",
+        "candidateProfileTab"
+      ],
+      "candidate_mode": "user_edit",
+      "created_at": "2026-10-05T16:01:54.781Z",
+      "updated_at": "2026-10-05T16:01:54.781Z"
+    }
+  ],
+  "candidates": {
+    "bubakiya_sarpanch": {
+      "candidate_name": "श्री रामेश्वर प्रसाद जाट",
+      "post": "सरपंच",
+      "panchayat": "बूबकिया",
+      "ward": "",
+      "symbol_name": "उगता सूरज",
+      "symbol_icon": "sun",
+      "photo_url": "",
+      "slogan": "।। समस्त ग्रामवासियों से विनम्र अपील ।।\nआपके अपने कर्मठ प्रत्याशी को विजयी बनावें।",
+      "mobile": "9829123456",
+      "show_banner_on_slip": true,
+      "updated_at": "2026-10-05T16:05:42.410Z"
+    },
+    "ward3_panch": {
+      "candidate_name": "श्रीमती गीता देवी",
+      "post": "वार्ड पंच",
+      "panchayat": "बूबकिया",
+      "ward": "3",
+      "symbol_name": "पतंग",
+      "symbol_icon": "kite",
+      "photo_url": "",
+      "slogan": "।। वार्ड नं. 3 के समस्त मतदाताओं से करबद्ध निवेदन ।।\\nवार्ड के सर्वांगीण विकास हेतु अपने जनप्रिय प्रत्याशी को विजयी बनावें।",
+      "mobile": "9414000000",
+      "show_banner_on_slip": true,
+      "updated_at": "2026-10-05T16:01:54.785Z"
+    }
+  }
+}

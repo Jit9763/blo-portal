@@ -3,12 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
   <title>पंचायत चुनाव मतदाता पर्ची एवं खोज पोर्टल 2026 | Panchayat Voter Portal</title>
   <meta name="description" content="राजस्थान पंचायती राज चुनाव मतदाता सूची खोज, वार्डवार मतदाता डाटा, और आधिकारिक मतदाता सूचना पर्ची जनरेटर पोर्टल।">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=20261005_2200">
 </head>
 <body>
 
@@ -49,32 +52,25 @@
 
         <form id="gatekeeperLoginForm" onsubmit="handleGatekeeperLogin(event)">
           <div class="form-group">
-            <label for="gatekeeperUserSelect">
-              <strong>अधिकृत उपयोगकर्ता चुनें (Select Active User) *:</strong>
+            <label for="gatekeeperUsername">
+              <strong>यूजर आईडी / Username *:</strong>
             </label>
-            <div class="input-with-icon" id="userSelectWrapper">
+            <div class="input-with-icon">
               <span class="input-icon">👤</span>
-              <select id="gatekeeperUserSelect" class="form-select" onchange="onLoginUserSelectChange(this.value)" style="font-weight:600; cursor:pointer;">
-                <option value="">-- कृपया अपना अधिकृत खाता चुनें --</option>
-              </select>
+              <input type="text" id="gatekeeperUsername" class="form-input" placeholder="यूजर आईडी / Username दर्ज करें" required autocomplete="username" style="font-weight:700;">
             </div>
-            <input type="hidden" id="gatekeeperUsername" value="">
-            <div style="font-size: 0.78rem; color: #64748b; margin-top: 5px; display: flex; justify-content: space-between; align-items: center;">
-              <span><span style="color:#16a34a; font-weight:700;">●</span> केवल सक्रिय (Active) खाते सूचीबद्ध हैं</span>
-              <a href="javascript:void(0)" onclick="toggleManualUsername()" id="toggleManualUserBtn" style="color: #2563eb; text-decoration: underline; font-weight:500;">या मैन्युअल टाइप करें</a>
-            </div>
-            <div id="manualUsernameDiv" style="display:none; margin-top: 8px;">
-              <input type="text" id="manualUsernameInput" class="form-input" placeholder="यूजरनेम टाइप करें (उदा. superadmin)" oninput="onManualUsernameInput(this.value)">
+            <div style="font-size: 0.78rem; color: #64748b; margin-top: 5px;">
+              <span>🔒 <strong>सुरक्षित प्रवेश:</strong> केवल अधिकृत कार्यकर्ताओं को ही पहुँच अनुमत है।</span>
             </div>
           </div>
 
           <div class="form-group">
             <label for="gatekeeperPassword">
-              <strong>पासवर्ड (Password):</strong>
+              <strong>पासवर्ड (Password) *:</strong>
             </label>
             <div class="input-with-icon">
               <span class="input-icon">🔑</span>
-              <input type="password" id="gatekeeperPassword" class="form-input" placeholder="पासवर्ड दर्ज करें" required autocomplete="current-password">
+              <input type="password" id="gatekeeperPassword" class="form-input" placeholder="पासवर्ड दर्ज करें" required autocomplete="current-password" style="font-weight:700;">
             </div>
           </div>
 
@@ -83,6 +79,7 @@
               <input type="checkbox" id="gatekeeperRememberMe" checked>
               <span>सत्र याद रखें (Remember Session)</span>
             </label>
+            <span style="font-size:0.75rem; color:#64748b;">भिनाय (अजमेर)</span>
           </div>
 
           <div id="gatekeeperError" class="alert-error" style="display:none;"></div>
@@ -160,7 +157,15 @@
             <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10M6 14h6"/></svg>
             वार्डवार सूची (Directory)
           </button>
-          <button class="nav-tab" data-tab="settingsTab" onclick="switchTab('settingsTab')">
+                    <button class="nav-tab" data-tab="candidateProfileTab" id="candidateNavTab" onclick="switchTab('candidateProfileTab')">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>👤 प्रत्याशी प्रोफाइल</span>
+          </button>
+          <button class="nav-tab" data-tab="adminControlTab" id="adminControlNavTab" onclick="switchTab('adminControlTab')" style="display:none; background: #fef3c7; color: #b45309; border: 1px solid #fde68a; font-weight:700;">
+            <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>⚡ यूजर व पोर्टल नियंत्रण</span>
+          </button>
+          <button class="nav-tab" data-tab="settingsTab" id="settingsNavTab" onclick="switchTab('settingsTab')">
             <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
             Google Sheet सिंक
           </button>
@@ -779,6 +784,222 @@
       <!-- ==============================================
            TAB 4: GOOGLE SHEETS SYNC & SETTINGS
            ============================================== -->
+            <!-- ==============================================================
+           TAB: CANDIDATE PROFILE & ELECTION SYMBOL (प्रत्याशी प्रोफाइल)
+           ============================================================== -->
+      <section id="candidateProfileTab" class="tab-pane">
+        <div class="card candidate-profile-card">
+          <div class="candidate-header-row mb-3">
+            <div>
+              <span class="gatekeeper-badge" style="background:#ecfdf5; color:#047857; border-color:#a7f3d0;">🗳️ राजस्थान पंचायती राज चुनाव - 2026</span>
+              <h2 class="section-title mt-1">👤 प्रत्याशी प्रोफाइल एवं आधिकारिक चुनाव चिन्ह</h2>
+              <p class="section-subtitle">अपनी रंगीन फोटो, पद, ग्राम पंचायत, वार्ड एवं राज्य निर्वाचन आयोग द्वारा स्वीकृत चुनाव चिन्ह चुनें। यही विवरण आपकी मतदाता पर्ची के शीर्ष पर रंगीन प्रचार बैनर के रूप में प्रिंट होगा।</p>
+            </div>
+            <div id="candidateModeBadge">
+              <span class="badge" style="background:#e0f2fe; color:#0369a1; padding: 6px 14px; border-radius: 20px; font-weight:700; font-size:0.85rem;">🟢 लाइव एक्टिव</span>
+            </div>
+          </div>
+
+          <form id="candidateProfileForm" onsubmit="handleSaveCandidateProfile(event)" class="candidate-form-grid">
+            <!-- Left Column: Photo & Symbol -->
+            <div class="candidate-form-col-left">
+              <div class="form-group photo-upload-box">
+                <label><strong>📸 प्रत्याशी की रंगीन फोटो (Color Photo) *:</strong></label>
+                <div class="photo-preview-container">
+                  <img id="candidatePhotoPreview" src="https://api.dicebear.com/7.x/identicon/svg?seed=candidate" alt="प्रत्याशी फोटो" class="candidate-preview-img">
+                  <div class="photo-upload-overlay">
+                    <label for="candidatePhotoInput" class="btn btn-sm btn-primary">📁 फोटो अपलोड करें</label>
+                    <input type="file" id="candidatePhotoInput" accept="image/*" style="display:none;" onchange="onCandidatePhotoSelected(event)">
+                    <button type="button" class="btn btn-sm btn-outline-danger mt-1" onclick="clearCandidatePhoto()">फोटो हटाएं</button>
+                  </div>
+                </div>
+                <small class="text-muted" style="display:block; margin-top:6px; font-size:0.75rem;">मतदाता पर्ची पर यह फोटो <strong>पूरी तरह रंगीन (Color)</strong> मुद्रित होगी।</small>
+              </div>
+
+              <!-- Symbol Picker Box -->
+              <div class="form-group symbol-picker-box mt-3">
+                <label><strong>🚩 चुनाव चिन्ह चुनें (Official SEC Symbol) *:</strong></label>
+                <div class="selected-symbol-display" id="selectedSymbolPreviewBox">
+                  <div id="currentSymbolSvgWrapper" class="symbol-svg-wrapper">
+                    <!-- SVG gets inserted here -->
+                  </div>
+                  <div>
+                    <h4 id="currentSymbolNameText" style="margin:0; font-size:1.15rem; color:#1e293b; font-weight:800;">उगता सूरज</h4>
+                    <span style="font-size:0.75rem; color:#64748b;">राज्य निर्वाचन आयोग आधिकारिक प्रतीक</span>
+                  </div>
+                </div>
+
+                <div class="symbol-select-dropdown-wrapper mt-2">
+                  <select id="candidateSymbolSelect" class="form-select" onchange="onCandidateSymbolChanged(this.value)" style="font-weight:700; cursor:pointer;">
+                    <!-- Populated dynamically from OFFICIAL_ELECTION_SYMBOLS -->
+                  </select>
+                </div>
+
+                <!-- Symbol Quick Visual Grid -->
+                <div class="symbol-mini-grid mt-2" id="symbolMiniGrid">
+                  <!-- Rendered dynamically -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Details & Slogans -->
+            <div class="candidate-form-col-right">
+              <div class="row-2col">
+                <div class="form-group">
+                  <label for="candidateNameInput"><strong>प्रत्याशी का पूरा नाम (Candidate Name) *:</strong></label>
+                  <input type="text" id="candidateNameInput" class="form-input" placeholder="उदा. श्री रामेश्वर प्रसाद जाट" required style="font-weight:700; font-size:1.05rem;">
+                </div>
+                <div class="form-group">
+                  <label for="candidateMobileInput"><strong>सम्पर्क सूत्र / मोबाइल नं.:</strong></label>
+                  <input type="tel" id="candidateMobileInput" class="form-input" placeholder="उदा. 9829000000" maxlength="10" style="font-weight:600;">
+                </div>
+              </div>
+
+              <div class="row-3col mt-2">
+                <div class="form-group">
+                  <label for="candidatePostSelect"><strong>चुनाव पद (Contesting Post) *:</strong></label>
+                  <select id="candidatePostSelect" class="form-select" onchange="onCandidatePostChanged(this.value)" style="font-weight:700;">
+                    <option value="सरपंच">सरपंच पद हेतु</option>
+                    <option value="वार्ड पंच">वार्ड पंच पद हेतु</option>
+                    <option value="उपसरपंच">उपसरपंच पद हेतु</option>
+                    <option value="पंचायत समिति सदस्य">पंचायत समिति सदस्य हेतु</option>
+                    <option value="जिला परिषद सदस्य">जिला परिषद सदस्य हेतु</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="candidateGpSelect"><strong>ग्राम पंचायत (Gram Panchayat) *:</strong></label>
+                  <select id="candidateGpSelect" class="form-select" onchange="onCandidateGpChanged(this.value)" style="font-weight:700;">
+                    <!-- Options populated from State.panchayats -->
+                  </select>
+                </div>
+                <div class="form-group" id="candidateWardSelectGroup" style="display:none;">
+                  <label for="candidateWardSelect"><strong style="color:#d97706;">वार्ड संख्या (Ward No.) *:</strong></label>
+                  <select id="candidateWardSelect" class="form-select" onchange="onCandidateWardChanged(this.value)" style="font-weight:700; border-color:#d97706;">
+                    <option value="">-- वार्ड चुनें --</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group mt-3">
+                <label for="candidateSloganTextarea"><strong>चुनाव प्रचार अपील / नारा (Campaign Appeal / Slogan):</strong></label>
+                <textarea id="candidateSloganTextarea" class="form-input" rows="3" placeholder="उदा. ।। समस्त ग्रामवासियों से विनम्र अपील ।।\nग्राम के सर्वांगीण विकास हेतु अपने जनप्रिय, कर्मठ एवं युवा प्रत्याशी को भारी मतों से विजयी बनावें।" style="font-weight:500;"></textarea>
+                <div class="slogan-presets mt-1">
+                  <span style="font-size:0.75rem; color:#64748b; font-weight:700;">त्वरित नारे:</span>
+                  <button type="button" class="badge-chip" onclick="applySloganPreset(1)">सरपंच विकास अपील</button>
+                  <button type="button" class="badge-chip" onclick="applySloganPreset(2)">वार्ड पंच करबद्ध निवेदन</button>
+                  <button type="button" class="badge-chip" onclick="applySloganPreset(3)">युवा शक्ति बदलाव</button>
+                </div>
+              </div>
+
+              <div class="form-check-card mt-3">
+                <label class="d-flex align-items-center gap-2" style="cursor:pointer;">
+                  <input type="checkbox" id="candidateShowBannerSlip" checked style="width:18px; height:18px;">
+                  <span><strong>मतदाता सूचना पर्चियों पर यह प्रत्याशी बैनर व कटिंग रेखा सक्रिय रखें</strong><br><small class="text-muted">शीर्ष भाग में प्रत्याशी का रंगीन प्रचार बैनर रहेगा, मध्य में काटने की रेखा `✂️` और नीचे 100% सादा ब्लैक एंड व्हाइट अधिकृत मतदाता पर्ची रहेगी।</small></span>
+                </label>
+              </div>
+
+              <div class="d-flex gap-2 mt-4 flex-wrap">
+                <button type="submit" class="btn btn-primary btn-lg flex-1">
+                  <span>💾 प्रत्याशी प्रोफाइल सुरक्षित करें (Save Profile)</span>
+                </button>
+                <button type="button" class="btn btn-outline-primary" onclick="openSpecimenPreviewModal()">
+                  <span>👁️ पर्ची प्रारूप नमूना देखें (Preview Slip)</span>
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- Specimen Preview Section -->
+          <div class="card mt-4" style="background:#f8fafc; border: 2px dashed #cbd5e1; border-radius:12px; padding:16px;">
+            <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+              <h3 style="font-size:1rem; font-weight:800; color:#334155; margin:0;">📋 लाइव पर्ची प्रारूप नमूना (Live Perforated Slip Specimen)</h3>
+              <span class="badge" style="background:#16a34a; color:#fff; font-weight:700;">✂️ काटने योग्य प्रारूप (Detachable)</span>
+            </div>
+            <p style="font-size:0.8rem; color:#64748b; margin-bottom:12px;">मतदाता को यह पर्ची प्राप्त होगी। वह ऊपर का रंगीन प्रचार कार्ड अपने पास रखेगा और नीचे की ब्लैक एंड व्हाइट पर्ची काटकर मतदान केन्द्र के भीतर ले जाएगा।</p>
+            <div id="liveSpecimenSlipContainer" style="max-width: 460px; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.08); border-radius:8px; overflow:hidden;">
+              <!-- Live Slip Specimen Rendered Here -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==============================================================
+           TAB: MASTER ADMIN USER & PORTAL CONTROL (यूजर व पोर्टल नियंत्रण)
+           ============================================================== -->
+      <section id="adminControlTab" class="tab-pane">
+        <div class="card admin-control-card">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+            <div>
+              <span class="gatekeeper-badge" style="background:#fef3c7; color:#b45309; border-color:#fde68a;">⚡ केंद्रीय एडमिन कमांड सेंटर</span>
+              <h2 class="section-title mt-1">उपयोगकर्ता एवं पोर्टल नियंत्रण केंद्र (User & Portal Control)</h2>
+              <p class="section-subtitle">प्रभारियों के खाते जोड़ें, पासवर्ड बदलें, सक्रिय/निष्क्रिय करें, अनुमत पंचायत, वार्ड व टैब्स असाइन करें।</p>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-success" onclick="openAddUserModal()">
+                <span>➕ नया उपयोगकर्ता जोड़ें</span>
+              </button>
+              <button class="btn btn-outline-primary" onclick="syncAllAdminStateToCloud()">
+                <span>🔄 क्लाउड सिंक करें</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Stats Row -->
+          <div class="admin-stats-grid mb-3">
+            <div class="stat-card">
+              <div class="stat-value" id="adminTotalUsersCount">0</div>
+              <div class="stat-label">कुल पंजीकृत उपयोगकर्ता</div>
+            </div>
+            <div class="stat-card" style="border-left: 4px solid #16a34a;">
+              <div class="stat-value" id="adminActiveUsersCount" style="color:#16a34a;">0</div>
+              <div class="stat-label">सक्रिय (Active) खाते</div>
+            </div>
+            <div class="stat-card" style="border-left: 4px solid #dc2626;">
+              <div class="stat-value" id="adminInactiveUsersCount" style="color:#dc2626;">0</div>
+              <div class="stat-label">निष्क्रिय (Deactive) खाते</div>
+            </div>
+            <div class="stat-card" style="border-left: 4px solid #0284c7;">
+              <div class="stat-value" id="adminTotalGpsCount">33</div>
+              <div class="stat-label">कवर ग्राम पंचायतें</div>
+            </div>
+          </div>
+
+          <!-- Filter & Search Toolbar -->
+          <div class="admin-toolbar-row mb-3 d-flex gap-2 flex-wrap">
+            <div class="search-input-wrapper flex-1" style="min-width:260px;">
+              <input type="text" id="adminUserSearchInput" class="form-input" placeholder="🔍 यूजरनेम, नाम या पंचायत से खोजें..." oninput="filterAdminUsersTable()">
+            </div>
+            <select id="adminStatusFilterSelect" class="form-select" style="max-width:200px; font-weight:600;" onchange="filterAdminUsersTable()">
+              <option value="ALL">समस्त खाते (All)</option>
+              <option value="ACTIVE">केवल सक्रिय (Active)</option>
+              <option value="INACTIVE">केवल निष्क्रिय (Inactive)</option>
+            </select>
+          </div>
+
+          <!-- Single Row Master User Table -->
+          <div class="table-responsive admin-users-table-wrapper" style="overflow-x:auto;">
+            <table class="table admin-users-table" id="masterAdminUsersTable" style="min-width:1100px;">
+              <thead>
+                <tr>
+                  <th style="width:140px;">यूजर ID</th>
+                  <th style="width:160px;">नाम व मोबाइल</th>
+                  <th style="width:140px;">पासवर्ड</th>
+                  <th style="width:110px;">स्थिति (Status)</th>
+                  <th style="width:150px;">अनुमत पंचायत</th>
+                  <th style="width:100px;">अनुमत वार्ड</th>
+                  <th>अनुमत टैब्स (Allowed Tabs)</th>
+                  <th style="width:130px;">प्रत्याशी मोड</th>
+                  <th style="width:130px; text-align:center;">कार्रवाई</th>
+                </tr>
+              </thead>
+              <tbody id="masterAdminUsersTbody">
+                <!-- Dynamically populated rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
       <section id="settingsTab" class="tab-pane">
         <div class="card settings-card">
           <h2 class="section-title">⚙️ Google Sheets लाइव सिंक एवं डेटा प्रबंधन</h2>
@@ -1014,12 +1235,147 @@
     </div>
   </nav>
 
+    <!-- ==============================================================
+       MODAL: ADD NEW USER MODAL (नया उपयोगकर्ता जोड़ें)
+       ============================================================== -->
+  <div id="addNewUserModal" class="modal-overlay" style="display:none;" onclick="if(event.target===this) closeAddUserModal()">
+    <div class="modal-card" style="max-width:620px;">
+      <div class="modal-header">
+        <h3 class="modal-title">➕ नया उपयोगकर्ता / प्रत्याशी खाता जोड़ें</h3>
+        <button class="modal-close" onclick="closeAddUserModal()">✕</button>
+      </div>
+      <form id="addNewUserForm" onsubmit="handleCreateUserSubmit(event)" style="padding:16px;">
+        <div class="row-2col">
+          <div class="form-group">
+            <label for="newUserIdInput"><strong>यूजर ID / Username *:</strong></label>
+            <input type="text" id="newUserIdInput" class="form-input" placeholder="उदा. bubakiya_ward5" required style="font-weight:700;">
+          </div>
+          <div class="form-group">
+            <label for="newUserPasswordInput"><strong>पासवर्ड (Password) *:</strong></label>
+            <input type="text" id="newUserPasswordInput" class="form-input" value="pass123" required style="font-weight:700;">
+          </div>
+        </div>
+
+        <div class="row-2col mt-2">
+          <div class="form-group">
+            <label for="newUserNameInput"><strong>पूरा नाम (Full Name) *:</strong></label>
+            <input type="text" id="newUserNameInput" class="form-input" placeholder="उदा. श्री जगदीश प्रसाद" required>
+          </div>
+          <div class="form-group">
+            <label for="newUserMobileInput"><strong>मोबाइल नंबर:</strong></label>
+            <input type="tel" id="newUserMobileInput" class="form-input" placeholder="उदा. 9829000000" maxlength="10">
+          </div>
+        </div>
+
+        <div class="row-2col mt-2">
+          <div class="form-group">
+            <label for="newUserGpSelect"><strong>असाइन पंचायत (Panchayat) *:</strong></label>
+            <select id="newUserGpSelect" class="form-select" onchange="onNewUserGpChanged(this.value)" style="font-weight:700;">
+              <option value="ALL">समस्त पंचायतें (All 30 GPs)</option>
+              <!-- Options populated dynamically -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="newUserWardInput"><strong>असाइन वार्ड (Ward Scope):</strong></label>
+            <input type="text" id="newUserWardInput" class="form-input" placeholder="उदा. ALL या 3 या 1,2,3" value="ALL" style="font-weight:600;">
+          </div>
+        </div>
+
+        <div class="form-group mt-2">
+          <label><strong>अनुमत टैब्स (Permitted Tabs for this User) *:</strong></label>
+          <div class="d-flex flex-wrap gap-3 mt-1" style="background:#f1f5f9; padding:10px; border-radius:8px;">
+            <label style="cursor:pointer;"><input type="checkbox" name="newUserTabs" value="searchTab" checked> 🔍 मतदाता खोज</label>
+            <label style="cursor:pointer;"><input type="checkbox" name="newUserTabs" value="alphaTab" checked> 🔤 वर्णमाला सूची</label>
+            <label style="cursor:pointer;"><input type="checkbox" name="newUserTabs" value="bulkSlipTab" checked> 🖨️ मतदाता पर्ची</label>
+            <label style="cursor:pointer;"><input type="checkbox" name="newUserTabs" value="directoryTab"> 📋 वार्डवार सूची</label>
+            <label style="cursor:pointer;"><input type="checkbox" name="newUserTabs" value="candidateProfileTab" checked> 👤 प्रत्याशी प्रोफाइल</label>
+          </div>
+        </div>
+
+        <div class="form-group mt-2">
+          <label for="newUserCandidateModeSelect"><strong>प्रत्याशी विवरण संपादन मोड:</strong></label>
+          <select id="newUserCandidateModeSelect" class="form-select" style="font-weight:600;">
+            <option value="user_edit">यूजर स्वयं अपनी फोटो व चुनाव चिन्ह भरे (User Self-Entry)</option>
+            <option value="admin_locked">केवल एडमिन द्वारा सेट व लॉक (Admin Locked)</option>
+          </select>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2 mt-4">
+          <button type="button" class="btn btn-outline-danger" onclick="closeAddUserModal()">रद्द करें</button>
+          <button type="submit" class="btn btn-success">
+            <span>💾 उपयोगकर्ता खाता बनाएं</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==============================================================
+       MODAL: ADMIN CANDIDATE PROFILE EDIT MODAL
+       ============================================================== -->
+  <div id="adminCandidateModal" class="modal-overlay" style="display:none;" onclick="if(event.target===this) closeAdminCandidateModal()">
+    <div class="modal-card" style="max-width:580px;">
+      <div class="modal-header">
+        <h3 class="modal-title">✏️ प्रत्याशी प्रोफाइल संपादित करें (<span id="adminCandidateModalUserTitle"></span>)</h3>
+        <button class="modal-close" onclick="closeAdminCandidateModal()">✕</button>
+      </div>
+      <form id="adminCandidateEditForm" onsubmit="handleAdminSaveCandidate(event)" style="padding:16px;">
+        <input type="hidden" id="adminCandTargetUserId">
+        <div class="form-group">
+          <label><strong>प्रत्याशी का नाम:</strong></label>
+          <input type="text" id="adminCandName" class="form-input" required style="font-weight:700;">
+        </div>
+        <div class="row-2col mt-2">
+          <div class="form-group">
+            <label><strong>पद (Post):</strong></label>
+            <select id="adminCandPost" class="form-select" style="font-weight:700;">
+              <option value="सरपंच">सरपंच</option>
+              <option value="वार्ड पंच">वार्ड पंच</option>
+              <option value="उपसरपंच">उपसरपंच</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label><strong>चुनाव चिन्ह (Symbol):</strong></label>
+            <select id="adminCandSymbol" class="form-select" style="font-weight:700;">
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+        </div>
+        <div class="row-2col mt-2">
+          <div class="form-group">
+            <label><strong>ग्राम पंचायत:</strong></label>
+            <input type="text" id="adminCandGp" class="form-input" style="font-weight:600;">
+          </div>
+          <div class="form-group">
+            <label><strong>वार्ड नं.:</strong></label>
+            <input type="text" id="adminCandWard" class="form-input" placeholder="उदा. 3">
+          </div>
+        </div>
+        <div class="form-group mt-2">
+          <label><strong>प्रचार नारा / अपील:</strong></label>
+          <textarea id="adminCandSlogan" class="form-input" rows="2"></textarea>
+        </div>
+        <div class="form-group mt-2">
+          <label><strong>फोटो URL या Base64:</strong></label>
+          <input type="text" id="adminCandPhotoUrl" class="form-input" placeholder="https://... या रिक्त छोड़ें">
+        </div>
+        <div class="d-flex justify-content-end gap-2 mt-4">
+          <button type="button" class="btn btn-outline-danger" onclick="closeAdminCandidateModal()">रद्द करें</button>
+          <button type="submit" class="btn btn-primary">
+            <span>💾 सुरक्षित करें</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Toast Notification Container -->
   <div id="toastContainer" class="toast-container no-print"></div>
 
   <!-- Scripts -->
-  <script src="master_data.js"></script>
-  <script src="app.js"></script>
+    <script src="symbols_master.js?v=20261005_2200"></script>
+  <script src="master_data.js?v=20261005_2200"></script>
+  <script src="app.js?v=20261005_2200"></script>
 
   <!-- Super Admin: Add New User Modal -->
   <div id="addUserModal" class="modal-overlay no-print" style="display:none;" onclick="if(event.target===this) closeAddUserModal()">

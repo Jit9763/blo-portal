@@ -3263,3 +3263,466 @@ html, body {
   height: 100% !important;
   padding: 3px 5px !important;
 }
+
+/* ==========================================================================
+   CANDIDATE PROFILE & DETACHABLE VOTER SLIP STYLES (AS IN VIDEO)
+   ========================================================================== */
+
+.candidate-profile-card {
+  padding: 24px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.candidate-form-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .candidate-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.photo-preview-container {
+  position: relative;
+  width: 160px;
+  height: 180px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid #cbd5e1;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 8px auto;
+}
+
+.candidate-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photo-upload-overlay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.selected-symbol-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 8px;
+}
+
+.symbol-svg-wrapper {
+  width: 54px;
+  height: 54px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.symbol-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.symbol-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  max-height: 140px;
+  overflow-y: auto;
+  padding: 6px;
+  background: #f1f5f9;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.symbol-grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.symbol-grid-item:hover, .symbol-grid-item.selected {
+  border-color: #2563eb;
+  background: #eff6ff;
+  transform: translateY(-1px);
+}
+
+.symbol-grid-item svg {
+  width: 28px;
+  height: 28px;
+}
+
+.symbol-grid-item span {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #334155;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.badge-chip {
+  background: #e2e8f0;
+  border: none;
+  border-radius: 12px;
+  padding: 3px 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+}
+.badge-chip:hover {
+  background: #cbd5e1;
+}
+
+/* ==========================================================================
+   PERFORATED DETACHABLE CANDIDATE VOTER SLIP (AS IN VIDEO)
+   ========================================================================== */
+
+.candidate-slip-card {
+  background: #ffffff;
+  border: 1.5px solid #000000;
+  border-radius: 4px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 6px;
+  overflow: hidden;
+  page-break-inside: avoid;
+}
+
+/* Upper Section: Candidate Color Campaign Banner */
+.candidate-banner-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 6px;
+  background: #fffdf5;
+  border-bottom: 1px solid #e2e8f0;
+  gap: 8px;
+  box-sizing: border-box;
+}
+
+.candidate-banner-photo-col {
+  width: 48px;
+  height: 56px;
+  flex-shrink: 0;
+  border: 1.5px solid #b45309;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.candidate-banner-photo-col img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.candidate-banner-info-col {
+  flex: 1;
+  text-align: center;
+  line-height: 1.15;
+}
+
+.candidate-banner-header {
+  font-size: 5.5pt;
+  color: #b45309;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.candidate-banner-name {
+  font-size: 9.5pt;
+  font-weight: 900;
+  color: #b91c1c;
+  margin: 1px 0;
+  text-shadow: 0.2px 0.2px 0px rgba(0,0,0,0.2);
+}
+
+.candidate-banner-post {
+  display: inline-block;
+  background: #dc2626;
+  color: #ffffff;
+  font-size: 6.2pt;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.3px;
+}
+
+.candidate-banner-gp {
+  font-size: 6.0pt;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-top: 1px;
+}
+
+.candidate-banner-slogan {
+  font-size: 5.5pt;
+  font-weight: 600;
+  color: #334155;
+  margin-top: 1px;
+  white-space: pre-line;
+}
+
+.candidate-banner-symbol-col {
+  width: 50px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border: 1.5px solid #d97706;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.candidate-banner-symbol-col svg {
+  width: 36px;
+  height: 36px;
+}
+
+.candidate-banner-symbol-label {
+  font-size: 5.2pt;
+  font-weight: 800;
+  color: #9a3412;
+  text-align: center;
+  margin-top: 1px;
+}
+
+/* PERFORATION DIVIDER CUT LINE */
+.slip-perforation-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 2px 0;
+  background: #ffffff;
+  border-top: 1.5px dashed #475569;
+  border-bottom: 1.5px dashed #475569;
+  color: #0f172a;
+  font-size: 6.0pt;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.slip-perforation-divider .cut-icon {
+  font-size: 7.5pt;
+}
+
+/* LOWER SECTION: 100% CLEAN OFFICIAL B&W VOTER SLIP (NO BACKGROUND) */
+.official-bottom-bw-slip {
+  background: #ffffff !important;
+  color: #000000 !important;
+  padding: 4px 6px;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+.official-bottom-bw-slip .bw-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #000000;
+  padding-bottom: 2px;
+  margin-bottom: 3px;
+}
+
+.official-bottom-bw-slip .bw-gov-title {
+  font-size: 7.5pt;
+  font-weight: 900;
+  color: #000000;
+  letter-spacing: 0.5px;
+}
+
+.official-bottom-bw-slip .bw-serial-badge {
+  border: 1.5px solid #000000;
+  padding: 1px 4px;
+  font-size: 7.5pt;
+  font-weight: 900;
+  border-radius: 2px;
+}
+
+.official-bottom-bw-slip .bw-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 6.2pt;
+  line-height: 1.25;
+  gap: 1px 4px;
+}
+
+.official-bottom-bw-slip .bw-row-full {
+  grid-column: 1 / -1;
+}
+
+.official-bottom-bw-slip .bw-booth-box {
+  margin-top: 2px;
+  padding: 2px 3px;
+  border: 1px solid #000000;
+  font-size: 5.8pt;
+  line-height: 1.2;
+  white-space: normal !important;
+  word-break: break-word;
+}
+
+.official-bottom-bw-slip .bw-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px dotted #000000;
+  padding-top: 2px;
+  margin-top: 2px;
+  font-size: 5.2pt;
+}
+
+/* ==========================================================================
+   ADMIN USER & PORTAL CONTROL TAB STYLES
+   ========================================================================== */
+
+.admin-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.admin-stats-grid .stat-card {
+  background: #f8fafc;
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.admin-stats-grid .stat-value {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #1e293b;
+}
+
+.admin-stats-grid .stat-label {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.admin-users-table th {
+  background: #f1f5f9;
+  color: #334155;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 8px 10px;
+  border-bottom: 2px solid #cbd5e1;
+}
+
+.admin-users-table td {
+  padding: 8px 10px;
+  font-size: 0.82rem;
+  vertical-align: middle;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.admin-users-table tr:hover {
+  background: #f8fafc;
+}
+
+.status-toggle-btn {
+  padding: 3px 8px;
+  border-radius: 14px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.status-toggle-btn.active {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-toggle-btn.inactive {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.tab-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin: 1px 2px;
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+/* ==========================================================================
+   PRINT MEDIA RULES FOR PERFORATED SLIPS
+   ========================================================================== */
+
+@media print {
+  .candidate-slip-card {
+    border: 1px solid #000000 !important;
+    page-break-inside: avoid !important;
+  }
+
+  .candidate-banner-top {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    background: #fffdf5 !important;
+  }
+
+  .candidate-banner-name {
+    color: #b91c1c !important;
+  }
+
+  .candidate-banner-post {
+    background: #dc2626 !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .slip-perforation-divider {
+    border-top: 1.5px dashed #000000 !important;
+    border-bottom: 1.5px dashed #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .official-bottom-bw-slip {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+}

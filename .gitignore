@@ -3,3 +3,4 @@ photos/
 *.jpg
 *.jpeg
 *.webp
+*.sqlite
