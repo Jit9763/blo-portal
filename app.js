@@ -288,13 +288,81 @@ function initMasterData() {
 // ==========================================================================
 // GATEKEEPER & SESSION ENGINE
 // ==========================================================================
+// ==========================================================================
+// PORTAL CONTEXT & MULTI-PORTAL SESSION ENGINE
+// ==========================================================================
+function getPortalContext() {
+  const url = new URL(window.location.href);
+  const pParam = url.searchParams.get('portal');
+  if (pParam) return pParam.toLowerCase();
+
+  const path = window.location.pathname.toLowerCase();
+  const host = window.location.hostname.toLowerCase();
+  
+  if (path.includes('blo-portal') || path.includes('/blo') || host.includes('blo')) {
+    return 'blo';
+  }
+  if (path.includes('voter-portal') || path.includes('/voter') || host.includes('voter')) {
+    return 'voter';
+  }
+  return 'master';
+}
+
+function getSessionStorageKey() {
+  return `panchayat_session_${getPortalContext()}`;
+}
+
 function initSession() {
-  const savedSession = localStorage.getItem('panchayat_user_session') || sessionStorage.getItem('panchayat_user_session');
-  if (savedSession) {
-    try {
-      State.currentUser = JSON.parse(savedSession);
-    } catch (e) {
+  const ctx = getPortalContext();
+  const sessionKey = getSessionStorageKey();
+
+  if (ctx === 'blo') {
+    // BLO Portal: NEVER auto-login as SUPER_ADMIN!
+    const saved = localStorage.getItem(sessionKey) || sessionStorage.getItem(sessionKey);
+    if (saved) {
+      try {
+        const u = JSON.parse(saved);
+        if (u && (u.role === 'BLO' || u.type === 'BLO' || u.category === 'CELL' || u.role === 'प्रकोष्ठ कार्मिक' || u.role === 'CELL_MEMBER')) {
+          State.currentUser = u;
+        } else {
+          State.currentUser = null;
+          localStorage.removeItem(sessionKey);
+          sessionStorage.removeItem(sessionKey);
+        }
+      } catch (e) {
+        State.currentUser = null;
+      }
+    } else {
       State.currentUser = null;
+    }
+  } else if (ctx === 'voter') {
+    // Voter Portal: NEVER auto-login as SUPER_ADMIN!
+    const saved = localStorage.getItem(sessionKey) || sessionStorage.getItem(sessionKey);
+    if (saved) {
+      try {
+        const u = JSON.parse(saved);
+        if (u && u.role !== 'SUPER_ADMIN' && u.id !== 'admin' && u.username !== 'admin') {
+          State.currentUser = u;
+        } else {
+          State.currentUser = null;
+          localStorage.removeItem(sessionKey);
+          sessionStorage.removeItem(sessionKey);
+        }
+      } catch (e) {
+        State.currentUser = null;
+      }
+    } else {
+      State.currentUser = null;
+    }
+  } else {
+    // Master Portal (/pan/ or ?portal=master)
+    const saved = localStorage.getItem(sessionKey) || localStorage.getItem('panchayat_user_session') || sessionStorage.getItem(sessionKey);
+    if (saved) {
+      try {
+        State.currentUser = JSON.parse(saved);
+      } catch (e) {
+        State.currentUser = null;
+      }
     }
   }
 
@@ -3655,20 +3723,24 @@ async function syncAllAdminStateToCloud() {
 // ==========================================================================
 
 const BHINAI_PANCHAYATS_30 = [
-  "बड़गांव", "बड़ली", "बांदनवाड़ा", "भिनाय", "बूबकिया", "चापानेरी",
-  "छछून्दरा", "देवलियाकलां", "धांतोल", "एकलसिंहा", "गुढाखुर्द",
-  "हियालिया", "जैतपुरा", "कनईकला", "करांटी", "कैरोंट", "खेडी",
-  "कुम्हारिया", "कुरथल", "लामगरा", "नागोला", "नान्दसी", "नीमेडा",
-  "पड़ांगा", "पाडलिया", "राममालिया", "राताकोट", "सिंगावल", "सोबडी", "घणा"
+  "बड़गांव", "बड़ली", "बगराई", "बांदनवाड़ा", "भिनाय", "बूबकिया", "चापानेरी",
+  "छछून्दरा", "देवपुरा", "देवलियाकलां", "धांतोल", "एकलसिंहा", "घणा", "गुढाखुर्द",
+  "हियालिया", "कनईकला", "करांटी", "कैरोंट", "खेडी", "कुम्हारिया", "लामगरा",
+  "नागोला", "नान्दसी", "पड़ांगा", "पाडलिया", "राममालिया", "राताकोट", "सिंगावल",
+  "सोबडी", "सोलखुर्द"
 ];
 
 function populateLoginPrimaryDropdown() {
   const pSelect = document.getElementById('loginPanchayatSelect');
   if (!pSelect) return;
+  const portalCtx = getPortalContext();
 
-  if (pSelect.options.length <= 3) {
+  pSelect.innerHTML = '';
+  
+  if (portalCtx === 'blo') {
+    // BLO & Cell Portal: CELL option at TOP, followed by 30 Gram Panchayats. NO ADMIN option!
     pSelect.innerHTML = `
-      <option value="">-- पंचायत या चुनाव प्रकोष्ठ चुनें --</option>
+      <option value="">-- चुनाव प्रकोष्ठ या ग्राम पंचायत चुनें --</option>
       <option value="CELL" style="font-weight:800; color:#1e40af; background:#eff6ff;">🏢 चुनाव प्रकोष्ठ (Election Cell)</option>
     `;
     BHINAI_PANCHAYATS_30.forEach(gp => {
@@ -3677,13 +3749,39 @@ function populateLoginPrimaryDropdown() {
       opt.textContent = `🏛️ ग्राम पंचायत ${gp}`;
       pSelect.appendChild(opt);
     });
-    const adminOpt = document.createElement('option');
-    adminOpt.value = "ADMIN";
-    adminOpt.style.fontWeight = "800";
-    adminOpt.style.color = "#b45309";
-    adminOpt.style.background = "#fef3c7";
-    adminOpt.textContent = "👤 एडमिन / व्यवस्थापक (Super Admin)";
-    pSelect.appendChild(adminOpt);
+    
+    const cardTitle = document.querySelector('.login-card-title');
+    if (cardTitle) cardTitle.textContent = '🏢 बी.एल.ओ. एवं प्रकोष्ठ प्रवेश (BLO Portal Login)';
+    const cardDesc = document.querySelector('.login-card-desc');
+    if (cardDesc) cardDesc.textContent = 'कृपया अपना प्रकोष्ठ या ग्राम पंचायत व नाम चुनकर लॉगिन करें:';
+    const badge = document.querySelector('.gatekeeper-badge');
+    if (badge) badge.textContent = '📍 बी.एल.ओ. एवं चुनाव प्रकोष्ठ अधिकृत पोर्टल 2026';
+    const samitiP = document.querySelector('.gatekeeper-samiti');
+    if (samitiP) samitiP.innerHTML = 'पंचायत समिति: <strong>भिनाय (अजमेर)</strong> | 126 बी.एल.ओ. • 13 चुनाव प्रकोष्ठ';
+  } else if (portalCtx === 'voter') {
+    // Voter / Candidate Portal
+    pSelect.innerHTML = `<option value="">-- ग्राम पंचायत चुनें --</option>`;
+    BHINAI_PANCHAYATS_30.forEach(gp => {
+      const opt = document.createElement('option');
+      opt.value = gp;
+      opt.textContent = `🏛️ ग्राम पंचायत ${gp}`;
+      pSelect.appendChild(opt);
+    });
+    const cardTitle = document.querySelector('.login-card-title');
+    if (cardTitle) cardTitle.textContent = '🗳️ मतदाता एवं प्रत्याशी प्रवेश';
+  } else {
+    // Master Admin Portal
+    pSelect.innerHTML = `
+      <option value="">-- पंचायत, प्रकोष्ठ या एडमिन चुनें --</option>
+      <option value="ADMIN" style="font-weight:800; color:#b45309; background:#fef3c7;">⚡ ब्लॉक मुख्य व्यवस्थापक (Super Admin)</option>
+      <option value="CELL" style="font-weight:800; color:#1e40af; background:#eff6ff;">🏢 चुनाव प्रकोष्ठ (Election Cell)</option>
+    `;
+    BHINAI_PANCHAYATS_30.forEach(gp => {
+      const opt = document.createElement('option');
+      opt.value = gp;
+      opt.textContent = `🏛️ ग्राम पंचायत ${gp}`;
+      pSelect.appendChild(opt);
+    });
   }
 }
 
@@ -4364,6 +4462,15 @@ async function handleGatekeeperLogin(event) {
     return;
   }
 
+    // If on blo-portal and username is admin: BLOCK IT
+  if (getPortalContext() === 'blo' && (username === 'admin' || pSelect?.value === 'ADMIN')) {
+    if (errorDiv) {
+      errorDiv.textContent = 'बी.एल.ओ. पोर्टल पर एडमिन लॉगिन वर्जित है! कृपया मास्टर एडमिन पोर्टल (pan) से लॉगिन करें।';
+      errorDiv.style.display = 'block';
+    }
+    return;
+  }
+
   if (!password) {
     if (errorDiv) {
       errorDiv.textContent = 'कृपया पासवर्ड दर्ज करें!';
@@ -4382,10 +4489,12 @@ async function handleGatekeeperLogin(event) {
     const data = await res.json();
     if (data && data.success && data.user) {
       State.currentUser = data.user;
+      const sk = getSessionStorageKey();
       if (document.getElementById('gatekeeperRememberMe')?.checked) {
-        localStorage.setItem('panchayat_user_session', JSON.stringify(data.user));
+        localStorage.setItem(sk, JSON.stringify(data.user));
+        if (getPortalContext() === 'master') localStorage.setItem('panchayat_user_session', JSON.stringify(data.user));
       } else {
-        sessionStorage.setItem('panchayat_user_session', JSON.stringify(data.user));
+        sessionStorage.setItem(sk, JSON.stringify(data.user));
       }
       enforceGatekeeperState();
       showToast(`नमस्ते ${data.user.full_name || data.user.name || data.user.username}! स्वागत है।`);
@@ -4414,7 +4523,7 @@ async function handleGatekeeperLogin(event) {
       candidate_mode: 'admin_locked'
     };
     State.currentUser = adminUser;
-    localStorage.setItem('panchayat_user_session', JSON.stringify(adminUser));
+    localStorage.setItem(getSessionStorageKey(), JSON.stringify(adminUser)); localStorage.setItem('panchayat_user_session', JSON.stringify(adminUser));
     enforceGatekeeperState();
     showToast('नमस्ते एडमिन! पोर्टल में आपका स्वागत है।');
     return;
@@ -4439,7 +4548,7 @@ async function handleGatekeeperLogin(event) {
           candidate_mode: 'admin_locked'
         };
         State.currentUser = bloUser;
-        localStorage.setItem('panchayat_user_session', JSON.stringify(bloUser));
+        localStorage.setItem(getSessionStorageKey(), JSON.stringify(bloUser));
         enforceGatekeeperState();
         showToast(`नमस्ते ${bloMatch.name}! बी.एल.ओ. सत्र प्रारंभ हुआ।`);
         return;
@@ -4462,7 +4571,7 @@ async function handleGatekeeperLogin(event) {
           candidate_mode: 'admin_locked'
         };
         State.currentUser = cellUser;
-        localStorage.setItem('panchayat_user_session', JSON.stringify(cellUser));
+        localStorage.setItem(getSessionStorageKey(), JSON.stringify(cellUser));
         enforceGatekeeperState();
         showToast(`नमस्ते ${cellMatch.name}! प्रकोष्ठ सत्र प्रारंभ हुआ।`);
         return;
@@ -4478,8 +4587,13 @@ async function handleGatekeeperLogin(event) {
 
 function logoutUser() {
   State.currentUser = null;
-  localStorage.removeItem('panchayat_user_session');
-  sessionStorage.removeItem('panchayat_user_session');
+  const sk = getSessionStorageKey();
+  localStorage.removeItem(sk);
+  sessionStorage.removeItem(sk);
+  if (getPortalContext() === 'master') {
+    localStorage.removeItem('panchayat_user_session');
+    sessionStorage.removeItem('panchayat_user_session');
+  }
   enforceGatekeeperState();
   populateLoginPrimaryDropdown();
   showToast('आप सफलतापूर्वक लॉगआउट हो गए हैं।');

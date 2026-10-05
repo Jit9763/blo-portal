@@ -56,22 +56,23 @@ function seedDatabase() {
   if (fs.existsSync(JSON_PATH)) {
     try {
       const data = JSON.parse(fs.readFileSync(JSON_PATH, 'utf8'));
+      const userList = Array.isArray(data) ? data : (data.users || []);
       const insertUser = db.prepare(`
-        INSERT OR IGNORE INTO users (id, username, password, full_name, mobile, role, status, allowed_panchayats, allowed_wards, allowed_tabs, candidate_mode, created_at, updated_at)
+        INSERT OR REPLACE INTO users (id, username, password, full_name, mobile, role, status, allowed_panchayats, allowed_wards, allowed_tabs, candidate_mode, created_at, updated_at)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
-      (data.users || []).forEach(u => {
+      userList.forEach(u => {
         insertUser.run(
           u.id || u.username,
           u.username,
-          u.password,
+          u.password || '123',
           u.full_name || u.fullName || u.name || u.username,
           u.mobile || '',
-          u.role || 'PANCHAYAT_AGENT',
+          u.role || 'BLO',
           u.status || 'ACTIVE',
           u.allowed_panchayats || u.panchayat || 'ALL',
-          u.allowed_wards || u.assigned_wards || 'ALL',
+          u.allowed_wards || u.assigned_wards || u.wards || 'ALL',
           Array.isArray(u.allowed_tabs) ? JSON.stringify(u.allowed_tabs) : (u.allowed_tabs || '[]'),
           u.candidate_mode || 'user_edit',
           new Date().toISOString(),

@@ -17619,7 +17619,7 @@ window.MASTER_DATA = {
       "serial_no": 22,
       "epic_no": "WAN0917658",
       "voter_name": "देउ",
-      "relative_name": "०ीराम सिंह",
+      "relative_name": "श्रीराम सिंह",
       "relative_relation": "पति",
       "house_no": "1174",
       "age": 31,
