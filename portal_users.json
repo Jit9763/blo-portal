@@ -5,7 +5,7 @@
     {
       "id": "admin",
       "username": "admin",
-      "password": "admin123",
+      "password": "123",
       "full_name": "मुख्य ब्लॉक व्यवस्थापक (Super Admin)",
       "mobile": "9828000000",
       "role": "SUPER_ADMIN",

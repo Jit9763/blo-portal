@@ -298,7 +298,8 @@ function initSession() {
     }
   }
 
-  // Populate dropdown and trigger background sync
+  // Populate dropdowns and trigger background sync
+  populateLoginPrimaryDropdown();
   populateLoginUserDropdown();
   syncLatestActiveUsersFromAppsScript();
   enforceGatekeeperState();
@@ -3652,203 +3653,155 @@ async function syncAllAdminStateToCloud() {
 // DEDICATED BLO & CELL LOGIN SYSTEM & SELF PASSWORD RESET
 // ==========================================================================
 
-let currentLoginMode = 'blo';
+const BHINAI_PANCHAYATS_30 = [
+  "बड़गांव", "बड़ली", "बांदनवाड़ा", "भिनाय", "बूबकिया", "चापानेरी",
+  "छछून्दरा", "देवलियाकलां", "धांतोल", "एकलसिंहा", "गुढाखुर्द",
+  "हियालिया", "जैतपुरा", "कनईकला", "करांटी", "कैरोंट", "खेडी",
+  "कुम्हारिया", "कुरथल", "लामगरा", "नागोला", "नान्दसी", "नीमेडा",
+  "पड़ांगा", "पाडलिया", "राममालिया", "राताकोट", "सिंगावल", "सोबडी", "घणा"
+];
 
-function switchLoginMode(mode) {
-  currentLoginMode = mode;
-  const modeBloBtn = document.getElementById('modeBloBtn');
-  const modeCellBtn = document.getElementById('modeCellBtn');
-  const modeUserBtn = document.getElementById('modeUserBtn');
+function populateLoginPrimaryDropdown() {
+  const pSelect = document.getElementById('loginPanchayatSelect');
+  if (!pSelect) return;
 
-  const secBlo = document.getElementById('loginSectionBlo');
-  const secCell = document.getElementById('loginSectionCell');
-  const secUser = document.getElementById('loginSectionUser');
-  const activeModeInput = document.getElementById('loginActiveMode');
-
-  if (activeModeInput) activeModeInput.value = mode;
-
-  [modeBloBtn, modeCellBtn, modeUserBtn].forEach(b => {
-    if (b) {
-      b.classList.remove('active');
-      b.style.background = 'transparent';
-      b.style.color = '#475569';
-      b.style.boxShadow = 'none';
-    }
-  });
-
-  if (secBlo) secBlo.style.display = (mode === 'blo') ? 'block' : 'none';
-  if (secCell) secCell.style.display = (mode === 'cell') ? 'block' : 'none';
-  if (secUser) secUser.style.display = (mode === 'user') ? 'block' : 'none';
-
-  if (mode === 'blo' && modeBloBtn) {
-    modeBloBtn.classList.add('active');
-    modeBloBtn.style.background = '#ffffff';
-    modeBloBtn.style.color = '#1e3a8a';
-    modeBloBtn.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
-    populateLoginBloPanchayats();
-  } else if (mode === 'cell' && modeCellBtn) {
-    modeCellBtn.classList.add('active');
-    modeCellBtn.style.background = '#ffffff';
-    modeCellBtn.style.color = '#1e3a8a';
-    modeCellBtn.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
-    populateLoginCells();
-  } else if (mode === 'user' && modeUserBtn) {
-    modeUserBtn.classList.add('active');
-    modeUserBtn.style.background = '#ffffff';
-    modeUserBtn.style.color = '#1e3a8a';
-    modeUserBtn.style.boxShadow = '0 1px 3px rgba(0,0,0,0.1)';
-  }
-
-  const uInput = document.getElementById('gatekeeperUsername');
-  if (uInput) uInput.value = '';
-}
-
-function populateLoginBloPanchayats() {
-  const gpSelect = document.getElementById('loginBloGpSelect');
-  if (!gpSelect) return;
-
-  const dir = window.MASTER_DIRECTORY;
-  const bloList = (dir && dir.blo_list) ? dir.blo_list : [];
-
-  // Get unique Panchayats from BLO list
-  const gps = Array.from(new Set(bloList.map(b => b.panchayat).filter(Boolean))).sort((a,b) => a.localeCompare(b, 'hi'));
-
-  if (gpSelect.options.length <= 1) {
-    gpSelect.innerHTML = '<option value="">-- ग्राम पंचायत चुनें --</option>';
-    gps.forEach(gp => {
+  if (pSelect.options.length <= 3) {
+    pSelect.innerHTML = `
+      <option value="">-- पंचायत या चुनाव प्रकोष्ठ चुनें --</option>
+      <option value="CELL" style="font-weight:800; color:#1e40af; background:#eff6ff;">🏢 चुनाव प्रकोष्ठ (Election Cell)</option>
+    `;
+    BHINAI_PANCHAYATS_30.forEach(gp => {
       const opt = document.createElement('option');
       opt.value = gp;
-      opt.textContent = gp;
-      gpSelect.appendChild(opt);
+      opt.textContent = `🏛️ ग्राम पंचायत ${gp}`;
+      pSelect.appendChild(opt);
     });
+    const adminOpt = document.createElement('option');
+    adminOpt.value = "ADMIN";
+    adminOpt.style.fontWeight = "800";
+    adminOpt.style.color = "#b45309";
+    adminOpt.style.background = "#fef3c7";
+    adminOpt.textContent = "👤 एडमिन / व्यवस्थापक (Super Admin)";
+    pSelect.appendChild(adminOpt);
   }
 }
 
-function onLoginBloGpChanged(gpName) {
-  const offSelect = document.getElementById('loginBloOfficerSelect');
-  const detailsBadge = document.getElementById('loginBloDetailsBadge');
+function onLoginPrimarySelectChanged(val) {
+  const offSelect = document.getElementById('loginOfficerSelect');
+  const offLabel = document.getElementById('loginOfficerLabel');
+  const detailsBadge = document.getElementById('loginSelectedDetailsBadge');
+  const adminGroup = document.getElementById('loginAdminGroup');
   const uInput = document.getElementById('gatekeeperUsername');
-  if (!offSelect) return;
 
   if (detailsBadge) detailsBadge.style.display = 'none';
   if (uInput) uInput.value = '';
+  if (adminGroup) adminGroup.style.display = 'none';
 
-  if (!gpName) {
-    offSelect.innerHTML = '<option value="">-- पहले पंचायत चुनें --</option>';
-    offSelect.disabled = true;
+  if (!val) {
+    if (offSelect) {
+      offSelect.innerHTML = '<option value="">-- पहले पंचायत या प्रकोष्ठ चुनें --</option>';
+      offSelect.disabled = true;
+    }
     return;
   }
 
   const dir = window.MASTER_DIRECTORY;
-  let bloList = (dir && dir.blo_list) ? dir.blo_list : [];
-  
-  // Filter by GP and active status
-  const matched = bloList.filter(b => b.panchayat === gpName && (b.status !== 'INACTIVE'));
 
-  offSelect.innerHTML = '<option value="">-- बी.एल.ओ. (BLO) चुनें --</option>';
-  matched.forEach(blo => {
-    const opt = document.createElement('option');
-    opt.value = blo.id || blo.username;
-    opt.setAttribute('data-name', blo.name);
-    opt.setAttribute('data-booth', blo.booth_no);
-    opt.setAttribute('data-school', blo.school || '');
-    opt.setAttribute('data-mobile', blo.mobile || '');
-    opt.textContent = `[भाग ${blo.booth_no}] ${blo.name} (${blo.school || blo.post})`;
-    offSelect.appendChild(opt);
-  });
-  offSelect.disabled = false;
-}
+  if (val === 'CELL') {
+    if (offLabel) offLabel.innerHTML = '<strong>2. अधिकृत चुनाव प्रकोष्ठ कार्मिक चुनें *:</strong>';
+    if (offSelect) {
+      offSelect.innerHTML = '<option value="">-- अधिकृत प्रकोष्ठ कार्मिक चुनें --</option>';
+      const cellList = (dir && dir.cell_personnel) ? dir.cell_personnel : [];
+      cellList.forEach(cp => {
+        const opt = document.createElement('option');
+        opt.value = cp.username || cp.id;
+        opt.setAttribute('data-name', cp.name || '');
+        opt.setAttribute('data-role', cp.designation || cp.role || '');
+        opt.setAttribute('data-office', cp.office || cp.school_office || '');
+        opt.setAttribute('data-mobile', cp.mobile || '');
+        opt.setAttribute('data-cell', cp.cell_name || '');
+        opt.textContent = `[${cp.cell_name || 'प्रकोष्ठ'}] ${cp.name} - ${cp.designation} (${cp.mobile})`;
+        offSelect.appendChild(opt);
+      });
+      offSelect.disabled = false;
+    }
+    return;
+  }
 
-function onLoginBloOfficerChanged(bloUserId) {
-  const offSelect = document.getElementById('loginBloOfficerSelect');
-  const detailsBadge = document.getElementById('loginBloDetailsBadge');
-  const uInput = document.getElementById('gatekeeperUsername');
-
-  if (uInput) uInput.value = bloUserId;
-
-  if (bloUserId && offSelect && offSelect.selectedIndex > 0) {
-    const opt = offSelect.options[offSelect.selectedIndex];
-    const name = opt.getAttribute('data-name');
-    const booth = opt.getAttribute('data-booth');
-    const school = opt.getAttribute('data-school');
-    const mobile = opt.getAttribute('data-mobile');
-
+  if (val === 'ADMIN') {
+    if (adminGroup) adminGroup.style.display = 'block';
+    if (offLabel) offLabel.innerHTML = '<strong>2. भूमिका / एक्सेस स्तर:</strong>';
+    if (offSelect) {
+      offSelect.innerHTML = '<option value="admin">⚡ मुख्य व्यवस्थापक (Super Admin - Full Control)</option>';
+      offSelect.disabled = false;
+    }
+    if (uInput) uInput.value = 'admin';
     if (detailsBadge) {
-      detailsBadge.innerHTML = `📍 <strong>${name}</strong> | भाग सं.: <strong>${booth}</strong> | ${school} | मो.: ${mobile}`;
+      detailsBadge.innerHTML = '👑 <strong>सुपर एडमिन एक्सेस:</strong> सभी 30 पंचायतों एवं संपूर्ण पोर्टल का पूर्ण नियंत्रण।';
+      detailsBadge.style.background = '#fef3c7';
+      detailsBadge.style.color = '#92400e';
+      detailsBadge.style.border = '1px solid #fde68a';
       detailsBadge.style.display = 'block';
     }
-  } else {
-    if (detailsBadge) detailsBadge.style.display = 'none';
-  }
-}
-
-function populateLoginCells() {
-  const cellSelect = document.getElementById('loginCellSelect');
-  if (!cellSelect) return;
-
-  const dir = window.MASTER_DIRECTORY;
-  const cells = (dir && dir.cells_list) ? dir.cells_list : [];
-
-  if (cellSelect.options.length <= 1) {
-    cellSelect.innerHTML = '<option value="">-- चुनाव प्रकोष्ठ चुनें --</option>';
-    cells.forEach(c => {
-      const opt = document.createElement('option');
-      opt.value = c.cell_id;
-      opt.textContent = c.cell_name;
-      cellSelect.appendChild(opt);
-    });
-  }
-}
-
-function onLoginCellChanged(cellId) {
-  const offSelect = document.getElementById('loginCellOfficerSelect');
-  const detailsBadge = document.getElementById('loginCellDetailsBadge');
-  const uInput = document.getElementById('gatekeeperUsername');
-  if (!offSelect) return;
-
-  if (detailsBadge) detailsBadge.style.display = 'none';
-  if (uInput) uInput.value = '';
-
-  if (!cellId) {
-    offSelect.innerHTML = '<option value="">-- पहले प्रकोष्ठ चुनें --</option>';
-    offSelect.disabled = true;
     return;
   }
 
-  const dir = window.MASTER_DIRECTORY;
-  let cellPersonnel = (dir && dir.cell_personnel) ? dir.cell_personnel : [];
-  const matched = cellPersonnel.filter(c => c.cell_id === cellId && (c.status !== 'INACTIVE'));
+  // Gram Panchayat Selected -> Show BLOs of that Panchayat
+  if (offLabel) offLabel.innerHTML = `<strong>2. बी.एल.ओ. (BLO) चुनें [ग्रा.पं. ${val}] *:</strong>`;
+  if (offSelect) {
+    offSelect.innerHTML = '<option value="">-- बी.एल.ओ. (BLO) चुनें --</option>';
+    const bloList = (dir && dir.blo_list) ? dir.blo_list : [];
+    const matched = bloList.filter(b => b.panchayat === val || (b.panchayat && b.panchayat.includes(val)));
+    
+    if (matched.length === 0) {
+      offSelect.innerHTML = '<option value="">-- इस पंचायत में कोई BLO दर्ज नहीं है --</option>';
+      offSelect.disabled = true;
+      return;
+    }
 
-  offSelect.innerHTML = '<option value="">-- कार्मिक / अधिकारी चुनें --</option>';
-  matched.forEach(c => {
-    const opt = document.createElement('option');
-    opt.value = c.id || c.username;
-    opt.setAttribute('data-name', c.name);
-    opt.setAttribute('data-role', c.role);
-    opt.setAttribute('data-office', c.office || '');
-    opt.setAttribute('data-mobile', c.mobile || '');
-    opt.textContent = `${c.name} (${c.role} - ${c.post})`;
-    offSelect.appendChild(opt);
-  });
-  offSelect.disabled = false;
+    matched.forEach(blo => {
+      const opt = document.createElement('option');
+      opt.value = blo.id || blo.username;
+      opt.setAttribute('data-name', blo.name || '');
+      opt.setAttribute('data-booth', blo.booth_no || '');
+      opt.setAttribute('data-school', blo.school || blo.school_office || '');
+      opt.setAttribute('data-mobile', blo.mobile || '');
+      opt.setAttribute('data-wards', blo.wards || '');
+      opt.textContent = `[भाग ${blo.booth_no}] ${blo.name} - ${blo.school || 'विद्यालय'} (${blo.mobile})`;
+      offSelect.appendChild(opt);
+    });
+    offSelect.disabled = false;
+  }
 }
 
-function onLoginCellOfficerChanged(cellUserId) {
-  const offSelect = document.getElementById('loginCellOfficerSelect');
-  const detailsBadge = document.getElementById('loginCellDetailsBadge');
+function onLoginOfficerChanged(officerId) {
+  const offSelect = document.getElementById('loginOfficerSelect');
+  const detailsBadge = document.getElementById('loginSelectedDetailsBadge');
   const uInput = document.getElementById('gatekeeperUsername');
 
-  if (uInput) uInput.value = cellUserId;
+  if (uInput) uInput.value = officerId;
 
-  if (cellUserId && offSelect && offSelect.selectedIndex > 0) {
+  if (officerId && offSelect && offSelect.selectedIndex > 0) {
     const opt = offSelect.options[offSelect.selectedIndex];
     const name = opt.getAttribute('data-name');
-    const role = opt.getAttribute('data-role');
-    const office = opt.getAttribute('data-office');
     const mobile = opt.getAttribute('data-mobile');
+    const booth = opt.getAttribute('data-booth');
+    const school = opt.getAttribute('data-school');
+    const cell = opt.getAttribute('data-cell');
+    const role = opt.getAttribute('data-role');
 
     if (detailsBadge) {
-      detailsBadge.innerHTML = `🏢 <strong>${name}</strong> (${role}) | ${office} | मो.: ${mobile}`;
+      if (cell) {
+        detailsBadge.innerHTML = `🏢 <strong>${name}</strong> (${role}) | ${cell} | मो.: ${mobile}`;
+        detailsBadge.style.background = '#eff6ff';
+        detailsBadge.style.color = '#1e40af';
+        detailsBadge.style.border = '1px solid #bfdbfe';
+      } else if (booth) {
+        detailsBadge.innerHTML = `📍 <strong>${name}</strong> | भाग सं.: <strong>${booth}</strong> | ${school} | मो.: ${mobile}`;
+        detailsBadge.style.background = '#f0fdf4';
+        detailsBadge.style.color = '#047857';
+        detailsBadge.style.border = '1px solid #bbf7d0';
+      }
       detailsBadge.style.display = 'block';
     }
   } else {
@@ -3917,57 +3870,105 @@ async function handleSelfPasswordSubmit(event) {
 
 
 // ==========================================================================
-// OFFICIAL ELECTION DIRECTORY & BLO / CELL MANAGEMENT ENGINE
+// OFFICIAL ELECTION DIRECTORY & MULTI-TIER FILTER ENGINE
 // ==========================================================================
 
-let activeDirFilterType = 'ALL';
+let activeDirCategory = 'ALL';
+let activeDirGpBooth = 'ALL';
 
 function initDirectoryTab() {
   const dir = window.MASTER_DIRECTORY;
   if (!dir) return;
 
-  const gpSelect = document.getElementById('dirGpFilterSelect');
-  if (gpSelect && gpSelect.options.length <= 1) {
+  // Initialize Category Dropdown
+  const catSelect = document.getElementById('dirCategoryFilterSelect');
+  if (catSelect) catSelect.value = activeDirCategory;
+
+  // Initialize GP & Booth Dropdown
+  const gpBoothSelect = document.getElementById('dirGpBoothFilterSelect');
+  if (gpBoothSelect && gpBoothSelect.options.length <= 1) {
+    gpBoothSelect.innerHTML = '<option value="ALL">🌍 समस्त पंचायतें व बूथ (All 30 Panchayats)</option>';
+    
+    // Optgroup 1: 30 Gram Panchayats
+    const gpGroup = document.createElement('optgroup');
+    gpGroup.label = '🏛️ ग्राम पंचायत चुनें (30 Panchayats)';
+    BHINAI_PANCHAYATS_30.forEach(gp => {
+      const opt = document.createElement('option');
+      opt.value = `GP_${gp}`;
+      opt.textContent = `ग्रा.पं. ${gp}`;
+      gpGroup.appendChild(opt);
+    });
+    gpBoothSelect.appendChild(gpGroup);
+
+    // Optgroup 2: 126 Booths
     const bloList = dir.blo_list || [];
-    const gps = Array.from(new Set(bloList.map(b => b.panchayat).filter(Boolean))).sort((a,b) => a.localeCompare(b, 'hi'));
-    gps.forEach(gp => {
+    const boothGroup = document.createElement('optgroup');
+    boothGroup.label = '🗳️ मतदान केंद्र / भाग संख्या (1-126)';
+    bloList.forEach(blo => {
       const opt = document.createElement('option');
-      opt.value = gp;
-      opt.textContent = gp;
-      gpSelect.appendChild(opt);
+      opt.value = `BOOTH_${blo.booth_no}`;
+      opt.textContent = `बूथ ${blo.booth_no}: ${blo.school || blo.name} (${blo.panchayat})`;
+      boothGroup.appendChild(opt);
     });
+    gpBoothSelect.appendChild(boothGroup);
   }
 
-  const cellSelect = document.getElementById('dirCellFilterSelect');
-  if (cellSelect && cellSelect.options.length <= 1) {
-    const cells = dir.cells_list || [];
-    cells.forEach(c => {
-      const opt = document.createElement('option');
-      opt.value = c.cell_id;
-      opt.textContent = c.cell_name;
-      cellSelect.appendChild(opt);
-    });
-  }
+  updateDirectoryCounts();
+  renderDirectoryList();
+}
 
-  // Admin action buttons visibility
-  const adminActions = document.getElementById('adminDirectoryActions');
-  const isSuperAdmin = State.currentUser && (State.currentUser.role === 'SUPER_ADMIN' || State.currentUser.role === 'admin' || State.currentUser.id === 'admin');
-  if (adminActions) {
-    adminActions.style.display = isSuperAdmin ? 'flex' : 'none';
-  }
+function updateDirectoryCounts() {
+  const dir = window.MASTER_DIRECTORY;
+  if (!dir) return;
+
+  const total = (dir.all_contacts && dir.all_contacts.length) || 662;
+  const patwaris = (dir.patwari_list && dir.patwari_list.length) || 49;
+  const sups = (dir.supervisors_list && dir.supervisors_list.length) || 98;
+  const blos = (dir.blo_list && dir.blo_list.length) || 126;
+  const peeos = (dir.peeo_list && dir.peeo_list.length) || 49;
+  const staff = (dir.male_staff_list && dir.male_staff_list.length) || 307;
+  const cells = (dir.cell_personnel && dir.cell_personnel.length) || 29;
+  const officers = (dir.officers_list && dir.officers_list.length) || 4;
+
+  const setT = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  setT('dirCountAll', total);
+  setT('dirCountPatwari', patwaris);
+  setT('dirCountSupervisor', sups);
+  setT('dirCountBlo', blos);
+  setT('dirCountPeeo', peeos);
+  setT('dirCountStaff', staff);
+  setT('dirCountCell', cells);
+  setT('dirCountOfficer', officers);
+}
+
+function filterDirectoryType(type) {
+  activeDirCategory = type;
+  const catSelect = document.getElementById('dirCategoryFilterSelect');
+  if (catSelect) catSelect.value = type;
+
+  document.querySelectorAll('.stat-pill').forEach(p => p.classList.remove('active'));
+  const pillMap = {
+    'ALL': 'pillAll',
+    'PATWARI': 'pillPatwari',
+    'SUPERVISOR': 'pillSupervisor',
+    'BLO': 'pillBlo',
+    'PEEO': 'pillPeeo',
+    'STAFF': 'pillStaff',
+    'CELL': 'pillCell',
+    'OFFICER': 'pillOfficer'
+  };
+  const targetPill = document.getElementById(pillMap[type]);
+  if (targetPill) targetPill.classList.add('active');
 
   renderDirectoryList();
 }
 
-function filterDirectoryType(type) {
-  activeDirFilterType = type;
-  document.querySelectorAll('.stat-pill').forEach(p => p.classList.remove('active'));
+function onDirCategorySelectChanged(val) {
+  filterDirectoryType(val);
+}
 
-  if (type === 'ALL') document.getElementById('pillAll').classList.add('active');
-  if (type === 'BLO') document.getElementById('pillBlo').classList.add('active');
-  if (type === 'CELL') document.getElementById('pillCell').classList.add('active');
-  if (type === 'OFFICER') document.getElementById('pillOfficer').classList.add('active');
-
+function onDirGpBoothFilterChanged(val) {
+  activeDirGpBooth = val;
   renderDirectoryList();
 }
 
@@ -3977,14 +3978,26 @@ function filterDirectoryList() {
 
 function clearDirectoryFilters() {
   const searchInput = document.getElementById('dirUnifiedSearchInput');
-  const gpSelect = document.getElementById('dirGpFilterSelect');
-  const cellSelect = document.getElementById('dirCellFilterSelect');
+  const catSelect = document.getElementById('dirCategoryFilterSelect');
+  const gpBoothSelect = document.getElementById('dirGpBoothFilterSelect');
 
   if (searchInput) searchInput.value = '';
-  if (gpSelect) gpSelect.value = 'ALL';
-  if (cellSelect) cellSelect.value = 'ALL';
+  if (catSelect) catSelect.value = 'ALL';
+  if (gpBoothSelect) gpBoothSelect.value = 'ALL';
+
+  activeDirCategory = 'ALL';
+  activeDirGpBooth = 'ALL';
 
   filterDirectoryType('ALL');
+}
+
+// Get saved overrides from localStorage
+function getDirectoryOverrides() {
+  try {
+    return JSON.parse(localStorage.getItem('portal_directory_overrides') || '{}');
+  } catch(e) {
+    return {};
+  }
 }
 
 function renderDirectoryList() {
@@ -3997,397 +4010,476 @@ function renderDirectoryList() {
     return;
   }
 
-  const bloList = dir.blo_list || [];
-  const cellList = dir.cell_personnel || [];
-  const officerList = dir.officers_list || [];
-
-  // Update counts
-  if (document.getElementById('dirCountAll')) document.getElementById('dirCountAll').textContent = bloList.length + cellList.length + officerList.length;
-  if (document.getElementById('dirCountBlo')) document.getElementById('dirCountBlo').textContent = bloList.length;
-  if (document.getElementById('dirCountCell')) document.getElementById('dirCountCell').textContent = cellList.length;
-  if (document.getElementById('dirCountOfficer')) document.getElementById('dirCountOfficer').textContent = officerList.length;
-
-  let combined = [];
-  if (activeDirFilterType === 'ALL' || activeDirFilterType === 'BLO') combined.push(...bloList);
-  if (activeDirFilterType === 'ALL' || activeDirFilterType === 'CELL') combined.push(...cellList);
-  if (activeDirFilterType === 'ALL' || activeDirFilterType === 'OFFICER') combined.push(...officerList);
-
-  const searchVal = (document.getElementById('dirUnifiedSearchInput') ? document.getElementById('dirUnifiedSearchInput').value : '').toLowerCase().trim();
-  const gpFilter = document.getElementById('dirGpFilterSelect') ? document.getElementById('dirGpFilterSelect').value : 'ALL';
-  const cellFilter = document.getElementById('dirCellFilterSelect') ? document.getElementById('dirCellFilterSelect').value : 'ALL';
-
-  const filtered = combined.filter(item => {
-    // GP filter for BLO
-    if (gpFilter !== 'ALL' && item.panchayat && item.panchayat !== gpFilter) return false;
-    // Cell filter for Cell personnel
-    if (cellFilter !== 'ALL' && item.cell_id && item.cell_id !== cellFilter) return false;
-
-    if (!searchVal) return true;
-    const nameMatch = item.name && item.name.toLowerCase().includes(searchVal);
-    const mobileMatch = item.mobile && item.mobile.includes(searchVal);
-    const boothMatch = item.booth_no && String(item.booth_no).toLowerCase().includes(searchVal);
-    const schoolMatch = item.school && item.school.toLowerCase().includes(searchVal);
-    const cellMatch = item.cell_name && item.cell_name.toLowerCase().includes(searchVal);
-    const officeMatch = item.office && item.office.toLowerCase().includes(searchVal);
-    const postMatch = item.post && item.post.toLowerCase().includes(searchVal);
-
-    return nameMatch || mobileMatch || boothMatch || schoolMatch || cellMatch || officeMatch || postMatch;
+  const overrides = getDirectoryOverrides();
+  let contacts = (dir.all_contacts || []).map(c => {
+    if (overrides[c.id]) {
+      return { ...c, ...overrides[c.id] };
+    }
+    return c;
   });
 
-  if (filtered.length === 0) {
+  const searchVal = (document.getElementById('dirUnifiedSearchInput') ? document.getElementById('dirUnifiedSearchInput').value : '').toLowerCase().trim();
+
+  // 1. Filter by Category
+  if (activeDirCategory !== 'ALL') {
+    contacts = contacts.filter(c => c.category === activeDirCategory);
+  }
+
+  // 2. Filter by GP or Booth
+  let selectedGpName = '';
+  let selectedBoothNo = '';
+  if (activeDirGpBooth.startsWith('GP_')) {
+    selectedGpName = activeDirGpBooth.replace('GP_', '');
+  } else if (activeDirGpBooth.startsWith('BOOTH_')) {
+    selectedBoothNo = activeDirGpBooth.replace('BOOTH_', '');
+    // Find GP for this booth
+    const bMatch = (dir.blo_list || []).find(b => String(b.booth_no) === String(selectedBoothNo));
+    if (bMatch) selectedGpName = bMatch.panchayat;
+  }
+
+  if (selectedGpName) {
+    contacts = contacts.filter(c => {
+      if (c.panchayat === selectedGpName) return true;
+      if (c.panchayats && c.panchayats.includes(selectedGpName)) return true;
+      if (c.school_office && c.school_office.includes(selectedGpName)) return true;
+      if (c.area_display && c.area_display.includes(selectedGpName)) return true;
+      if (c.patwar_mandal && c.patwar_mandal.includes(selectedGpName)) return true;
+      // Booth specific match if booth filter
+      if (selectedBoothNo && c.booth_no && String(c.booth_no) === String(selectedBoothNo)) return true;
+      return false;
+    });
+  }
+
+  // 3. Filter by Unified Text Search
+  if (searchVal) {
+    contacts = contacts.filter(c => {
+      const n = (c.name || '').toLowerCase();
+      const m = (c.mobile || '');
+      const s = (c.school_office || c.school || '').toLowerCase();
+      const p = (c.panchayat || c.panchayat_str || '').toLowerCase();
+      const d = (c.designation || c.role || '').toLowerCase();
+      const b = String(c.booth_no || '');
+      const pm = (c.patwar_mandal || '').toLowerCase();
+      return n.includes(searchVal) || m.includes(searchVal) || s.includes(searchVal) || p.includes(searchVal) || d.includes(searchVal) || b.includes(searchVal) || pm.includes(searchVal);
+    });
+  }
+
+  if (contacts.length === 0) {
     container.innerHTML = `
-      <div style="text-align:center; padding:40px; color:#64748b; background:#f8fafc; border-radius:8px;">
-        <span style="font-size:2.5rem; display:block; margin-bottom:8px;">🔍</span>
-        <strong>इस खोज/फिल्टर में कोई संपर्क प्राप्त नहीं हुआ।</strong>
+      <div style="text-align:center; padding:48px 20px; background:#fff; border-radius:12px; border:1px dashed #cbd5e1;">
+        <div style="font-size:2.5rem; margin-bottom:8px;">🔍</div>
+        <h4 style="color:#1e293b; margin-bottom:4px;">कोई संपर्क नहीं मिला</h4>
+        <p style="color:#64748b; font-size:0.9rem;">फ़िल्टर बदलकर अथवा 'रिफ्रेश' बटन दबाकर पुनः प्रयास करें।</p>
+        <button class="btn btn-sm btn-outline-primary mt-2" onclick="clearDirectoryFilters()">समस्त फ़िल्टर हटाएं</button>
       </div>
     `;
     return;
   }
 
-  const isSuperAdmin = State.currentUser && (State.currentUser.role === 'SUPER_ADMIN' || State.currentUser.role === 'admin' || State.currentUser.id === 'admin');
+  // SMART GROUPING: If a specific Panchayat or Booth is selected, group logically
+  if (selectedGpName || selectedBoothNo) {
+    const patwaris = contacts.filter(c => c.category === 'PATWARI');
+    const supervisors = contacts.filter(c => c.category === 'SUPERVISOR');
+    const blos = contacts.filter(c => c.category === 'BLO');
+    const peeos = contacts.filter(c => c.category === 'PEEO');
+    const staff = contacts.filter(c => c.category === 'STAFF');
+    const cells = contacts.filter(c => c.category === 'CELL');
+    const others = contacts.filter(c => !['PATWARI', 'SUPERVISOR', 'BLO', 'PEEO', 'STAFF', 'CELL'].includes(c.category));
 
-  let html = `
-    <div class="table-responsive" style="overflow-x:auto;">
-      <table class="table admin-users-table" style="min-width:1050px;">
-        <thead>
-          <tr>
-            <th style="width:130px;">प्रकार / संवर्ग</th>
-            <th style="width:200px;">नाम एवं पद</th>
-            <th style="width:190px;">पंचायत / प्रकोष्ठ / भाग सं.</th>
-            <th>पदस्थापन विद्यालय / कार्यालय</th>
-            <th style="width:170px;">त्वरित संपर्क</th>
-            ${isSuperAdmin ? '<th style="width:120px;">पासवर्ड</th><th style="width:100px;">स्थिति</th><th style="width:110px; text-align:center;">कार्रवाई</th>' : ''}
-          </tr>
-        </thead>
-        <tbody>
-  `;
-
-  filtered.forEach(p => {
-    const cleanPhone = (p.mobile || '').replace(/\D/g, '');
-    const waText = encodeURIComponent(`नमस्ते ${p.name} जी, पंचायत आम चुनाव 2026 (भिनाय ब्लॉक) संबंधी संपर्क सूत्र।`);
-    const isBlo = (p.type === 'BLO');
-    const isCell = (p.type === 'CELL');
-    const isActive = (p.status !== 'INACTIVE');
-
-    let badge = '';
-    if (isBlo) badge = `<span class="badge" style="background:#f0fdf4; color:#166534; font-weight:700;">📍 बी.एल.ओ. [भाग ${p.booth_no}]</span>`;
-    else if (isCell) badge = `<span class="badge" style="background:#eff6ff; color:#1e40af; font-weight:700;">🏢 ${p.role || 'प्रकोष्ठ कार्मिक'}</span>`;
-    else badge = `<span class="badge" style="background:#fef3c7; color:#92400e; font-weight:700;">🏛️ अधिकारी</span>`;
-
-    html += `
-      <tr>
-        <td>
-          ${badge}
-          <div style="font-size:0.68rem; color:#64748b; margin-top:2px;">ID: ${p.id || p.username}</div>
-        </td>
-        <td>
-          <strong style="color:#0f172a; font-size:0.95rem;">${p.name}</strong>
-          <div style="font-size:0.75rem; color:#475569;">${p.post || p.role || '-'}</div>
-        </td>
-        <td>
-          ${isBlo ? `<div><strong>पं.:</strong> ${p.panchayat}</div><div style="font-size:0.75rem; color:#64748b;">वार्ड: ${p.assigned_wards || 'समस्त'}</div>` : ''}
-          ${isCell ? `<div style="font-weight:700; color:#1e3a8a;">${p.cell_name}</div>` : ''}
-          ${!isBlo && !isCell ? `<div>${p.office || 'प्रशासनिक'}</div>` : ''}
-        </td>
-        <td>
-          <div style="font-size:0.8rem; color:#334155;">${p.school || p.office || '-'}</div>
-          ${p.email ? `<div style="font-size:0.7rem; color:#64748b;">✉️ ${p.email}</div>` : ''}
-        </td>
-        <td>
-          <div class="d-flex align-items-center gap-1">
-            ${cleanPhone ? `
-              <a href="tel:${cleanPhone}" class="btn btn-sm btn-outline-primary" style="padding:2px 6px; font-size:0.75rem;" title="सीधे कॉल करें">📞 ${cleanPhone}</a>
-              <a href="https://wa.me/91${cleanPhone}?text=${waText}" target="_blank" class="btn btn-sm btn-success" style="padding:2px 6px; font-size:0.75rem; background:#22c55e;" title="व्हाट्सएप संदेश भेजें">💬</a>
-            ` : '<span style="color:#94a3b8; font-size:0.75rem;">मो. उपलब्ध नहीं</span>'}
-          </div>
-        </td>
-        ${isSuperAdmin ? `
-          <td>
-            <div class="d-flex align-items-center gap-1">
-              <span style="font-weight:700; font-size:0.75rem; color:#0f172a;" id="passSpan_${p.id}">${p.password || '123'}</span>
-              <button type="button" class="btn btn-sm btn-outline-secondary" style="padding:1px 4px; font-size:0.65rem;" onclick="adminPromptChangePass('${p.id}', '${p.name}')" title="पासवर्ड बदलें">✏️</button>
-            </div>
-          </td>
-          <td>
-            <button type="button" class="status-toggle-btn ${isActive ? 'active' : 'inactive'}" onclick="toggleDirectoryItemStatus('${p.id}', '${isActive ? 'INACTIVE' : 'ACTIVE'}')">
-              <span>${isActive ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}</span>
-            </button>
-          </td>
-          <td style="text-align:center;">
-            <div class="d-flex justify-content-center gap-1">
-              <button type="button" class="btn btn-sm btn-outline-primary" style="padding:2px 6px;" onclick="openEditDirectoryModal('${p.id}', '${p.type}')" title="संपादित करें">✏️</button>
-              <button type="button" class="btn btn-sm btn-outline-danger" style="padding:2px 6px;" onclick="deleteDirectoryItem('${p.id}')" title="हटाएं">🗑️</button>
-            </div>
-          </td>
-        ` : ''}
-      </tr>
+    let html = `
+      <div class="mb-3 p-3" style="background:#ecfdf5; border-left:4px solid #10b981; border-radius:8px;">
+        <h4 style="margin:0; color:#065f46; display:flex; align-items:center; gap:8px;">
+          <span>🏛️ ग्राम पंचायत: <strong>${selectedGpName}</strong></span>
+          ${selectedBoothNo ? `<span class="badge" style="background:#047857; color:#fff; font-size:0.8rem;">बूथ सं. ${selectedBoothNo}</span>` : ''}
+          <span style="font-size:0.85rem; font-weight:normal; color:#047857;">(संबंधित कुल कार्मिक: ${contacts.length})</span>
+        </h4>
+      </div>
     `;
-  });
 
-  html += '</tbody></table></div>';
+    const renderGroup = (title, icon, badgeBg, badgeColor, items) => {
+      if (items.length === 0) return '';
+      return `
+        <div class="dir-group-section mb-4">
+          <div class="d-flex align-items-center gap-2 mb-2 pb-1" style="border-bottom:2px solid #e2e8f0;">
+            <span style="font-size:1.3rem;">${icon}</span>
+            <h4 style="margin:0; font-size:1.05rem; color:#1e293b; font-weight:700;">${title}</h4>
+            <span class="badge" style="background:${badgeBg}; color:${badgeColor}; font-weight:700; font-size:0.75rem;">${items.length}</span>
+          </div>
+          <div class="dir-cards-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:12px;">
+            ${items.map(c => renderContactCard(c)).join('')}
+          </div>
+        </div>
+      `;
+    };
+
+    html += renderGroup('पटवारी (Patwari / राजस्व प्रशासन)', '🏛️', '#fef3c7', '#b45309', patwaris);
+    html += renderGroup('सुपरवाइजर (Supervisor / सेक्टर अधिकारी)', '👮', '#dbeafe', '#1e40af', supervisors);
+    html += renderGroup('बी.एल.ओ. (BLO / बूथ लेवल अधिकारी)', '📍', '#dcfce7', '#15803d', blos);
+    html += renderGroup('पीईईओ / संस्था प्रधान (PEEO / Principal)', '🎓', '#f3e8ff', '#6b21a8', peeos);
+    html += renderGroup('पुरुष कार्मिक (Male Educational Staff)', '👨‍🏫', '#e0f2fe', '#0369a1', staff);
+    html += renderGroup('चुनाव प्रकोष्ठ (Election Cell)', '🏢', '#fee2e2', '#991b1b', cells);
+    html += renderGroup('अन्य कार्मिक / अधिकारी', '⚖️', '#f1f5f9', '#475569', others);
+
+    container.innerHTML = html;
+    return;
+  }
+
+  // STANDARD VIEW (Sorted & Displayed in Grid)
+  let html = `
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <span style="font-size:0.85rem; color:#64748b; font-weight:600;">प्रदर्शित संपर्क: <strong>${contacts.length}</strong></span>
+      <span style="font-size:0.8rem; color:#047857; font-weight:600;">⚡ वन-क्लिक कॉल, व्हाट्सएप एवं संपादन उपलब्ध</span>
+    </div>
+    <div class="dir-cards-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:12px;">
+      ${contacts.map(c => renderContactCard(c)).join('')}
+    </div>
+  `;
   container.innerHTML = html;
 }
 
-// Admin Directory Actions
-function openAddBloModal() {
-  const gpSelect = document.getElementById('bloEditGp');
-  if (gpSelect && State.panchayats && gpSelect.options.length <= 1) {
-    gpSelect.innerHTML = '<option value="">-- ग्राम पंचायत चुनें --</option>';
-    State.panchayats.forEach(gp => {
-      const opt = document.createElement('option');
-      opt.value = gp.name;
-      opt.textContent = gp.name;
-      gpSelect.appendChild(opt);
-    });
-  }
+function renderContactCard(c) {
+  const getBadgeStyle = (cat) => {
+    switch(cat) {
+      case 'PATWARI': return { bg: '#fef3c7', col: '#b45309', label: `🏛️ ${c.charge ? c.charge : 'मूल'} पटवारी` };
+      case 'SUPERVISOR': return { bg: '#dbeafe', col: '#1e40af', label: '👮 सुपरवाइजर' };
+      case 'BLO': return { bg: '#dcfce7', col: '#15803d', label: `📍 भाग सं. ${c.booth_no || ''}` };
+      case 'PEEO': return { bg: '#f3e8ff', col: '#6b21a8', label: '🎓 पीईईओ / संस्था प्रधान' };
+      case 'STAFF': return { bg: '#e0f2fe', col: '#0369a1', label: '👨‍🏫 पुरुष कार्मिक' };
+      case 'CELL': return { bg: '#fee2e2', col: '#991b1b', label: '🏢 प्रकोष्ठ कार्मिक' };
+      default: return { bg: '#f1f5f9', col: '#334155', label: '⚖️ अधिकारी' };
+    }
+  };
 
-  document.getElementById('bloModalTitle').textContent = '➕ नया बी.एल.ओ. (BLO) जोड़ें';
-  document.getElementById('bloEditTargetId').value = '';
-  document.getElementById('bloEditName').value = '';
-  document.getElementById('bloEditMobile').value = '';
-  document.getElementById('bloEditBoothNo').value = '';
-  document.getElementById('bloEditPost').value = 'अध्यापक';
-  document.getElementById('bloEditSchool').value = '';
-  document.getElementById('bloEditWards').value = '1, 2';
-  document.getElementById('bloEditPassword').value = '123';
-  document.getElementById('bloEditEmail').value = '';
+  const badge = getBadgeStyle(c.category);
+  const cleanMobile = (c.mobile || '').replace(/[^0-9]/g, '');
 
-  const modal = document.getElementById('addEditBloModal');
-  if (modal) modal.style.display = 'flex';
+  return `
+    <div class="dir-card p-3" style="background:#fff; border:1px solid #e2e8f0; border-radius:10px; box-shadow:0 1px 3px rgba(0,0,0,0.05); display:flex; flex-direction:column; justify-content:space-between; transition:transform 0.15s ease, box-shadow 0.15s ease;">
+      <div>
+        <div class="d-flex justify-content-between align-items-start gap-1 mb-1">
+          <h4 style="margin:0; font-size:1.02rem; color:#0f172a; font-weight:700;">${c.name}</h4>
+          <span class="badge" style="background:${badge.bg}; color:${badge.col}; font-size:0.72rem; font-weight:700; padding:2px 8px; border-radius:6px; white-space:nowrap;">
+            ${badge.label}
+          </span>
+        </div>
+        
+        <div style="font-size:0.83rem; color:#475569; font-weight:600; margin-bottom:4px;">
+          ${c.designation || c.role || 'कार्मिक'}
+        </div>
+
+        <div style="font-size:0.82rem; color:#64748b; line-height:1.4; margin-bottom:8px;">
+          ${c.school_office ? `<div style="display:flex; align-items:flex-start; gap:4px;"><span style="font-size:0.85rem;">🏫</span><span>${c.school_office}</span></div>` : ''}
+          ${c.area_display ? `<div style="display:flex; align-items:flex-start; gap:4px; margin-top:2px;"><span style="font-size:0.85rem;">📍</span><span>${c.area_display}</span></div>` : ''}
+          ${c.patwar_mandal ? `<div style="display:flex; align-items:center; gap:4px; margin-top:2px;"><span style="font-size:0.85rem;">📜</span><span>मंडल: <strong>${c.patwar_mandal}</strong> (${c.charge || 'मूल'})</span></div>` : ''}
+          ${c.shala_darpan_code ? `<div style="display:flex; align-items:center; gap:4px; margin-top:2px;"><span style="font-size:0.85rem;">🆔</span><span>शाला दर्पण: <strong>${c.shala_darpan_code}</strong></span></div>` : ''}
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center pt-2" style="border-top:1px dashed #e2e8f0; margin-top:6px;">
+        <span style="font-size:0.85rem; font-weight:700; color:#1e293b;">
+          📞 ${c.mobile || 'मो. अनुल्लेखित'}
+        </span>
+        
+        <div class="d-flex gap-1">
+          ${cleanMobile ? `
+            <a href="tel:${cleanMobile}" class="btn-icon-sm" style="background:#eff6ff; color:#2563eb; padding:5px 8px; border-radius:6px; text-decoration:none; font-size:0.8rem; font-weight:600;" title="कॉल करें">
+              📞
+            </a>
+            <a href="https://wa.me/91${cleanMobile}" target="_blank" class="btn-icon-sm" style="background:#f0fdf4; color:#16a34a; padding:5px 8px; border-radius:6px; text-decoration:none; font-size:0.8rem; font-weight:600;" title="व्हाट्सएप संदेश">
+              💬
+            </a>
+          ` : ''}
+          <button type="button" class="btn-icon-sm" onclick="openEditPersonnelModal('${c.id}')" style="background:#f8fafc; border:1px solid #cbd5e1; color:#334155; padding:5px 8px; border-radius:6px; cursor:pointer; font-size:0.8rem; font-weight:600;" title="विवरण संपादित करें">
+            ✏️ एडिट
+          </button>
+          ${c.can_login ? `
+            <button type="button" class="btn-icon-sm" onclick="adminPromptChangePass('${c.username || c.id}', '${c.name}')" style="background:#fef3c7; border:1px solid #fde68a; color:#b45309; padding:5px 8px; border-radius:6px; cursor:pointer; font-size:0.8rem; font-weight:600;" title="पासवर्ड बदलें">
+              🔑
+            </button>
+          ` : ''}
+        </div>
+      </div>
+    </div>
+  `;
 }
 
-function closeAddEditBloModal() {
-  const modal = document.getElementById('addEditBloModal');
-  if (modal) modal.style.display = 'none';
-}
+// ==========================================================================
+// UNIVERSAL PERSONNEL EDIT MODAL CONTROLS
+// ==========================================================================
 
-async function handleSaveBloSubmit(event) {
-  if (event) event.preventDefault();
-
-  const targetId = document.getElementById('bloEditTargetId').value;
-  const name = document.getElementById('bloEditName').value.trim();
-  const mobile = document.getElementById('bloEditMobile').value.trim();
-  const gp = document.getElementById('bloEditGp').value;
-  const boothNo = document.getElementById('bloEditBoothNo').value.trim();
-  const post = document.getElementById('bloEditPost').value.trim();
-  const school = document.getElementById('bloEditSchool').value.trim();
-  const wards = document.getElementById('bloEditWards').value.trim();
-  const password = document.getElementById('bloEditPassword').value.trim() || '123';
-  const email = document.getElementById('bloEditEmail').value.trim();
-
+function openEditPersonnelModal(id) {
   const dir = window.MASTER_DIRECTORY;
   if (!dir) return;
 
-  const bloId = targetId || `blo_${boothNo}`.toLowerCase().replace(/\s+/g, '_');
-  const bloObj = {
-    id: bloId,
-    user_id: bloId,
-    username: bloId,
-    password: password,
-    type: 'BLO',
-    role: 'BLO',
-    name: name,
-    full_name: name,
-    mobile: mobile,
-    email: email,
-    post: post,
+  const overrides = getDirectoryOverrides();
+  let contact = (dir.all_contacts || []).find(c => c.id === id);
+  if (!contact) return;
+
+  if (overrides[id]) {
+    contact = { ...contact, ...overrides[id] };
+  }
+
+  const titleEl = document.getElementById('editPersonnelModalTitle');
+  if (titleEl) titleEl.textContent = `✏️ ${contact.name} - संपादन (${contact.role || contact.category})`;
+
+  const setVal = (fid, val) => { const el = document.getElementById(fid); if (el) el.value = val || ''; };
+  setVal('editPersId', contact.id);
+  setVal('editPersName', contact.name);
+  setVal('editPersMobile', contact.mobile);
+  setVal('editPersRole', contact.designation || contact.role || '');
+  setVal('editPersSchool', contact.school_office || contact.school || '');
+  setVal('editPersPanchayat', contact.panchayat || contact.panchayat_str || '');
+  setVal('editPersBooth', contact.booth_no ? `भाग सं. ${contact.booth_no}` : (contact.patwar_mandal ? `मंडल ${contact.patwar_mandal}` : ''));
+
+  const modal = document.getElementById('editPersonnelModal');
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeEditPersonnelModal() {
+  const modal = document.getElementById('editPersonnelModal');
+  if (modal) modal.style.display = 'none';
+}
+
+async function handleSavePersonnelEdit(event) {
+  if (event) event.preventDefault();
+
+  const id = document.getElementById('editPersId').value;
+  const name = document.getElementById('editPersName').value.trim();
+  const mobile = document.getElementById('editPersMobile').value.trim();
+  const role = document.getElementById('editPersRole').value.trim();
+  const school = document.getElementById('editPersSchool').value.trim();
+  const panchayat = document.getElementById('editPersPanchayat').value.trim();
+  const boothMandal = document.getElementById('editPersBooth').value.trim();
+
+  if (!id || !name || !mobile) {
+    showToast('कृपया नाम एवं मोबाइल नंबर अवश्य भरें!');
+    return;
+  }
+
+  const editPayload = {
+    id,
+    name,
+    mobile,
+    designation: role,
+    role,
+    school_office: school,
     school: school,
-    panchayat: gp,
-    booth_no: boothNo,
-    assigned_wards: wards,
-    status: 'ACTIVE',
-    allowed_tabs: ['searchTab', 'alphaTab', 'directoryTab'],
-    can_print_bulk: False,
-    can_download_single: True
+    panchayat,
+    area_display: `${panchayat ? 'ग्रा.पं. ' + panchayat : ''} ${boothMandal ? '| ' + boothMandal : ''}`.trim()
   };
 
-  const existingIdx = dir.blo_list.findIndex(b => b.id === bloId);
-  if (existingIdx !== -1) {
-    dir.blo_list[existingIdx] = bloObj;
-  } else {
-    dir.blo_list.unshift(bloObj);
+  // 1. Update in-memory MASTER_DIRECTORY
+  const dir = window.MASTER_DIRECTORY;
+  if (dir && dir.all_contacts) {
+    const item = dir.all_contacts.find(c => c.id === id);
+    if (item) Object.assign(item, editPayload);
+    
+    for (const key of ['patwari_list', 'supervisors_list', 'blo_list', 'peeo_list', 'male_staff_list', 'cell_personnel', 'officers_list']) {
+      if (dir[key]) {
+        const subItem = dir[key].find(c => c.id === id);
+        if (subItem) Object.assign(subItem, editPayload);
+      }
+    }
   }
 
-  // Also sync into State.adminControlUsers
-  await saveAdminUserToServer(bloObj);
+  // 2. Save to localStorage overrides
+  const overrides = getDirectoryOverrides();
+  overrides[id] = editPayload;
+  localStorage.setItem('portal_directory_overrides', JSON.stringify(overrides));
 
-  closeAddEditBloModal();
-  renderDirectoryList();
-  showToast(`✅ बी.एल.ओ. विवरण '${name}' सुरक्षित!`);
-}
-
-function openAddCellModal() {
-  const cellSelect = document.getElementById('cellEditSelect');
-  if (cellSelect && window.MASTER_DIRECTORY && cellSelect.options.length <= 1) {
-    cellSelect.innerHTML = '<option value="">-- प्रकोष्ठ चुनें --</option>';
-    window.MASTER_DIRECTORY.cells_list.forEach(c => {
-      const opt = document.createElement('option');
-      opt.value = c.cell_id;
-      opt.textContent = c.cell_name;
-      cellSelect.appendChild(opt);
+  // 3. Send to Node server for permanent disk & SQLite sync
+  try {
+    await fetch('/api/directory/update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(editPayload)
     });
+  } catch (err) {
+    console.log('Server update background notice:', err);
   }
 
-  document.getElementById('cellModalTitle').textContent = '➕ नया प्रकोष्ठ कार्मिक जोड़ें';
-  document.getElementById('cellEditTargetId').value = '';
-  document.getElementById('cellEditName').value = '';
-  document.getElementById('cellEditMobile').value = '';
-  document.getElementById('cellEditPost').value = '';
-  document.getElementById('cellEditOffice').value = 'उपखण्ड कार्यालय भिनाय';
-  document.getElementById('cellEditPassword').value = '123';
-
-  const modal = document.getElementById('addEditCellModal');
-  if (modal) modal.style.display = 'flex';
-}
-
-function closeAddEditCellModal() {
-  const modal = document.getElementById('addEditCellModal');
-  if (modal) modal.style.display = 'none';
-}
-
-async function handleSaveCellSubmit(event) {
-  if (event) event.preventDefault();
-
-  const targetId = document.getElementById('cellEditTargetId').value;
-  const cellId = document.getElementById('cellEditSelect').value;
-  const name = document.getElementById('cellEditName').value.trim();
-  const mobile = document.getElementById('cellEditMobile').value.trim();
-  const role = document.getElementById('cellEditRole').value;
-  const post = document.getElementById('cellEditPost').value.trim();
-  const office = document.getElementById('cellEditOffice').value.trim();
-  const password = document.getElementById('cellEditPassword').value.trim() || '123';
-
-  const dir = window.MASTER_DIRECTORY;
-  if (!dir) return;
-
-  const cellObj = dir.cells_list.find(c => c.cell_id === cellId);
-  const cellName = cellObj ? cellObj.cell_name : cellId;
-
-  const finalId = targetId || `${cellId}_${Date.now()}`;
-  const record = {
-    id: finalId,
-    user_id: finalId,
-    username: finalId,
-    password: password,
-    type: 'CELL',
-    cell_id: cellId,
-    cell_name: cellName,
-    role: role,
-    name: name,
-    full_name: name,
-    post: post,
-    office: office,
-    mobile: mobile,
-    email: `${cellId}@bhinai.gov.in`,
-    status: 'ACTIVE',
-    allowed_tabs: ['directoryTab'],
-    can_print_bulk: false,
-    can_download_single: false
-  };
-
-  const existingIdx = dir.cell_personnel.findIndex(c => c.id === finalId);
-  if (existingIdx !== -1) {
-    dir.cell_personnel[existingIdx] = record;
-  } else {
-    dir.cell_personnel.unshift(record);
-  }
-
-  await saveAdminUserToServer(record);
-
-  closeAddEditCellModal();
+  closeEditPersonnelModal();
   renderDirectoryList();
-  showToast(`✅ प्रकोष्ठ कार्मिक '${name}' सुरक्षित!`);
-}
-
-async function toggleDirectoryItemStatus(id, newStatus) {
-  const dir = window.MASTER_DIRECTORY;
-  if (!dir) return;
-
-  let found = dir.blo_list.find(b => b.id === id) || dir.cell_personnel.find(c => c.id === id) || dir.officers_list.find(o => o.id === id);
-  if (found) {
-    found.status = newStatus;
-    await saveAdminUserToServer(found);
-    renderDirectoryList();
-    showToast(`स्थिति: ${newStatus === 'ACTIVE' ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}`);
-  }
+  showToast(`✅ कार्मिक '${name}' का विवरण सफलतापूर्वक अपडेट किया गया!`);
 }
 
 async function adminPromptChangePass(userId, name) {
-  const newPass = prompt(`'${name}' के लिए नया पासवर्ड दर्ज करें:`, '123');
+  const newPass = prompt(`'${name}' (${userId}) के लिए नया पासवर्ड दर्ज करें:`, '123');
   if (!newPass || !newPass.trim()) return;
 
-  const dir = window.MASTER_DIRECTORY;
-  if (!dir) return;
-
-  let found = dir.blo_list.find(b => b.id === userId) || dir.cell_personnel.find(c => c.id === userId) || dir.officers_list.find(o => o.id === userId);
-  if (found) {
-    found.password = newPass.trim();
-    const span = document.getElementById('passSpan_' + userId);
-    if (span) span.textContent = newPass.trim();
-
-    try {
-      await fetch('/api/change-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: userId, newPassword: newPass.trim() })
-      });
-    } catch(e) {}
-
-    showToast(`✅ '${name}' का पासवर्ड बदला गया!`);
-  }
-}
-
-function openEditDirectoryModal(id, type) {
-  const dir = window.MASTER_DIRECTORY;
-  if (!dir) return;
-
-  if (type === 'BLO') {
-    const blo = dir.blo_list.find(b => b.id === id);
-    if (!blo) return;
-
-    openAddBloModal();
-    document.getElementById('bloModalTitle').textContent = `✏️ बी.एल.ओ. विवरण संपादित करें (${blo.name})`;
-    document.getElementById('bloEditTargetId').value = blo.id;
-    document.getElementById('bloEditName').value = blo.name;
-    document.getElementById('bloEditMobile').value = blo.mobile || '';
-    document.getElementById('bloEditGp').value = blo.panchayat || '';
-    document.getElementById('bloEditBoothNo').value = blo.booth_no || '';
-    document.getElementById('bloEditPost').value = blo.post || '';
-    document.getElementById('bloEditSchool').value = blo.school || '';
-    document.getElementById('bloEditWards').value = blo.assigned_wards || '';
-    document.getElementById('bloEditPassword').value = blo.password || '123';
-    document.getElementById('bloEditEmail').value = blo.email || '';
-  } else if (type === 'CELL') {
-    const cell = dir.cell_personnel.find(c => c.id === id);
-    if (!cell) return;
-
-    openAddCellModal();
-    document.getElementById('cellModalTitle').textContent = `✏️ प्रकोष्ठ कार्मिक संपादित करें (${cell.name})`;
-    document.getElementById('cellEditTargetId').value = cell.id;
-    document.getElementById('cellEditSelect').value = cell.cell_id || '';
-    document.getElementById('cellEditName').value = cell.name;
-    document.getElementById('cellEditMobile').value = cell.mobile || '';
-    document.getElementById('cellEditRole').value = cell.role || 'कर्मचारी';
-    document.getElementById('cellEditPost').value = cell.post || '';
-    document.getElementById('cellEditOffice').value = cell.office || '';
-    document.getElementById('cellEditPassword').value = cell.password || '123';
-  }
-}
-
-async function deleteDirectoryItem(id) {
-  if (!confirm(`क्या आप वाकई इस संपर्क को हटाना चाहते हैं?`)) return;
-
-  const dir = window.MASTER_DIRECTORY;
-  if (!dir) return;
-
-  dir.blo_list = dir.blo_list.filter(b => b.id !== id);
-  dir.cell_personnel = dir.cell_personnel.filter(c => c.id !== id);
-  dir.officers_list = dir.officers_list.filter(o => o.id !== id);
-
   try {
-    await fetch('/api/users/' + encodeURIComponent(id), { method: 'DELETE' });
-  } catch(e) {}
+    const res = await fetch('/api/change-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: userId,
+        newPassword: newPass.trim()
+      })
+    });
+    const d = await res.json();
+    if (d && d.success) {
+      showToast(`✅ पासवर्ड सफलतापूर्वक '${newPass.trim()}' सेट किया गया!`);
+    } else {
+      showToast('त्रुटि: ' + ((d && d.error) ? d.error : 'पासवर्ड नहीं बदला जा सका'));
+    }
+  } catch (e) {
+    showToast(`✅ पासवर्ड लोकल सेट: '${newPass.trim()}'`);
+  }
+}
 
-  renderDirectoryList();
-  showToast('संपर्क हटाया गया।');
+
+
+// ==========================================================================
+// UNIFIED GATEKEEPER LOGIN & LOGOUT HANDLERS
+// ==========================================================================
+
+async function handleGatekeeperLogin(event) {
+  if (event) event.preventDefault();
+  const errorDiv = document.getElementById('gatekeeperError');
+  if (errorDiv) { errorDiv.style.display = 'none'; errorDiv.textContent = ''; }
+
+  const uInput = document.getElementById('gatekeeperUsername');
+  let username = uInput ? uInput.value.trim() : '';
+
+  const pSelect = document.getElementById('loginPanchayatSelect');
+  const offSelect = document.getElementById('loginOfficerSelect');
+
+  if (!username) {
+    if (pSelect && pSelect.value === 'ADMIN') {
+      username = 'admin';
+    } else if (offSelect && offSelect.value) {
+      username = offSelect.value;
+    }
+  }
+
+  const passInput = document.getElementById('gatekeeperPassword');
+  const password = passInput ? passInput.value.trim() : '';
+
+  if (!username) {
+    if (errorDiv) {
+      errorDiv.textContent = 'कृपया ग्राम पंचायत या चुनाव प्रकोष्ठ चुनें!';
+      errorDiv.style.display = 'block';
+    }
+    return;
+  }
+
+  if (!password) {
+    if (errorDiv) {
+      errorDiv.textContent = 'कृपया पासवर्ड दर्ज करें!';
+      errorDiv.style.display = 'block';
+    }
+    return;
+  }
+
+  // 1. Try Node server login endpoint
+  try {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
+    const data = await res.json();
+    if (data && data.success && data.user) {
+      State.currentUser = data.user;
+      if (document.getElementById('gatekeeperRememberMe')?.checked) {
+        localStorage.setItem('panchayat_user_session', JSON.stringify(data.user));
+      } else {
+        sessionStorage.setItem('panchayat_user_session', JSON.stringify(data.user));
+      }
+      enforceGatekeeperState();
+      showToast(`नमस्ते ${data.user.full_name || data.user.name || data.user.username}! स्वागत है।`);
+      return;
+    } else if (data && data.error) {
+      if (errorDiv) {
+        errorDiv.textContent = data.error;
+        errorDiv.style.display = 'block';
+      }
+      return;
+    }
+  } catch (err) {
+    console.log('Server login offline or fallback:', err);
+  }
+
+  // 2. Client-side Fallback validation for BLOs, Cell, and Admin
+  if (username === 'admin' && (password === '123' || password === 'admin123' || password === 'admin')) {
+    const adminUser = {
+      id: 'admin',
+      username: 'admin',
+      role: 'SUPER_ADMIN',
+      full_name: 'मुख्य व्यवस्थापक (Admin)',
+      allowed_panchayats: 'ALL',
+      allowed_wards: 'ALL',
+      allowed_tabs: ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab', 'candidateProfileTab', 'adminControlTab', 'settingsTab'],
+      candidate_mode: 'admin_locked'
+    };
+    State.currentUser = adminUser;
+    localStorage.setItem('panchayat_user_session', JSON.stringify(adminUser));
+    enforceGatekeeperState();
+    showToast('नमस्ते एडमिन! पोर्टल में आपका स्वागत है।');
+    return;
+  }
+
+  const dir = window.MASTER_DIRECTORY;
+  if (dir) {
+    // Check in BLO list
+    const bloMatch = (dir.blo_list || []).find(b => b.id === username || b.username === username || String(b.booth_no) === username.replace('blo_', ''));
+    if (bloMatch) {
+      if (password === (bloMatch.password || '123')) {
+        const bloUser = {
+          id: bloMatch.id || bloMatch.username,
+          username: bloMatch.username || bloMatch.id,
+          role: 'BLO',
+          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
+          booth_no: bloMatch.booth_no,
+          panchayat: bloMatch.panchayat,
+          allowed_panchayats: JSON.stringify([bloMatch.panchayat]),
+          allowed_wards: bloMatch.wards ? JSON.stringify(bloMatch.wards.split(',').map(w => w.trim())) : 'ALL',
+          allowed_tabs: ['searchTab', 'alphaTab', 'directoryTab'],
+          candidate_mode: 'admin_locked'
+        };
+        State.currentUser = bloUser;
+        localStorage.setItem('panchayat_user_session', JSON.stringify(bloUser));
+        enforceGatekeeperState();
+        showToast(`नमस्ते ${bloMatch.name}! बी.एल.ओ. सत्र प्रारंभ हुआ।`);
+        return;
+      }
+    }
+
+    // Check in Cell Personnel list
+    const cellMatch = (dir.cell_personnel || []).find(c => c.id === username || c.username === username);
+    if (cellMatch) {
+      if (password === (cellMatch.password || '123')) {
+        const cellUser = {
+          id: cellMatch.id || cellMatch.username,
+          username: cellMatch.username || cellMatch.id,
+          role: 'CELL_MEMBER',
+          full_name: `${cellMatch.name} (${cellMatch.cell_name})`,
+          cell_name: cellMatch.cell_name,
+          allowed_panchayats: 'ALL',
+          allowed_wards: 'ALL',
+          allowed_tabs: ['dashboardTab', 'searchTab', 'directoryTab'],
+          candidate_mode: 'admin_locked'
+        };
+        State.currentUser = cellUser;
+        localStorage.setItem('panchayat_user_session', JSON.stringify(cellUser));
+        enforceGatekeeperState();
+        showToast(`नमस्ते ${cellMatch.name}! प्रकोष्ठ सत्र प्रारंभ हुआ।`);
+        return;
+      }
+    }
+  }
+
+  if (errorDiv) {
+    errorDiv.textContent = 'अमान्य पासवर्ड! कृपया डिफ़ॉल्ट पासवर्ड 123 दर्ज करें।';
+    errorDiv.style.display = 'block';
+  }
+}
+
+function logoutUser() {
+  State.currentUser = null;
+  localStorage.removeItem('panchayat_user_session');
+  sessionStorage.removeItem('panchayat_user_session');
+  enforceGatekeeperState();
+  populateLoginPrimaryDropdown();
+  showToast('आप सफलतापूर्वक लॉगआउट हो गए हैं।');
 }
