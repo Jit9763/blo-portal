@@ -2,7 +2,7 @@ function getVoterPhotoUrl(voter) {
   if (!voter) return 'https://api.dicebear.com/7.x/identicon/svg?seed=voter';
   if (voter.panchayat_en && voter.ward_no && voter.serial_no) {
     const wNum = String(voter.ward_no).padStart(2, '0');
-    return `photos/${voter.panchayat_en}/W${wNum}/${voter.serial_no}.webp`;
+    return `https://raw.githubusercontent.com/Jit9763/voter-photos/main/${voter.panchayat_en}/W${wNum}/${voter.serial_no}.webp`;
   }
   return voter.photo_url || voter.photo || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(voter.epic_no || voter.serial_no || '1')}`;
 }
