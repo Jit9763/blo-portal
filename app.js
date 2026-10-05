@@ -291,6 +291,34 @@ function initMasterData() {
 // ==========================================================================
 // PORTAL CONTEXT & MULTI-PORTAL SESSION ENGINE
 // ==========================================================================
+function getMasterDirectory() {
+  if (typeof window !== 'undefined' && window.MASTER_DIRECTORY && window.MASTER_DIRECTORY.blo_list) {
+    return window.MASTER_DIRECTORY;
+  }
+  if (typeof MASTER_DIRECTORY !== 'undefined' && MASTER_DIRECTORY && MASTER_DIRECTORY.blo_list) {
+    if (typeof window !== 'undefined') window.MASTER_DIRECTORY = MASTER_DIRECTORY;
+    return MASTER_DIRECTORY;
+  }
+  return State.masterDirectory || null;
+}
+
+async function ensureMasterDirectoryLoaded() {
+  const existing = getMasterDirectory();
+  if (existing && existing.blo_list && existing.blo_list.length > 0) return existing;
+  try {
+    const res = await fetch('master_directory.json?v=' + Date.now());
+    if (res.ok) {
+      const data = await res.json();
+      if (typeof window !== 'undefined') window.MASTER_DIRECTORY = data;
+      State.masterDirectory = data;
+      return data;
+    }
+  } catch(e) {
+    console.warn('Could not fetch master_directory.json:', e);
+  }
+  return null;
+}
+
 function getPortalContext() {
   const url = new URL(window.location.href);
   const pParam = url.searchParams.get('portal');
@@ -3785,7 +3813,7 @@ function populateLoginPrimaryDropdown() {
   }
 }
 
-function onLoginPrimarySelectChanged(val) {
+async function onLoginPrimarySelectChanged(val) {
   const offSelect = document.getElementById('loginOfficerSelect');
   const offLabel = document.getElementById('loginOfficerLabel');
   const detailsBadge = document.getElementById('loginSelectedDetailsBadge');
@@ -3804,7 +3832,15 @@ function onLoginPrimarySelectChanged(val) {
     return;
   }
 
-  const dir = window.MASTER_DIRECTORY;
+  // 1. Ensure master directory is loaded
+  let dir = getMasterDirectory();
+  if (!dir || !dir.blo_list || dir.blo_list.length === 0) {
+    if (offSelect) {
+      offSelect.innerHTML = '<option value="">⏳ डेटा लोड हो रहा है, कृपया प्रतीक्षा करें...</option>';
+      offSelect.disabled = true;
+    }
+    dir = await ensureMasterDirectoryLoaded();
+  }
 
   if (val === 'CELL') {
     if (offLabel) offLabel.innerHTML = '<strong>2. अधिकृत चुनाव प्रकोष्ठ कार्मिक चुनें *:</strong>';
@@ -3850,10 +3886,16 @@ function onLoginPrimarySelectChanged(val) {
   if (offSelect) {
     offSelect.innerHTML = '<option value="">-- बी.एल.ओ. (BLO) चुनें --</option>';
     const bloList = (dir && dir.blo_list) ? dir.blo_list : [];
-    const matched = bloList.filter(b => b.panchayat === val || (b.panchayat && b.panchayat.includes(val)));
+    
+    // Exact or normalized GP match
+    const vClean = val.trim();
+    const matched = bloList.filter(b => {
+      const bGp = (b.panchayat || '').trim();
+      return bGp === vClean || bGp.includes(vClean) || vClean.includes(bGp);
+    });
     
     if (matched.length === 0) {
-      offSelect.innerHTML = '<option value="">-- इस पंचायत में कोई BLO दर्ज नहीं है --</option>';
+      offSelect.innerHTML = `<option value="">-- ग्रा.पं. ${val} में कोई BLO दर्ज नहीं है --</option>`;
       offSelect.disabled = true;
       return;
     }
@@ -3976,7 +4018,7 @@ let activeDirCategory = 'ALL';
 let activeDirGpBooth = 'ALL';
 
 function initDirectoryTab() {
-  const dir = window.MASTER_DIRECTORY;
+  const dir = getMasterDirectory();
   if (!dir) return;
 
   // Initialize Category Dropdown
@@ -4017,7 +4059,7 @@ function initDirectoryTab() {
 }
 
 function updateDirectoryCounts() {
-  const dir = window.MASTER_DIRECTORY;
+  const dir = getMasterDirectory();
   if (!dir) return;
 
   const total = (dir.all_contacts && dir.all_contacts.length) || 662;
@@ -4103,7 +4145,7 @@ function renderDirectoryList() {
   const container = document.getElementById('directoryListContainer');
   if (!container) return;
 
-  const dir = window.MASTER_DIRECTORY;
+  const dir = getMasterDirectory();
   if (!dir) {
     container.innerHTML = '<div class="alert alert-warning">डायरेक्टरी डेटा लोड हो रहा है...</div>';
     return;
@@ -4307,7 +4349,7 @@ function renderContactCard(c) {
 // ==========================================================================
 
 function openEditPersonnelModal(id) {
-  const dir = window.MASTER_DIRECTORY;
+  const dir = getMasterDirectory();
   if (!dir) return;
 
   const overrides = getDirectoryOverrides();
@@ -4368,7 +4410,7 @@ async function handleSavePersonnelEdit(event) {
   };
 
   // 1. Update in-memory MASTER_DIRECTORY
-  const dir = window.MASTER_DIRECTORY;
+  const dir = getMasterDirectory();
   if (dir && dir.all_contacts) {
     const item = dir.all_contacts.find(c => c.id === id);
     if (item) Object.assign(item, editPayload);
@@ -4529,7 +4571,7 @@ async function handleGatekeeperLogin(event) {
     return;
   }
 
-  const dir = window.MASTER_DIRECTORY;
+  const dir = getMasterDirectory();
   if (dir) {
     // Check in BLO list
     const bloMatch = (dir.blo_list || []).find(b => b.id === username || b.username === username || String(b.booth_no) === username.replace('blo_', ''));
@@ -4770,7 +4812,7 @@ function renderBloPassTable() {
   const tbody = document.getElementById('bloPassTableBody');
   if (!tbody) return;
 
-  const dir = window.MASTER_DIRECTORY;
+  const dir = getMasterDirectory();
   if (!dir) return;
 
   const blos = dir.blo_list || [];
@@ -4816,7 +4858,7 @@ function renderBloPassTable() {
 }
 
 function exportDatabaseBackup() {
-  const dir = window.MASTER_DIRECTORY;
+  const dir = getMasterDirectory();
   const state = State;
   const backup = {
     exported_at: new Date().toISOString(),
