@@ -51,13 +51,13 @@ db.exec(`
 `);
 
 // Seed from portal_users.json if empty
+// Sync & Seed from portal_users.json
 function seedDatabase() {
-  const userCount = db.prepare('SELECT COUNT(*) AS count FROM users').get().count;
-  if (userCount === 0 && fs.existsSync(JSON_PATH)) {
+  if (fs.existsSync(JSON_PATH)) {
     try {
       const data = JSON.parse(fs.readFileSync(JSON_PATH, 'utf8'));
       const insertUser = db.prepare(`
-        INSERT INTO users (id, username, password, full_name, mobile, role, status, allowed_panchayats, allowed_wards, allowed_tabs, candidate_mode, created_at, updated_at)
+        INSERT OR IGNORE INTO users (id, username, password, full_name, mobile, role, status, allowed_panchayats, allowed_wards, allowed_tabs, candidate_mode, created_at, updated_at)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
@@ -66,11 +66,11 @@ function seedDatabase() {
           u.id || u.username,
           u.username,
           u.password,
-          u.full_name || u.fullName || u.username,
+          u.full_name || u.fullName || u.name || u.username,
           u.mobile || '',
           u.role || 'PANCHAYAT_AGENT',
           u.status || 'ACTIVE',
-          u.allowed_panchayats || u.assigned_panchayats || 'ALL',
+          u.allowed_panchayats || u.panchayat || 'ALL',
           u.allowed_wards || u.assigned_wards || 'ALL',
           Array.isArray(u.allowed_tabs) ? JSON.stringify(u.allowed_tabs) : (u.allowed_tabs || '[]'),
           u.candidate_mode || 'user_edit',
@@ -80,7 +80,7 @@ function seedDatabase() {
       });
 
       const insertCand = db.prepare(`
-        INSERT INTO candidates (user_id, candidate_name, post, panchayat, ward, symbol_name, symbol_icon, photo_url, slogan, mobile, show_banner_on_slip, updated_at)
+        INSERT OR IGNORE INTO candidates (user_id, candidate_name, post, panchayat, ward, symbol_name, symbol_icon, photo_url, slogan, mobile, show_banner_on_slip, updated_at)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
@@ -102,7 +102,7 @@ function seedDatabase() {
           );
         });
       }
-      console.log('Database successfully seeded from portal_users.json');
+      console.log('Database synced with portal_users.json. Users count in DB:', db.prepare('SELECT COUNT(*) AS c FROM users').get().c);
     } catch (e) {
       console.error('Seeding error:', e);
     }
@@ -210,6 +210,49 @@ const server = http.createServer(async (req, res) => {
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
     // Health Check
+        // Password Change Endpoint (Self BLO or User password reset)
+    if (pathname === '/api/change-password' && req.method === 'POST') {
+      try {
+        const { username, currentPassword, newPassword } = await parseJsonBody(req);
+        if (!username || !newPassword) {
+          res.writeHead(400);
+          res.end(JSON.stringify({ success: false, error: 'यूजरनेम एवं नया पासवर्ड आवश्यक हैं।' }));
+          return;
+        }
+
+        const user = db.prepare('SELECT * FROM users WHERE LOWER(username) = LOWER(?) OR id = ?').get(username.trim(), username.trim());
+        if (!user) {
+          res.writeHead(404);
+          res.end(JSON.stringify({ success: false, error: 'उपयोगकर्ता नहीं मिला।' }));
+          return;
+        }
+
+        if (currentPassword && user.password !== currentPassword.trim()) {
+          res.writeHead(401);
+          res.end(JSON.stringify({ success: false, error: 'वर्तमान पासवर्ड गलत है!' }));
+          return;
+        }
+
+        db.prepare('UPDATE users SET password = ?, updated_at = ? WHERE id = ?').run(newPassword.trim(), new Date().toISOString(), user.id);
+        exportToJson();
+        res.end(JSON.stringify({ success: true, message: 'पासवर्ड सफलतापूर्वक बदल दिया गया!' }));
+      } catch (err) {
+        res.writeHead(500);
+        res.end(JSON.stringify({ success: false, error: err.message }));
+      }
+      return;
+    }
+
+    // Master Directory API Endpoint
+    if (pathname === '/api/directory' && req.method === 'GET') {
+      const dirPath = path.join(__dirname, 'master_directory.json');
+      if (fs.existsSync(dirPath)) {
+        res.end(fs.readFileSync(dirPath, 'utf8'));
+      } else {
+        res.end(JSON.stringify({ error: 'Directory not found' }));
+      }
+      return;
+    }
     if (pathname === '/api/health' && req.method === 'GET') {
       const count = db.prepare('SELECT COUNT(*) AS c FROM users').get().c;
       res.end(JSON.stringify({ status: 'ok', server: 'Node-SQLite-Panchayat', user_count: count, time: new Date() }));

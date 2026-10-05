@@ -3726,3 +3726,44 @@ html, body {
     color: #000000 !important;
   }
 }
+
+/* ==========================================================================
+   ELECTION DIRECTORY & LOGIN MODE STYLES
+   ========================================================================== */
+
+.stat-pill {
+  padding: 8px 16px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.15s ease;
+}
+
+.stat-pill:hover, .stat-pill.active {
+  background: #1e3a8a;
+  color: #ffffff;
+  border-color: #1e3a8a;
+}
+
+.stat-pill strong {
+  background: rgba(0,0,0,0.1);
+  padding: 1px 6px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+}
+
+.stat-pill.active strong {
+  background: rgba(255,255,255,0.25);
+  color: #ffffff;
+}
+
+.login-mode-btn:hover {
+  background: #e2e8f0;
+}
