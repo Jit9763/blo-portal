@@ -160,7 +160,7 @@ async function ensurePanchayatVotersLoaded(gpCode) {
               deletion_code: r[10] || '',
               deletion_reason: r[11] || '',
               polling_station_no: 1,
-              polling_station_name: रा.उ.मा.वि. 
+              polling_station_name: 'रा.उ.मा.वि. ' + (gp.name_hi || '') 
             };
           }
           if (r && typeof r === 'object') {
@@ -183,7 +183,7 @@ async function ensurePanchayatVotersLoaded(gpCode) {
               deletion_code: r.dc || r.deletion_code || '',
               deletion_reason: r.dr || r.deletion_reason || '',
               polling_station_no: 1,
-              polling_station_name: रा.उ.मा.वि. 
+              polling_station_name: 'रा.उ.मा.वि. ' + (gp.name_hi || '') 
             };
           }
           return r;
