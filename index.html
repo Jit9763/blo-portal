@@ -30,7 +30,7 @@
           </svg>
         </div>
         <div class="gatekeeper-titles">
-          <span class="gatekeeper-badge">🇮🇳 राजस्थान राज्य निर्वाचन आयोग द्वारा मान्यता प्राप्त प्रारूप</span>
+          <span class="gatekeeper-badge">🗳️ पंचायत चुनाव 2026 • मतदाता प्रबंधन एवं पर्ची पोर्टल</span>
           <h1 class="gatekeeper-main-title">पंचायती राज आम चुनाव - 2026</h1>
           <h2 class="gatekeeper-sub-title">मतदाता पर्ची, वार्डवार नामावली एवं खोज पोर्टल</h2>
           <p class="gatekeeper-samiti">पंचायत समिति: <strong>भिनाय (अजमेर)</strong> | 30 ग्राम पंचायतें • 312 वार्ड</p>
@@ -42,7 +42,7 @@
         <div class="gatekeeper-card-header">
           <div class="lock-icon-badge">🔐</div>
           <div>
-            <h3 class="login-card-title">सुरक्षित निर्वाचन प्रवेश (Secure Login)</h3>
+            <h3 class="login-card-title">पोर्टल प्रवेश (Portal Login)</h3>
             <p class="login-card-desc">पोर्टल में प्रवेश करने हेतु Google Sheet व्यवस्थापक द्वारा प्रदत्त क्रेडेंशियल दर्ज करें:</p>
           </div>
         </div>
@@ -169,7 +169,7 @@
     </nav>
 
     <!-- Main Container -->
-    <main class="container app-content no-print">
+    <main class="container app-content">
 
       <!-- Active User & Scope Banner -->
       <div id="userScopeBanner" class="scope-banner">
@@ -287,7 +287,7 @@
             <span class="results-note" id="resultsScopeNote">खोज शुरू करने हेतु नाम या विवरण दर्ज करें</span>
           </div>
           <div class="results-quick-actions">
-            <button class="btn-sm btn-outline" onclick="printFilteredResults()">
+            <button class="btn-sm btn-outline" onclick="openPrintVoterListModal('search')">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
               सूची प्रिंट करें
             </button>
@@ -382,8 +382,8 @@
         <div class="bulk-controls-card">
           <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div>
-              <span class="gatekeeper-badge">🇮🇳 कार्यालय उपखंड मजिस्ट्रेट (SDM) एवं निर्वाचक रजिस्ट्रीकरण पदाधिकारी, भिनाय</span>
-              <h2 class="section-title mt-1">🖨️ आधिकारिक मतदाता सूचना पर्ची बल्क जनरेटर एवं डाउनलोड</h2>
+              <span class="gatekeeper-badge">📍 भिनाय ब्लॉक (Bhinai Block), जिला अजमेर</span>
+              <h2 class="section-title mt-1">🖨️ मतदाता सूचना पर्ची बल्क जनरेटर एवं डाउनलोड</h2>
               <p class="section-subtitle">9, 12, 15 पर्चियाँ प्रति A4 पेज अथवा 58mm थर्मल ब्लूटूथ प्रिंटर फॉर्मेट में डाउनलोड एवं प्रिंट करें</p>
             </div>
           </div>
@@ -571,7 +571,7 @@
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 CSV डाउनलोड
               </button>
-              <button class="btn-sm btn-primary" onclick="printWardDirectory()">
+              <button class="btn-sm btn-primary" onclick="openPrintVoterListModal('directory')">
                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect width="12" height="8" x="6" y="14"/></svg>
                 वार्ड सूची प्रिंट करें
               </button>
@@ -856,12 +856,11 @@
           <!-- Top Header -->
           <div class="slip-header" style="position:relative;">
             <div class="slip-emblem">
-              <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23ffffff' stroke='%23000000' stroke-width='4'/><circle cx='50' cy='50' r='38' fill='none' stroke='%23000000' stroke-width='2'/><path d='M50 15 L50 85 M15 50 L85 50 M25 25 L75 75 M25 75 L75 25' stroke='%23000000' stroke-width='2'/><circle cx='50' cy='50' r='10' fill='%23000000'/></svg>" alt="Emblem" class="slip-emblem-img">
+              <span style="font-size:2rem; display:inline-block; line-height:1;">🗳️</span>
             </div>
             <div class="slip-header-titles">
-              <h2 class="slip-gov-title">राजस्थान राज्य निर्वाचन आयोग</h2>
-              <h3 class="slip-sub-title">पंचायती राज आम चुनाव - 2026</h3>
-              <div class="slip-doc-type">मतदाता सूचना पर्ची (VOTER INFORMATION SLIP)</div>
+              <h2 class="slip-gov-title" style="font-size:1.15rem; font-weight:800; color:#1e3a8a; margin:0;">मतदाता सूचना पर्ची (VOTER SLIP)</h2>
+              <h3 class="slip-sub-title" style="font-size:0.85rem; font-weight:600; color:#475569; margin:2px 0 0 0;">पंचायती राज आम चुनाव - 2026 | ब्लॉक: भिनाय (अजमेर)</h3>
             </div>
             <!-- On-Screen Verified Photo (Strictly Hidden during Print) -->
             <div class="slip-modal-photo-wrap no-print" style="margin-left:auto; display:flex; flex-direction:column; align-items:center;">
@@ -937,32 +936,7 @@
 
           <!-- Bottom Footer Bar with Security QR Code -->
           <div class="slip-footer">
-            <div class="slip-qr-box">
-              <div class="mock-qr" id="slipQrGraphic">
-                <svg viewBox="0 0 100 100" width="60" height="60">
-                  <rect width="100" height="100" fill="white"/>
-                  <rect x="5" y="5" width="30" height="30" fill="#000000"/>
-                  <rect x="10" y="10" width="20" height="20" fill="white"/>
-                  <rect x="14" y="14" width="12" height="12" fill="#000000"/>
-                  <rect x="65" y="5" width="30" height="30" fill="#000000"/>
-                  <rect x="70" y="10" width="20" height="20" fill="white"/>
-                  <rect x="74" y="14" width="12" height="12" fill="#000000"/>
-                  <rect x="5" y="65" width="30" height="30" fill="#000000"/>
-                  <rect x="10" y="70" width="20" height="20" fill="white"/>
-                  <rect x="14" y="74" width="12" height="12" fill="#000000"/>
-                  <rect x="42" y="10" width="14" height="14" fill="#000000"/>
-                  <rect x="42" y="32" width="14" height="28" fill="#000000"/>
-                  <rect x="65" y="42" width="28" height="14" fill="#000000"/>
-                  <rect x="60" y="65" width="14" height="28" fill="#000000"/>
-                  <rect x="80" y="80" width="14" height="14" fill="#000000"/>
-                </svg>
-              </div>
-              <div class="slip-qr-text">
-                <span class="qr-verify-txt">आधिकारिक सत्यापन</span>
-                <span class="qr-code-txt" id="slipQrCodeTxt">SEC-RJ-GP11-W02-001</span>
-              </div>
-            </div>
-            <div class="slip-note-box">
+            <div class="slip-note-box" style="width:100%; text-align:center;">
               <p><strong>विशेष सूचना:</strong> यह पर्ची केवल मतदान केंद्र व क्रम संख्या मार्गदर्शन हेतु है। मतदान हेतु अपना मूल पहचान पत्र (EPIC, आधार, ड्राइविंग लाइसेंस आदि) साथ लाना अनिवार्य है।</p>
             </div>
           </div>
@@ -989,6 +963,9 @@
 
   <!-- Dedicated Bulk Slip Printing Sheets (Populated only during bulk print) -->
   <div id="bulkPrintContainer" style="display:none;"></div>
+
+  <!-- Dedicated Single-Row Voter List Printing Container -->
+  <div id="voterListPrintContainer" style="display:none;"></div>
 
   <!-- Mobile Bottom Navigation Bar (Matches mobile view in Video) -->
   <nav class="mobile-bottom-nav no-print">
@@ -1095,6 +1072,76 @@
           <button type="button" class="btn btn-outline" onclick="closeChangePasswordModal()">रद्द करें</button>
           <button type="button" class="btn btn-primary" onclick="confirmPasswordChange()">पासवर्ड अपडेट करें</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Single-Row Compact Voter List Print Options Modal -->
+  <div id="printVoterListModal" class="modal-overlay no-print" style="display:none;" onclick="if(event.target===this) closePrintListModal()">
+    <div class="modal-container" style="max-width: 500px; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);">
+      <div class="modal-header" style="background:#1e3a8a; color:#ffffff; padding: 1rem 1.25rem;">
+        <div class="modal-header-left">
+          <span class="modal-badge" style="background:rgba(255,255,255,0.2); color:#ffffff;">🖨️ मतदाता सूची प्रिंटर</span>
+          <h3 class="modal-title" style="color:#ffffff; font-size:1.15rem; margin-top:2px;">मतदाता सूची प्रिंट करें</h3>
+        </div>
+        <button class="modal-close-btn" onclick="closePrintListModal()" style="color:#ffffff;">✕</button>
+      </div>
+      <div class="modal-body" style="padding: 1.25rem;">
+        <div style="background:#f1f5f9; border:1px solid #cbd5e1; border-radius:8px; padding:0.75rem 1rem; margin-bottom:1rem;">
+          <div style="font-weight:700; color:#0f172a; font-size:0.95rem;" id="printModalScopeTitle">वर्तमान चयनित सूची</div>
+          <div style="font-size:0.82rem; color:#475569; margin-top:3px;" id="printModalScopeDesc">कुल मतदाता: गणना हो रही है...</div>
+        </div>
+
+        <!-- Print Order Options -->
+        <div class="form-group mb-3">
+          <label style="font-weight:700; color:#1e293b; display:block; margin-bottom:0.5rem; font-size:0.9rem;">
+            प्रिंट क्रम चुनें (Select Sort Order) *:
+          </label>
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <label style="display:flex; align-items:flex-start; gap:0.6rem; padding:0.65rem 0.85rem; border:1.5px solid #cbd5e1; border-radius:8px; cursor:pointer; background:#fff;">
+              <input type="radio" name="printSortOrder" value="serial" checked style="margin-top:3px;">
+              <div>
+                <strong style="color:#0f172a; font-size:0.92rem;">1. क्रमांक वार (Serial / Ward Order)</strong>
+                <div style="font-size:0.78rem; color:#64748b;">वार्ड एवं मतदाता सरल क्रमांक (1, 2, 3...) अनुसार मूल क्रमिक सूची</div>
+              </div>
+            </label>
+            <label style="display:flex; align-items:flex-start; gap:0.6rem; padding:0.65rem 0.85rem; border:1.5px solid #cbd5e1; border-radius:8px; cursor:pointer; background:#fff;">
+              <input type="radio" name="printSortOrder" value="alpha" style="margin-top:3px;">
+              <div>
+                <strong style="color:#0f172a; font-size:0.92rem;">2. अंग्रेजी वर्णानुक्रम (Alphabetical English A-Z)</strong>
+                <div style="font-size:0.78rem; color:#64748b;">मतदाता के अंग्रेजी नाम (A-Z) के अनुसार क्रमिक सूची (पर्ची बांटने व त्वरित खोजने हेतु)</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Scope Options -->
+        <div class="form-group mb-3" id="printScopeGroup">
+          <label style="font-weight:700; color:#1e293b; display:block; margin-bottom:0.4rem; font-size:0.9rem;">
+            प्रिंट दायरा (Scope):
+          </label>
+          <div style="display:flex; gap:1.2rem;">
+            <label style="display:flex; align-items:center; gap:0.4rem; cursor:pointer; font-size:0.88rem;">
+              <input type="radio" name="printScope" value="current" checked>
+              <span>वर्तमान वार्ड / फिल्टर परिणाम</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:0.4rem; cursor:pointer; font-size:0.88rem;">
+              <input type="radio" name="printScope" value="all_wards">
+              <span>पूरी ग्राम पंचायत (समस्त वार्ड)</span>
+            </label>
+          </div>
+        </div>
+
+        <div style="font-size:0.78rem; color:#047857; background:#ecfdf5; border:1px solid #a7f3d0; padding:0.6rem 0.75rem; border-radius:6px; line-height:1.4;">
+          ⚡ <strong>कागज बचत लेआउट:</strong> यह सूची सिंगल रो (एक पंक्ति प्रति मतदाता) सघन तालिका प्रारूप में मुद्रित होगी, जिससे 1 A4 पृष्ठ पर 40-45 मतदाताओं का विवरण प्रिंट होगा।
+        </div>
+      </div>
+      <div class="modal-footer" style="padding:0.75rem 1.25rem; display:flex; justify-content:flex-end; gap:0.75rem; background:#f8fafc; border-top:1px solid #e2e8f0;">
+        <button class="btn btn-outline" onclick="closePrintListModal()">रद्द करें</button>
+        <button class="btn btn-primary" onclick="confirmExecuteVoterListPrint()">
+          🖨️ प्रिंट प्रारंभ करें (Print Now)
+        </button>
       </div>
     </div>
   </div>

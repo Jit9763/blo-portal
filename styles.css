@@ -3050,3 +3050,135 @@ html, body {
     width: 100% !important;
   }
 }
+
+
+/* ==========================================================================
+   DEDICATED COMPACT SINGLE-ROW VOTER LIST PRINT (MAX PAPER SAVING)
+   ========================================================================== */
+#voterListPrintContainer {
+  display: none;
+}
+
+@media print {
+  body.printing-voter-list {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body.printing-voter-list #voterListPrintContainer {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body.printing-voter-list .gov-topbar,
+  body.printing-voter-list .main-navbar,
+  body.printing-voter-list main,
+  body.printing-voter-list .scope-banner,
+  body.printing-voter-list .modal-overlay,
+  body.printing-voter-list .mobile-bottom-nav,
+  body.printing-voter-list #bulkPrintContainer,
+  body.printing-voter-list .toast-container,
+  body.printing-voter-list #printableVoterSlip {
+    display: none !important;
+  }
+
+  .voter-list-print-page {
+    page-break-after: always;
+    page-break-inside: avoid;
+    padding: 3mm 4mm;
+    margin: 0;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .voter-list-print-page:last-child {
+    page-break-after: auto;
+  }
+
+  .voter-list-print-header {
+    border: 1.5px solid #000000;
+    border-bottom: 2px solid #000000;
+    padding: 3px 6px;
+    margin-bottom: 3px;
+    background: #f1f5f9 !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .voter-list-print-header .header-main-title {
+    font-size: 9.5pt;
+    font-weight: 800;
+    color: #000000;
+  }
+
+  .voter-list-print-header .header-meta-items {
+    display: flex;
+    gap: 8px;
+    font-size: 7.2pt;
+    color: #000000;
+    font-weight: 600;
+    align-items: center;
+  }
+
+  .voter-list-print-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 7.2pt;
+    line-height: 1.15;
+    color: #000000;
+  }
+
+  .voter-list-print-table th {
+    background: #e2e8f0 !important;
+    color: #000000 !important;
+    border: 1px solid #1e293b !important;
+    padding: 2px 3px;
+    font-size: 7.2pt;
+    font-weight: 700;
+    text-align: left;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .voter-list-print-table td {
+    border: 1px solid #475569 !important;
+    padding: 1.5px 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+  }
+
+  .voter-list-print-table tr:nth-child(even) td {
+    background-color: #f8fafc !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .voter-list-print-table .col-sn { width: 3.5%; text-align: center; }
+  .voter-list-print-table .col-ward { width: 4.5%; text-align: center; }
+  .voter-list-print-table .col-serial { width: 5.5%; text-align: center; font-weight: 700; }
+  .voter-list-print-table .col-name { width: 22.5%; font-weight: 700; }
+  .voter-list-print-table .col-rel { width: 22.5%; }
+  .voter-list-print-table .col-house { width: 6.5%; text-align: center; }
+  .voter-list-print-table .col-age { width: 4.5%; text-align: center; }
+  .voter-list-print-table .col-gender { width: 4.5%; text-align: center; }
+  .voter-list-print-table .col-epic { width: 14%; text-align: center; font-family: monospace; font-size: 6.8pt; }
+  .voter-list-print-table .col-sign { width: 12%; }
+
+  .voter-list-print-table .en-sub {
+    font-size: 6.5pt;
+    color: #1e293b;
+    font-weight: normal;
+  }
+}

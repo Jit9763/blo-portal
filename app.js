@@ -437,14 +437,14 @@ function updateUserScopeDisplay() {
   const sessionStatus = document.getElementById('sessionStatusText');
 
   if (roleBadge) {
-    roleBadge.textContent = u.role === 'SUPER_ADMIN' ? 'SUPER ADMIN (SDM)' : 'पंचायत प्रभारी';
+    roleBadge.textContent = u.role === 'SUPER_ADMIN' ? 'ब्लॉक एडमिन (Bhinai Block)' : 'पंचायत प्रभारी';
     roleBadge.style.background = u.role === 'SUPER_ADMIN' ? '#1e3a8a' : '#d97706';
   }
 
   if (userName) userName.textContent = u.full_name || u.username;
   if (gpName) gpName.textContent = u.gram_panchayat || (u.panchayat_code === 'ALL' ? 'सभी 30 ग्राम पंचायत' : u.panchayat_code);
   if (wardScope) wardScope.textContent = u.allowed_wards === 'ALL' ? 'समस्त वार्ड' : `वार्ड ${u.allowed_wards}`;
-  if (sessionStatus) sessionStatus.textContent = `${u.full_name} (${u.role === 'SUPER_ADMIN' ? 'SDM Admin' : u.panchayat_code})`;
+  if (sessionStatus) sessionStatus.textContent = `${u.full_name} (${u.role === 'SUPER_ADMIN' ? 'ब्लॉक एडमिन' : u.panchayat_code})`;
 
   // Admin users box visibility
   const adminBox = document.getElementById('adminUserManagementBox');
@@ -1140,8 +1140,8 @@ function shareVoterSlipWhatsApp() {
   if (!State.currentSlipVoter) return;
   const v = State.currentSlipVoter;
 
-  const text = `🗳️ *राजस्थान राज्य निर्वाचन आयोग - पंचायत आम चुनाव 2026*
-🏛️ *कार्यालय उपखंड मजिस्ट्रेट (SDM) कार्यालय, भिनाय*
+  const text = `🗳️ *मतदाता सूचना पर्ची - पंचायत आम चुनाव 2026*
+📍 *ब्लॉक: भिनाय (अजमेर)*
 ---------------------------------------
 📋 *आधिकारिक मतदाता सूचना पर्ची*
 ---------------------------------------
@@ -1468,11 +1468,10 @@ function buildOfficialSlipHtml(voter, layout, theme) {
   return `
     <div class="official-mini-slip">
       <div>
-        <!-- Official Government Header -->
+        <!-- Slip Header -->
         <div class="mini-slip-header">
-          <div class="mini-slip-gov-title">राजस्थान राज्य निर्वाचन आयोग</div>
-          <div style="font-size: 6pt; font-weight: 700; color: #000000;">कार्यालय उपखंड मजिस्ट्रेट (SDM), भिनाय</div>
-          <div class="mini-slip-doc-type">मतदाता सूचना पर्ची (VOTER SLIP)</div>
+          <div class="mini-slip-gov-title" style="font-size: 7.5pt; font-weight: 800; color: #000000; letter-spacing: 0.5px;">मतदाता सूचना पर्ची (VOTER SLIP)</div>
+          <div style="font-size: 5.8pt; font-weight: 600; color: #333333;">पंचायती राज आम चुनाव - 2026 | भिनाय (अजमेर)</div>
         </div>
 
         <!-- GP, Ward & Serial Bar -->
@@ -1512,31 +1511,10 @@ function buildOfficialSlipHtml(voter, layout, theme) {
         </div>
       </div>
 
-      <!-- Security QR & BLO Sign -->
-      <div class="mini-slip-footer">
-        <div style="display:flex; align-items:center; gap:3px;">
-          <svg class="mini-qr-code" viewBox="0 0 100 100">
-            <rect width="100" height="100" fill="white"/>
-            <rect x="5" y="5" width="30" height="30" fill="black"/>
-            <rect x="10" y="10" width="20" height="20" fill="white"/>
-            <rect x="14" y="14" width="12" height="12" fill="black"/>
-            <rect x="65" y="5" width="30" height="30" fill="black"/>
-            <rect x="70" y="10" width="20" height="20" fill="white"/>
-            <rect x="74" y="14" width="12" height="12" fill="black"/>
-            <rect x="5" y="65" width="30" height="30" fill="black"/>
-            <rect x="10" y="70" width="20" height="20" fill="white"/>
-            <rect x="14" y="74" width="12" height="12" fill="black"/>
-            <rect x="42" y="10" width="14" height="28" fill="black"/>
-            <rect x="65" y="42" width="28" height="14" fill="black"/>
-            <rect x="42" y="60" width="14" height="28" fill="black"/>
-            <rect x="75" y="75" width="15" height="15" fill="black"/>
-          </svg>
-          <span style="font-family:monospace; font-size:4.8pt; color:#000000; font-weight:700;">${voter.panchayat_code}-W${voter.ward_no}-S${voter.serial_no}</span>
-        </div>
-        <div class="mini-sig-text">
-          हस्ताक्षर बी.एल.ओ. / SDM<br>
-          <span style="font-size:4.8pt; color:#000000;">पहचान पत्र अनिवार्य</span>
-        </div>
+      <!-- Slip Footer -->
+      <div class="mini-slip-footer" style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #777; padding-top:2px;">
+        <span style="font-family:monospace; font-size:5.5pt; color:#222; font-weight:700;">वार्ड: ${voter.ward_no} • सरल क्र.: ${voter.serial_no}</span>
+        <span style="font-size:5.2pt; color:#444; font-weight:600;">*मतदान हेतु मूल पहचान पत्र अनिवार्य</span>
       </div>
     </div>
   `;
@@ -2435,7 +2413,7 @@ function populateLoginUserDropdown() {
 
   if (superAdmins.length > 0) {
     const optgroup = document.createElement('optgroup');
-    optgroup.label = '⚡ निर्वाचन नियंत्रण कक्ष / सुपर एडमिन';
+    optgroup.label = '⚡ भिनाय ब्लॉक व्यवस्थापक / एडमिन';
     superAdmins.forEach(u => {
       const opt = document.createElement('option');
       opt.value = u.username;
@@ -2557,4 +2535,220 @@ async function syncLatestActiveUsersFromAppsScript() {
   } catch (err) {
     console.warn('Silent sync of active users warning:', err);
   }
+}
+
+
+// ==========================================================================
+// DEDICATED COMPACT SINGLE-ROW VOTER LIST PRINT ENGINE (PAPER SAVER)
+// ==========================================================================
+let currentPrintListContext = 'search';
+
+function openPrintVoterListModal(context = 'search') {
+  currentPrintListContext = context;
+  const modal = document.getElementById('printVoterListModal');
+  const scopeTitle = document.getElementById('printModalScopeTitle');
+  const scopeDesc = document.getElementById('printModalScopeDesc');
+  const scopeGroup = document.getElementById('printScopeGroup');
+
+  let count = 0;
+  let label = '';
+  let gpName = '';
+
+  if (context === 'search') {
+    const list = State.filteredVoters && State.filteredVoters.length > 0 ? State.filteredVoters : State.voters;
+    count = list.length;
+    label = 'खोज परिणाम (Search Results)';
+    if (scopeGroup) scopeGroup.style.display = 'block';
+  } else if (context === 'directory') {
+    const gpCode = document.getElementById('dirGpSelect') ? document.getElementById('dirGpSelect').value : '';
+    const wardNo = document.getElementById('dirWardSelect') ? document.getElementById('dirWardSelect').value : '';
+    const gp = State.panchayats.find(p => p.code === gpCode);
+    gpName = gp ? gp.name : gpCode;
+    const list = State.voters.filter(v => (!gpCode || v.panchayat_code === gpCode) && (!wardNo || String(v.ward_no) === String(wardNo)));
+    count = list.length;
+    label = `वार्ड नामावली (${gpName} - वार्ड ${wardNo || 'समस्त'})`;
+    if (scopeGroup) scopeGroup.style.display = 'block';
+  } else if (context === 'alpha') {
+    count = State.alphaFilteredVoters ? State.alphaFilteredVoters.length : State.voters.length;
+    label = 'वर्णमाला नामावली (Alphabetical Roll)';
+    if (scopeGroup) scopeGroup.style.display = 'none';
+  }
+
+  if (scopeTitle) scopeTitle.textContent = label;
+  if (scopeDesc) scopeDesc.textContent = `कुल मुद्रण योग्य मतदाता: ${count.toLocaleString('en-IN')}`;
+
+  if (modal) {
+    modal.style.display = 'flex';
+  }
+}
+
+function closePrintListModal() {
+  const modal = document.getElementById('printVoterListModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function confirmExecuteVoterListPrint() {
+  const sortModeEl = document.querySelector('input[name="printSortOrder"]:checked');
+  const sortMode = sortModeEl ? sortModeEl.value : 'serial';
+  
+  const scopeEl = document.querySelector('input[name="printScope"]:checked');
+  const scope = scopeEl ? scopeEl.value : 'current';
+
+  closePrintListModal();
+  executeVoterListPrint(sortMode, scope, currentPrintListContext);
+}
+
+function executeVoterListPrint(sortMode, scope, context) {
+  let list = [];
+  let gpName = '';
+  let wardText = '';
+
+  if (context === 'search') {
+    list = State.filteredVoters && State.filteredVoters.length > 0 ? [...State.filteredVoters] : [...State.voters];
+    if (scope === 'all_wards') {
+      const activeGp = list.length > 0 ? list[0].panchayat_code : '';
+      if (activeGp) {
+        list = State.voters.filter(v => v.panchayat_code === activeGp);
+      }
+    }
+  } else if (context === 'directory') {
+    const gpCode = document.getElementById('dirGpSelect') ? document.getElementById('dirGpSelect').value : '';
+    const wardNo = document.getElementById('dirWardSelect') ? document.getElementById('dirWardSelect').value : '';
+    const gp = State.panchayats.find(p => p.code === gpCode);
+    gpName = gp ? gp.name : gpCode;
+    
+    if (scope === 'all_wards') {
+      list = State.voters.filter(v => !gpCode || v.panchayat_code === gpCode);
+      wardText = 'समस्त वार्ड (All Wards)';
+    } else {
+      list = State.voters.filter(v => (!gpCode || v.panchayat_code === gpCode) && (!wardNo || String(v.ward_no) === String(wardNo)));
+      wardText = wardNo ? `वार्ड संख्या ${wardNo}` : 'समस्त वार्ड';
+    }
+  } else if (context === 'alpha') {
+    list = State.alphaFilteredVoters && State.alphaFilteredVoters.length > 0 ? [...State.alphaFilteredVoters] : [...State.voters];
+  }
+
+  if (list.length === 0) {
+    showToast('प्रिंट करने हेतु कोई मतदाता उपलब्ध नहीं है!');
+    return;
+  }
+
+  // Derive GP and Ward info if not set
+  if (!gpName && list.length > 0) {
+    gpName = list[0].gram_panchayat || list[0].panchayat_code;
+  }
+  if (!wardText && list.length > 0) {
+    const wards = Array.from(new Set(list.map(v => v.ward_no))).sort((a,b) => Number(a)-Number(b));
+    wardText = wards.length === 1 ? `वार्ड संख्या ${wards[0]}` : `वार्ड ${wards.join(', ')}`;
+  }
+
+  // SORTING
+  let orderLabel = '';
+  if (sortMode === 'alpha') {
+    orderLabel = 'अंग्रेजी वर्णानुक्रम (Alphabetical A-Z)';
+    list.sort((a, b) => {
+      const nameA = (a.voter_name_en || a.voter_name || '').toLowerCase();
+      const nameB = (b.voter_name_en || b.voter_name || '').toLowerCase();
+      return nameA.localeCompare(nameB);
+    });
+  } else {
+    orderLabel = 'क्रमांक वार (Serial / Ward Order)';
+    list.sort((a, b) => {
+      const wA = Number(a.ward_no || 0);
+      const wB = Number(b.ward_no || 0);
+      if (wA !== wB) return wA - wB;
+      const sA = Number(a.serial_no || 0);
+      const sB = Number(b.serial_no || 0);
+      return sA - sB;
+    });
+  }
+
+  const printBox = document.getElementById('voterListPrintContainer');
+  if (!printBox) return;
+  printBox.innerHTML = '';
+
+  // Fit 42 voters per A4 page strictly
+  const rowsPerPage = 42;
+  const totalPages = Math.ceil(list.length / rowsPerPage);
+
+  for (let p = 0; p < totalPages; p++) {
+    const pageVoters = list.slice(p * rowsPerPage, (p + 1) * rowsPerPage);
+    const pageDiv = document.createElement('div');
+    pageDiv.className = 'voter-list-print-page';
+
+    let tableRows = '';
+    pageVoters.forEach((v, idx) => {
+      const overallIdx = p * rowsPerPage + idx + 1;
+      const isFemale = v.gender === 'F';
+      const enVoter = v.voter_name_en ? `<span class="en-sub">(${v.voter_name_en})</span>` : '';
+      const enRel = v.relative_name_en ? `<span class="en-sub">(${v.relative_name_en})</span>` : '';
+
+      tableRows += `
+        <tr>
+          <td class="col-sn">${overallIdx}</td>
+          <td class="col-ward">${v.ward_no}</td>
+          <td class="col-serial">${v.serial_no}</td>
+          <td class="col-name">${v.voter_name} ${enVoter}</td>
+          <td class="col-rel">${v.relative_name || '-'} ${enRel}</td>
+          <td class="col-house">${v.house_no || '-'}</td>
+          <td class="col-age">${v.age}</td>
+          <td class="col-gender">${isFemale ? 'स्त्री' : 'पुरुष'}</td>
+          <td class="col-epic">${v.epic_no || '-'}</td>
+          <td class="col-sign"></td>
+        </tr>
+      `;
+    });
+
+    pageDiv.innerHTML = `
+      <div class="voter-list-print-header">
+        <div class="header-main-title">
+          🗳️ मतदाता नामावली - पंचायत आम चुनाव 2026
+        </div>
+        <div class="header-meta-items">
+          <span><strong>पं.:</strong> ${gpName}</span>
+          <span><strong>${wardText}</strong></span>
+          <span><strong>क्रम:</strong> ${orderLabel}</span>
+          <span><strong>कुल:</strong> ${list.length}</span>
+          <span style="background:#0f172a; color:#fff; padding:1px 6px; border-radius:3px;">पृष्ठ ${p + 1} / ${totalPages}</span>
+        </div>
+      </div>
+      <table class="voter-list-print-table">
+        <thead>
+          <tr>
+            <th class="col-sn">क्र.</th>
+            <th class="col-ward">वार्ड</th>
+            <th class="col-serial">म.क्र.</th>
+            <th class="col-name">मतदाता का नाम</th>
+            <th class="col-rel">पिता / पति का नाम</th>
+            <th class="col-house">म.सं.</th>
+            <th class="col-age">आयु</th>
+            <th class="col-gender">लिंग</th>
+            <th class="col-epic">पहचान पत्र (EPIC)</th>
+            <th class="col-sign">हस्ताक्षर / रिमार्क</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tableRows}
+        </tbody>
+      </table>
+    `;
+
+    printBox.appendChild(pageDiv);
+  }
+
+  document.body.classList.add('printing-voter-list');
+  window.print();
+
+  setTimeout(() => {
+    document.body.classList.remove('printing-voter-list');
+    printBox.innerHTML = '';
+  }, 1000);
+}
+
+function printFilteredResults() {
+  openPrintVoterListModal('search');
+}
+
+function printWardDirectory() {
+  openPrintVoterListModal('directory');
 }
