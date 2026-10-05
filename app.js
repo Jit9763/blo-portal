@@ -1,3 +1,23 @@
+
+function getBoothForVoter(voter) {
+  if (!voter) return null;
+  const gpVal = (voter.panchayat_code || voter.gram_panchayat || voter.panchayat_en || '').toLowerCase();
+  const wardNo = parseInt(voter.ward_no, 10);
+  const booths = (window.MASTER_DATA && window.MASTER_DATA.polling_booths) || [];
+  
+  return booths.find(b => {
+    const bGp = (b.gp || '').toLowerCase();
+    let matchGp = (bGp === gpVal);
+    if (!matchGp && State.panchayats) {
+      const pObj = State.panchayats.find(p => p.name.toLowerCase() === bGp || p.code.toLowerCase() === bGp || (p.enName && p.enName.toLowerCase() === bGp));
+      if (pObj && (pObj.code.toLowerCase() === gpVal || pObj.name.toLowerCase() === gpVal || (pObj.enName && pObj.enName.toLowerCase() === gpVal))) {
+        matchGp = true;
+      }
+    }
+    return matchGp && b.wards && b.wards.includes(wardNo);
+  }) || null;
+}
+
 function getVoterPhotoUrl(voter) {
   if (!voter) return 'https://api.dicebear.com/7.x/identicon/svg?seed=voter';
 
@@ -1098,8 +1118,11 @@ function openVoterSlipModal(voter) {
   document.getElementById('slipEpicNo').textContent = voter.epic_no || 'N/A';
   document.getElementById('slipVillageName').textContent = voter.revenue_village || voter.gram_panchayat;
 
-  document.getElementById('slipBoothNo').textContent = String(voter.polling_station_no || '01').padStart(2, '0');
-  document.getElementById('slipBoothName').textContent = voter.polling_station_name || `राजकीय विद्यालय कमरा नं.-01 ${voter.gram_panchayat}`;
+  const bInfo = getBoothForVoter(voter);
+  const boothNoVal = bInfo ? bInfo.booth_no : (voter.polling_station_no || '01');
+  const boothNameVal = bInfo ? bInfo.name : (voter.polling_station_name || `राजकीय विद्यालय कमरा नं.-01 ${voter.gram_panchayat}`);
+  document.getElementById('slipBoothNo').textContent = String(boothNoVal).padStart(2, '0');
+  document.getElementById('slipBoothName').textContent = boothNameVal;
 
   const qrString = `SEC-RJ-${voter.panchayat_code}-W${String(voter.ward_no).padStart(2, '0')}-S${String(voter.serial_no).padStart(3, '0')}`;
   document.getElementById('slipQrCodeTxt').textContent = qrString;
@@ -2751,4 +2774,63 @@ function printFilteredResults() {
 
 function printWardDirectory() {
   openPrintVoterListModal('directory');
+}
+
+
+// Bulk Sort Order Toggle
+State.bulkSortOrder = 'serial';
+
+function setBulkSortOrder(order) {
+  State.bulkSortOrder = order;
+  const sBtn = document.getElementById('bulkSortSerialBtn');
+  const aBtn = document.getElementById('bulkSortAlphaBtn');
+  if (sBtn && aBtn) {
+    if (order === 'alpha') {
+      aBtn.className = 'btn btn-sm btn-primary';
+      sBtn.className = 'btn btn-sm btn-outline';
+    } else {
+      sBtn.className = 'btn btn-sm btn-primary';
+      aBtn.className = 'btn btn-sm btn-outline';
+    }
+  }
+  updateBulkGenerator();
+}
+
+// Populate Booth Dropdown in Alpha Tab
+function populateAlphaBoothDropdown(gpCode) {
+  const select = document.getElementById('alphaBoothSelect');
+  if (!select) return;
+  select.innerHTML = '<option value="ALL">-- सभी बूथ (All Booths) --</option>';
+  if (!gpCode || gpCode === 'ALL') return;
+
+  const gpObj = State.panchayats.find(p => p.code === gpCode || p.name === gpCode);
+  const gpName = gpObj ? gpObj.name : gpCode;
+  const booths = (window.MASTER_DATA && window.MASTER_DATA.polling_booths) || [];
+  const gpBooths = booths.filter(b => b.gp.toLowerCase() === gpName.toLowerCase() || (gpObj && b.gp.toLowerCase() === (gpObj.enName||'').toLowerCase()));
+
+  gpBooths.forEach(b => {
+    const opt = document.createElement('option');
+    opt.value = b.booth_no;
+    opt.textContent = `बूथ ${b.booth_no}: ${b.name} (वार्ड ${b.wards.join(', ')})`;
+    select.appendChild(opt);
+  });
+}
+
+function onAlphaBoothChanged() {
+  const bVal = document.getElementById('alphaBoothSelect').value;
+  if (bVal === 'ALL') {
+    renderAlphabeticalList();
+    return;
+  }
+  const booths = (window.MASTER_DATA && window.MASTER_DATA.polling_booths) || [];
+  const targetBooth = booths.find(b => String(b.booth_no) === String(bVal));
+  if (!targetBooth) {
+    renderAlphabeticalList();
+    return;
+  }
+
+  // Filter alpha voters by booth's wards
+  const wards = targetBooth.wards;
+  State.alphaFilteredVoters = State.voters.filter(v => wards.includes(Number(v.ward_no)));
+  renderAlphaVotersTable(State.alphaFilteredVoters);
 }

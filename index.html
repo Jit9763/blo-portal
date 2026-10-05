@@ -450,6 +450,22 @@
               <div class="layout-desc">3 कॉलम × 5 पंक्तियाँ • बी.एल.ओ. सघन वितरण हेतु सुपर कॉम्पैक्ट</div>
             </div>
 
+            <!-- Option 18 Slips -->
+            <div class="layout-choice-card" id="layoutCard18" onclick="selectBulkLayout(18)">
+              <div class="layout-badge">कागज बचत 18</div>
+              <div class="layout-icon">📑</div>
+              <div class="layout-title">18 पर्चियाँ / A4 पेज</div>
+              <div class="layout-desc">3 कॉलम × 6 पंक्तियाँ • पूर्ण पृष्ठ उपयोग, शून्य रिक्त स्थान</div>
+            </div>
+
+            <!-- Option 20 Slips -->
+            <div class="layout-choice-card" id="layoutCard20" onclick="selectBulkLayout(20)">
+              <div class="layout-badge">अल्ट्रा बचत 20</div>
+              <div class="layout-icon">⚡</div>
+              <div class="layout-title">20 पर्चियाँ / A4 पेज</div>
+              <div class="layout-desc">4 कॉलम × 5 पंक्तियाँ • अधिकतम बचत, संपूर्ण विवरण सहित</div>
+            </div>
+
             <!-- Option Thermal 58mm -->
             <div class="layout-choice-card" id="layoutCardThermal" onclick="selectBulkLayout('thermal')">
               <div class="layout-badge">ब्लूटूथ प्रिंट</div>
@@ -463,6 +479,11 @@
           <div class="bulk-meta-bar">
             <!-- Theme Indicator -->
             <div style="display:flex; align-items:center; gap:0.65rem;">
+              <span class="text-sm font-bold" style="color:#000000;">पर्ची क्रम:</span>
+              <div class="btn-group mr-2">
+                <button class="btn btn-sm btn-primary" id="bulkSortSerialBtn" onclick="setBulkSortOrder('serial')">क्रमांक वार</button>
+                <button class="btn btn-sm btn-outline" id="bulkSortAlphaBtn" onclick="setBulkSortOrder('alpha')">A-Z वर्णानुक्रम</button>
+              </div>
               <span class="text-sm font-bold" style="color:#000000;">प्रिंट मोड:</span>
               <span class="badge" style="background:#000000; color:#ffffff; padding:0.35rem 0.75rem; font-size:0.8rem; border-radius:4px; font-weight:700;">
                 ⚫ 100% शुद्ध B&W (बिना बैकग्राउंड कलर, लेज़र/ज़ेरॉक्स हेतु सर्वोत्तम)
@@ -1121,10 +1142,14 @@
           <label style="font-weight:700; color:#1e293b; display:block; margin-bottom:0.4rem; font-size:0.9rem;">
             प्रिंट दायरा (Scope):
           </label>
-          <div style="display:flex; gap:1.2rem;">
+          <div style="display:flex; flex-direction:column; gap:0.4rem;">
             <label style="display:flex; align-items:center; gap:0.4rem; cursor:pointer; font-size:0.88rem;">
               <input type="radio" name="printScope" value="current" checked>
               <span>वर्तमान वार्ड / फिल्टर परिणाम</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:0.4rem; cursor:pointer; font-size:0.88rem;">
+              <input type="radio" name="printScope" value="current_booth">
+              <span id="printScopeBoothLabel">वर्तमान चयनित मतदान केंद्र (बूथ वार)</span>
             </label>
             <label style="display:flex; align-items:center; gap:0.4rem; cursor:pointer; font-size:0.88rem;">
               <input type="radio" name="printScope" value="all_wards">
