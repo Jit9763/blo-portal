@@ -827,7 +827,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR001",
       "username": "superadmin",
-      "password": "admin@2026#secure",
+      "password": "admin123",
       "full_name": "मुख्य निर्वाचन अधिकारी (Super Admin)",
       "mobile": "9829000000",
       "role": "SUPER_ADMIN",
