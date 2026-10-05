@@ -139,6 +139,9 @@ function initSession() {
     }
   }
 
+  // Populate dropdown and trigger background sync
+  populateLoginUserDropdown();
+  syncLatestActiveUsersFromAppsScript();
   enforceGatekeeperState();
 }
 
@@ -149,6 +152,7 @@ function enforceGatekeeperState() {
   if (!State.currentUser) {
     if (gatekeeper) gatekeeper.style.display = 'flex';
     if (mainApp) mainApp.style.display = 'none';
+    populateLoginUserDropdown();
   } else {
     if (gatekeeper) gatekeeper.style.display = 'none';
     if (mainApp) mainApp.style.display = 'block';
@@ -164,7 +168,12 @@ function enforceGatekeeperState() {
 
 async function handleGatekeeperLogin(event) {
   event.preventDefault();
-  const username = document.getElementById('gatekeeperUsername').value.trim();
+  let username = (document.getElementById('gatekeeperUsername').value || '').trim();
+  const select = document.getElementById('gatekeeperUserSelect');
+  if (!username && select && select.value) {
+    username = select.value.trim();
+    document.getElementById('gatekeeperUsername').value = username;
+  }
   const password = document.getElementById('gatekeeperPassword').value.trim();
   const remember = document.getElementById('gatekeeperRememberMe').checked;
   const errorMsg = document.getElementById('gatekeeperError');
@@ -269,6 +278,12 @@ function logoutUser() {
   const pInput = document.getElementById('gatekeeperPassword');
   if (uInput) uInput.value = '';
   if (pInput) pInput.value = '';
+
+  const select = document.getElementById('gatekeeperUserSelect');
+  if (select) select.value = '';
+
+  populateLoginUserDropdown();
+  syncLatestActiveUsersFromAppsScript();
 
   enforceGatekeeperState();
   showToast('लॉगआउट संपन्न। सुरक्षित रहने हेतु ब्राउज़र बंद कर सकते हैं।');
@@ -2239,7 +2254,8 @@ function populateLoginUserDropdown() {
     superAdmins.forEach(u => {
       const opt = document.createElement('option');
       opt.value = u.username;
-      opt.textContent = `${u.fullName || u.username} (${u.username})`;
+      const name = u.full_name || u.fullName || u.username;
+      opt.textContent = `${name} (${u.username})`;
       optgroup.appendChild(opt);
     });
     select.appendChild(optgroup);
@@ -2251,14 +2267,31 @@ function populateLoginUserDropdown() {
     agents.forEach(u => {
       const opt = document.createElement('option');
       opt.value = u.username;
-      const gpName = u.assignedPanchayats && u.assignedPanchayats !== 'ALL' ? ` [${u.assignedPanchayats}]` : '';
-      opt.textContent = `${u.fullName || u.username}${gpName} (${u.username})`;
+      const name = u.full_name || u.fullName || u.username;
+      const gp = u.assigned_panchayats || u.assignedPanchayats || '';
+      const gpName = gp && gp !== 'ALL' ? ` [${gp}]` : '';
+      opt.textContent = `${name}${gpName} (${u.username})`;
       optgroup.appendChild(opt);
     });
     select.appendChild(optgroup);
   }
 
-  if (currentVal) {
+  const handled = new Set([...superAdmins, ...agents]);
+  const others = activeUsers.filter(u => !handled.has(u));
+  if (others.length > 0) {
+    const optgroup = document.createElement('optgroup');
+    optgroup.label = '👤 अन्य सक्रिय उपयोगकर्ता (Other Users)';
+    others.forEach(u => {
+      const opt = document.createElement('option');
+      opt.value = u.username;
+      const name = u.full_name || u.fullName || u.username;
+      opt.textContent = `${name} (${u.username})`;
+      optgroup.appendChild(opt);
+    });
+    select.appendChild(optgroup);
+  }
+
+  if (currentVal && activeUsers.some(u => u.username === currentVal)) {
     select.value = currentVal;
     const hiddenUser = document.getElementById('gatekeeperUsername');
     if (hiddenUser) hiddenUser.value = currentVal;
@@ -2315,8 +2348,22 @@ async function syncLatestActiveUsersFromAppsScript() {
     const res = await fetch(`${url}?action=getUsers`);
     const data = await res.json();
     if (data && data.success && Array.isArray(data.users) && data.users.length > 0) {
-      State.adminUsers = data.users;
-      localStorage.setItem('panchayat_admins_cache', JSON.stringify(data.users));
+      State.adminUsers = data.users.map(u => ({
+        user_id: u.userId || u.user_id || `USR${u.rowIndex || ''}`,
+        username: u.username,
+        password: u.password,
+        full_name: u.fullName || u.full_name || u.username,
+        fullName: u.fullName || u.full_name || u.username,
+        mobile: u.mobile || '',
+        role: u.role || 'PANCHAYAT_AGENT',
+        assigned_panchayats: u.assignedPanchayats || u.assigned_panchayats || 'ALL',
+        assignedPanchayats: u.assignedPanchayats || u.assigned_panchayats || 'ALL',
+        assigned_wards: u.assignedWards || u.assigned_wards || 'ALL',
+        assignedWards: u.assignedWards || u.assigned_wards || 'ALL',
+        status: (u.status || 'ACTIVE').toUpperCase(),
+        created_at: u.createdAt || u.created_at || ''
+      }));
+      localStorage.setItem('panchayat_admins_cache', JSON.stringify(State.adminUsers));
       populateLoginUserDropdown();
       if (document.getElementById('superAdminUsersTable')) {
         renderSuperAdminUsers();
