@@ -138,7 +138,7 @@ async function ensurePanchayatVotersLoaded(gpCode) {
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
-        // Map compact array [w, s, epic, name, rel_name, rel_type, house, age, g, status, del_c, del_r]
+        // Map compact array or object format
         const mapped = data.map(r => {
           if (Array.isArray(r)) {
             return {
@@ -149,7 +149,9 @@ async function ensurePanchayatVotersLoaded(gpCode) {
               serial_no: r[1],
               epic_no: r[2],
               voter_name: r[3],
+              voter_name_en: r[12] || '',
               relative_name: r[4],
+              relative_name_en: r[13] || '',
               relative_relation: r[5] || 'पिता',
               house_no: r[6] || '-',
               age: r[7] || 0,
@@ -158,7 +160,30 @@ async function ensurePanchayatVotersLoaded(gpCode) {
               deletion_code: r[10] || '',
               deletion_reason: r[11] || '',
               polling_station_no: 1,
-              polling_station_name: `रा.उ.मा.वि. ${gp.name_hi}`
+              polling_station_name: रा.उ.मा.वि. 
+            };
+          }
+          if (r && typeof r === 'object') {
+            return {
+              panchayat_code: gp.code,
+              panchayat_en: gp.name_en,
+              gram_panchayat: gp.name_hi,
+              ward_no: r.w !== undefined ? r.w : (r.ward_no || 1),
+              serial_no: r.s !== undefined ? r.s : (r.serial_no || 1),
+              epic_no: r.e !== undefined ? r.e : (r.epic_no || ''),
+              voter_name: r.n || r.voter_name || '',
+              voter_name_en: r.ne || r.voter_name_en || '',
+              relative_name: r.r || r.relative_name || '',
+              relative_name_en: r.re || r.relative_name_en || '',
+              relative_relation: r.rt || r.relative_relation || 'पिता',
+              house_no: r.h !== undefined ? r.h : (r.house_no || '-'),
+              age: r.a !== undefined ? r.a : (r.age || 0),
+              gender: r.g || r.gender || 'पुरुष',
+              status: r.st || r.status || 'सक्रिय',
+              deletion_code: r.dc || r.deletion_code || '',
+              deletion_reason: r.dr || r.deletion_reason || '',
+              polling_station_no: 1,
+              polling_station_name: रा.उ.मा.वि. 
             };
           }
           return r;
@@ -894,11 +919,12 @@ async function performSearch() {
     const matchNameHi = (voter.voter_name || '').toLowerCase().includes(query);
     const matchNameEn = (voter.voter_name_en || '').toLowerCase().includes(query);
     const matchRelative = (voter.relative_name || '').toLowerCase().includes(query);
+    const matchRelativeEn = (voter.relative_name_en || '').toLowerCase().includes(query);
     const matchHouse = String(voter.house_no || '').toLowerCase() === query;
     const matchEpic = (voter.epic_no || '').toLowerCase().includes(query);
     const matchSerial = String(voter.serial_no || '') === query;
 
-    return matchNameHi || matchNameEn || matchRelative || matchHouse || matchEpic || matchSerial;
+    return matchNameHi || matchNameEn || matchRelative || matchRelativeEn || matchHouse || matchEpic || matchSerial;
   });
 
   if (countBadge) countBadge.textContent = `${results.length.toLocaleString('hi-IN')} मतदाता मिले`;
