@@ -9920,7 +9920,7 @@ const MASTER_DIRECTORY = {
       "id": "block_prabhari",
       "user_id": "block_prabhari",
       "username": "block_prabhari",
-      "password": "BHINAI123",
+      "password": "123",
       "type": "BLOCK_PRABHARI",
       "cell_id": "cell_block_prabhari",
       "cell_name": "ब्लॉक प्रभारी (समस्त 30 ग्राम पंचायतें)",
@@ -9978,7 +9978,7 @@ const MASTER_DIRECTORY = {
       "id": "cell_nirvachan_2",
       "user_id": "cell_nirvachan_2",
       "username": "cell_nirvachan_2",
-      "password": "BHINAI123",
+      "password": "123",
       "type": "CELL",
       "cell_id": "cell_nirvachan",
       "cell_name": "निर्वाचन शाखा (पर्यवेक्षण व नियंत्रण)",
@@ -21633,10 +21633,3 @@ const MASTER_DIRECTORY = {
     "can_search_all": true
   }
 };
-
-if (typeof window !== 'undefined') {
-    window.MASTER_DIRECTORY = MASTER_DIRECTORY;
-}
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = MASTER_DIRECTORY;
-}

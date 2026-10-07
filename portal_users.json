@@ -26,7 +26,7 @@
     "id": "block_prabhari",
     "user_id": "block_prabhari",
     "username": "block_prabhari",
-    "password": "BHINAI123",
+    "password": "123",
     "full_name": "श्री सुरेश चन्द्र जांगिड (ब्लॉक प्रभारी - शिक्षक)",
     "name": "श्री सुरेश चन्द्र जांगिड",
     "post": "अध्यापक",
@@ -3356,7 +3356,7 @@
   {
     "id": "cell_nirvachan_2",
     "username": "cell_nirvachan_2",
-    "password": "BHINAI123",
+    "password": "123",
     "full_name": "श्री सुरेश चन्द्र जांगिड",
     "name": "श्री सुरेश चन्द्र जांगिड",
     "mobile": "9950705221",
@@ -3999,5 +3999,44 @@
     ],
     "can_print_bulk": false,
     "can_download_single": true
+  },
+  {
+    "id": "incharge",
+    "user_id": "incharge",
+    "username": "incharge",
+    "password": "123",
+    "role": "INCHARGE",
+    "name": "ब्लॉक इनचार्ज (पर्यवेक्षक)",
+    "full_name": "ब्लॉक इनचार्ज (पर्यवेक्षक / Incharge)",
+    "status": "ACTIVE",
+    "allowed_panchayats": "ALL",
+    "allowed_wards": "ALL",
+    "allowed_tabs": [
+      "dashboardTab",
+      "searchTab",
+      "alphaTab",
+      "directoryTab"
+    ],
+    "can_edit": false
+  },
+  {
+    "id": "vyavasthapak",
+    "user_id": "vyavasthapak",
+    "username": "vyavasthapak",
+    "password": "123",
+    "role": "VYAVASTHAPAK",
+    "name": "व्यवस्थापक",
+    "full_name": "व्यवस्थापक (प्रिंट व डाउनलोड)",
+    "status": "ACTIVE",
+    "allowed_panchayats": "ALL",
+    "allowed_wards": "ALL",
+    "allowed_tabs": [
+      "dashboardTab",
+      "searchTab",
+      "alphaTab",
+      "bulkSlipTab",
+      "directoryTab"
+    ],
+    "can_edit": false
   }
 ]

@@ -827,7 +827,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR001",
       "username": "superadmin",
-      "password": "admin123",
+      "password": "123",
       "full_name": "भिनाय ब्लॉक मुख्य व्यवस्थापक",
       "mobile": "9829000000",
       "role": "SUPER_ADMIN",
@@ -839,7 +839,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR002",
       "username": "bhinai_block",
-      "password": "admin123",
+      "password": "123",
       "full_name": "भिनाय ब्लॉक एडमिन",
       "mobile": "9414000000",
       "role": "SUPER_ADMIN",
@@ -851,7 +851,7 @@ window.MASTER_DATA = {
     {
       "user_id": "block_prabhari",
       "username": "block_prabhari",
-      "password": "BHINAI123",
+      "password": "123",
       "full_name": "श्री सुरेश चन्द्र जांगिड (ब्लॉक प्रभारी - शिक्षक)",
       "mobile": "9950705221",
       "role": "BLOCK_PRABHARI",
@@ -863,7 +863,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR003",
       "username": "badgaon_agent",
-      "password": "badgaon@123",
+      "password": "123",
       "full_name": "बड़गांव पंचायत प्रभारी",
       "mobile": "9828000001",
       "role": "PANCHAYAT_AGENT",
@@ -875,7 +875,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR004",
       "username": "badli_agent",
-      "password": "badli@123",
+      "password": "123",
       "full_name": "बदली पंचायत प्रभारी",
       "mobile": "9828000002",
       "role": "PANCHAYAT_AGENT",
@@ -887,7 +887,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR005",
       "username": "bagrai_agent",
-      "password": "bagrai@123",
+      "password": "123",
       "full_name": "बाघराई पंचायत प्रभारी",
       "mobile": "9828000003",
       "role": "PANCHAYAT_AGENT",
@@ -899,7 +899,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR006",
       "username": "bandanwara_agent",
-      "password": "bandanwara@123",
+      "password": "123",
       "full_name": "बांदनवाड़ा पंचायत प्रभारी",
       "mobile": "9828000004",
       "role": "PANCHAYAT_AGENT",
@@ -911,7 +911,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR007",
       "username": "bhinay_agent",
-      "password": "bhinay@123",
+      "password": "123",
       "full_name": "भिनाय पंचायत प्रभारी",
       "mobile": "9828000005",
       "role": "PANCHAYAT_AGENT",
@@ -923,7 +923,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR008",
       "username": "boobkiya_agent",
-      "password": "boobkiya@123",
+      "password": "123",
       "full_name": "बुबकिया पंचायत प्रभारी",
       "mobile": "9828000006",
       "role": "PANCHAYAT_AGENT",
@@ -935,7 +935,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR009",
       "username": "chapaneri_agent",
-      "password": "chapaneri@123",
+      "password": "123",
       "full_name": "चापानेरी पंचायत प्रभारी",
       "mobile": "9828000007",
       "role": "PANCHAYAT_AGENT",
@@ -947,7 +947,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR010",
       "username": "chhachhundra_agent",
-      "password": "chhachhundra@123",
+      "password": "123",
       "full_name": "छाछूंदड़ा पंचायत प्रभारी",
       "mobile": "9828000008",
       "role": "PANCHAYAT_AGENT",
@@ -959,7 +959,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR011",
       "username": "devpura_agent",
-      "password": "devpura@123",
+      "password": "123",
       "full_name": "देवपुरा पंचायत प्रभारी",
       "mobile": "9828000009",
       "role": "PANCHAYAT_AGENT",
@@ -971,7 +971,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR012",
       "username": "devliyakalan_agent",
-      "password": "devliyakalan@123",
+      "password": "123",
       "full_name": "देवलीयाकलां पंचायत प्रभारी",
       "mobile": "9828000010",
       "role": "PANCHAYAT_AGENT",
@@ -983,7 +983,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR013",
       "username": "dhantol_agent",
-      "password": "dhantol@123",
+      "password": "123",
       "full_name": "धांतोल पंचायत प्रभारी",
       "mobile": "9828000011",
       "role": "PANCHAYAT_AGENT",
@@ -995,7 +995,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR014",
       "username": "ekalsingha_agent",
-      "password": "ekalsingha@123",
+      "password": "123",
       "full_name": "एकलसिंहा पंचायत प्रभारी",
       "mobile": "9828000012",
       "role": "PANCHAYAT_AGENT",
@@ -1007,7 +1007,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR015",
       "username": "ghana_agent",
-      "password": "ghana@123",
+      "password": "123",
       "full_name": "घाना पंचायत प्रभारी",
       "mobile": "9828000013",
       "role": "PANCHAYAT_AGENT",
@@ -1019,7 +1019,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR016",
       "username": "gudhakhurd_agent",
-      "password": "gudhakhurd@123",
+      "password": "123",
       "full_name": "गुढ़ाखुर्द पंचायत प्रभारी",
       "mobile": "9828000014",
       "role": "PANCHAYAT_AGENT",
@@ -1031,7 +1031,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR017",
       "username": "hiyaliya_agent",
-      "password": "hiyaliya@123",
+      "password": "123",
       "full_name": "हियालिया पंचायत प्रभारी",
       "mobile": "9828000015",
       "role": "PANCHAYAT_AGENT",
@@ -1043,7 +1043,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR018",
       "username": "kanaikalan_agent",
-      "password": "kanaikalan@123",
+      "password": "123",
       "full_name": "कानाईकलां पंचायत प्रभारी",
       "mobile": "9828000016",
       "role": "PANCHAYAT_AGENT",
@@ -1055,7 +1055,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR019",
       "username": "karanti_agent",
-      "password": "karanti@123",
+      "password": "123",
       "full_name": "करांटी पंचायत प्रभारी",
       "mobile": "9828000017",
       "role": "PANCHAYAT_AGENT",
@@ -1067,7 +1067,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR020",
       "username": "kerot_agent",
-      "password": "kerot@123",
+      "password": "123",
       "full_name": "केरोट पंचायत प्रभारी",
       "mobile": "9828000018",
       "role": "PANCHAYAT_AGENT",
@@ -1079,7 +1079,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR021",
       "username": "khedi_agent",
-      "password": "khedi@123",
+      "password": "123",
       "full_name": "खेड़ी पंचायत प्रभारी",
       "mobile": "9828000019",
       "role": "PANCHAYAT_AGENT",
@@ -1091,7 +1091,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR022",
       "username": "kumhariya_agent",
-      "password": "kumhariya@123",
+      "password": "123",
       "full_name": "कुम्हारिया पंचायत प्रभारी",
       "mobile": "9828000020",
       "role": "PANCHAYAT_AGENT",
@@ -1103,7 +1103,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR023",
       "username": "lamgra_agent",
-      "password": "lamgra@123",
+      "password": "123",
       "full_name": "लामगरा पंचायत प्रभारी",
       "mobile": "9828000021",
       "role": "PANCHAYAT_AGENT",
@@ -1115,7 +1115,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR024",
       "username": "nagola_agent",
-      "password": "nagola@123",
+      "password": "123",
       "full_name": "नागोला पंचायत प्रभारी",
       "mobile": "9828000022",
       "role": "PANCHAYAT_AGENT",
@@ -1127,7 +1127,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR025",
       "username": "nandsi_agent",
-      "password": "nandsi@123",
+      "password": "123",
       "full_name": "नांदसी पंचायत प्रभारी",
       "mobile": "9828000023",
       "role": "PANCHAYAT_AGENT",
@@ -1139,7 +1139,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR026",
       "username": "padanga_agent",
-      "password": "padanga@123",
+      "password": "123",
       "full_name": "पाड़ंगा पंचायत प्रभारी",
       "mobile": "9828000024",
       "role": "PANCHAYAT_AGENT",
@@ -1151,7 +1151,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR027",
       "username": "padliya_agent",
-      "password": "padliya@123",
+      "password": "123",
       "full_name": "पादलिया पंचायत प्रभारी",
       "mobile": "9828000025",
       "role": "PANCHAYAT_AGENT",
@@ -1163,7 +1163,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR028",
       "username": "rammaliya_agent",
-      "password": "rammaliya@123",
+      "password": "123",
       "full_name": "रामावत/राममालिया पंचायत प्रभारी",
       "mobile": "9828000026",
       "role": "PANCHAYAT_AGENT",
@@ -1175,7 +1175,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR029",
       "username": "ratakot_agent",
-      "password": "ratakot@123",
+      "password": "123",
       "full_name": "राताकोट पंचायत प्रभारी",
       "mobile": "9828000027",
       "role": "PANCHAYAT_AGENT",
@@ -1187,7 +1187,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR030",
       "username": "singawal_agent",
-      "password": "singawal@123",
+      "password": "123",
       "full_name": "सिंगावल पंचायत प्रभारी",
       "mobile": "9828000028",
       "role": "PANCHAYAT_AGENT",
@@ -1199,7 +1199,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR031",
       "username": "sobdi_agent",
-      "password": "sobdi@123",
+      "password": "123",
       "full_name": "सोबड़ी पंचायत प्रभारी",
       "mobile": "9828000029",
       "role": "PANCHAYAT_AGENT",
@@ -1211,7 +1211,7 @@ window.MASTER_DATA = {
     {
       "user_id": "USR032",
       "username": "solkhurd_agent",
-      "password": "solkhurd@123",
+      "password": "123",
       "full_name": "सोलखुर्द पंचायत प्रभारी",
       "mobile": "9828000030",
       "role": "PANCHAYAT_AGENT",
@@ -1219,6 +1219,28 @@ window.MASTER_DATA = {
       "assigned_wards": "ALL",
       "status": "ACTIVE",
       "created_at": "2026-10-05"
+    },
+    {
+      "user_id": "incharge",
+      "username": "incharge",
+      "password": "123",
+      "role": "INCHARGE",
+      "name": "ब्लॉक इनचार्ज (पर्यवेक्षक)",
+      "full_name": "ब्लॉक इनचार्ज (पर्यवेक्षक / Incharge)",
+      "status": "ACTIVE",
+      "assigned_panchayats": "ALL",
+      "assigned_wards": "ALL"
+    },
+    {
+      "user_id": "vyavasthapak",
+      "username": "vyavasthapak",
+      "password": "123",
+      "role": "VYAVASTHAPAK",
+      "name": "व्यवस्थापक",
+      "full_name": "व्यवस्थापक (प्रिंट व डाउनलोड)",
+      "status": "ACTIVE",
+      "assigned_panchayats": "ALL",
+      "assigned_wards": "ALL"
     }
   ],
   "initial_voters": [

@@ -287,7 +287,9 @@ const server = http.createServer(async (req, res) => {
               // 0. Check Block Prabhari (Suresh Jangid)
               if (uname === 'block_prabhari' || uname === 'suresh_jangid') {
                 user = {
-                  id: 'block_prabhari',
+                  id: 'incharge', username: 'incharge', password: '123', full_name: 'ब्लॉक इनचार्ज (पर्यवेक्षक)', mobile: '9950705221', role: 'INCHARGE', status: 'ACTIVE', allowed_panchayats: 'ALL', allowed_wards: 'ALL', allowed_tabs: JSON.stringify(['dashboardTab', 'searchTab', 'alphaTab', 'directoryTab']), candidate_mode: 'admin_locked' },
+        { id: 'vyavasthapak', username: 'vyavasthapak', password: '123', full_name: 'व्यवस्थापक (प्रिंट व डाउनलोड)', mobile: '9950705221', role: 'VYAVASTHAPAK', status: 'ACTIVE', allowed_panchayats: 'ALL', allowed_wards: 'ALL', allowed_tabs: JSON.stringify(['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab']), candidate_mode: 'admin_locked' },
+        { id: 'block_prabhari',
                   username: 'block_prabhari',
                   password: 'BHINAI123',
                   full_name: 'श्री सुरेश चन्द्र जांगिड (ब्लॉक प्रभारी - शिक्षक)',

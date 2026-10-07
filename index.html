@@ -55,58 +55,62 @@
         <form id="gatekeeperLoginForm" onsubmit="handleGatekeeperLogin(event)" style="margin-top:12px;">
           <input type="hidden" id="gatekeeperUsername" value="">
 
-          <!-- DROPDOWN 1: चुनाव प्रकोष्ठ / ब्लॉक प्रभारी / ग्राम पंचायत (सीधे HTML में सदैव उपलब्ध) -->
+          <!-- DROPDOWN 1: पद / चुनाव प्रकोष्ठ / ग्राम पंचायत -->
           <div class="form-group mb-3" id="loginPrimarySelectGroup">
             <label for="loginPanchayatSelect" id="loginPrimaryLabel" style="font-size:0.88rem; color:#1e293b;">
-              <strong>1. चुनाव प्रकोष्ठ या ग्राम पंचायत चुनें *:</strong>
+              <strong>1. पद, चुनाव प्रकोष्ठ या ग्राम पंचायत चुनें *:</strong>
             </label>
             <select id="loginPanchayatSelect" class="form-select" onchange="onLoginPrimarySelectChanged(this.value)" style="font-weight:700; cursor:pointer; font-size:0.95rem; height:42px; border:2px solid #cbd5e1;">
-              <option value="">-- चुनाव प्रकोष्ठ या ग्राम पंचायत चुनें --</option>
+              <option value="">-- पद, चुनाव प्रकोष्ठ या ग्राम पंचायत चुनें --</option>
               <option value="CELL" style="font-weight:800; color:#1e40af; background:#eff6ff;">🏢 चुनाव प्रकोष्ठ (Election Cell - 13 प्रकोष्ठ)</option>
+              <option value="ADMIN" style="font-weight:800; color:#b45309; background:#fef3c7;">👑 मुख्य व्यवस्थापक (Super Admin - पूर्ण नियंत्रण)</option>
+              <option value="INCHARGE" style="font-weight:800; color:#4338ca; background:#e0e7ff;">👁️ ब्लॉक इनचार्ज (Incharge - केवल अवलोकन/All Tabs View)</option>
+              <option value="VYAVASTHAPAK" style="font-weight:800; color:#065f46; background:#d1fae5;">🖨️ व्यवस्थापक (Vyavasthapak - प्रिंट व डाउनलोड)</option>
               <option value="BLOCK_PRABHARI" style="font-weight:800; color:#0f766e; background:#ccfbf1;">🌟 ब्लॉक प्रभारी (सुरेश जांगिड़ - शिक्षक)</option>
-              <option value="ADMIN" style="font-weight:800; color:#b45309; background:#fef3c7;">⚡ ब्लॉक मुख्य व्यवस्थापक (Super Admin)</option>
-              <option value="बड़गांव">🏛️ ग्राम पंचायत बड़गांव</option>
-              <option value="बड़ली">🏛️ ग्राम पंचायत बड़ली</option>
-              <option value="बगराई">🏛️ ग्राम पंचायत बगराई</option>
-              <option value="बांदनवाड़ा">🏛️ ग्राम पंचायत बांदनवाड़ा</option>
-              <option value="भिनाय">🏛️ ग्राम पंचायत भिनाय</option>
-              <option value="बूबकिया">🏛️ ग्राम पंचायत बूबकिया</option>
-              <option value="चापानेरी">🏛️ ग्राम पंचायत चापानेरी</option>
-              <option value="छछून्दरा">🏛️ ग्राम पंचायत छछून्दरा</option>
-              <option value="देवपुरा">🏛️ ग्राम पंचायत देवपुरा</option>
-              <option value="देवलियाकलां">🏛️ ग्राम पंचायत देवलियाकलां</option>
-              <option value="धांतोल">🏛️ ग्राम पंचायत धांतोल</option>
-              <option value="एकलसिंहा">🏛️ ग्राम पंचायत एकलसिंहा</option>
-              <option value="घणा">🏛️ ग्राम पंचायत घणा</option>
-              <option value="गुढाखुर्द">🏛️ ग्राम पंचायत गुढाखुर्द</option>
-              <option value="हियालिया">🏛️ ग्राम पंचायत हियालिया</option>
-              <option value="कनईकला">🏛️ ग्राम पंचायत कनईकला</option>
-              <option value="करांटी">🏛️ ग्राम पंचायत करांटी</option>
-              <option value="कैरोंट">🏛️ ग्राम पंचायत कैरोंट</option>
-              <option value="खेडी">🏛️ ग्राम पंचायत खेडी</option>
-              <option value="कुम्हारिया">🏛️ ग्राम पंचायत कुम्हारिया</option>
-              <option value="लामगरा">🏛️ ग्राम पंचायत लामगरा</option>
-              <option value="नागोला">🏛️ ग्राम पंचायत नागोला</option>
-              <option value="नान्दसी">🏛️ ग्राम पंचायत नान्दसी</option>
-              <option value="पड़ांगा">🏛️ ग्राम पंचायत पड़ांगा</option>
-              <option value="पाडलिया">🏛️ ग्राम पंचायत पाडलिया</option>
-              <option value="राममालिया">🏛️ ग्राम पंचायत राममालिया</option>
-              <option value="राताकोट">🏛️ ग्राम पंचायत राताकोट</option>
-              <option value="सिंगावल">🏛️ ग्राम पंचायत सिंगावल</option>
-              <option value="सोबडी">🏛️ ग्राम पंचायत सोबडी</option>
-              <option value="सोलखुर्द">🏛️ ग्राम पंचायत सोलखुर्द</option>
+              <option value="बड़गांव">🏛️ ग्राम पंचायत बड़गांव (BLO लॉगिन)</option>
+              <option value="बड़ली">🏛️ ग्राम पंचायत बड़ली (BLO लॉगिन)</option>
+              <option value="बगराई">🏛️ ग्राम पंचायत बगराई (BLO लॉगिन)</option>
+              <option value="बांदनवाड़ा">🏛️ ग्राम पंचायत बांदनवाड़ा (BLO लॉगिन)</option>
+              <option value="भिनाय">🏛️ ग्राम पंचायत भिनाय (BLO लॉगिन)</option>
+              <option value="बूबकिया">🏛️ ग्राम पंचायत बूबकिया (BLO लॉगिन)</option>
+              <option value="चापानेरी">🏛️ ग्राम पंचायत चापानेरी (BLO लॉगिन)</option>
+              <option value="छछून्दरा">🏛️ ग्राम पंचायत छछून्दरा (BLO लॉगिन)</option>
+              <option value="देवपुरा">🏛️ ग्राम पंचायत देवपुरा (BLO लॉगिन)</option>
+              <option value="देवलियाकलां">🏛️ ग्राम पंचायत देवलियाकलां (BLO लॉगिन)</option>
+              <option value="धांतोल">🏛️ ग्राम पंचायत धांतोल (BLO लॉगिन)</option>
+              <option value="एकलसिंहा">🏛️ ग्राम पंचायत एकलसिंहा (BLO लॉगिन)</option>
+              <option value="घणा">🏛️ ग्राम पंचायत घणा (BLO लॉगिन)</option>
+              <option value="गुढाखुर्द">🏛️ ग्राम पंचायत गुढाखुर्द (BLO लॉगिन)</option>
+              <option value="हियालिया">🏛️ ग्राम पंचायत हियालिया (BLO लॉगिन)</option>
+              <option value="कनईकला">🏛️ ग्राम पंचायत कनईकला (BLO लॉगिन)</option>
+              <option value="करांटी">🏛️ ग्राम पंचायत करांटी (BLO लॉगिन)</option>
+              <option value="कैरोंट">🏛️ ग्राम पंचायत कैरोंट (BLO लॉगिन)</option>
+              <option value="खेडी">🏛️ ग्राम पंचायत खेडी (BLO लॉगिन)</option>
+              <option value="कुम्हारिया">🏛️ ग्राम पंचायत कुम्हारिया (BLO लॉगिन)</option>
+              <option value="लामगरा">🏛️ ग्राम पंचायत लामगरा (BLO लॉगिन)</option>
+              <option value="नागोला">🏛️ ग्राम पंचायत नागोला (BLO लॉगिन)</option>
+              <option value="नान्दसी">🏛️ ग्राम पंचायत नान्दसी (BLO लॉगिन)</option>
+              <option value="पड़ांगा">🏛️ ग्राम पंचायत पड़ांगा (BLO लॉगिन)</option>
+              <option value="पाडलिया">🏛️ ग्राम पंचायत पाडलिया (BLO लॉगिन)</option>
+              <option value="राममालिया">🏛️ ग्राम पंचायत राममालिया (BLO लॉगिन)</option>
+              <option value="राताकोट">🏛️ ग्राम पंचायत राताकोट (BLO लॉगिन)</option>
+              <option value="सिंगावल">🏛️ ग्राम पंचायत सिंगावल (BLO लॉगिन)</option>
+              <option value="सोबडी">🏛️ ग्राम पंचायत सोबडी (BLO लॉगिन)</option>
+              <option value="सोलखुर्द">🏛️ ग्राम पंचायत सोलखुर्द (BLO लॉगिन)</option>
             </select>
           </div>
 
-          <!-- DROPDOWN 2: कार्मिक / बी.एल.ओ. चुनें (चुनते ही यूजर आईडी स्वतः भर जाएगी) -->
-          <div class="form-group mb-3" id="loginSecondarySelectGroup">
+          <!-- STATUS & DETAILS BADGE (Always between Dropdown 1 & Dropdown 2) -->
+          <div id="loginSelectedDetailsBadge" style="display:none; font-size:0.82rem; margin-bottom:12px; font-weight:600; padding:8px 12px; border-radius:6px;"></div>
+
+          <!-- DROPDOWN 2: कार्मिक / बी.एल.ओ. चुनें (केवल CELL या पंचायत चुनने पर ही दिखेगा!) -->
+          <div class="form-group mb-3" id="loginSecondarySelectGroup" style="display:none;">
             <label for="loginOfficerSelect" id="loginOfficerLabel" style="font-size:0.88rem; color:#1e293b;">
               <strong>2. कार्मिक / बी.एल.ओ. चुनें *:</strong>
             </label>
-            <select id="loginOfficerSelect" class="form-select" onchange="onLoginOfficerChanged(this.value)" style="font-weight:700; cursor:pointer; font-size:0.92rem; height:42px; border:2px solid #cbd5e1;" disabled>
+            <select id="loginOfficerSelect" class="form-select" onchange="onLoginOfficerChanged(this.value)" style="font-weight:700; cursor:pointer; font-size:0.92rem; height:42px; border:2px solid #cbd5e1;">
               <option value="">-- पहले ऊपर प्रकोष्ठ या पंचायत चुनें --</option>
             </select>
-            <div id="loginSelectedDetailsBadge" style="display:none; font-size:0.78rem; margin-top:6px; font-weight:600; padding:6px 10px; border-radius:6px;"></div>
           </div>
 
           <!-- OPTION: सीधे यूजर आईडी टाइप करने का विकल्प (प्रत्याशी / डायरेक्ट आईडी) -->
@@ -116,7 +120,7 @@
           </div>
           <div id="manualUsernameDiv" style="display:none; margin-bottom:14px;">
             <label for="manualUsernameInput" style="font-size:0.85rem; color:#1e293b;"><strong>सीधी यूजर आईडी (Direct User ID):</strong></label>
-            <input type="text" id="manualUsernameInput" class="form-input" placeholder="यूजर आईडी दर्ज करें (उदा. admin, badgaon_agent, block_prabhari)" oninput="onManualUsernameInput(this.value)" style="font-weight:700; height:40px;">
+            <input type="text" id="manualUsernameInput" class="form-input" placeholder="यूजर आईडी दर्ज करें (उदा. admin, incharge, vyavasthapak, blo_225)" oninput="onManualUsernameInput(this.value)" style="font-weight:700; height:40px;">
           </div>
 
           <!-- COMMON PASSWORD FIELD (पासवर्ड रिवील नहीं होगा) -->
@@ -1692,9 +1696,9 @@
 
   <!-- Scripts -->
     <script src="symbols_master.js?v=20261005_2300"></script>
-  <script src="master_directory.js?v=20261007_1791379991"></script>
-  <script src="master_data.js?v=20261007_1791379991"></script>
-  <script src="app.js?v=20261007_1791379991"></script>
+  <script src="master_directory.js?v=1791384094"></script>
+  <script src="master_data.js?v=1791384094"></script>
+  <script src="app.js?v=1791384094"></script>
 
   <!-- Super Admin: Add New User Modal -->
   <div id="addUserModal" class="modal-overlay no-print" style="display:none;" onclick="if(event.target===this) closeAddUserModal()">
