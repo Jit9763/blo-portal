@@ -44,11 +44,13 @@ db.exec(`
     symbol_icon TEXT,
     photo_url TEXT,
     slogan TEXT,
+    election_time TEXT,
     mobile TEXT,
     show_banner_on_slip INTEGER,
     updated_at TEXT
   );
 `);
+try { db.prepare("ALTER TABLE candidates ADD COLUMN election_time TEXT").run(); } catch(e) {}
 
 // Seed from portal_users.json if empty
 // Sync & Seed from portal_users.json
@@ -640,7 +642,7 @@ const server = http.createServer(async (req, res) => {
             db.prepare(`
               UPDATE candidates SET
                 candidate_name = ?, post = ?, panchayat = ?, ward = ?, symbol_name = ?, symbol_icon = ?,
-                photo_url = ?, slogan = ?, mobile = ?, show_banner_on_slip = ?, updated_at = ?
+                photo_url = ?, slogan = ?, election_time = ?, mobile = ?, show_banner_on_slip = ?, updated_at = ?
               WHERE user_id = ?
             `).run(
               c.candidate_name || '',
@@ -651,6 +653,7 @@ const server = http.createServer(async (req, res) => {
               c.symbol_icon || 'sun',
               c.photo_url || '',
               c.slogan || '',
+              c.election_time || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक',
               c.mobile || '',
               c.show_banner_on_slip ? 1 : 0,
               new Date().toISOString(),
@@ -658,8 +661,8 @@ const server = http.createServer(async (req, res) => {
             );
           } else {
             db.prepare(`
-              INSERT INTO candidates (user_id, candidate_name, post, panchayat, ward, symbol_name, symbol_icon, photo_url, slogan, mobile, show_banner_on_slip, updated_at)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+              INSERT INTO candidates (user_id, candidate_name, post, panchayat, ward, symbol_name, symbol_icon, photo_url, slogan, election_time, mobile, show_banner_on_slip, updated_at)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             `).run(
               uId,
               c.candidate_name || '',
@@ -670,6 +673,7 @@ const server = http.createServer(async (req, res) => {
               c.symbol_icon || 'sun',
               c.photo_url || '',
               c.slogan || '',
+              c.election_time || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक',
               c.mobile || '',
               c.show_banner_on_slip ? 1 : 0,
               new Date().toISOString()

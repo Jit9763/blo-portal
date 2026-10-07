@@ -1394,20 +1394,34 @@ function setCustomUserStatus(username, newStatus) {
 
 function getBoothForVoter(voter) {
   if (!voter) return null;
-  const gpVal = (voter.panchayat_code || voter.gram_panchayat || voter.panchayat_en || '').toLowerCase();
+  const gpCode = String(voter.panchayat_code || '').trim().toLowerCase();
+  const gpHindi = String(voter.gram_panchayat || '').trim();
+  const gpEn = String(voter.panchayat_en || '').trim().toLowerCase();
   const wardNo = parseInt(voter.ward_no, 10);
   const booths = (window.MASTER_DATA && window.MASTER_DATA.polling_booths) || [];
-  
+  if (booths.length === 0) return null;
+
+  const panchs = (State.panchayats && State.panchayats.length > 0) ? State.panchayats : ((window.MASTER_DATA && window.MASTER_DATA.panchayats) || []);
+  const pObj = panchs.find(p => 
+    (p.code && p.code.toLowerCase() === gpCode) ||
+    (p.name_hi && p.name_hi === gpHindi) ||
+    (p.name_en && (p.name_en.toLowerCase() === gpEn || p.name_en.toLowerCase() === gpCode))
+  );
+
+  const targetEn = pObj ? pObj.name_en.toLowerCase() : gpEn;
+  const targetHi = pObj ? pObj.name_hi : gpHindi;
+  const targetCode = pObj ? pObj.code.toLowerCase() : gpCode;
+
+  const matchWithWard = booths.find(b => {
+    const bGp = (b.gp || '').toLowerCase().trim();
+    const isGpMatch = (bGp === targetEn || bGp === targetHi.toLowerCase() || bGp === targetCode);
+    return isGpMatch && Array.isArray(b.wards) && b.wards.includes(wardNo);
+  });
+  if (matchWithWard) return matchWithWard;
+
   return booths.find(b => {
-    const bGp = (b.gp || '').toLowerCase();
-    let matchGp = (bGp === gpVal);
-    if (!matchGp && State.panchayats) {
-      const pObj = State.panchayats.find(p => p.name.toLowerCase() === bGp || p.code.toLowerCase() === bGp || (p.enName && p.enName.toLowerCase() === bGp));
-      if (pObj && (pObj.code.toLowerCase() === gpVal || pObj.name.toLowerCase() === gpVal || (pObj.enName && pObj.enName.toLowerCase() === gpVal))) {
-        matchGp = true;
-      }
-    }
-    return matchGp && b.wards && b.wards.includes(wardNo);
+    const bGp = (b.gp || '').toLowerCase().trim();
+    return (bGp === targetEn || bGp === targetHi.toLowerCase() || bGp === targetCode);
   }) || null;
 }
 
@@ -2444,7 +2458,9 @@ async function performSearch() {
 
 function renderVoterCards(votersList) {
   const container = document.getElementById('voterResultsContainer');
+  if (!container) return;
   container.innerHTML = '';
+  window._currentRenderedCards = votersList;
 
   votersList.forEach((voter, index) => {
     const card = document.createElement('div');
@@ -2456,6 +2472,9 @@ function renderVoterCards(votersList) {
     const isDelivered = isVoterDelivered(voter);
     const isDeleted = voter.status === 'निरस्त';
     const photoUrl = getVoterPhotoUrl(voter);
+    const bInfo = getBoothForVoter(voter);
+    const boothNoVal = bInfo ? bInfo.booth_no : (voter.polling_station_no || '1');
+    const boothNameVal = bInfo ? bInfo.name : (voter.polling_station_name || 'राजकीय उच्च माध्यमिक विद्यालय');
 
     card.innerHTML = `
       <div>
@@ -2503,8 +2522,8 @@ function renderVoterCards(votersList) {
         </div>
 
         <div class="booth-info-chip">
-          <span>🏫 <strong>मतदान केंद्र सं. ${voter.polling_station_no || '1'}:</strong></span>
-          <span>${voter.polling_station_name || 'राजकीय विद्यालय'}</span>
+          <span>🏫 <strong>मतदान केंद्र सं. ${boothNoVal}:</strong></span>
+          <span>${boothNameVal}</span>
         </div>
       </div>
 
@@ -2535,31 +2554,75 @@ function renderVoterCards(votersList) {
 }
 
 function openVoterSlipModalByIndex(index) {
-  const cards = document.querySelectorAll('.voter-card');
-  if (cards[index] && cards[index].voterData) {
-    openVoterSlipModal(cards[index].voterData);
+  let voter = null;
+  if (window._currentRenderedCards && window._currentRenderedCards[index]) {
+    voter = window._currentRenderedCards[index];
+  } else {
+    const cards = document.querySelectorAll('.voter-card');
+    if (cards[index] && cards[index].voterData) {
+      voter = cards[index].voterData;
+    }
+  }
+  if (voter) {
+    openVoterSlipModal(voter);
+  } else {
+    showToast('⚠️ मतदाता विवरण लोड नहीं हो सका!');
   }
 }
 
 function shareVoterSlipWhatsAppByIndex(index) {
-  const cards = document.querySelectorAll('.voter-card');
-  if (cards[index] && cards[index].voterData) {
-    State.currentSlipVoter = cards[index].voterData;
+  let voter = null;
+  if (window._currentRenderedCards && window._currentRenderedCards[index]) {
+    voter = window._currentRenderedCards[index];
+  } else {
+    const cards = document.querySelectorAll('.voter-card');
+    if (cards[index] && cards[index].voterData) {
+      voter = cards[index].voterData;
+    }
+  }
+  if (voter) {
+    State.currentSlipVoter = voter;
     shareVoterSlipWhatsApp();
   }
 }
 
 // ==========================================================================
-// OFFICIAL VOTER SLIP MODAL (100% Candidate-Free Administration Format)
+// OFFICIAL VOTER SLIP MODAL (Candidate vs Official Determination)
 // ==========================================================================
+function isCandidateSlipAllowedForVoter(voter) {
+  if (!State.currentUser || !voter) return false;
+  const u = State.currentUser;
+  const isCandidateRole = (u.role === 'CANDIDATE' || u.type === 'CANDIDATE' || (u.id && u.id.startsWith('cand_')));
+  if (!isCandidateRole) return false;
+
+  const cand = State.currentCandidate || u.candidate;
+  if (!cand || !cand.candidate_name) return false;
+
+  // Candidate photo slip ONLY permitted for their assigned panchayat
+  const candGp = String(cand.panchayat || u.panchayat || u.allowed_panchayats || '').trim().toLowerCase();
+  if (!candGp || candGp === 'all' || candGp === 'समस्त 30 पंचायतें') return true;
+
+  const voterGpCode = String(voter.panchayat_code || '').trim().toLowerCase();
+  const voterGpHi = String(voter.gram_panchayat || '').trim().toLowerCase();
+  const voterGpEn = String(voter.panchayat_en || '').trim().toLowerCase();
+
+  return (candGp === voterGpCode || candGp === voterGpHi || candGp === voterGpEn);
+}
+
 function openVoterSlipModal(voter) {
+  if (!voter) return;
   State.currentSlipVoter = voter;
 
-  document.getElementById('slipGpName').textContent = voter.gram_panchayat;
-  document.getElementById('slipGpCode').textContent = voter.panchayat_code;
-  document.getElementById('slipWardNo').textContent = String(voter.ward_no).padStart(2, '0');
-  document.getElementById('slipSerialNo').textContent = voter.serial_no || '01';
-  document.getElementById('slipVoterName').textContent = voter.voter_name;
+  const setTxt = (id, val) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = (val !== undefined && val !== null) ? val : '';
+  };
+
+  setTxt('slipGpName', voter.gram_panchayat);
+  setTxt('slipGpCode', voter.panchayat_code);
+  setTxt('slipWardNo', String(voter.ward_no || '1').padStart(2, '0'));
+  setTxt('slipSerialNo', voter.serial_no || '01');
+  setTxt('slipVoterName', voter.voter_name);
   
   // Clean English Name without empty ()
   const enWrapper = document.getElementById('slipVoterNameEnWrapper');
@@ -2580,41 +2643,40 @@ function openVoterSlipModal(voter) {
   }
   
   const relLabel = voter.relative_relation || 'पिता/पति';
-  document.getElementById('slipRelationLabel').textContent = `${relLabel} का नाम`;
-  document.getElementById('slipRelativeName').textContent = voter.relative_name || '-';
+  setTxt('slipRelationLabel', `${relLabel} का नाम`);
+  setTxt('slipRelativeName', voter.relative_name || '-');
 
   const isFemale = voter.gender === 'F' || voter.gender === 'महिला';
-  document.getElementById('slipGender').textContent = isFemale ? 'महिला (Female)' : 'पुरुष (Male)';
-  document.getElementById('slipAge').textContent = `${voter.age} वर्ष`;
-  document.getElementById('slipHouseNo').textContent = voter.house_no || '-';
-  document.getElementById('slipEpicNo').textContent = voter.epic_no || 'N/A';
-  document.getElementById('slipVillageName').textContent = voter.revenue_village || voter.gram_panchayat;
+  setTxt('slipGender', isFemale ? 'महिला (Female)' : 'पुरुष (Male)');
+  setTxt('slipAge', `${voter.age} वर्ष`);
+  setTxt('slipHouseNo', voter.house_no || '-');
+  setTxt('slipEpicNo', voter.epic_no || 'N/A');
+  setTxt('slipVillageName', voter.revenue_village || voter.gram_panchayat);
 
   const bInfo = getBoothForVoter(voter);
   const boothNoVal = bInfo ? bInfo.booth_no : (voter.polling_station_no || '01');
-  const boothNameVal = bInfo ? bInfo.name : (voter.polling_station_name || `राजकीय विद्यालय कमरा नं.-01 ${voter.gram_panchayat}`);
-  document.getElementById('slipBoothNo').textContent = String(boothNoVal).padStart(2, '0');
-  document.getElementById('slipBoothName').textContent = boothNameVal;
+  const boothNameVal = bInfo ? bInfo.name : (voter.polling_station_name || `राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-01 ${voter.gram_panchayat}`);
+  setTxt('slipBoothNo', String(boothNoVal).padStart(2, '0'));
+  setTxt('slipBoothName', boothNameVal);
 
   const qrString = `SEC-RJ-${voter.panchayat_code}-W${String(voter.ward_no).padStart(2, '0')}-S${String(voter.serial_no).padStart(3, '0')}`;
-  document.getElementById('slipQrCodeTxt').textContent = qrString;
+  setTxt('slipQrCodeTxt', qrString);
 
-    // Candidate banner & detachable perforation hook for single slip modal
+  // Render modal slip (candidate slip only if logged in as candidate for allotted GP, else clean official slip)
   renderModalCandidateSlip(voter);
 
   const modal = document.getElementById('voterSlipModal');
-  modal.style.display = 'flex';
+  if (modal) modal.style.display = 'flex';
 }
 
 function renderModalCandidateSlip(voter) {
   const container = document.getElementById('printableVoterSlip');
   if (!container) return;
 
+  const canUseCandidateSlip = isCandidateSlipAllowedForVoter(voter);
   const cand = State.currentCandidate;
-  const toggle = document.getElementById('modalCandidateSlipToggle');
-  const showCand = toggle ? toggle.checked : (cand && cand.show_banner_on_slip !== false);
 
-  if (cand && showCand && cand.candidate_name) {
+  if (canUseCandidateSlip && cand && cand.candidate_name) {
     const symbols = window.OFFICIAL_ELECTION_SYMBOLS || [];
     const symObj = symbols.find(s => s.id === cand.symbol_icon || s.name_hi.includes(cand.symbol_name)) || symbols[0];
     
@@ -2623,40 +2685,40 @@ function renderModalCandidateSlip(voter) {
       symbol_svg: symObj ? symObj.svg : ''
     });
   } else {
-    // Standard Official Voter Slip
+    // 100% Standard Official Voter Slip (Candidate-Free SDM Format)
     const isFemale = voter.gender === 'F' || voter.gender === 'महिला';
     const relLabel = voter.relative_relation || 'पिता/पति';
     const bInfo = getBoothForVoter(voter);
-    const boothNameVal = bInfo ? bInfo.name : (voter.polling_station_name || `राजकीय विद्यालय कमरा नं.-01 ${voter.gram_panchayat}`);
+    const boothNameVal = bInfo ? bInfo.name : (voter.polling_station_name || `राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-01 ${voter.gram_panchayat}`);
     const boothNoVal = bInfo ? bInfo.booth_no : (voter.polling_station_no || '01');
 
     container.innerHTML = `
-      <div class="official-bottom-bw-slip" style="padding:10px; border:2px solid #000; border-radius:6px;">
+      <div class="official-bottom-bw-slip" style="padding:12px; border:2px solid #000; border-radius:6px; background:#fff;">
         <div class="bw-header">
           <div>
-            <div class="bw-gov-title" style="font-size:10pt;">मतदाता सूचना पर्ची (VOTER SLIP)</div>
-            <div style="font-size:7pt; color:#000;">पंचायती राज आम चुनाव - 2026 | ब्लॉक: भिनाय (अजमेर)</div>
+            <div class="bw-gov-title" style="font-size:10.5pt; font-weight:800; color:#000;">मतदाता सूचना पर्ची (VOTER INFORMATION SLIP)</div>
+            <div style="font-size:7pt; color:#111; font-weight:600;">उपखण्ड निर्वाचन कार्यालय भिनाय | पंचायती राज आम चुनाव - 2026</div>
           </div>
-          <div class="bw-serial-badge" style="font-size:10pt; padding:2px 8px;">सरल क्र. ${voter.serial_no || '1'}</div>
+          <div class="bw-serial-badge" style="font-size:10pt; padding:2px 8px; font-weight:800; border:1.5px solid #000;">सरल क्र. ${voter.serial_no || '1'}</div>
         </div>
 
         <div class="bw-grid" style="font-size:8.5pt; gap:4px 10px; margin-top:8px;">
-          <div><strong>ग्राम पंचायत:</strong> ${voter.gram_panchayat}</div>
+          <div><strong>ग्राम पंचायत:</strong> ${voter.gram_panchayat} (${voter.panchayat_code})</div>
           <div><strong>वार्ड संख्या:</strong> ${voter.ward_no}</div>
           <div class="bw-row-full"><strong>मतदाता का नाम:</strong> ${voter.voter_name} ${voter.voter_name_en ? `(${voter.voter_name_en})` : ''}</div>
           <div class="bw-row-full"><strong>${relLabel} का नाम:</strong> ${voter.relative_name || '-'}</div>
           <div><strong>आयु/लिंग:</strong> ${voter.age} वर्ष, ${isFemale ? 'महिला' : 'पुरुष'}</div>
           <div><strong>मकान संख्या:</strong> ${voter.house_no || '-'}</div>
-          <div class="bw-row-full"><strong>पहचान पत्र क्र. (EPIC):</strong> ${voter.epic_no || 'RJ/12/098/...'}</div>
+          <div class="bw-row-full"><strong>पहचान पत्र क्र. (EPIC):</strong> <strong>${voter.epic_no || 'RJ/12/098/...'}</strong></div>
         </div>
 
-        <div class="bw-booth-box" style="margin-top:8px; padding:6px; font-size:8pt; border:1.5px solid #000;">
-          <strong>मतदान केंद्र संख्या ${boothNoVal}:</strong> ${boothNameVal}
+        <div class="bw-booth-box" style="margin-top:8px; padding:6px 8px; font-size:8pt; border:1.5px solid #000; background:#f8fafc;">
+          <strong>🏫 मतदान केंद्र संख्या ${boothNoVal}:</strong> ${boothNameVal}
         </div>
 
-        <div class="bw-footer" style="margin-top:8px; font-size:7pt;">
+        <div class="bw-footer" style="margin-top:8px; font-size:7pt; display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #555; padding-top:4px;">
           <span>*मतदान केंद्र पर अधिकृत मूल पहचान पत्र अनिवार्य है</span>
-          <span>दिनांक: 15-10-2026 | समय: प्रातः 7:30 से सायं 5:30</span>
+          <span>समय: प्रातः 7:00 से सायं 5:00 बजे तक</span>
         </div>
       </div>
     `;
@@ -2674,6 +2736,10 @@ function closeVoterSlipModal() {
 }
 
 function printVoterSlip() {
+  if (!canUserPrint() && !canUserDownload()) {
+    showToast('⚠️ पर्ची प्रिंट या डाउनलोड करने की अनुमति व्यवस्थापक द्वारा वर्जित है!');
+    return;
+  }
   document.body.className = 'printing-slip';
   window.print();
   setTimeout(() => {
@@ -2681,7 +2747,19 @@ function printVoterSlip() {
   }, 500);
 }
 
+function downloadVoterSlipPdf() {
+  if (!canUserPrint() && !canUserDownload()) {
+    showToast('⚠️ पर्ची डाउनलोड करने की अनुमति व्यवस्थापक द्वारा वर्जित है!');
+    return;
+  }
+  printVoterSlip();
+}
+
 function printThermalSingleSlip() {
+  if (!canUserPrint() && !canUserDownload()) {
+    showToast('⚠️ थर्मल पर्ची प्रिंट करने की अनुमति व्यवस्थापक द्वारा वर्जित है!');
+    return;
+  }
   if (!State.currentSlipVoter) return;
   const printBox = document.getElementById('bulkPrintContainer');
   printBox.innerHTML = `
@@ -2701,6 +2779,9 @@ function shareVoterSlipWhatsApp() {
   if (!State.currentSlipVoter) return;
   const v = State.currentSlipVoter;
 
+  const bInfo = getBoothForVoter(v);
+  const boothFullName = (bInfo && (bInfo.name || bInfo.name_hi)) || v.polling_station_name || 'राजकीय उच्च माध्यमिक विद्यालय';
+
   const text = `🗳️ *मतदाता सूचना पर्ची - पंचायत आम चुनाव 2026*
 📍 *ब्लॉक: भिनाय (अजमेर)*
 ---------------------------------------
@@ -2714,7 +2795,7 @@ function shareVoterSlipWhatsApp() {
 🏡 *मकान संख्या:* ${v.house_no} | *ग्राम:* ${v.revenue_village || v.gram_panchayat}
 🎂 *आयु / लिंग:* ${v.age} वर्ष | ${v.gender === 'F' ? 'महिला' : 'पुरुष'}
 🪪 *EPIC पहचान पत्र:* ${v.epic_no}
-🏫 *मतदान केंद्र:* ${v.polling_station_name}
+🏫 *मतदान केंद्र:* ${boothFullName}
 ---------------------------------------
 ⚠️ *नोट:* यह पर्ची केवल पहचान व क्रम संख्या हेतु है। मतदान हेतु मूल फोटो पहचान पत्र (EPIC/आधार) साथ लाएं।`;
 
@@ -2800,6 +2881,7 @@ function renderAlphabeticalList() {
     return true;
   });
 
+  State.alphaFilteredVoters = voters;
   const isHindi = State.alphaLang === 'hi';
 
   // Sort
@@ -2868,29 +2950,44 @@ function renderAlphabeticalList() {
       const isDelivered = isVoterDelivered(voter);
       const isFemale = voter.gender === 'F';
       const isSupplement = (voter.serial_no % 17 === 0);
+      const photoUrl = getVoterPhotoUrl(voter);
+      const bInfo = getBoothForVoter(voter);
+      const boothNoVal = bInfo ? bInfo.booth_no : (voter.polling_station_no || '01');
+      const boothNameVal = bInfo ? bInfo.name : (voter.polling_station_name || 'राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-01');
 
       row.innerHTML = `
         <div class="alpha-voter-left">
-          <div class="alpha-serial-badge">${voter.serial_no || idx + 1}</div>
+          <div class="alpha-voter-thumb-box">
+            <img src="${photoUrl}" alt="${voter.voter_name}" class="alpha-voter-thumb-img" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <div class="voter-avatar ${isFemale ? 'female' : ''}" style="display:none; width:100%; height:100%; border-radius:0; font-size:0.85rem; align-items:center; justify-content:center;">
+              ${voter.voter_name ? voter.voter_name.charAt(0) : 'म'}
+            </div>
+          </div>
+          <div class="alpha-serial-badge" style="min-width:65px; text-align:center;">
+            क्र. ${voter.serial_no || idx + 1}
+          </div>
           <div class="alpha-voter-details">
-            <div class="alpha-name-row">
-              <span class="alpha-voter-name">${voter.voter_name}</span>
-              ${voter.voter_name_en ? `<span class="text-sm text-muted">(${voter.voter_name_en})</span>` : ''}
+            <div class="alpha-name-row" style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+              <span class="alpha-voter-name" style="font-size:0.98rem; font-weight:800; color:#0f172a;">${voter.voter_name}</span>
+              ${voter.voter_name_en ? `<span class="text-sm text-muted" style="font-weight:600;">(${voter.voter_name_en})</span>` : ''}
+              <span class="badge" style="background:#e0f2fe; color:#0369a1; font-weight:700; font-size:0.75rem; border:1px solid #bae6fd;">वार्ड ${voter.ward_no}</span>
+              <span class="slip-epic" style="font-size:0.78rem; font-weight:700; background:#f1f5f9; padding:2px 6px; border-radius:4px;">🆔 ${voter.epic_no || 'N/A'}</span>
               ${isSupplement ? '<span class="badge-supplement">परिवर्धन सूची</span>' : ''}
             </div>
-            <div class="alpha-voter-sub">
+            <div class="alpha-voter-sub" style="font-size:0.82rem; color:#475569; margin-top:3px;">
               ${voter.relative_relation || 'पिता/पति'}: <strong>${voter.relative_name || '-'}</strong> • 
-              वार्ड नं. ${voter.ward_no} • म.नं. ${voter.house_no} • ${voter.age} वर्ष (${isFemale ? 'महिला' : 'पुरुष'})
+              म.नं. <strong>${voter.house_no || '-'}</strong> • ${voter.age} वर्ष (${isFemale ? 'महिला' : 'पुरुष'}) • 
+              🏫 <strong style="color:#1e3a8a;">बूथ ${boothNoVal}:</strong> ${boothNameVal}
             </div>
           </div>
         </div>
 
-        <div style="display:flex; align-items:center; gap:0.65rem;">
+        <div style="display:flex; align-items:center; gap:0.65rem; flex-shrink:0;">
           <button class="delivery-toggle-btn ${isDelivered ? 'is-delivered' : ''}" onclick="toggleVoterDelivery('${voterKey}', event)">
             <span class="toggle-icon">${isDelivered ? '✅' : '⬜'}</span>
             <span>${isDelivered ? 'पर्ची दी गई' : 'पर्ची बाकी'}</span>
           </button>
-          <button class="btn btn-outline btn-xs" onclick='openVoterSlipModal(${JSON.stringify(voter)})'>
+          <button class="btn btn-primary btn-xs" onclick='openVoterSlipModal(${JSON.stringify(voter)})' title="आधिकारिक मतदाता सूचना पर्ची">
             📄 पर्ची
           </button>
         </div>
@@ -4098,6 +4195,11 @@ function confirmExecuteVoterListPrint() {
 }
 
 function executeVoterListPrint(sortMode, scope, context) {
+  if (!canUserPrint() && !canUserDownload()) {
+    showToast('⚠️ मतदाता सूची प्रिंट या पीडीएफ डाउनलोड की अनुमति केवल सुपर एडमिन अथवा उनके द्वारा अधिकृत कार्मिकों को ही है!');
+    return;
+  }
+
   let list = [];
   let gpName = '';
   let wardText = '';
@@ -4166,7 +4268,7 @@ function executeVoterListPrint(sortMode, scope, context) {
   if (!printBox) return;
   printBox.innerHTML = '';
 
-  // Fit 42 voters per A4 page strictly
+  // Fit 42 voters per A4 page strictly (No photos printed to save ink and paper)
   const rowsPerPage = 42;
   const totalPages = Math.ceil(list.length / rowsPerPage);
 
@@ -4181,6 +4283,8 @@ function executeVoterListPrint(sortMode, scope, context) {
       const isFemale = v.gender === 'F';
       const enVoter = v.voter_name_en ? `<span class="en-sub">(${v.voter_name_en})</span>` : '';
       const enRel = v.relative_name_en ? `<span class="en-sub">(${v.relative_name_en})</span>` : '';
+      const bInfo = getBoothForVoter(v);
+      const boothFull = bInfo ? (bInfo.name || bInfo.name_hi) : (v.polling_station_name || '-');
 
       tableRows += `
         <tr>
@@ -4193,6 +4297,7 @@ function executeVoterListPrint(sortMode, scope, context) {
           <td class="col-age">${v.age}</td>
           <td class="col-gender">${isFemale ? 'स्त्री' : 'पुरुष'}</td>
           <td class="col-epic">${v.epic_no || '-'}</td>
+          <td class="col-booth">${boothFull}</td>
           <td class="col-sign"></td>
         </tr>
       `;
@@ -4223,6 +4328,7 @@ function executeVoterListPrint(sortMode, scope, context) {
             <th class="col-age">आयु</th>
             <th class="col-gender">लिंग</th>
             <th class="col-epic">पहचान पत्र (EPIC)</th>
+            <th class="col-booth">मतदान केंद्र (कमरा नं.)</th>
             <th class="col-sign">हस्ताक्षर / रिमार्क</th>
           </tr>
         </thead>
@@ -4350,12 +4456,14 @@ function initCandidateProfileTab() {
   const sloganText = document.getElementById('candidateSloganTextarea');
   const photoPreview = document.getElementById('candidatePhotoPreview');
   const showBannerCheck = document.getElementById('candidateShowBannerSlip');
+  const electionTimeInput = document.getElementById('candidateElectionTimeInput');
 
   if (cand) {
     if (nameInput) nameInput.value = cand.candidate_name || '';
     if (mobileInput) mobileInput.value = cand.mobile || u.mobile || '';
     if (postSelect) postSelect.value = cand.post || 'सरपंच';
     if (gpSelect && cand.panchayat) gpSelect.value = cand.panchayat;
+    if (electionTimeInput) electionTimeInput.value = cand.election_time || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक';
     if (sloganText) sloganText.value = cand.slogan || '';
     if (photoPreview && cand.photo_url) photoPreview.src = cand.photo_url;
     if (showBannerCheck) showBannerCheck.checked = (cand.show_banner_on_slip !== false);
@@ -4370,6 +4478,7 @@ function initCandidateProfileTab() {
     // Default prefill
     if (nameInput) nameInput.value = u.full_name || '';
     if (mobileInput) mobileInput.value = u.mobile || '';
+    if (electionTimeInput) electionTimeInput.value = 'प्रातः 7:00 बजे से सायं 5:00 बजे तक';
     if (gpSelect && u.allowed_panchayats && u.allowed_panchayats !== 'ALL') {
       gpSelect.value = u.allowed_panchayats;
     }
@@ -4525,6 +4634,7 @@ async function handleSaveCandidateProfile(event) {
   const post = document.getElementById('candidatePostSelect').value;
   const gp = document.getElementById('candidateGpSelect').value;
   const ward = (post === 'वार्ड पंच' && document.getElementById('candidateWardSelect')) ? document.getElementById('candidateWardSelect').value : '';
+  const electionTime = (document.getElementById('candidateElectionTimeInput') ? document.getElementById('candidateElectionTimeInput').value : '').trim() || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक';
   const slogan = (document.getElementById('candidateSloganTextarea').value || '').trim();
   const showBanner = document.getElementById('candidateShowBannerSlip').checked;
   const photoEl = document.getElementById('candidatePhotoPreview');
@@ -4542,6 +4652,7 @@ async function handleSaveCandidateProfile(event) {
     post: post,
     panchayat: gp,
     ward: ward,
+    election_time: electionTime,
     symbol_name: symObj.name_hi,
     symbol_icon: symObj.id,
     photo_url: photoUrl,
@@ -4581,6 +4692,7 @@ function renderLiveSpecimenSlip() {
   const post = document.getElementById('candidatePostSelect') ? document.getElementById('candidatePostSelect').value : 'सरपंच';
   const gp = document.getElementById('candidateGpSelect') ? document.getElementById('candidateGpSelect').value : 'बूबकिया';
   const ward = (post === 'वार्ड पंच' && document.getElementById('candidateWardSelect')) ? document.getElementById('candidateWardSelect').value : '';
+  const electionTime = (document.getElementById('candidateElectionTimeInput') ? document.getElementById('candidateElectionTimeInput').value : '').trim() || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक';
   const slogan = document.getElementById('candidateSloganTextarea') ? document.getElementById('candidateSloganTextarea').value : '।। समस्त ग्रामवासियों से विनम्र अपील ।।\nअपने कर्मठ एवं ईमानदार प्रत्याशी को विजयी बनावें।';
   const photo = document.getElementById('candidatePhotoPreview') ? document.getElementById('candidatePhotoPreview').src : 'https://api.dicebear.com/7.x/identicon/svg?seed=candidate';
 
@@ -4611,6 +4723,7 @@ function renderLiveSpecimenSlip() {
     post: post,
     panchayat: gp || 'ग्राम पंचायत',
     ward: ward,
+    election_time: electionTime,
     symbol_name: symObj.name_hi,
     symbol_svg: symObj.svg,
     photo_url: photo,
@@ -4630,7 +4743,10 @@ function openSpecimenPreviewModal() {
 function buildDetachableCandidateSlipHtml(voter, candidateData) {
   const isFemale = voter.gender === 'F';
   const relLabel = voter.relative_relation || 'पिता/पति';
-  const boothName = voter.polling_station_name || 'राजकीय विद्यालय, भिनाय';
+  const bInfo = getBoothForVoter(voter);
+  const boothName = (bInfo && (bInfo.name || bInfo.name_hi)) || voter.polling_station_name || 'राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-01 भिनाय';
+  const boothNo = (bInfo && bInfo.booth_no) || voter.polling_station_no || '1';
+  const electionTime = candidateData.election_time || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक';
 
   const cName = candidateData.candidate_name || 'प्रत्याशी';
   const cPost = candidateData.post || 'सरपंच';
@@ -4655,6 +4771,7 @@ function buildDetachableCandidateSlipHtml(voter, candidateData) {
             <span class="candidate-banner-post">${cPost} प्रत्याशी</span>
           </div>
           <div class="candidate-banner-gp">ग्राम पंचायत: <strong>${cGp}</strong> ${cWard ? `• वार्ड नं.: ${cWard}` : ''}</div>
+          <div class="candidate-banner-time" style="font-size:0.72rem; font-weight:700; color:#1e293b; background:#fef3c7; border:1px solid #f59e0b; border-radius:4px; padding:2px 6px; margin:3px 0; display:inline-block;">⏰ मतदान समय: ${electionTime}</div>
           <div class="candidate-banner-slogan">${cSlogan}</div>
         </div>
         <div class="candidate-banner-symbol-col">
@@ -4691,12 +4808,12 @@ function buildDetachableCandidateSlipHtml(voter, candidateData) {
         </div>
 
         <div class="bw-booth-box">
-          <strong>मतदान केंद्र ${voter.polling_station_no || '1'}:</strong> ${boothName}
+          <strong>मतदान केंद्र ${boothNo}:</strong> ${boothName}
         </div>
 
         <div class="bw-footer">
           <span>*मतदान हेतु अधिकृत पहचान पत्र साथ लावें</span>
-          <span>दिनांक: 15-10-2026 | समय: प्रातः 7:30 से 5:30</span>
+          <span>दिनांक: 15-10-2026 | समय: ${electionTime}</span>
         </div>
       </div>
     </div>
@@ -4706,17 +4823,24 @@ function buildDetachableCandidateSlipHtml(voter, candidateData) {
 // Modify buildOfficialSlipHtml to dynamically support candidate detachable slip
 const originalBuildOfficialSlipHtml = window.buildOfficialSlipHtml;
 window.buildOfficialSlipHtml = function(voter, layout, theme) {
-  const cand = State.currentCandidate;
-  if (cand && cand.show_banner_on_slip && cand.candidate_name) {
-    const symbols = window.OFFICIAL_ELECTION_SYMBOLS || [];
-    const symObj = symbols.find(s => s.id === cand.symbol_icon || s.name_hi.includes(cand.symbol_name)) || symbols[0];
-    return buildDetachableCandidateSlipHtml(voter, {
-      ...cand,
-      symbol_svg: symObj ? symObj.svg : ''
-    });
+  // Candidate photo slip ONLY permitted when logged in as candidate for their allotted panchayat
+  if (isCandidateSlipAllowedForVoter(voter)) {
+    const cand = State.currentCandidate;
+    if (cand && cand.show_banner_on_slip && cand.candidate_name) {
+      const symbols = window.OFFICIAL_ELECTION_SYMBOLS || [];
+      const symObj = symbols.find(s => s.id === cand.symbol_icon || s.name_hi.includes(cand.symbol_name)) || symbols[0];
+      return buildDetachableCandidateSlipHtml(voter, {
+        ...cand,
+        symbol_svg: symObj ? symObj.svg : ''
+      });
+    }
   }
 
-  // Fallback to standard B&W slip
+  const bInfo = getBoothForVoter(voter);
+  const boothName = (bInfo && (bInfo.name || bInfo.name_hi)) || voter.polling_station_name || 'राजकीय उच्च माध्यमिक विद्यालय भिनाय';
+  const boothNo = (bInfo && bInfo.booth_no) || voter.polling_station_no || '1';
+
+  // Fallback to 100% standard administrative B&W slip without candidate photo
   return `
     <div class="official-mini-slip">
       <div>
@@ -4737,7 +4861,7 @@ window.buildOfficialSlipHtml = function(voter, layout, theme) {
           <div class="mini-detail-row"><span class="mini-lbl">पहचान क्र.:</span><span class="mini-val"><strong>${voter.epic_no || 'RJ/12/098/...'}</strong></span></div>
         </div>
         <div class="mini-booth-box" style="white-space:normal !important;">
-          <strong>मतदान केंद्र ${voter.polling_station_no || '1'}:</strong> ${voter.polling_station_name || 'राजकीय विद्यालय'}
+          <strong>मतदान केंद्र ${boothNo}:</strong> ${boothName}
         </div>
       </div>
       <div class="mini-slip-footer" style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #777; padding-top:2px;">
@@ -5123,6 +5247,9 @@ function openAdminCandidateModal(userId) {
   document.getElementById('adminCandPost').value = cand.post || 'सरपंच';
   document.getElementById('adminCandGp').value = cand.panchayat || (u.allowed_panchayats !== 'ALL' ? u.allowed_panchayats : 'बूबकिया');
   document.getElementById('adminCandWard').value = cand.ward || '';
+  if (document.getElementById('adminCandElectionTime')) {
+    document.getElementById('adminCandElectionTime').value = cand.election_time || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक';
+  }
   document.getElementById('adminCandSlogan').value = cand.slogan || '';
   document.getElementById('adminCandPhotoUrl').value = cand.photo_url || '';
 
@@ -5143,6 +5270,7 @@ async function handleAdminSaveCandidate(event) {
   const post = document.getElementById('adminCandPost').value;
   const gp = document.getElementById('adminCandGp').value.trim();
   const ward = document.getElementById('adminCandWard').value.trim();
+  const electionTime = (document.getElementById('adminCandElectionTime')?.value || '').trim() || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक';
   const slogan = document.getElementById('adminCandSlogan').value.trim();
   const photo = document.getElementById('adminCandPhotoUrl').value.trim();
 
@@ -5156,6 +5284,7 @@ async function handleAdminSaveCandidate(event) {
     post: post,
     panchayat: gp,
     ward: ward,
+    election_time: electionTime,
     symbol_name: symObj.name_hi,
     symbol_icon: symObj.id,
     photo_url: photo,
