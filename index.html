@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261007_1791370814">
+  <link rel="stylesheet" href="styles.css?v=20261007_1791372997">
 </head>
 <body>
 
@@ -55,39 +55,57 @@
         <form id="gatekeeperLoginForm" onsubmit="handleGatekeeperLogin(event)" style="margin-top:12px;">
           <input type="hidden" id="gatekeeperUsername" value="">
 
-          <!-- DROPDOWN 1: GP / CELL SELECT -->
-          <div class="form-group mb-3">
-            <label for="loginPanchayatSelect" style="font-size:0.88rem; color:#1e293b;"><strong>1. ग्राम पंचायत / चुनाव प्रकोष्ठ चुनें *:</strong></label>
-            <select id="loginPanchayatSelect" class="form-select" onchange="onLoginPrimarySelectChanged(this.value)" style="font-weight:700; cursor:pointer; font-size:0.95rem; height:42px; border:2px solid #cbd5e1;">
-              <option value="">-- पंचायत या प्रकोष्ठ चुनें --</option>
-              <option value="BLOCK_PRABHARI" style="font-weight:800; color:#0f766e; background:#ccfbf1;">🌟 ब्लॉक प्रभारी (Block Incharge - सुरेश जांगिड़)</option>
-              <option value="CELL" style="font-weight:800; color:#1e40af; background:#eff6ff;">🏢 चुनाव प्रकोष्ठ (Election Cell)</option>
-              <option value="ADMIN" style="font-weight:800; color:#b45309; background:#fef3c7;">👤 एडमिन / व्यवस्थापक (Super Admin)</option>
-            </select>
-          </div>
-
-          <!-- DROPDOWN 2: SECONDARY SELECT -->
-          <div class="form-group mb-3" id="loginSecondarySelectGroup">
-            <label for="loginOfficerSelect" id="loginOfficerLabel" style="font-size:0.88rem; color:#1e293b;"><strong>2. कार्मिक / बी.एल.ओ. चुनें *:</strong></label>
-            <select id="loginOfficerSelect" class="form-select" onchange="onLoginOfficerChanged(this.value)" style="font-weight:700; cursor:pointer; font-size:0.92rem; height:42px; border:2px solid #cbd5e1;" disabled>
-              <option value="">-- पहले पंचायत या प्रकोष्ठ चुनें --</option>
-            </select>
-            <div id="loginSelectedDetailsBadge" style="display:none; font-size:0.75rem; margin-top:6px; font-weight:600; padding:6px 10px; border-radius:6px;">
-              <!-- Dynamic details -->
+          <!-- CONTAINER A: PAN / MASTER PORTAL UNIFIED DROPDOWN (पहले वाला सुगम ड्रॉपडाउन) -->
+          <div id="masterLoginContainer" style="display:none;">
+            <div class="form-group mb-3">
+              <label for="gatekeeperUserSelect" style="font-size:0.88rem; color:#1e293b;">
+                <strong>अधिकृत उपयोगकर्ता चुनें (Select Active User) *:</strong>
+              </label>
+              <div class="input-with-icon" id="userSelectWrapper">
+                <span class="input-icon">👤</span>
+                <select id="gatekeeperUserSelect" class="form-select" onchange="onLoginUserSelectChange(this.value)" style="font-weight:700; cursor:pointer; height:42px; font-size:0.95rem; border:2px solid #cbd5e1;">
+                  <option value="">-- कृपया अपना अधिकृत खाता चुनें --</option>
+                </select>
+              </div>
+              <div style="font-size:0.78rem; color:#64748b; margin-top:5px; display:flex; justify-content:space-between; align-items:center;">
+                <span><span style="color:#16a34a; font-weight:700;">●</span> केवल सक्रिय खाते</span>
+                <a href="javascript:void(0)" onclick="toggleManualUsername()" id="toggleManualUserBtn" style="color:#2563eb; text-decoration:underline; font-weight:600;">या मैन्युअल टाइप करें</a>
+              </div>
+              <div id="manualUsernameDiv" style="display:none; margin-top:8px;">
+                <input type="text" id="manualUsernameInput" class="form-input" placeholder="यूजरनेम टाइप करें (उदा. admin, block_prabhari)" oninput="onManualUsernameInput(this.value)" style="font-weight:700; height:40px;">
+              </div>
             </div>
           </div>
 
-          <!-- ADMIN USERNAME INPUT (ONLY SHOWN IF ADMIN SELECTED) -->
-          <div class="form-group mb-3" id="loginAdminGroup" style="display:none;">
-            <label for="gatekeeperUsernameInput" style="font-size:0.88rem; color:#1e293b;"><strong>एडमिन यूजर ID:</strong></label>
-            <input type="text" id="gatekeeperUsernameInput" class="form-input" value="admin" style="font-weight:700; height:40px;" oninput="document.getElementById('gatekeeperUsername').value = this.value.trim()">
+          <!-- CONTAINER B: BLO & CELL PORTAL DUAL DROPDOWN (ब्लॉक प्रभारी, प्रकोष्ठ व बीएलओ ड्रॉपडाउन) -->
+          <div id="bloLoginContainer" style="display:none;">
+            <!-- DROPDOWN 1: ROLE / GP SELECT -->
+            <div class="form-group mb-3" id="loginPrimarySelectGroup">
+              <label for="loginPanchayatSelect" id="loginPrimaryLabel" style="font-size:0.88rem; color:#1e293b;"><strong>1. पद / प्रकोष्ठ / ग्राम पंचायत चुनें *:</strong></label>
+              <select id="loginPanchayatSelect" class="form-select" onchange="onLoginPrimarySelectChanged(this.value)" style="font-weight:700; cursor:pointer; font-size:0.95rem; height:42px; border:2px solid #cbd5e1;">
+                <option value="">-- चुनें --</option>
+                <option value="BLOCK_PRABHARI" style="font-weight:800; color:#0f766e; background:#ccfbf1;">🌟 ब्लॉक प्रभारी (सुरेश जांगिड़ - शिक्षक)</option>
+                <option value="CELL" style="font-weight:800; color:#1e40af; background:#eff6ff;">🏢 चुनाव प्रकोष्ठ (Election Cell)</option>
+              </select>
+            </div>
+
+            <!-- DROPDOWN 2: OFFICER / BLO SELECT -->
+            <div class="form-group mb-3" id="loginSecondarySelectGroup">
+              <label for="loginOfficerSelect" id="loginOfficerLabel" style="font-size:0.88rem; color:#1e293b;"><strong>2. कार्मिक / बी.एल.ओ. चुनें *:</strong></label>
+              <select id="loginOfficerSelect" class="form-select" onchange="onLoginOfficerChanged(this.value)" style="font-weight:700; cursor:pointer; font-size:0.92rem; height:42px; border:2px solid #cbd5e1;" disabled>
+                <option value="">-- पहले पंचायत या प्रकोष्ठ चुनें --</option>
+              </select>
+              <div id="loginSelectedDetailsBadge" style="display:none; font-size:0.78rem; margin-top:6px; font-weight:600; padding:6px 10px; border-radius:6px;">
+                <!-- Dynamic details -->
+              </div>
+            </div>
           </div>
 
           <!-- COMMON PASSWORD FIELD -->
           <div class="form-group mb-3">
             <div class="d-flex justify-content-between align-items-center">
               <label for="gatekeeperPassword" style="font-size:0.88rem; color:#1e293b;"><strong>पासवर्ड (Password) *:</strong></label>
-              <span id="defaultPassHint" style="font-size:0.75rem; color:#047857; font-weight:600;">डिफ़ॉल्ट: 123</span>
+              <span id="defaultPassHint" style="font-size:0.75rem; color:#047857; font-weight:700;">डिफ़ॉल्ट: 123 | ब्लॉक प्रभारी: BHINAI123</span>
             </div>
             <div class="input-with-icon">
               <span class="input-icon">🔑</span>
@@ -1659,9 +1677,9 @@
 
   <!-- Scripts -->
     <script src="symbols_master.js?v=20261005_2300"></script>
-  <script src="master_directory.js?v=20261007_1791370814"></script>
-  <script src="master_data.js?v=20261007_1791370814"></script>
-  <script src="app.js?v=20261007_1791370814"></script>
+  <script src="master_directory.js?v=20261007_1791372997"></script>
+  <script src="master_data.js?v=20261007_1791372997"></script>
+  <script src="app.js?v=20261007_1791372997"></script>
 
   <!-- Super Admin: Add New User Modal -->
   <div id="addUserModal" class="modal-overlay no-print" style="display:none;" onclick="if(event.target===this) closeAddUserModal()">
