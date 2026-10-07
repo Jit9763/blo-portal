@@ -1,4 +1,40 @@
 
+// ==========================================================================
+// BLOCK PRABHARI & SUPER ADMIN LOCAL OVERRIDES ENGINE
+// ==========================================================================
+function getCustomUserPassword(username) {
+  try {
+    const ov = JSON.parse(localStorage.getItem('portal_passwords_override') || '{}');
+    if (ov && ov[username]) return ov[username];
+  } catch(e) {}
+  return null;
+}
+
+function getCustomUserStatus(username) {
+  try {
+    const st = JSON.parse(localStorage.getItem('portal_status_override') || '{}');
+    if (st && st[username]) return st[username];
+  } catch(e) {}
+  return 'ACTIVE';
+}
+
+function setCustomUserPassword(username, newPass) {
+  try {
+    const ov = JSON.parse(localStorage.getItem('portal_passwords_override') || '{}');
+    ov[username] = newPass;
+    localStorage.setItem('portal_passwords_override', JSON.stringify(ov));
+  } catch(e) {}
+}
+
+function setCustomUserStatus(username, newStatus) {
+  try {
+    const st = JSON.parse(localStorage.getItem('portal_status_override') || '{}');
+    st[username] = newStatus;
+    localStorage.setItem('portal_status_override', JSON.stringify(st));
+  } catch(e) {}
+}
+
+
 function getBoothForVoter(voter) {
   if (!voter) return null;
   const gpVal = (voter.panchayat_code || voter.gram_panchayat || voter.panchayat_en || '').toLowerCase();
@@ -350,7 +386,7 @@ function initSession() {
     if (saved) {
       try {
         const u = JSON.parse(saved);
-        if (u && (u.role === 'BLO' || u.type === 'BLO' || u.category === 'CELL' || u.role === 'प्रकोष्ठ कार्मिक' || u.role === 'CELL_MEMBER')) {
+        if (u && (u.role === 'BLO' || u.type === 'BLO' || u.category === 'CELL' || u.role === 'प्रकोष्ठ कार्मिक' || u.role === 'CELL_MEMBER' || u.role === 'BLOCK_PRABHARI')) {
           State.currentUser = u;
         } else {
           State.currentUser = null;
@@ -495,8 +531,27 @@ function updateUserScopeDisplay() {
   const sessionStatus = document.getElementById('sessionStatusText');
 
   if (roleBadge) {
-    roleBadge.textContent = u.role === 'SUPER_ADMIN' ? 'ब्लॉक एडमिन (Bhinai Block)' : 'पंचायत प्रभारी';
-    roleBadge.style.background = u.role === 'SUPER_ADMIN' ? '#1e3a8a' : '#d97706';
+    if (u.role === 'SUPER_ADMIN') {
+      roleBadge.textContent = '👑 ब्लॉक मुख्य व्यवस्थापक (Super Admin)';
+      roleBadge.style.background = '#b45309';
+      roleBadge.style.color = '#ffffff';
+    } else if (u.role === 'BLOCK_PRABHARI') {
+      roleBadge.textContent = '🌟 ब्लॉक प्रभारी (Block Incharge)';
+      roleBadge.style.background = '#0f766e';
+      roleBadge.style.color = '#ffffff';
+    } else if (u.role === 'BLO') {
+      roleBadge.textContent = `📍 बी.एल.ओ. (भाग ${u.booth_no || ''})`;
+      roleBadge.style.background = '#4338ca';
+      roleBadge.style.color = '#ffffff';
+    } else if (u.role === 'CELL_MEMBER') {
+      roleBadge.textContent = `🏢 ${u.cell_name || 'प्रकोष्ठ कार्मिक'}`;
+      roleBadge.style.background = '#1e40af';
+      roleBadge.style.color = '#ffffff';
+    } else {
+      roleBadge.textContent = '🗳️ पंचायत प्रत्याशी प्रभारी';
+    }
+    // remaining
+    if (false) roleBadge.style.background = u.role === 'SUPER_ADMIN' ? '#1e3a8a' : '#d97706';
   }
 
   if (userName) userName.textContent = u.full_name || u.username;
@@ -3405,18 +3460,47 @@ async function loadAdminUsersList() {
   }
 
   // 3. Fallback to State.adminUsers
-  State.adminControlUsers = (State.adminUsers || []).map(u => ({
-    id: u.user_id || u.username,
-    username: u.username,
-    password: u.password,
-    full_name: u.full_name || u.fullName || u.username,
-    mobile: u.mobile || '',
-    status: u.status || 'ACTIVE',
-    allowed_panchayats: u.assigned_panchayats || 'ALL',
-    allowed_wards: u.assigned_wards || 'ALL',
-    allowed_tabs: ['searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab'],
-    candidate_mode: 'user_edit'
-  }));
+  if (!State.adminControlUsers || State.adminControlUsers.length === 0) {
+    State.adminControlUsers = (State.adminUsers || []).map(u => ({
+      id: u.user_id || u.username,
+      username: u.username,
+      password: u.password,
+      full_name: u.full_name || u.fullName || u.username,
+      mobile: u.mobile || '',
+      status: u.status || 'ACTIVE',
+      allowed_panchayats: u.assigned_panchayats || 'ALL',
+      allowed_wards: u.assigned_wards || 'ALL',
+      allowed_tabs: ['searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab'],
+      candidate_mode: 'user_edit'
+    }));
+  }
+
+  // Ensure Block Prabhari is always present in adminControlUsers
+  if (!State.adminControlUsers.find(x => (x.id || x.username) === 'block_prabhari')) {
+    State.adminControlUsers.splice(1, 0, {
+      id: 'block_prabhari',
+      username: 'block_prabhari',
+      password: 'BHINAI123',
+      full_name: 'श्री सुरेश चन्द्र जांगिड (ब्लॉक प्रभारी - शिक्षक)',
+      mobile: '9950705221',
+      status: 'ACTIVE',
+      allowed_panchayats: 'ALL',
+      allowed_wards: 'ALL',
+      allowed_tabs: ['dashboardTab', 'searchTab', 'alphaTab', 'directoryTab'],
+      candidate_mode: 'admin_locked'
+    });
+  }
+
+  // Apply localStorage overrides
+  try {
+    const ovPass = JSON.parse(localStorage.getItem('portal_passwords_override') || '{}');
+    const ovStatus = JSON.parse(localStorage.getItem('portal_status_override') || '{}');
+    State.adminControlUsers.forEach(u => {
+      const uid = u.id || u.username;
+      if (ovPass[uid]) u.password = ovPass[uid];
+      if (ovStatus[uid]) u.status = ovStatus[uid];
+    });
+  } catch(e) {}
 }
 
 function renderAdminControlTab() {
@@ -3524,23 +3608,34 @@ function togglePassVisibility(inputId) {
   el.type = el.type === 'password' ? 'text' : 'password';
 }
 
-async function updateUserField(userId, field, value) {
+async async function updateUserField(userId, field, value) {
   const u = State.adminControlUsers.find(x => (x.id || x.username) === userId);
   if (!u) return;
 
   u[field] = value;
+  if (field === 'password') setCustomUserPassword(userId, value);
+  if (field === 'status') setCustomUserStatus(userId, value);
+  
+  try {
+    localStorage.setItem('portal_admin_users_overrides', JSON.stringify(State.adminControlUsers));
+  } catch(e) {}
+
   await saveAdminUserToServer(u);
-  showToast('परिवर्तन सुरक्षित!');
+  if (typeof renderBloPassTable === 'function') renderBloPassTable();
+  showToast('परिवर्तन सफलतापूर्वक सुरक्षित!');
 }
 
 async function toggleUserStatus(userId, newStatus) {
-  const u = State.adminControlUsers.find(x => (x.id || x.username) === userId);
-  if (!u) return;
-
-  u.status = newStatus;
-  await saveAdminUserToServer(u);
-  renderAdminControlTab();
-  showToast(`खाता स्थिति: ${newStatus === 'ACTIVE' ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}`);
+  setCustomUserStatus(userId, newStatus);
+  const u = (State.adminControlUsers || []).find(x => (x.id || x.username) === userId);
+  if (u) {
+    u.status = newStatus;
+    try { localStorage.setItem('portal_admin_users_overrides', JSON.stringify(State.adminControlUsers)); } catch(e) {}
+    await saveAdminUserToServer(u);
+  }
+  if (typeof renderAdminControlTab === 'function') renderAdminControlTab();
+  if (typeof renderBloPassTable === 'function') renderBloPassTable();
+  showToast(`खाता स्थिति '${userId}': ${newStatus === 'ACTIVE' ? '🟢 सक्रिय (Active)' : '🔴 निष्क्रिय (Inactive)'}`);
 }
 
 async function toggleUserTab(userId, tabName, isChecked) {
@@ -3766,9 +3861,10 @@ function populateLoginPrimaryDropdown() {
   pSelect.innerHTML = '';
   
   if (portalCtx === 'blo') {
-    // BLO & Cell Portal: CELL option at TOP, followed by 30 Gram Panchayats. NO ADMIN option!
+    // BLO & Cell Portal: BLOCK PRABHARI & CELL options at TOP, followed by 30 Gram Panchayats. NO ADMIN option!
     pSelect.innerHTML = `
-      <option value="">-- चुनाव प्रकोष्ठ या ग्राम पंचायत चुनें --</option>
+      <option value="">-- ब्लॉक प्रभारी, प्रकोष्ठ या ग्राम पंचायत चुनें --</option>
+      <option value="BLOCK_PRABHARI" style="font-weight:800; color:#0f766e; background:#ccfbf1;">🌟 ब्लॉक प्रभारी (सुरेश जांगिड़ - शिक्षक)</option>
       <option value="CELL" style="font-weight:800; color:#1e40af; background:#eff6ff;">🏢 चुनाव प्रकोष्ठ (Election Cell)</option>
     `;
     BHINAI_PANCHAYATS_30.forEach(gp => {
@@ -3779,13 +3875,13 @@ function populateLoginPrimaryDropdown() {
     });
     
     const cardTitle = document.querySelector('.login-card-title');
-    if (cardTitle) cardTitle.textContent = '🏢 बी.एल.ओ. एवं प्रकोष्ठ प्रवेश (BLO Portal Login)';
+    if (cardTitle) cardTitle.textContent = '🏢 बी.एल.ओ., प्रकोष्ठ एवं ब्लॉक प्रभारी प्रवेश (BLO Portal Login)';
     const cardDesc = document.querySelector('.login-card-desc');
-    if (cardDesc) cardDesc.textContent = 'कृपया अपना प्रकोष्ठ या ग्राम पंचायत व नाम चुनकर लॉगिन करें:';
+    if (cardDesc) cardDesc.textContent = 'कृपया ब्लॉक प्रभारी, प्रकोष्ठ या अपनी ग्राम पंचायत चुनकर लॉगिन करें:';
     const badge = document.querySelector('.gatekeeper-badge');
-    if (badge) badge.textContent = '📍 बी.एल.ओ. एवं चुनाव प्रकोष्ठ अधिकृत पोर्टल 2026';
+    if (badge) badge.textContent = '📍 बी.एल.ओ., चुनाव प्रकोष्ठ एवं ब्लॉक प्रभारी अधिकृत पोर्टल 2026';
     const samitiP = document.querySelector('.gatekeeper-samiti');
-    if (samitiP) samitiP.innerHTML = 'पंचायत समिति: <strong>भिनाय (अजमेर)</strong> | 126 बी.एल.ओ. • 13 चुनाव प्रकोष्ठ';
+    if (samitiP) samitiP.innerHTML = 'पंचायत समिति: <strong>भिनाय (अजमेर)</strong> | 126 बी.एल.ओ. • 13 चुनाव प्रकोष्ठ • 🌟 ब्लॉक प्रभारी';
   } else if (portalCtx === 'voter') {
     // Voter / Candidate Portal
     pSelect.innerHTML = `<option value="">-- ग्राम पंचायत चुनें --</option>`;
@@ -3800,8 +3896,9 @@ function populateLoginPrimaryDropdown() {
   } else {
     // Master Admin Portal
     pSelect.innerHTML = `
-      <option value="">-- पंचायत, प्रकोष्ठ या एडमिन चुनें --</option>
+      <option value="">-- पंचायत, प्रकोष्ठ, ब्लॉक प्रभारी या एडमिन चुनें --</option>
       <option value="ADMIN" style="font-weight:800; color:#b45309; background:#fef3c7;">⚡ ब्लॉक मुख्य व्यवस्थापक (Super Admin)</option>
+      <option value="BLOCK_PRABHARI" style="font-weight:800; color:#0f766e; background:#ccfbf1;">🌟 ब्लॉक प्रभारी (सुरेश जांगिड़ - शिक्षक)</option>
       <option value="CELL" style="font-weight:800; color:#1e40af; background:#eff6ff;">🏢 चुनाव प्रकोष्ठ (Election Cell)</option>
     `;
     BHINAI_PANCHAYATS_30.forEach(gp => {
@@ -3840,6 +3937,26 @@ async function onLoginPrimarySelectChanged(val) {
       offSelect.disabled = true;
     }
     dir = await ensureMasterDirectoryLoaded();
+  }
+
+  if (val === 'BLOCK_PRABHARI') {
+    if (offLabel) offLabel.innerHTML = '<strong>2. अधिकृत ब्लॉक प्रभारी *:</strong>';
+    if (offSelect) {
+      offSelect.innerHTML = `
+        <option value="block_prabhari" data-name="श्री सुरेश चन्द्र जांगिड" data-role="ब्लॉक प्रभारी (शिक्षक)" data-office="उपखण्ड कार्यालय भिनाय" data-mobile="9950705221" data-cell="समस्त 30 ग्राम पंचायतें">🌟 श्री सुरेश चन्द्र जांगिड - शिक्षक/अध्यापक (मो. 9950705221) [ब्लॉक प्रभारी]</option>
+      `;
+      offSelect.disabled = false;
+      offSelect.value = 'block_prabhari';
+    }
+    if (uInput) uInput.value = 'block_prabhari';
+    if (detailsBadge) {
+      detailsBadge.innerHTML = '🌟 <strong>श्री सुरेश चन्द्र जांगिड</strong> (शिक्षक/अध्यापक) | <strong>ब्लॉक प्रभारी</strong> | समस्त 30 ग्राम पंचायतें (पूर्ण वोटर खोज अधिकार) | मो.: 9950705221';
+      detailsBadge.style.background = '#ccfbf1';
+      detailsBadge.style.color = '#0f766e';
+      detailsBadge.style.border = '1px solid #99f6e4';
+      detailsBadge.style.display = 'block';
+    }
+    return;
   }
 
   if (val === 'CELL') {
@@ -4445,8 +4562,21 @@ async function handleSavePersonnelEdit(event) {
 }
 
 async function adminPromptChangePass(userId, name) {
-  const newPass = prompt(`'${name}' (${userId}) के लिए नया पासवर्ड दर्ज करें:`, '123');
+  const currentPass = getCustomUserPassword(userId) || (userId === 'block_prabhari' ? 'BHINAI123' : '123');
+  const newPass = prompt(`'${name}' (${userId}) के लिए नया पासवर्ड दर्ज करें:`, currentPass);
   if (!newPass || !newPass.trim()) return;
+
+  const trimmed = newPass.trim();
+  setCustomUserPassword(userId, trimmed);
+
+  // Update in state if exists
+  const uInState = (State.adminControlUsers || []).find(x => (x.id || x.username) === userId);
+  if (uInState) {
+    uInState.password = trimmed;
+    try { localStorage.setItem('portal_admin_users_overrides', JSON.stringify(State.adminControlUsers)); } catch(e) {}
+  }
+  renderBloPassTable();
+  if (typeof renderAdminControlTab === 'function') renderAdminControlTab();
 
   try {
     const res = await fetch('/api/change-password', {
@@ -4553,6 +4683,8 @@ async function handleGatekeeperLogin(event) {
   }
 
   // 2. Client-side Fallback validation for BLOs, Cell, and Admin
+    // 2. Client-side Fallback validation for Admin, Block Prabhari, BLOs, Cell & Candidates
+  // A. Super Admin Check
   if (username === 'admin' && (password === '123' || password === 'admin123' || password === 'admin')) {
     const adminUser = {
       id: 'admin',
@@ -4565,10 +4697,97 @@ async function handleGatekeeperLogin(event) {
       candidate_mode: 'admin_locked'
     };
     State.currentUser = adminUser;
-    localStorage.setItem(getSessionStorageKey(), JSON.stringify(adminUser)); localStorage.setItem('panchayat_user_session', JSON.stringify(adminUser));
+    localStorage.setItem(getSessionStorageKey(), JSON.stringify(adminUser));
+    localStorage.setItem('panchayat_user_session', JSON.stringify(adminUser));
     enforceGatekeeperState();
     showToast('नमस्ते एडमिन! पोर्टल में आपका स्वागत है।');
     return;
+  }
+
+  // B. Block Prabhari Check (Suresh Chand Jangid - Teacher)
+  const isBpUser = (username === 'block_prabhari' || username === 'suresh_jangid' || username === 'cell_nirvachan_2' || (pSelect && pSelect.value === 'BLOCK_PRABHARI'));
+  if (isBpUser) {
+    const bpStatus = getCustomUserStatus('block_prabhari');
+    if (bpStatus === 'INACTIVE') {
+      if (errorDiv) {
+        errorDiv.textContent = 'ब्लॉक प्रभारी खाता सुपर एडमिन द्वारा निष्क्रिय (Inactive) किया गया है!';
+        errorDiv.style.display = 'block';
+      }
+      return;
+    }
+
+    const customBpPass = getCustomUserPassword('block_prabhari');
+    const validBpPass = (customBpPass && password === customBpPass) ||
+      (password.toUpperCase() === 'BHINAI123') ||
+      (password.toLowerCase() === 'bhinai123') ||
+      (password === '123');
+
+    if (validBpPass) {
+      const bpUser = {
+        id: 'block_prabhari',
+        username: 'block_prabhari',
+        role: 'BLOCK_PRABHARI',
+        full_name: 'श्री सुरेश चन्द्र जांगिड (ब्लॉक प्रभारी - शिक्षक)',
+        name: 'श्री सुरेश चन्द्र जांगिड',
+        post: 'अध्यापक',
+        designation: 'अध्यापक / शिक्षक',
+        office: 'उपखण्ड कार्यालय भिनाय',
+        mobile: '9950705221',
+        email: 'block_prabhari@bhinai.gov.in',
+        allowed_panchayats: 'ALL',
+        allowed_wards: 'ALL',
+        allowed_tabs: ['dashboardTab', 'searchTab', 'alphaTab', 'directoryTab'],
+        can_print_bulk: false,
+        can_download_single: true,
+        can_search_all: true,
+        candidate_mode: 'admin_locked'
+      };
+      State.currentUser = bpUser;
+      const sk = getSessionStorageKey();
+      if (document.getElementById('gatekeeperRememberMe')?.checked) {
+        localStorage.setItem(sk, JSON.stringify(bpUser));
+        if (getPortalContext() === 'master') localStorage.setItem('panchayat_user_session', JSON.stringify(bpUser));
+      } else {
+        sessionStorage.setItem(sk, JSON.stringify(bpUser));
+      }
+      enforceGatekeeperState();
+      showToast('नमस्ते श्री सुरेश चन्द्र जांगिड जी! ब्लॉक प्रभारी सत्र प्रारंभ हुआ (समस्त 30 ग्रा.पं. खोज अधिकार)।');
+      return;
+    }
+  }
+
+  // C. Candidates / Panchayat Agents Check from State.adminUsers
+  const candMatch = (State.adminUsers || []).find(u => 
+    (u.username && u.username.toLowerCase() === username.toLowerCase()) || 
+    (u.user_id && u.user_id.toLowerCase() === username.toLowerCase())
+  );
+  if (candMatch) {
+    const candStatus = getCustomUserStatus(candMatch.username) || candMatch.status || 'ACTIVE';
+    if (candStatus === 'INACTIVE') {
+      if (errorDiv) {
+        errorDiv.textContent = 'यह प्रत्याशी खाता सुपर एडमिन द्वारा निष्क्रिय किया गया है!';
+        errorDiv.style.display = 'block';
+      }
+      return;
+    }
+    const customCandPass = getCustomUserPassword(candMatch.username);
+    if ((customCandPass && password === customCandPass) || password === candMatch.password || password === '123' || password === 'admin123') {
+      const candUser = {
+        id: candMatch.user_id || candMatch.username,
+        username: candMatch.username,
+        role: candMatch.role || 'PANCHAYAT_AGENT',
+        full_name: candMatch.full_name || candMatch.username,
+        allowed_panchayats: candMatch.assigned_panchayats || candMatch.allowed_panchayats || 'ALL',
+        allowed_wards: candMatch.assigned_wards || candMatch.allowed_wards || 'ALL',
+        allowed_tabs: ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab', 'directoryTab'],
+        candidate_mode: 'active'
+      };
+      State.currentUser = candUser;
+      localStorage.setItem(getSessionStorageKey(), JSON.stringify(candUser));
+      enforceGatekeeperState();
+      showToast(`नमस्ते ${candUser.full_name}! प्रत्याशी सत्र प्रारंभ हुआ।`);
+      return;
+    }
   }
 
   const dir = getMasterDirectory();
@@ -4838,7 +5057,33 @@ function renderBloPassTable() {
     return;
   }
 
-  tbody.innerHTML = filtered.map(c => `
+
+  const bpPass = getCustomUserPassword('block_prabhari') || 'BHINAI123';
+  const bpStatus = getCustomUserStatus('block_prabhari') || 'ACTIVE';
+  const bpRow = `
+    <tr style="background:#f0fdf4; border-left:4px solid #0f766e;">
+      <td><span class="badge" style="background:#ccfbf1; color:#0f766e; font-weight:800; padding:4px 8px; border-radius:6px;">🌟 ब्लॉक प्रभारी</span></td>
+      <td>
+        <div style="font-weight:800; color:#0f766e; font-size:0.95rem;">श्री सुरेश चन्द्र जांगिड (अध्यापक)</div>
+        <div style="font-size:0.75rem; color:#64748b;">उपखण्ड कार्यालय भिनाय | संपूर्ण ब्लॉक प्रभारी</div>
+      </td>
+      <td><strong style="color:#0f766e;">समस्त 30 ग्राम पंचायतें (पूर्ण वोटर खोज अधिकार)</strong></td>
+      <td>📞 9950705221</td>
+      <td><code style="background:#fff; border:1px solid #99f6e4; padding:3px 8px; border-radius:4px; font-weight:800; color:#0f766e;" id="bpTablePassCode">${bpPass}</code></td>
+      <td style="text-align:center;">
+        <div class="d-flex gap-1 justify-content-center">
+          <button type="button" class="btn btn-xs btn-outline-success" onclick="adminPromptChangePass('block_prabhari', 'श्री सुरेश चन्द्र जांगिड (ब्लॉक प्रभारी)')" style="font-weight:700; padding:3px 8px;">
+            🔑 पासवर्ड बदलें
+          </button>
+          <button type="button" class="btn btn-xs ${bpStatus === 'ACTIVE' ? 'btn-outline-warning' : 'btn-outline-danger'}" onclick="toggleUserStatus('block_prabhari', '${bpStatus === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE'}')" style="font-weight:700; padding:3px 8px;">
+            ${bpStatus === 'ACTIVE' ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}
+          </button>
+        </div>
+      </td>
+    </tr>
+  `;
+
+  tbody.innerHTML = bpRow + filtered.map(c => `
     <tr>
       <td><strong>${c.booth_no ? 'भाग ' + c.booth_no : (c.id || 'CELL')}</strong></td>
       <td>

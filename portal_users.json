@@ -23,6 +23,38 @@
     "can_download_single": true
   },
   {
+    "id": "block_prabhari",
+    "user_id": "block_prabhari",
+    "username": "block_prabhari",
+    "password": "BHINAI123",
+    "full_name": "श्री सुरेश चन्द्र जांगिड (ब्लॉक प्रभारी - शिक्षक)",
+    "name": "श्री सुरेश चन्द्र जांगिड",
+    "post": "अध्यापक",
+    "designation": "अध्यापक / शिक्षक",
+    "office": "उपखण्ड कार्यालय भिनाय",
+    "mobile": "9950705221",
+    "email": "block_prabhari@bhinai.gov.in",
+    "role": "BLOCK_PRABHARI",
+    "panchayat_code": "ALL",
+    "panchayat": "समस्त ब्लॉक भिनाय (30 ग्राम पंचायतें)",
+    "assigned_panchayats": "ALL",
+    "allowed_panchayats": "ALL",
+    "allowed_wards": "ALL",
+    "status": "ACTIVE",
+    "allowed_tabs": [
+      "dashboardTab",
+      "searchTab",
+      "alphaTab",
+      "directoryTab"
+    ],
+    "can_print_bulk": false,
+    "can_download_single": true,
+    "can_search_all": true,
+    "candidate_mode": "admin_locked",
+    "category": "BLOCK_PRABHARI",
+    "created_at": "2026-10-07"
+  },
+  {
     "id": "blo_1",
     "username": "blo_329",
     "password": "123",
@@ -3324,7 +3356,7 @@
   {
     "id": "cell_nirvachan_2",
     "username": "cell_nirvachan_2",
-    "password": "123",
+    "password": "BHINAI123",
     "full_name": "श्री सुरेश चन्द्र जांगिड",
     "name": "श्री सुरेश चन्द्र जांगिड",
     "mobile": "9950705221",
@@ -3337,12 +3369,15 @@
     "allowed_wards": "ALL",
     "status": "ACTIVE",
     "allowed_tabs": [
+      "dashboardTab",
       "searchTab",
       "alphaTab",
       "directoryTab"
     ],
     "can_print_bulk": false,
-    "can_download_single": true
+    "can_download_single": true,
+    "allowed_panchayats": "ALL",
+    "can_search_all": true
   },
   {
     "id": "cell_nirvachan_3",

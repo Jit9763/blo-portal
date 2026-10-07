@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261006_1791227006">
+  <link rel="stylesheet" href="styles.css?v=20261007_1791370814">
 </head>
 <body>
 
@@ -60,6 +60,7 @@
             <label for="loginPanchayatSelect" style="font-size:0.88rem; color:#1e293b;"><strong>1. ग्राम पंचायत / चुनाव प्रकोष्ठ चुनें *:</strong></label>
             <select id="loginPanchayatSelect" class="form-select" onchange="onLoginPrimarySelectChanged(this.value)" style="font-weight:700; cursor:pointer; font-size:0.95rem; height:42px; border:2px solid #cbd5e1;">
               <option value="">-- पंचायत या प्रकोष्ठ चुनें --</option>
+              <option value="BLOCK_PRABHARI" style="font-weight:800; color:#0f766e; background:#ccfbf1;">🌟 ब्लॉक प्रभारी (Block Incharge - सुरेश जांगिड़)</option>
               <option value="CELL" style="font-weight:800; color:#1e40af; background:#eff6ff;">🏢 चुनाव प्रकोष्ठ (Election Cell)</option>
               <option value="ADMIN" style="font-weight:800; color:#b45309; background:#fef3c7;">👤 एडमिन / व्यवस्थापक (Super Admin)</option>
             </select>
@@ -1025,8 +1026,8 @@
                 <span style="font-size:1.6rem;">📍</span>
                 <span class="badge" id="bloPortalStatusBadge" style="background:#e0e7ff; color:#4338ca; font-weight:800; padding:4px 8px; border-radius:6px;">LIVE ACTIVE</span>
               </div>
-              <h3 style="font-size:1.1rem; color:#312e81; margin:0 0 4px 0;">3. BLO व प्रकोष्ठ पोर्टल (blo-portal)</h3>
-              <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;">repo: <code>Jit9763/blo-portal</code> | 126 बी.एल.ओ. एवं 13 प्रकोष्ठ</p>
+              <h3 style="font-size:1.1rem; color:#312e81; margin:0 0 4px 0;">3. BLO, प्रकोष्ठ व ब्लॉक प्रभारी पोर्टल (blo-portal)</h3>
+              <p style="font-size:0.8rem; color:#64748b; margin-bottom:8px;">repo: <code>Jit9763/blo-portal</code> | 126 बी.एल.ओ., 13 प्रकोष्ठ एवं 🌟 ब्लॉक प्रभारी</p>
               
               <div style="font-size:0.83rem; color:#334155; line-height:1.5; margin-bottom:12px; background:#fff; padding:8px 10px; border-radius:6px; border:1px solid #e2e8f0;">
                 <div class="d-flex justify-content-between align-items-center mb-1">
@@ -1056,7 +1057,7 @@
               👥 1. प्रत्याशी व यूजर खाते (Accounts)
             </button>
             <button type="button" class="btn btn-sm btn-outline-secondary" id="btnSubTabBloPass" onclick="switchMasterHubSubTab('bloPass')" style="font-weight:700;">
-              🔑 2. 126 BLO व प्रकोष्ठ त्वरित पासवर्ड कंट्रोल
+              🔑 2. 126 BLO, प्रकोष्ठ व ब्लॉक प्रभारी त्वरित पासवर्ड कंट्रोल
             </button>
           </div>
 
@@ -1658,9 +1659,9 @@
 
   <!-- Scripts -->
     <script src="symbols_master.js?v=20261005_2300"></script>
-  <script src="master_directory.js?v=20261006_1791225659"></script>
-  <script src="master_data.js?v=20261006_1791225659"></script>
-  <script src="app.js?v=20261006_1791225659"></script>
+  <script src="master_directory.js?v=20261007_1791370814"></script>
+  <script src="master_data.js?v=20261007_1791370814"></script>
+  <script src="app.js?v=20261007_1791370814"></script>
 
   <!-- Super Admin: Add New User Modal -->
   <div id="addUserModal" class="modal-overlay no-print" style="display:none;" onclick="if(event.target===this) closeAddUserModal()">
