@@ -4299,3 +4299,39 @@ input::placeholder {
   overflow: visible !important;
 }
 
+/* Multi-Select Panchayat Chips */
+.scope-gp-chip {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: #f8fafc !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 6px !important;
+  padding: 6px 10px !important;
+  cursor: pointer !important;
+  font-size: 0.82rem !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  user-select: none !important;
+  transition: all 0.15s ease !important;
+}
+
+.scope-gp-chip:hover {
+  background: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
+}
+
+.scope-gp-chip.selected, .scope-gp-chip:has(input:checked) {
+  background: #eff6ff !important;
+  border-color: #3b82f6 !important;
+  color: #1d4ed8 !important;
+}
+
+.scope-gp-chip input[type="checkbox"] {
+  width: 16px !important;
+  height: 16px !important;
+  accent-color: #2563eb !important;
+  cursor: pointer !important;
+}
+
+

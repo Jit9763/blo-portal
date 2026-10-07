@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=1791404367">
+  <link rel="stylesheet" href="styles.css?v=1791406034">
 </head>
 <body>
 
@@ -1720,9 +1720,9 @@
 
   <!-- Scripts -->
     <script src="symbols_master.js?v=20261005_2300"></script>
-  <script src="master_directory.js?v=1791404367"></script>
-  <script src="master_data.js?v=1791404367"></script>
-  <script src="app.js?v=1791404367"></script>
+  <script src="master_directory.js?v=1791406034"></script>
+  <script src="master_data.js?v=1791406034"></script>
+  <script src="app.js?v=1791406034"></script>
 
   <!-- Super Admin: Add New User Modal -->
   <div id="addUserModal" class="modal-overlay no-print" style="display:none;" onclick="if(event.target===this) closeAddUserModal()">
@@ -1976,21 +1976,42 @@
             </label>
             <label style="display:inline-flex; align-items:center; gap:6px; background:#f1f5f9; border:1.5px solid #cbd5e1; padding:8px 14px; border-radius:8px; cursor:pointer; font-weight:700; color:#1e293b;">
               <input type="radio" name="scopeModeRadio" value="GP" onchange="onScopeModeRadioChanged(this.value)">
-              <span>🏛️ विशिष्ट ग्राम पंचायत</span>
+              <span>🏛️ एक या अधिक ग्राम पंचायतें (Multi-Select)</span>
             </label>
             <label style="display:inline-flex; align-items:center; gap:6px; background:#f1f5f9; border:1.5px solid #cbd5e1; padding:8px 14px; border-radius:8px; cursor:pointer; font-weight:700; color:#1e293b;">
               <input type="radio" name="scopeModeRadio" value="BOOTH" onchange="onScopeModeRadioChanged(this.value)">
-              <span>📍 निर्धारित बूथ / वार्ड</span>
+              <span>📍 निर्धारित बूथ / वार्ड (Booth/Ward Scope)</span>
             </label>
           </div>
         </div>
 
-        <!-- GP Selector Container -->
+        <!-- GP Multi-Select Container -->
         <div class="form-group mb-3" id="scopeGpContainer" style="display:none;">
-          <label for="scopeGpSelect" style="color:#0f172a; font-weight:700; margin-bottom:6px; display:block;">असाइन ग्राम पंचायत (Select Panchayat) *:</label>
-          <select id="scopeGpSelect" class="form-select" onchange="onScopeGpSelectChanged(this.value)" style="font-weight:700; color:#0f172a; background:#f8fafc; border:1.5px solid #cbd5e1; height:42px;">
-            <!-- Populated with 30 GPs -->
-          </select>
+          <div class="d-flex justify-content-between align-items-center mb-2 flex-wrap gap-2">
+            <label style="color:#0f172a; font-weight:800; margin:0; font-size:0.92rem;">
+              🏛️ अधिकृत ग्राम पंचायतें चुनें (Multiple Selection Allowed) *:
+            </label>
+            <div class="d-flex gap-2 align-items-center">
+              <span id="scopeGpSelectedCountBadge" class="badge" style="background:#2563eb; color:#ffffff; font-weight:700; font-size:0.8rem; padding:4px 8px; border-radius:6px;">
+                0 चयनित
+              </span>
+              <button type="button" class="btn btn-xs btn-outline-primary" onclick="selectAllScopeGps(true)" style="font-weight:700; font-size:0.75rem; padding:3px 8px;">
+                ☑️ सभी 30 चुनें
+              </button>
+              <button type="button" class="btn btn-xs btn-outline-secondary" onclick="selectAllScopeGps(false)" style="font-weight:700; font-size:0.75rem; padding:3px 8px;">
+                ❌ सब हटाएं
+              </button>
+            </div>
+          </div>
+          
+          <div style="margin-bottom:8px;">
+            <input type="text" id="scopeGpFilterSearch" class="form-input form-input-sm" placeholder="🔍 पंचायत नाम से खोजें (उदा. बड़गांव, भिनाय)..." oninput="filterScopeGpsList(this.value)" style="height:36px; font-size:0.85rem; font-weight:600; background:#ffffff; border:1.5px solid #cbd5e1; border-radius:6px;">
+          </div>
+
+          <div id="scopeGpCheckboxGrid" style="max-height:190px; overflow-y:auto; background:#ffffff; border:1.5px solid #cbd5e1; border-radius:8px; padding:8px; display:grid; grid-template-columns:repeat(auto-fill, minmax(170px, 1fr)); gap:6px;">
+            <!-- Populated dynamically with all 30 GPs -->
+          </div>
+          <small style="color:#64748b; font-weight:600; margin-top:4px; display:block;">💡 आप एक साथ 1, 2, 5 या जितनी चाहें उतनी पंचायतें चुन सकते हैं।</small>
         </div>
 
         <!-- Specific Booth & Ward Container -->

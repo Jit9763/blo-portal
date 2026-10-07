@@ -119,43 +119,37 @@ function openCustomScopeModal(userId) {
     `;
   }
 
-  // Populate GP Select
-  const gpSelect = document.getElementById('scopeGpSelect');
-  if (gpSelect) {
-    gpSelect.innerHTML = '';
-    const panchayats = (State.panchayats && State.panchayats.length > 0) ? State.panchayats : (window.MASTER_DATA && window.MASTER_DATA.panchayats) || [];
-    panchayats.forEach(gp => {
-      const opt = document.createElement('option');
-      opt.value = gp.name_hi;
-      opt.textContent = `🏛️ ${gp.name_hi} (${gp.name_en})`;
-      gpSelect.appendChild(opt);
-    });
-  }
-
-  // Current Scope Mode
+  // Current Scope Mode & Multi-GP Parsing
   const curScope = uov.allowed_panchayats || userObj.allowed_panchayats || userObj.panchayat || 'ALL';
   let scopeMode = 'ALL';
-  let selectedGp = (State.panchayats && State.panchayats[0]) ? State.panchayats[0].name_hi : 'बगराई';
+  let selectedGpsList = [];
 
   if (curScope === 'ALL' || curScope === 'समस्त 30 पंचायतें' || curScope === 'ALL_30_GP') {
     scopeMode = 'ALL';
-  } else if (curScope === 'BOOTH' || uov.allowed_wards || userObj.booth_no || curScope.includes('भाग')) {
+    selectedGpsList = 'ALL';
+  } else if (curScope === 'BOOTH' || uov.allowed_wards || userObj.booth_no || (typeof curScope === 'string' && curScope.includes('भाग'))) {
     scopeMode = 'BOOTH';
-    if (userObj.panchayat && userObj.panchayat !== 'समस्त ब्लॉक भिनाय') selectedGp = userObj.panchayat;
+    selectedGpsList = [userObj.panchayat || 'बड़गांव'];
   } else {
     scopeMode = 'GP';
-    selectedGp = curScope;
+    if (Array.isArray(curScope)) {
+      selectedGpsList = curScope;
+    } else if (typeof curScope === 'string' && curScope.startsWith('[') && curScope.endsWith(']')) {
+      try { selectedGpsList = JSON.parse(curScope); } catch(e) { selectedGpsList = [curScope]; }
+    } else if (typeof curScope === 'string' && curScope.includes(',')) {
+      selectedGpsList = curScope.split(',').map(s => s.trim());
+    } else {
+      selectedGpsList = [curScope];
+    }
   }
+
+  // Populate Multi-Select GP Checkboxes
+  populateScopeGpCheckboxes(selectedGpsList);
 
   // Set Radios
   const radios = document.getElementsByName('scopeModeRadio');
   radios.forEach(r => { r.checked = (r.value === scopeMode); });
   onScopeModeRadioChanged(scopeMode);
-
-  if (gpSelect && selectedGp) {
-    gpSelect.value = selectedGp;
-    onScopeGpSelectChanged(selectedGp);
-  }
 
   // Ward & Booth values
   const wardInput = document.getElementById('scopeWardInput');
@@ -189,35 +183,109 @@ function closeCustomScopeModal() {
   if (modal) modal.style.display = 'none';
 }
 
+// Multi-Select GP Helpers
+function populateScopeGpCheckboxes(selectedList) {
+  const grid = document.getElementById('scopeGpCheckboxGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  const panchayats = (State.panchayats && State.panchayats.length > 0) ? State.panchayats : (window.MASTER_DATA && window.MASTER_DATA.panchayats) || [];
+  const isSelectAll = (selectedList === 'ALL');
+  const selArr = Array.isArray(selectedList) ? selectedList : (isSelectAll ? panchayats.map(p => p.name_hi) : [selectedList]);
+
+  panchayats.forEach(gp => {
+    const isChecked = isSelectAll || selArr.includes(gp.name_hi) || selArr.includes(gp.code) || selArr.includes(gp.name_en);
+    const label = document.createElement('label');
+    label.className = `scope-gp-chip ${isChecked ? 'selected' : ''}`;
+    label.setAttribute('data-name', (gp.name_hi + ' ' + (gp.name_en || '')).toLowerCase());
+    label.innerHTML = `
+      <input type="checkbox" value="${gp.name_hi}" ${isChecked ? 'checked' : ''} onchange="onScopeGpChipChanged(this)">
+      <span>🏛️ ${gp.name_hi}</span>
+      <span style="font-size:0.7rem; color:#64748b; font-weight:600;">(${gp.code})</span>
+    `;
+    grid.appendChild(label);
+  });
+
+  updateScopeGpCountBadge();
+  updateScopeBoothOptions();
+}
+
+function onScopeGpChipChanged(checkboxEl) {
+  if (checkboxEl && checkboxEl.parentElement) {
+    checkboxEl.parentElement.classList.toggle('selected', checkboxEl.checked);
+  }
+  updateScopeGpCountBadge();
+  updateScopeBoothOptions();
+}
+
+function updateScopeGpCountBadge() {
+  const badge = document.getElementById('scopeGpSelectedCountBadge');
+  const checked = document.querySelectorAll('#scopeGpCheckboxGrid input[type="checkbox"]:checked');
+  const total = document.querySelectorAll('#scopeGpCheckboxGrid input[type="checkbox"]').length;
+  if (!badge) return;
+
+  if (checked.length === total && total > 0) {
+    badge.textContent = `🌐 समस्त ${total} पंचायतें चयनित`;
+    badge.style.background = '#059669';
+  } else if (checked.length === 0) {
+    badge.textContent = `0 चयनित`;
+    badge.style.background = '#dc2626';
+  } else {
+    badge.textContent = `🏛️ ${checked.length} पंचायतें चयनित`;
+    badge.style.background = '#2563eb';
+  }
+}
+
+function selectAllScopeGps(select) {
+  document.querySelectorAll('#scopeGpCheckboxGrid input[type="checkbox"]').forEach(cb => {
+    cb.checked = !!select;
+    if (cb.parentElement) cb.parentElement.classList.toggle('selected', !!select);
+  });
+  updateScopeGpCountBadge();
+  updateScopeBoothOptions();
+}
+
+function filterScopeGpsList(query) {
+  const q = (query || '').toLowerCase().trim();
+  document.querySelectorAll('#scopeGpCheckboxGrid .scope-gp-chip').forEach(chip => {
+    const name = chip.getAttribute('data-name') || '';
+    chip.style.display = (!q || name.includes(q)) ? 'flex' : 'none';
+  });
+}
+
+function updateScopeBoothOptions() {
+  const boothSel = document.getElementById('scopeBoothSelect');
+  if (!boothSel) return;
+  boothSel.innerHTML = '<option value="ALL">-- समस्त चयनित पंचायतों के बूथ --</option>';
+
+  const checkedGps = Array.from(document.querySelectorAll('#scopeGpCheckboxGrid input[type="checkbox"]:checked')).map(cb => cb.value);
+  const dir = getMasterDirectory();
+  if (dir && dir.blo_list) {
+    const matchedBlos = (checkedGps.length === 0) 
+      ? dir.blo_list 
+      : dir.blo_list.filter(b => checkedGps.includes(b.panchayat));
+    matchedBlos.forEach(b => {
+      const opt = document.createElement('option');
+      opt.value = b.booth_no;
+      opt.textContent = `[${b.panchayat}] भाग सं. ${b.booth_no} - ${b.school || b.name}`;
+      boothSel.appendChild(opt);
+    });
+  }
+}
+
 function onScopeModeRadioChanged(mode) {
   const gpCont = document.getElementById('scopeGpContainer');
   const bwCont = document.getElementById('scopeBoothWardContainer');
   if (mode === 'ALL') {
     if (gpCont) gpCont.style.display = 'none';
     if (bwCont) bwCont.style.display = 'none';
+    selectAllScopeGps(true);
   } else if (mode === 'GP') {
     if (gpCont) gpCont.style.display = 'block';
     if (bwCont) bwCont.style.display = 'none';
   } else if (mode === 'BOOTH') {
     if (gpCont) gpCont.style.display = 'block';
     if (bwCont) bwCont.style.display = 'block';
-  }
-}
-
-function onScopeGpSelectChanged(gpName) {
-  const boothSel = document.getElementById('scopeBoothSelect');
-  if (!boothSel) return;
-  boothSel.innerHTML = '<option value="ALL">-- पंचायत के समस्त बूथ --</option>';
-
-  const dir = getMasterDirectory();
-  if (dir && dir.blo_list) {
-    const gpBlos = dir.blo_list.filter(b => b.panchayat === gpName);
-    gpBlos.forEach(b => {
-      const opt = document.createElement('option');
-      opt.value = b.booth_no;
-      opt.textContent = `भाग सं. ${b.booth_no} - ${b.school || b.name}`;
-      boothSel.appendChild(opt);
-    });
   }
 }
 
@@ -234,13 +302,34 @@ function saveCustomScopeAllotment(event) {
     scopeVal = 'ALL';
     wardVal = 'ALL';
   } else if (mode === 'GP') {
-    scopeVal = document.getElementById('scopeGpSelect')?.value || 'ALL';
+    const checkedGps = Array.from(document.querySelectorAll('#scopeGpCheckboxGrid input[type="checkbox"]:checked')).map(cb => cb.value);
+    const totalGps = document.querySelectorAll('#scopeGpCheckboxGrid input[type="checkbox"]').length;
+    
+    if (checkedGps.length === 0) {
+      showToast('⚠️ कृपया कम से कम एक ग्राम पंचायत चुनें!');
+      return;
+    }
+    if (checkedGps.length === totalGps && totalGps > 0) {
+      scopeVal = 'ALL';
+    } else if (checkedGps.length === 1) {
+      scopeVal = checkedGps[0];
+    } else {
+      scopeVal = checkedGps.join(', ');
+    }
     wardVal = 'ALL';
   } else if (mode === 'BOOTH') {
-    const gp = document.getElementById('scopeGpSelect')?.value || '';
+    const checkedGps = Array.from(document.querySelectorAll('#scopeGpCheckboxGrid input[type="checkbox"]:checked')).map(cb => cb.value);
     const booth = document.getElementById('scopeBoothSelect')?.value || 'ALL';
     wardVal = document.getElementById('scopeWardInput')?.value.trim() || 'ALL';
-    scopeVal = (booth !== 'ALL') ? `भाग ${booth} (${gp})` : gp;
+    
+    if (booth !== 'ALL') {
+      const gp = checkedGps[0] || '';
+      scopeVal = `भाग ${booth} (${gp})`;
+    } else if (checkedGps.length > 0) {
+      scopeVal = checkedGps.join(', ');
+    } else {
+      scopeVal = 'ALL';
+    }
   }
 
   const canSearch = document.getElementById('scopePermSearch')?.checked;
@@ -1895,13 +1984,28 @@ function switchTab(tabId) {
 function getAllowedGps() {
   if (!State.currentUser) return State.panchayats || [];
   const u = State.currentUser;
-  if (u.role === 'SUPER_ADMIN' || u.role === 'INCHARGE' || u.role === 'VYAVASTHAPAK' || u.role === 'BLOCK_PRABHARI' || u.allowed_panchayats === 'ALL' || u.panchayat_code === 'ALL' || u.assigned_panchayats === 'ALL') {
+  const ov = (typeof getUserOverrides === 'function') ? (getUserOverrides()[u.id || u.username] || {}) : {};
+  const effectiveScope = ov.allowed_panchayats || u.allowed_panchayats;
+
+  if (u.role === 'SUPER_ADMIN' || u.role === 'INCHARGE' || u.role === 'VYAVASTHAPAK' || u.role === 'BLOCK_PRABHARI' || effectiveScope === 'ALL' || u.panchayat_code === 'ALL' || u.assigned_panchayats === 'ALL') {
     return State.panchayats || [];
   }
-  const assigned = u.allowed_panchayats || u.panchayat_code || u.panchayat || u.assigned_panchayats;
+  let assigned = effectiveScope || u.panchayat_code || u.panchayat || u.assigned_panchayats;
   if (!assigned) return State.panchayats || [];
+
+  let assignedList = [];
+  if (Array.isArray(assigned)) {
+    assignedList = assigned;
+  } else if (typeof assigned === 'string' && assigned.startsWith('[') && assigned.endsWith(']')) {
+    try { assignedList = JSON.parse(assigned); } catch(e) { assignedList = [assigned]; }
+  } else if (typeof assigned === 'string' && assigned.includes(',')) {
+    assignedList = assigned.split(',').map(s => s.trim());
+  } else {
+    assignedList = [assigned];
+  }
+
   const filtered = (State.panchayats || []).filter(p => {
-    return p.code === assigned || p.name_hi === assigned || p.name_en === assigned || (Array.isArray(assigned) && assigned.includes(p.name_hi));
+    return assignedList.includes(p.code) || assignedList.includes(p.name_hi) || assignedList.includes(p.name_en) || assignedList.some(a => a && (a.toLowerCase() === (p.name_en || '').toLowerCase() || a === p.name_hi || a === p.code));
   });
   return (filtered.length > 0) ? filtered : (State.panchayats || []);
 }
@@ -1915,40 +2019,6 @@ function getAllowedWardsList(gpCode) {
     return State.currentUser.allowed_wards.split(',').map(s => s.trim());
   }
   return [];
-}
-
-function populateGpFilterDropdowns() {
-  const searchGp = document.getElementById('filterGp');
-  const dirGp = document.getElementById('dirGpSelect');
-  const alphaGp = document.getElementById('alphaGpSelect');
-  const bulkGp = document.getElementById('bulkGpSelect');
-  const allowedGps = getAllowedGps();
-
-  const populateSelect = (selectEl, includeAll) => {
-    if (!selectEl) return;
-    selectEl.innerHTML = '';
-    if (includeAll && State.currentUser && State.currentUser.role === 'SUPER_ADMIN') {
-      const allOpt = document.createElement('option');
-      allOpt.value = 'ALL';
-      allOpt.textContent = '-- सभी 30 ग्राम पंचायत --';
-      selectEl.appendChild(allOpt);
-    }
-    allowedGps.forEach(gp => {
-      const opt = document.createElement('option');
-      opt.value = gp.code;
-      opt.textContent = `${gp.name_hi} (${gp.code})`;
-      selectEl.appendChild(opt);
-    });
-  };
-
-  populateSelect(searchGp, true);
-  populateSelect(dirGp, false);
-  populateSelect(alphaGp, true);
-  populateSelect(bulkGp, false);
-
-  onGpFilterChanged();
-  onAlphaGpChanged();
-  onBulkGpChanged();
 }
 
 async function onGpFilterChanged() {
