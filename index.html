@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=1791397614">
+  <link rel="stylesheet" href="styles.css?v=1791400305">
 </head>
 <body>
 
@@ -53,13 +53,19 @@
 
         <!-- Simplified Unified Login Form -->
         <form id="gatekeeperLoginForm" onsubmit="handleGatekeeperLogin(event)" style="margin-top:12px;">
-          <!-- DIRECT USER ID INPUT -->
+          <input type="hidden" id="gatekeeperUsername" value="admin">
+
+          <!-- SINGLE DROPDOWN: पद चुनें -->
           <div class="form-group mb-3">
-            <label for="gatekeeperUsername" style="font-size:0.9rem; color:#0f172a; font-weight:700;"><strong>यूजर आईडी (User ID) *:</strong></label>
-            <div class="input-with-icon">
-              <span class="input-icon">👤</span>
-              <input type="text" id="gatekeeperUsername" class="form-input" placeholder="यूजर आईडी दर्ज करें (उदा. cand_gp01, blo_1)" required autocomplete="username" style="font-weight:700; height:44px; background:#ffffff; color:#0f172a; border:1.5px solid #cbd5e1;">
-            </div>
+            <label for="panAdminSelect" style="font-size:0.9rem; color:#0f172a; font-weight:700;">
+              <strong>1. अधिकृत पद चुनें *:</strong>
+            </label>
+            <select id="panAdminSelect" class="form-select" onchange="document.getElementById('gatekeeperUsername').value = this.value; document.getElementById('gatekeeperPassword').focus();" style="font-weight:700; cursor:pointer; font-size:0.95rem; height:44px; border:2px solid #cbd5e1; background:#ffffff; color:#0f172a;">
+              <option value="admin">👑 मुख्य व्यवस्थापक (Super Admin - पूर्ण नियंत्रण)</option>
+              <option value="incharge">👁️ ब्लॉक इनचार्ज (Incharge - केवल अवलोकन/All Tabs View)</option>
+              <option value="vyavasthapak">🖨️ व्यवस्थापक (Vyavasthapak - प्रिंट व डाउनलोड)</option>
+              <option value="block_prabhari">🌟 ब्लॉक प्रभारी (सुरेश जांगिड़ - शिक्षक)</option>
+            </select>
           </div>
 
           <!-- PASSWORD FIELD -->
@@ -82,7 +88,7 @@
           <div id="gatekeeperError" class="alert-error" style="display:none; margin-bottom:12px;"></div>
 
           <button type="submit" class="btn btn-login-submit btn-block" style="height:44px; font-size:1rem; font-weight:700;">
-            <span>मतदाता पोर्टल में प्रवेश करें (Login & Access)</span>
+            <span>मास्टर एडमिन पोर्टल में प्रवेश करें (Login)</span>
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </form>
@@ -1714,9 +1720,9 @@
 
   <!-- Scripts -->
     <script src="symbols_master.js?v=20261005_2300"></script>
-  <script src="master_directory.js?v=1791397614"></script>
-  <script src="master_data.js?v=1791397614"></script>
-  <script src="app.js?v=1791397614"></script>
+  <script src="master_directory.js?v=1791400305"></script>
+  <script src="master_data.js?v=1791400305"></script>
+  <script src="app.js?v=1791400305"></script>
 
   <!-- Super Admin: Add New User Modal -->
   <div id="addUserModal" class="modal-overlay no-print" style="display:none;" onclick="if(event.target===this) closeAddUserModal()">
@@ -1939,6 +1945,117 @@
       <div style="flex:1; background:#f1f5f9; position:relative;">
         <iframe id="portalPreviewIframe" src="" style="width:100%; height:100%; border:none;"></iframe>
       </div>
+    </div>
+  </div>
+
+
+  <!-- ==============================================================
+       MODAL: CUSTOM SCOPE & ALLOTMENT MODAL (कस्टम कार्यक्षेत्र एवं बूथ/वार्ड आवंटन)
+       ============================================================== -->
+  <div id="customScopeModal" class="modal-overlay" style="display:none;" onclick="if(event.target===this) closeCustomScopeModal()">
+    <div class="modal-card" style="max-width:640px; background:#ffffff; color:#0f172a; border-radius:12px; box-shadow:0 25px 50px -12px rgba(0,0,0,0.25); border:1px solid #cbd5e1; overflow:hidden;">
+      <div class="modal-header" style="background:#1e3a8a; color:#ffffff; padding:16px 20px; display:flex; justify-content:space-between; align-items:center;">
+        <h3 class="modal-title" style="color:#ffffff; margin:0; font-size:1.2rem; font-weight:800;" id="customScopeModalTitle">🎯 कार्यक्षेत्र एवं अधिकार आवंटन</h3>
+        <button class="modal-close" style="color:#ffffff; background:transparent; border:none; font-size:1.4rem; cursor:pointer;" onclick="closeCustomScopeModal()">✕</button>
+      </div>
+      <form id="customScopeForm" onsubmit="saveCustomScopeAllotment(event)" style="padding:22px; background:#ffffff;">
+        <input type="hidden" id="scopeTargetUserId">
+        
+        <!-- User Profile Summary Banner -->
+        <div id="scopeUserBanner" style="background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:8px; padding:12px 16px; margin-bottom:16px;">
+          <!-- Dynamically filled -->
+        </div>
+
+        <!-- Scope Mode Radio Selection -->
+        <div class="form-group mb-3">
+          <label style="color:#0f172a; font-weight:800; margin-bottom:8px; display:block; font-size:0.95rem;">कार्यक्षेत्र का दायरा चुनें (Select Scope Level) *:</label>
+          <div class="d-flex flex-wrap gap-2">
+            <label style="display:inline-flex; align-items:center; gap:6px; background:#f1f5f9; border:1.5px solid #cbd5e1; padding:8px 14px; border-radius:8px; cursor:pointer; font-weight:700; color:#1e293b;">
+              <input type="radio" name="scopeModeRadio" value="ALL" onchange="onScopeModeRadioChanged(this.value)" checked>
+              <span>🌐 समस्त 30 पंचायतें (पूर्ण ब्लॉक)</span>
+            </label>
+            <label style="display:inline-flex; align-items:center; gap:6px; background:#f1f5f9; border:1.5px solid #cbd5e1; padding:8px 14px; border-radius:8px; cursor:pointer; font-weight:700; color:#1e293b;">
+              <input type="radio" name="scopeModeRadio" value="GP" onchange="onScopeModeRadioChanged(this.value)">
+              <span>🏛️ विशिष्ट ग्राम पंचायत</span>
+            </label>
+            <label style="display:inline-flex; align-items:center; gap:6px; background:#f1f5f9; border:1.5px solid #cbd5e1; padding:8px 14px; border-radius:8px; cursor:pointer; font-weight:700; color:#1e293b;">
+              <input type="radio" name="scopeModeRadio" value="BOOTH" onchange="onScopeModeRadioChanged(this.value)">
+              <span>📍 निर्धारित बूथ / वार्ड</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- GP Selector Container -->
+        <div class="form-group mb-3" id="scopeGpContainer" style="display:none;">
+          <label for="scopeGpSelect" style="color:#0f172a; font-weight:700; margin-bottom:6px; display:block;">असाइन ग्राम पंचायत (Select Panchayat) *:</label>
+          <select id="scopeGpSelect" class="form-select" onchange="onScopeGpSelectChanged(this.value)" style="font-weight:700; color:#0f172a; background:#f8fafc; border:1.5px solid #cbd5e1; height:42px;">
+            <!-- Populated with 30 GPs -->
+          </select>
+        </div>
+
+        <!-- Specific Booth & Ward Container -->
+        <div id="scopeBoothWardContainer" style="display:none; background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:8px; padding:14px; margin-bottom:16px;">
+          <div class="row-2col">
+            <div class="form-group mb-2">
+              <label for="scopeBoothSelect" style="color:#0f172a; font-weight:700; font-size:0.9rem;">असाइन मतदान केंद्र (Booth No.) *:</label>
+              <select id="scopeBoothSelect" class="form-select" style="font-weight:700; color:#0f172a; background:#ffffff; border:1.5px solid #cbd5e1; height:40px;">
+                <option value="ALL">-- पंचायत के समस्त बूथ --</option>
+              </select>
+            </div>
+            <div class="form-group mb-2">
+              <label for="scopeWardInput" style="color:#0f172a; font-weight:700; font-size:0.9rem;">असाइन वार्ड संख्या (Wards):</label>
+              <input type="text" id="scopeWardInput" class="form-input" placeholder="उदा. 1, 2, 3 या ALL" value="ALL" style="font-weight:700; color:#0f172a; background:#ffffff; border:1.5px solid #cbd5e1; height:40px;">
+            </div>
+          </div>
+          <small style="color:#64748b; font-weight:600;">💡 वार्ड आवंटन हेतु विशिष्ट संख्या दर्ज करें अथवा 'ALL' रखें।</small>
+        </div>
+
+        <!-- Permissions Checklist -->
+        <div class="form-group mb-3">
+          <label style="color:#0f172a; font-weight:800; margin-bottom:8px; display:block; font-size:0.95rem;">अनुमतियाँ चेकलिस्ट (Permission Checklist) *:</label>
+          <div class="d-flex flex-wrap gap-2" style="background:#f1f5f9; padding:12px; border-radius:8px; border:1.5px solid #cbd5e1;">
+            <label class="perm-check-item" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px; font-weight:700; font-size:0.85rem; color:#0f172a;">
+              <input type="checkbox" id="scopePermSearch" checked>
+              <span>🔍 मतदाता खोज</span>
+            </label>
+            <label class="perm-check-item" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px; font-weight:700; font-size:0.85rem; color:#0f172a;">
+              <input type="checkbox" id="scopePermView" checked>
+              <span>📄 नामावली दर्शन</span>
+            </label>
+            <label class="perm-check-item" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px; font-weight:700; font-size:0.85rem; color:#0f172a;">
+              <input type="checkbox" id="scopePermPrint" checked>
+              <span>🖨️ पर्ची प्रिंट</span>
+            </label>
+            <label class="perm-check-item" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px; font-weight:700; font-size:0.85rem; color:#0f172a;">
+              <input type="checkbox" id="scopePermDownload" checked>
+              <span>📥 डाउनलोड</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Password & Status -->
+        <div class="row-2col mb-3">
+          <div class="form-group">
+            <label for="scopePasswordInput" style="color:#0f172a; font-weight:700; margin-bottom:4px; display:block;">पासवर्ड (Password) *:</label>
+            <input type="text" id="scopePasswordInput" class="form-input" value="123" required style="font-weight:700; color:#0f172a; background:#f8fafc; border:1.5px solid #cbd5e1; height:40px;">
+          </div>
+          <div class="form-group">
+            <label for="scopeStatusSelect" style="color:#0f172a; font-weight:700; margin-bottom:4px; display:block;">खाता स्थिति (Status) *:</label>
+            <select id="scopeStatusSelect" class="form-select" style="font-weight:700; color:#0f172a; background:#f8fafc; border:1.5px solid #cbd5e1; height:40px;">
+              <option value="ACTIVE">🟢 सक्रिय (ACTIVE)</option>
+              <option value="INACTIVE">🔴 निष्क्रिय (INACTIVE)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-end gap-2 mt-4 pt-3" style="border-top:1.5px solid #e2e8f0;">
+          <button type="button" class="btn btn-outline-danger" onclick="closeCustomScopeModal()" style="font-weight:700; padding:8px 18px;">रद्द करें</button>
+          <button type="submit" class="btn btn-success" style="font-weight:800; padding:8px 24px; background:#059669; color:#fff; border:none; box-shadow:0 4px 6px rgba(5,150,105,0.25);">
+            <span>💾 सुरक्षित करें एवं तुरंत लागू करें</span>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 

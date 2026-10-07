@@ -1,12 +1,15 @@
 
+
 // ==========================================================================
-// SUPER ADMIN 3 DEDICATED TABS & GRANULAR PERMISSIONS CONTROLLER
+// SUPER ADMIN 4 DEDICATED TABS & CUSTOM SCOPE CONTROLLER (⚡)
 // ==========================================================================
 
 let activeHubSubTab = 'cell';
 
 function switchMasterHubSubTab(tabName) {
+  if (!tabName) tabName = 'cell';
   activeHubSubTab = tabName;
+  
   const panes = {
     cell: document.getElementById('masterHubPaneCell'),
     blo: document.getElementById('masterHubPaneBlo'),
@@ -61,39 +64,282 @@ function toggleUserPermission(userId, permKey, isChecked) {
 }
 
 function updateUserScope(userId, scopeVal) {
+  if (scopeVal === 'BOOTH' || scopeVal === 'CUSTOM') {
+    openCustomScopeModal(userId);
+    return;
+  }
   saveUserOverride(userId, 'allowed_panchayats', scopeVal);
   showToast(`🌐 कार्यक्षेत्र अद्यतन: ${userId} -> ${scopeVal}`);
+  if (activeHubSubTab === 'cell') renderAdminCellTab();
+  else if (activeHubSubTab === 'blo') renderAdminBloTab();
+  else if (activeHubSubTab === 'cand') renderAdminCandTab();
+  else if (activeHubSubTab === 'admins') renderAdminTopAdminsTab();
 }
 
 function toggleUserStatus(userId) {
   const overrides = getUserOverrides();
   const cur = (overrides[userId] && overrides[userId].status) || 'ACTIVE';
-  const newStatus = (cur === 'ACTIVE') ? 'INACTIVE' : 'ACTIVE';
-  saveUserOverride(userId, 'status', newStatus);
-  showToast(`स्थिति बदली: ${userId} -> ${newStatus === 'ACTIVE' ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}`);
-  
+  const nxt = (cur === 'ACTIVE') ? 'INACTIVE' : 'ACTIVE';
+  saveUserOverride(userId, 'status', nxt);
+  showToast(`खाता स्थिति: ${userId} -> ${nxt === 'ACTIVE' ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}`);
   if (activeHubSubTab === 'cell') renderAdminCellTab();
   else if (activeHubSubTab === 'blo') renderAdminBloTab();
   else if (activeHubSubTab === 'cand') renderAdminCandTab();
+  else if (activeHubSubTab === 'admins') renderAdminTopAdminsTab();
 }
 
 function quickUpdatePassword(userId, newPass) {
-  if (!newPass) return;
-  saveUserOverride(userId, 'password', newPass);
-  setCustomUserPassword(userId, newPass);
-  showToast(`🔑 पासवर्ड सुरक्षित: ${userId} -> ${newPass}`);
+  if (!newPass || !newPass.trim()) {
+    showToast('⚠️ पासवर्ड रिक्त नहीं हो सकता!');
+    return;
+  }
+  saveUserOverride(userId, 'password', newPass.trim());
+  showToast(`🔑 पासवर्ड अद्यतन: ${userId} -> ${newPass.trim()}`);
 }
 
 function resetUserPasswordToDefault(userId) {
   quickUpdatePassword(userId, '123');
-  showToast(`🔑 पासवर्ड डिफ़ॉल्ट '123' पर रीसेट कर दिया गया!`);
-  if (activeHubSubTab === 'cell') renderAdminCellTab();
-  else if (activeHubSubTab === 'blo') renderAdminBloTab();
-  else if (activeHubSubTab === 'cand') renderAdminCandTab();
+  const inputEl = document.getElementById(`pass_input_${userId}`);
+  if (inputEl) inputEl.value = '123';
+}
+
+function canUserPrint() {
+  if (!State.currentUser) return true;
+  if (State.currentUser.role === 'SUPER_ADMIN') return true;
+  const overrides = getUserOverrides();
+  const uid = State.currentUser.username || State.currentUser.id;
+  if (overrides[uid] && overrides[uid].can_print !== undefined) return overrides[uid].can_print;
+  return State.currentUser.can_print !== false;
+}
+
+function canUserDownload() {
+  if (!State.currentUser) return true;
+  if (State.currentUser.role === 'SUPER_ADMIN') return true;
+  const overrides = getUserOverrides();
+  const uid = State.currentUser.username || State.currentUser.id;
+  if (overrides[uid] && overrides[uid].can_download !== undefined) return overrides[uid].can_download;
+  return State.currentUser.can_download !== false;
 }
 
 // -------------------------------------------------------------------------
-// 1. RENDER CELL TAB (18 OFFICIAL CELLS - 59 KARMIK)
+// CUSTOM SCOPE & ALLOTMENT MODAL ENGINE
+// -------------------------------------------------------------------------
+function openCustomScopeModal(userId) {
+  const modal = document.getElementById('customScopeModal');
+  if (!modal) return;
+  
+  const overrides = getUserOverrides();
+  const uov = overrides[userId] || {};
+  
+  // Look up user object
+  let userObj = null;
+  if (State.adminControlUsers) {
+    userObj = State.adminControlUsers.find(x => (x.id || x.username) === userId);
+  }
+  if (!userObj) {
+    const dir = getMasterDirectory();
+    if (dir) {
+      const all = [...(dir.cell_personnel || []), ...(dir.blo_list || []), ...(dir.all_contacts || [])];
+      userObj = all.find(x => (x.id || x.username) === userId);
+    }
+  }
+  if (!userObj) userObj = { id: userId, username: userId, name: userId };
+
+  const titleEl = document.getElementById('customScopeModalTitle');
+  if (titleEl) titleEl.textContent = `🎯 कार्यक्षेत्र एवं अधिकार आवंटन - ${userObj.name || userObj.username}`;
+
+  const targetIdEl = document.getElementById('scopeTargetUserId');
+  if (targetIdEl) targetIdEl.value = userId;
+
+  // Banner
+  const banner = document.getElementById('scopeUserBanner');
+  if (banner) {
+    banner.innerHTML = `
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+        <div>
+          <div style="font-size:1.15rem; font-weight:800; color:#0f172a;">${userObj.name || userObj.username}</div>
+          <div style="font-size:0.85rem; color:#475569; margin-top:2px;">
+            <strong>संवर्ग / पद:</strong> ${userObj.designation || userObj.post || userObj.role || userObj.cell_name || '-'} | 
+            <strong>कार्यालय / स्कूल:</strong> ${userObj.office || userObj.school || userObj.school_office || '-'}
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <span class="badge" style="background:#e0f2fe; color:#0369a1; font-size:0.8rem; font-weight:800; padding:4px 8px; border-radius:4px;">ID: ${userId}</span>
+          <div style="font-size:0.82rem; color:#0284c7; font-weight:700; margin-top:3px;">📞 ${userObj.mobile || '-'}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Populate GP Select
+  const gpSelect = document.getElementById('scopeGpSelect');
+  if (gpSelect) {
+    gpSelect.innerHTML = '';
+    const panchayats = (State.panchayats && State.panchayats.length > 0) ? State.panchayats : (window.MASTER_DATA && window.MASTER_DATA.panchayats) || [];
+    panchayats.forEach(gp => {
+      const opt = document.createElement('option');
+      opt.value = gp.name_hi;
+      opt.textContent = `🏛️ ${gp.name_hi} (${gp.name_en})`;
+      gpSelect.appendChild(opt);
+    });
+  }
+
+  // Current Scope Mode
+  const curScope = uov.allowed_panchayats || userObj.allowed_panchayats || userObj.panchayat || 'ALL';
+  let scopeMode = 'ALL';
+  let selectedGp = (State.panchayats && State.panchayats[0]) ? State.panchayats[0].name_hi : 'बगराई';
+
+  if (curScope === 'ALL' || curScope === 'समस्त 30 पंचायतें' || curScope === 'ALL_30_GP') {
+    scopeMode = 'ALL';
+  } else if (curScope === 'BOOTH' || uov.allowed_wards || userObj.booth_no || curScope.includes('भाग')) {
+    scopeMode = 'BOOTH';
+    if (userObj.panchayat && userObj.panchayat !== 'समस्त ब्लॉक भिनाय') selectedGp = userObj.panchayat;
+  } else {
+    scopeMode = 'GP';
+    selectedGp = curScope;
+  }
+
+  // Set Radios
+  const radios = document.getElementsByName('scopeModeRadio');
+  radios.forEach(r => { r.checked = (r.value === scopeMode); });
+  onScopeModeRadioChanged(scopeMode);
+
+  if (gpSelect && selectedGp) {
+    gpSelect.value = selectedGp;
+    onScopeGpSelectChanged(selectedGp);
+  }
+
+  // Ward & Booth values
+  const wardInput = document.getElementById('scopeWardInput');
+  if (wardInput) wardInput.value = uov.allowed_wards || userObj.allowed_wards || (userObj.wards || 'ALL');
+
+  // Permissions
+  const pSearch = (uov.can_search !== undefined) ? uov.can_search : (userObj.can_search !== false);
+  const pView = (uov.can_view !== undefined) ? uov.can_view : (userObj.can_view !== false);
+  const pPrint = (uov.can_print !== undefined) ? uov.can_print : (userObj.can_print === true || userObj.role === 'SUPER_ADMIN' || userObj.role === 'VYAVASTHAPAK' || userObj.role === 'INCHARGE');
+  const pDown = (uov.can_download !== undefined) ? uov.can_download : (userObj.can_download !== false);
+
+  const setChk = (id, val) => { const el = document.getElementById(id); if (el) el.checked = !!val; };
+  setChk('scopePermSearch', pSearch);
+  setChk('scopePermView', pView);
+  setChk('scopePermPrint', pPrint);
+  setChk('scopePermDownload', pDown);
+
+  // Password & Status
+  const curPass = uov.password || userObj.password || '123';
+  const curStatus = uov.status || userObj.status || 'ACTIVE';
+  const passInput = document.getElementById('scopePasswordInput');
+  if (passInput) passInput.value = curPass;
+  const statSelect = document.getElementById('scopeStatusSelect');
+  if (statSelect) statSelect.value = curStatus;
+
+  modal.style.display = 'flex';
+}
+
+function closeCustomScopeModal() {
+  const modal = document.getElementById('customScopeModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function onScopeModeRadioChanged(mode) {
+  const gpCont = document.getElementById('scopeGpContainer');
+  const bwCont = document.getElementById('scopeBoothWardContainer');
+  if (mode === 'ALL') {
+    if (gpCont) gpCont.style.display = 'none';
+    if (bwCont) bwCont.style.display = 'none';
+  } else if (mode === 'GP') {
+    if (gpCont) gpCont.style.display = 'block';
+    if (bwCont) bwCont.style.display = 'none';
+  } else if (mode === 'BOOTH') {
+    if (gpCont) gpCont.style.display = 'block';
+    if (bwCont) bwCont.style.display = 'block';
+  }
+}
+
+function onScopeGpSelectChanged(gpName) {
+  const boothSel = document.getElementById('scopeBoothSelect');
+  if (!boothSel) return;
+  boothSel.innerHTML = '<option value="ALL">-- पंचायत के समस्त बूथ --</option>';
+
+  const dir = getMasterDirectory();
+  if (dir && dir.blo_list) {
+    const gpBlos = dir.blo_list.filter(b => b.panchayat === gpName);
+    gpBlos.forEach(b => {
+      const opt = document.createElement('option');
+      opt.value = b.booth_no;
+      opt.textContent = `भाग सं. ${b.booth_no} - ${b.school || b.name}`;
+      boothSel.appendChild(opt);
+    });
+  }
+}
+
+function saveCustomScopeAllotment(event) {
+  if (event) event.preventDefault();
+  const userId = document.getElementById('scopeTargetUserId').value;
+  if (!userId) return;
+
+  const mode = document.querySelector('input[name="scopeModeRadio"]:checked')?.value || 'ALL';
+  let scopeVal = 'ALL';
+  let wardVal = 'ALL';
+
+  if (mode === 'ALL') {
+    scopeVal = 'ALL';
+    wardVal = 'ALL';
+  } else if (mode === 'GP') {
+    scopeVal = document.getElementById('scopeGpSelect')?.value || 'ALL';
+    wardVal = 'ALL';
+  } else if (mode === 'BOOTH') {
+    const gp = document.getElementById('scopeGpSelect')?.value || '';
+    const booth = document.getElementById('scopeBoothSelect')?.value || 'ALL';
+    wardVal = document.getElementById('scopeWardInput')?.value.trim() || 'ALL';
+    scopeVal = (booth !== 'ALL') ? `भाग ${booth} (${gp})` : gp;
+  }
+
+  const canSearch = document.getElementById('scopePermSearch')?.checked;
+  const canView = document.getElementById('scopePermView')?.checked;
+  const canPrint = document.getElementById('scopePermPrint')?.checked;
+  const canDownload = document.getElementById('scopePermDownload')?.checked;
+  const pass = document.getElementById('scopePasswordInput')?.value.trim() || '123';
+  const status = document.getElementById('scopeStatusSelect')?.value || 'ACTIVE';
+
+  // Save all to overrides
+  saveUserOverride(userId, 'allowed_panchayats', scopeVal);
+  saveUserOverride(userId, 'allowed_wards', wardVal);
+  saveUserOverride(userId, 'can_search', canSearch);
+  saveUserOverride(userId, 'can_view', canView);
+  saveUserOverride(userId, 'can_print', canPrint);
+  saveUserOverride(userId, 'can_download', canDownload);
+  saveUserOverride(userId, 'password', pass);
+  saveUserOverride(userId, 'status', status);
+
+  // Update State.adminControlUsers
+  if (State.adminControlUsers) {
+    const u = State.adminControlUsers.find(x => (x.id || x.username) === userId);
+    if (u) {
+      u.allowed_panchayats = scopeVal;
+      u.allowed_wards = wardVal;
+      u.can_search = canSearch;
+      u.can_view = canView;
+      u.can_print = canPrint;
+      u.can_download = canDownload;
+      u.password = pass;
+      u.status = status;
+    }
+  }
+
+  closeCustomScopeModal();
+  
+  // Re-render current active subtab
+  if (activeHubSubTab === 'cell') renderAdminCellTab();
+  else if (activeHubSubTab === 'blo') renderAdminBloTab();
+  else if (activeHubSubTab === 'cand') renderAdminCandTab();
+  else if (activeHubSubTab === 'admins') renderAdminTopAdminsTab();
+
+  showToast(`✅ कार्यक्षेत्र व अधिकार आवंटन सफलतापूर्वक सुरक्षित! (${userId})`);
+}
+
+// -------------------------------------------------------------------------
+// 1. RENDER CELL TAB (18 ELECTION CELLS - 59 OFFICIAL PERSONNEL)
 // -------------------------------------------------------------------------
 function renderAdminCellTab() {
   const tbody = document.getElementById('adminCellTableBody');
@@ -102,6 +348,19 @@ function renderAdminCellTab() {
   const dir = getMasterDirectory();
   const rawCells = (dir && dir.cell_personnel) ? dir.cell_personnel : [];
   const overrides = getUserOverrides();
+
+  // Populate cell filter dropdown if needed
+  const cellFilterSelect = document.getElementById('adminCellFilterSelect');
+  if (cellFilterSelect && cellFilterSelect.options.length <= 1) {
+    cellFilterSelect.innerHTML = '<option value="ALL">-- समस्त 18 चुनाव प्रकोष्ठ --</option>';
+    const cellNames = [...new Set(rawCells.map(c => c.cell_name).filter(Boolean))];
+    cellNames.forEach(cn => {
+      const opt = document.createElement('option');
+      opt.value = cn;
+      opt.textContent = cn;
+      cellFilterSelect.appendChild(opt);
+    });
+  }
 
   const searchVal = (document.getElementById('adminCellSearchInput') ? document.getElementById('adminCellSearchInput').value : '').toLowerCase().trim();
   const cellFilter = document.getElementById('adminCellFilterSelect') ? document.getElementById('adminCellFilterSelect').value : 'ALL';
@@ -113,13 +372,13 @@ function renderAdminCellTab() {
     const effectiveStatus = ov.status || c.status || 'ACTIVE';
     
     if (statusFilter !== 'ALL' && effectiveStatus !== statusFilter) return false;
-    if (cellFilter !== 'ALL' && c.cell_id !== cellFilter && c.cell_name !== cellFilter) return false;
-    
+    if (cellFilter !== 'ALL' && c.cell_name !== cellFilter) return false;
+
     if (searchVal) {
       const match = (c.name && c.name.toLowerCase().includes(searchVal)) ||
+                    (c.cell_name && c.cell_name.toLowerCase().includes(searchVal)) ||
                     (c.designation && c.designation.toLowerCase().includes(searchVal)) ||
                     (c.office && c.office.toLowerCase().includes(searchVal)) ||
-                    (c.cell_name && c.cell_name.toLowerCase().includes(searchVal)) ||
                     (c.mobile && c.mobile.includes(searchVal)) ||
                     (cid && cid.toLowerCase().includes(searchVal));
       if (!match) return false;
@@ -128,7 +387,7 @@ function renderAdminCellTab() {
   });
 
   if (filtered.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:24px; color:#64748b; font-weight:600;">कोई प्रकोष्ठ कार्मिक नहीं मिला।</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:24px; color:#64748b; font-weight:700;">कोई प्रकोष्ठ कार्मिक नहीं मिला।</td></tr>';
     return;
   }
 
@@ -152,7 +411,7 @@ function renderAdminCellTab() {
         <div style="font-size:0.75rem; color:#64748b;">क्र.सं. ${idx+1}</div>
       </td>
       <td>
-        <div style="font-weight:700; color:#0f172a;">${c.name}</div>
+        <div style="font-weight:700; color:#0f172a; font-size:0.92rem;">${c.name}</div>
         <div style="font-size:0.78rem; color:#475569;">${c.designation || c.post || ''}</div>
         <div style="font-size:0.74rem; color:#64748b;">${c.office || ''}</div>
       </td>
@@ -160,7 +419,7 @@ function renderAdminCellTab() {
         <span class="badge" style="background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; font-size:0.78rem; font-weight:700;">
           ${c.cell_name || 'चुनाव प्रकोष्ठ'}
         </span>
-        <div style="font-size:0.75rem; color:#059669; font-weight:600; margin-top:2px;">
+        <div style="font-size:0.75rem; color:#059669; font-weight:700; margin-top:2px;">
           ${c.role_in_cell || 'प्रकोष्ठ सदस्य'}
         </div>
       </td>
@@ -174,7 +433,7 @@ function renderAdminCellTab() {
         </div>
       </td>
       <td>
-        <div class="d-flex flex-wrap gap-1 align-items-center">
+        <div class="d-flex flex-wrap gap-1 align-items-center mb-1">
           <label class="perm-check-item ${canSearch ? 'active' : ''}">
             <input type="checkbox" ${canSearch ? 'checked' : ''} onchange="toggleUserPermission('${cid}', 'can_search', this.checked)">
             <span>🔍 खोज</span>
@@ -192,11 +451,13 @@ function renderAdminCellTab() {
             <span>📥 डाउनलोड</span>
           </label>
         </div>
-        <div style="margin-top:4px;">
-          <select class="form-select form-select-sm" style="font-size:0.75rem; padding:2px 6px; height:26px; font-weight:600;" onchange="updateUserScope('${cid}', this.value)">
-            <option value="ALL" ${scope === 'ALL' ? 'selected' : ''}>🌐 समस्त 30 पंचायतें</option>
-            <option value="BOOTH" ${scope === 'BOOTH' ? 'selected' : ''}>📍 केवल निर्धारित बूथ</option>
-          </select>
+        <div class="d-flex align-items-center gap-1">
+          <span class="badge" style="background:#f1f5f9; color:#334155; border:1px solid #cbd5e1; font-size:0.75rem; font-weight:700;">
+            ${scope === 'ALL' ? '🌐 समस्त 30 पं.' : scope}
+          </span>
+          <button type="button" class="btn btn-xs btn-outline-primary" onclick="openCustomScopeModal('${cid}')" style="font-weight:700; padding:2px 6px;" title="कस्टम कार्यक्षेत्र एवं बूथ/वार्ड आवंटन">
+            🎯 आवंटन
+          </button>
         </div>
       </td>
       <td style="text-align:center;">
@@ -206,6 +467,7 @@ function renderAdminCellTab() {
       </td>
       <td style="text-align:center;">
         <div class="d-flex justify-content-center gap-1">
+          <button type="button" class="btn btn-xs btn-outline-secondary" onclick="openEditPersonnelModal('${cid}')" title="विवरण संपादित करें">✏️</button>
           <button type="button" class="btn btn-xs btn-outline-primary" onclick="resetUserPasswordToDefault('${cid}')" title="पासवर्ड 123 करें">🔄 123</button>
           <button type="button" class="btn btn-xs btn-outline-danger" onclick="deleteCellPersonnel('${cid}', '${c.name}')" title="हटाएं">🗑️</button>
         </div>
@@ -251,7 +513,7 @@ function renderAdminBloTab() {
   });
 
   if (filtered.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:24px; color:#64748b; font-weight:600;">कोई बी.एल.ओ. नहीं मिला।</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:24px; color:#64748b; font-weight:700;">कोई बी.एल.ओ. नहीं मिला।</td></tr>';
     return;
   }
 
@@ -277,7 +539,7 @@ function renderAdminBloTab() {
         <div style="font-size:0.75rem; color:#64748b; margin-top:2px;">ID: ${bid}</div>
       </td>
       <td>
-        <div style="font-weight:700; color:#0f172a;">${b.name}</div>
+        <div style="font-weight:700; color:#0f172a; font-size:0.92rem;">${b.name}</div>
         <div style="font-size:0.78rem; color:#475569;">${b.post || 'अध्यापक / BLO'}</div>
         <div style="font-size:0.74rem; color:#64748b;">${b.school || ''}</div>
       </td>
@@ -295,7 +557,7 @@ function renderAdminBloTab() {
         </div>
       </td>
       <td>
-        <div class="d-flex flex-wrap gap-1 align-items-center">
+        <div class="d-flex flex-wrap gap-1 align-items-center mb-1">
           <label class="perm-check-item ${canSearch ? 'active' : ''}">
             <input type="checkbox" ${canSearch ? 'checked' : ''} onchange="toggleUserPermission('${bid}', 'can_search', this.checked)">
             <span>🔍 खोज</span>
@@ -313,11 +575,13 @@ function renderAdminBloTab() {
             <span>📥 डाउनलोड</span>
           </label>
         </div>
-        <div style="margin-top:4px;">
-          <select class="form-select form-select-sm" style="font-size:0.75rem; padding:2px 6px; height:26px; font-weight:600;" onchange="updateUserScope('${bid}', this.value)">
-            <option value="${b.panchayat}" ${scope === b.panchayat ? 'selected' : ''}>🏛️ केवल ${b.panchayat}</option>
-            <option value="ALL" ${scope === 'ALL' ? 'selected' : ''}>🌐 समस्त 30 पंचायतें</option>
-          </select>
+        <div class="d-flex align-items-center gap-1">
+          <span class="badge" style="background:#f1f5f9; color:#334155; border:1px solid #cbd5e1; font-size:0.75rem; font-weight:700;">
+            ${scope === 'ALL' ? '🌐 समस्त 30 पं.' : (scope.includes('भाग') ? scope : '🏛️ ' + scope)}
+          </span>
+          <button type="button" class="btn btn-xs btn-outline-primary" onclick="openCustomScopeModal('${bid}')" style="font-weight:700; padding:2px 6px;" title="कस्टम कार्यक्षेत्र एवं बूथ/वार्ड आवंटन">
+            🎯 आवंटन
+          </button>
         </div>
       </td>
       <td style="text-align:center;">
@@ -326,7 +590,10 @@ function renderAdminBloTab() {
         </button>
       </td>
       <td style="text-align:center;">
-        <button type="button" class="btn btn-xs btn-outline-primary" onclick="resetUserPasswordToDefault('${bid}')" title="पासवर्ड 123 करें">🔄 123</button>
+        <div class="d-flex justify-content-center gap-1">
+          <button type="button" class="btn btn-xs btn-outline-secondary" onclick="openEditPersonnelModal('${bid}')" title="विवरण संपादित करें">✏️</button>
+          <button type="button" class="btn btn-xs btn-outline-primary" onclick="resetUserPasswordToDefault('${bid}')" title="पासवर्ड 123 करें">🔄 123</button>
+        </div>
       </td>
     `;
     tbody.appendChild(tr);
@@ -334,14 +601,14 @@ function renderAdminBloTab() {
 }
 
 // -------------------------------------------------------------------------
-// 3. RENDER CANDIDATE TAB (CANDIDATES & PANCHAYAT AGENTS)
+// 3. RENDER CANDIDATE TAB (CANDIDATES & PANCHAYAT REPRESENTATIVES)
 // -------------------------------------------------------------------------
 function renderAdminCandTab() {
   const tbody = document.getElementById('adminCandTableBody');
   if (!tbody) return;
 
   const users = State.adminControlUsers || [];
-  const candUsers = users.filter(u => u.type === 'CANDIDATE' || u.category === 'CANDIDATE' || (u.id && u.id.startsWith('cand_')));
+  const candUsers = users.filter(u => u.type === 'CANDIDATE' || u.category === 'CANDIDATE' || (u.id && u.id.startsWith('cand_')) || (u.username && u.username.startsWith('cand_')));
   const overrides = getUserOverrides();
 
   const searchVal = (document.getElementById('adminCandSearchInput') ? document.getElementById('adminCandSearchInput').value : '').toLowerCase().trim();
@@ -361,7 +628,7 @@ function renderAdminCandTab() {
   });
 
   if (filtered.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:24px; color:#64748b; font-weight:600;">कोई प्रत्याशी खाता नहीं मिला। ऊपर दिए गए बटन से नया प्रत्याशी जोड़ें।</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:24px; color:#64748b; font-weight:700;">कोई प्रत्याशी खाता नहीं मिला। ऊपर दिए गए ➕ नया प्रत्याशी जोड़ें बटन से प्रत्याशी जोड़ें।</td></tr>';
     return;
   }
 
@@ -384,7 +651,7 @@ function renderAdminCandTab() {
         <strong style="color:#d97706;">${cid}</strong>
       </td>
       <td>
-        <div style="font-weight:700; color:#0f172a;">${c.name}</div>
+        <div style="font-weight:700; color:#0f172a; font-size:0.92rem;">${c.name}</div>
         <div style="font-size:0.75rem; color:#64748b;">${c.designation || 'प्रत्याशी'}</div>
       </td>
       <td>
@@ -401,7 +668,7 @@ function renderAdminCandTab() {
         </div>
       </td>
       <td>
-        <div class="d-flex flex-wrap gap-1 align-items-center">
+        <div class="d-flex flex-wrap gap-1 align-items-center mb-1">
           <label class="perm-check-item ${canSearch ? 'active' : ''}">
             <input type="checkbox" ${canSearch ? 'checked' : ''} onchange="toggleUserPermission('${cid}', 'can_search', this.checked)">
             <span>🔍 खोज</span>
@@ -419,6 +686,14 @@ function renderAdminCandTab() {
             <span>📥 डाउनलोड</span>
           </label>
         </div>
+        <div class="d-flex align-items-center gap-1">
+          <span class="badge" style="background:#f1f5f9; color:#334155; border:1px solid #cbd5e1; font-size:0.75rem; font-weight:700;">
+            ${scope === 'ALL' ? '🌐 समस्त 30 पं.' : scope}
+          </span>
+          <button type="button" class="btn btn-xs btn-outline-primary" onclick="openCustomScopeModal('${cid}')" style="font-weight:700; padding:2px 6px;" title="कस्टम कार्यक्षेत्र एवं बूथ/वार्ड आवंटन">
+            🎯 आवंटन
+          </button>
+        </div>
       </td>
       <td style="text-align:center;">
         <button type="button" class="btn btn-xs ${isActive ? 'btn-success' : 'btn-danger'}" onclick="toggleUserStatus('${cid}')" style="font-weight:700; font-size:0.75rem; min-width:65px;">
@@ -426,7 +701,9 @@ function renderAdminCandTab() {
         </button>
       </td>
       <td style="text-align:center;">
-        <button type="button" class="btn btn-xs btn-outline-primary" onclick="resetUserPasswordToDefault('${cid}')" title="पासवर्ड 123 करें">🔄 123</button>
+        <div class="d-flex justify-content-center gap-1">
+          <button type="button" class="btn btn-xs btn-outline-primary" onclick="resetUserPasswordToDefault('${cid}')" title="पासवर्ड 123 करें">🔄 123</button>
+        </div>
       </td>
     `;
     tbody.appendChild(tr);
@@ -451,26 +728,26 @@ function renderAdminTopAdminsTab() {
     },
     {
       id: 'incharge',
-      name: 'ब्लॉक इनचार्ज (Incharge)',
-      role_title: '👁️ ब्लॉक इनचार्ज',
-      mobile: '7023293283',
-      scope: 'समस्त 30 ग्राम पंचायतें (केवल अवलोकन / View Only - नो एडिट)',
+      name: 'चुनाव प्रभारी (Incharge)',
+      role_title: '🛡️ चुनाव प्रभारी',
+      mobile: '9414000000',
+      scope: 'निरीक्षण एवं समस्त 30 पंचायतें (रीड-ओनली / नो-एडिट मोड)',
       default_pass: '123'
     },
     {
       id: 'vyavasthapak',
       name: 'व्यवस्थापक (Vyavasthapak)',
-      role_title: '🖨️ व्यवस्थापक',
-      mobile: '9950705221',
-      scope: 'समस्त 30 ग्राम पंचायतें (मतदाता सूची अवलोकन, पर्ची डाउनलोड एवं प्रिंट)',
+      role_title: '📋 व्यवस्थापक',
+      mobile: '9829000000',
+      scope: 'समस्त 30 पंचायतें, पर्ची प्रिंट, एक्सेल/पीडीएफ डाउनलोड',
       default_pass: '123'
     },
     {
       id: 'block_prabhari',
-      name: 'श्री सुरेश चन्द्र जांगिड (शिक्षक)',
-      role_title: '🌟 ब्लॉक प्रभारी',
+      name: 'श्री सुरेश चन्द्र जांगिड',
+      role_title: '🏛️ ब्लॉक प्रभारी (शिक्षक)',
       mobile: '9950705221',
-      scope: 'समस्त 30 ग्राम पंचायतें (मतदाता खोज, डायरेक्टरी एवं समग्र नियंत्रण)',
+      scope: 'समस्त 30 ग्राम पंचायतें (ब्लॉक भिनाय)',
       default_pass: '123'
     }
   ];
@@ -479,4092 +756,74 @@ function renderAdminTopAdminsTab() {
   tbody.innerHTML = '';
 
   topAdmins.forEach(adm => {
-    const ov = overrides[adm.id] || {};
+    const aid = adm.id;
+    const ov = overrides[aid] || {};
     const pass = ov.password || adm.default_pass;
+    const status = ov.status || 'ACTIVE';
+    const isActive = (status === 'ACTIVE');
+    const canSearch = (ov.can_search !== undefined) ? ov.can_search : true;
+    const canView = (ov.can_view !== undefined) ? ov.can_view : true;
+    const canPrint = (ov.can_print !== undefined) ? ov.can_print : true;
+    const canDownload = (ov.can_download !== undefined) ? ov.can_download : (aid !== 'incharge');
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td><strong style="color:#1e40af;">${adm.id}</strong></td>
       <td>
-        <div style="font-weight:700; color:#0f172a;">${adm.name}</div>
+        <strong style="color:#1e3a8a; font-size:0.95rem;">${aid}</strong>
       </td>
       <td>
-        <span class="badge" style="background:#fef3c7; color:#92400e; font-weight:700; font-size:0.82rem; border:1px solid #fde68a;">
-          ${adm.role_title}
-        </span>
+        <div style="font-weight:800; color:#0f172a; font-size:0.95rem;">${adm.name}</div>
+        <div style="font-size:0.8rem; color:#475569; font-weight:700;">${adm.role_title}</div>
       </td>
       <td>
         <a href="tel:${adm.mobile}" style="font-weight:700; color:#0284c7; text-decoration:none;">📞 ${adm.mobile}</a>
       </td>
       <td>
-        <div class="d-flex align-items-center gap-1">
-          <input type="text" class="form-input form-input-sm" value="${pass}" id="pass_input_${adm.id}" onchange="quickUpdatePassword('${adm.id}', this.value)" style="width:85px; font-weight:700; height:30px; padding:2px 6px;">
-          <button type="button" class="btn btn-xs btn-outline-secondary" onclick="quickUpdatePassword('${adm.id}', document.getElementById('pass_input_${adm.id}').value)" title="सेव">💾</button>
-        </div>
-      </td>
-      <td><div style="font-size:0.82rem; color:#475569;">${adm.scope}</div></td>
-      <td style="text-align:center;">
-        <button type="button" class="btn btn-xs btn-outline-primary" onclick="resetUserPasswordToDefault('${adm.id}')" title="पासवर्ड 123 करें">🔄 123</button>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-// -------------------------------------------------------------------------
-// PERMISSION ACCESS ENFORCERS (PRINT, DOWNLOAD, SEARCH)
-// -------------------------------------------------------------------------
-function canUserPrint() {
-  if (!State.currentUser) return false;
-  const u = State.currentUser;
-  if (u.role === 'SUPER_ADMIN' || u.role === 'VYAVASTHAPAK') return true;
-  const ov = getUserOverrides()[u.id || u.username] || {};
-  return (ov.can_print !== undefined) ? ov.can_print : (u.can_print === true);
-}
-
-function canUserDownload() {
-  if (!State.currentUser) return false;
-  const u = State.currentUser;
-  if (u.role === 'SUPER_ADMIN' || u.role === 'VYAVASTHAPAK' || u.role === 'INCHARGE' || u.role === 'BLOCK_PRABHARI') return true;
-  const ov = getUserOverrides()[u.id || u.username] || {};
-  return (ov.can_download !== undefined) ? ov.can_download : (u.can_download !== false);
-}
-
-// -------------------------------------------------------------------------
-// ENHANCED POPULATE GP FILTER DROPDOWNS (POPULATES ALL DROPDOWNS RELIABLY)
-// -------------------------------------------------------------------------
-function populateGpFilterDropdowns() {
-  const allowedGps = getAllowedGps();
-  if (!allowedGps || allowedGps.length === 0) return;
-
-  const isSuper = (!State.currentUser || State.currentUser.role === 'SUPER_ADMIN' || State.currentUser.role === 'INCHARGE' || State.currentUser.role === 'VYAVASTHAPAK' || State.currentUser.role === 'BLOCK_PRABHARI');
-
-  // Helper to populate any GP select element
-  const fillSelect = (selectEl, includeAll, defaultVal) => {
-    if (!selectEl) return;
-    const cur = selectEl.value;
-    selectEl.innerHTML = '';
-    if (includeAll) {
-      const allOpt = document.createElement('option');
-      allOpt.value = 'ALL';
-      allOpt.textContent = '-- सभी 30 ग्राम पंचायत --';
-      selectEl.appendChild(allOpt);
-    }
-    allowedGps.forEach(gp => {
-      const opt = document.createElement('option');
-      opt.value = gp.code || gp.name_hi;
-      opt.textContent = `${gp.name_hi} (${gp.code || ''})`;
-      selectEl.appendChild(opt);
-    });
-
-    if (cur && Array.from(selectEl.options).some(o => o.value === cur)) {
-      selectEl.value = cur;
-    } else if (defaultVal && Array.from(selectEl.options).some(o => o.value === defaultVal)) {
-      selectEl.value = defaultVal;
-    } else if (includeAll) {
-      selectEl.value = 'ALL';
-    } else if (selectEl.options.length > 0) {
-      selectEl.selectedIndex = 0;
-    }
-  };
-
-  // 1. Core tabs
-  fillSelect(document.getElementById('filterGp'), isSuper);
-  fillSelect(document.getElementById('dirGpSelect'), false);
-  fillSelect(document.getElementById('alphaGpSelect'), isSuper);
-  fillSelect(document.getElementById('bulkGpSelect'), false);
-
-  // 2. Candidate Tab
-  const candGp = document.getElementById('candidateGpSelect');
-  fillSelect(candGp, false);
-  if (candGp && typeof onCandidateGpChanged === 'function') {
-    onCandidateGpChanged(candGp.value);
-  }
-
-  // 3. Admin Hub Filters
-  fillSelect(document.getElementById('adminBloGpFilter'), true);
-  fillSelect(document.getElementById('adminCandGpFilter'), true);
-  fillSelect(document.getElementById('bloPassGpFilter'), true);
-  fillSelect(document.getElementById('newUserGpSelect'), false);
-  fillSelect(document.getElementById('bloEditGp'), false);
-
-  // 4. Admin Cell Filter (18 official cells)
-  const cellFilter = document.getElementById('adminCellFilterSelect');
-  if (cellFilter) {
-    const curCell = cellFilter.value;
-    cellFilter.innerHTML = '<option value="ALL">-- समस्त 18 चुनाव प्रकोष्ठ --</option>';
-    const dir = getMasterDirectory();
-    if (dir && dir.official_cells) {
-      dir.official_cells.forEach(cell => {
-        const opt = document.createElement('option');
-        opt.value = cell.cell_id;
-        opt.textContent = `${cell.cell_no}. ${cell.cell_name}`;
-        cellFilter.appendChild(opt);
-      });
-    }
-    if (curCell && Array.from(cellFilter.options).some(o => o.value === curCell)) {
-      cellFilter.value = curCell;
-    }
-  }
-
-  // 5. Directory GP/Booth filter
-  const dirGpBooth = document.getElementById('dirGpBoothFilterSelect');
-  if (dirGpBooth && dirGpBooth.options.length <= 1) {
-    dirGpBooth.innerHTML = '<option value="ALL">🌍 समस्त पंचायतें व बूथ (All 30 Panchayats)</option>';
-    const gpGroup = document.createElement('optgroup');
-    gpGroup.label = '🏛️ ग्राम पंचायत चुनें (30 Panchayats)';
-    allowedGps.forEach(gp => {
-      const opt = document.createElement('option');
-      opt.value = 'GP:' + gp.name_hi;
-      opt.textContent = `🏛️ ग्रा.पं. ${gp.name_hi} (${gp.code || ''})`;
-      gpGroup.appendChild(opt);
-    });
-    dirGpBooth.appendChild(gpGroup);
-  }
-
-  // Trigger sub-updates
-  if (typeof onGpFilterChanged === 'function') onGpFilterChanged();
-  if (typeof onAlphaGpChanged === 'function') onAlphaGpChanged();
-  if (typeof onBulkGpChanged === 'function') onBulkGpChanged();
-}
-
-
-// ==========================================================================
-// MASTER DIRECTORY SYNCHRONOUS RESOLVER
-// ==========================================================================
-function getMasterDirectory() {
-  if (typeof window !== 'undefined' && window.MASTER_DIRECTORY && window.MASTER_DIRECTORY.blo_list) {
-    return window.MASTER_DIRECTORY;
-  }
-  if (typeof MASTER_DIRECTORY !== 'undefined' && MASTER_DIRECTORY && MASTER_DIRECTORY.blo_list) {
-    if (typeof window !== 'undefined') window.MASTER_DIRECTORY = MASTER_DIRECTORY;
-    return MASTER_DIRECTORY;
-  }
-  return (typeof State !== 'undefined' && State.masterDirectory) || null;
-}
-
-// ==========================================================================
-// CELL PERSONNEL MANAGEMENT ENGINE (SUPER ADMIN CONTROL)
-// ==========================================================================
-function openAddCellModal() {
-  const modal = document.getElementById('addEditCellModal');
-  if (!modal) return;
-  const sel = document.getElementById('cellEditSelect');
-  if (sel) {
-    sel.innerHTML = `
-      <option value="निर्वाचन शाखा (पर्यवेक्षण व नियंत्रण)">निर्वाचन शाखा (पर्यवेक्षण व नियंत्रण)</option>
-      <option value="कार्मिक प्रकोष्ठ (मतदान दल गठन)">कार्मिक प्रकोष्ठ (मतदान दल गठन)</option>
-      <option value="ईवीएम प्रकोष्ठ (EVM एवं VVPAT)">ईवीएम प्रकोष्ठ (EVM एवं VVPAT)</option>
-      <option value="कंट्रोल रूम व हेल्पलाइन प्रकोष्ठ">कंट्रोल रूम व हेल्पलाइन प्रकोष्ठ</option>
-      <option value="आदर्श आचार संहिता (MCC) प्रकोष्ठ">आदर्श आचार संहिता (MCC) प्रकोष्ठ</option>
-      <option value="रूट चार्ट एवं पर्यवेक्षण प्रकोष्ठ">रूट चार्ट एवं पर्यवेक्षण प्रकोष्ठ</option>
-      <option value="वाहन एवं परिवहन प्रकोष्ठ">वाहन एवं परिवहन प्रकोष्ठ</option>
-      <option value="मतपत्र एवं डाक मतपत्र प्रकोष्ठ">मतपत्र एवं डाक मतपत्र प्रकोष्ठ</option>
-      <option value="स्वीप (SVEEP) मतदाता जागरूकता">स्वीप (SVEEP) मतदाता जागरूकता</option>
-      <option value="मतदान केंद्र व्यवस्था प्रकोष्ठ">मतदान केंद्र व्यवस्था प्रकोष्ठ</option>
-      <option value="प्राप्ति एवं रवानगी प्रकोष्ठ">प्राप्ति एवं रवानगी प्रकोष्ठ</option>
-      <option value="ड्यूटी प्रमाण पत्र प्रकोष्ठ">ड्यूटी प्रमाण पत्र प्रकोष्ठ</option>
-      <option value="चिकित्सा एवं प्राथमिक स्वास्थ्य">चिकित्सा एवं प्राथमिक स्वास्थ्य</option>
-    `;
-  }
-  const title = document.getElementById('cellModalTitle');
-  if (title) title.textContent = '➕ नया चुनाव प्रकोष्ठ कार्मिक जोड़ें';
-  document.getElementById('cellEditTargetId').value = '';
-  document.getElementById('cellEditName').value = '';
-  document.getElementById('cellEditMobile').value = '';
-  document.getElementById('cellEditPost').value = '';
-  document.getElementById('cellEditOffice').value = 'उपखण्ड कार्यालय भिनाय';
-  const passInp = document.getElementById('cellEditPassword');
-  if (passInp) passInp.value = '123';
-  modal.style.display = 'flex';
-}
-
-function closeAddEditCellModal() {
-  const modal = document.getElementById('addEditCellModal');
-  if (modal) modal.style.display = 'none';
-}
-
-async function handleSaveCellSubmit(event) {
-  if (event) event.preventDefault();
-  const targetId = document.getElementById('cellEditTargetId')?.value.trim();
-  const cellName = document.getElementById('cellEditSelect')?.value.trim();
-  const name = document.getElementById('cellEditName')?.value.trim();
-  const mobile = document.getElementById('cellEditMobile')?.value.trim();
-  const post = document.getElementById('cellEditPost')?.value.trim() || 'प्रकोष्ठ कार्मिक';
-  const office = document.getElementById('cellEditOffice')?.value.trim() || 'उपखण्ड कार्यालय भिनाय';
-  const role = document.getElementById('cellEditRole')?.value || 'प्रकोष्ठ कार्मिक';
-  const pass = document.getElementById('cellEditPassword')?.value.trim() || '123';
-
-  if (!name || !cellName) {
-    alert('कृपया नाम एवं प्रकोष्ठ का चयन अवश्य करें!');
-    return;
-  }
-
-  const cId = targetId || ('cell_custom_' + Date.now());
-  const cellObj = {
-    id: cId,
-    username: cId,
-    name: name,
-    cell_name: cellName,
-    mobile: mobile,
-    post: post,
-    designation: post,
-    office: office,
-    role: role,
-    password: pass,
-    status: 'ACTIVE',
-    panchayat: 'समस्त ब्लॉक भिनाय',
-    allowed_panchayats: 'ALL',
-    allowed_wards: 'ALL',
-    allowed_tabs: ['directoryTab']
-  };
-
-  const dir = getMasterDirectory();
-  if (dir) {
-    if (!dir.cell_personnel) dir.cell_personnel = [];
-    const idx = dir.cell_personnel.findIndex(x => (x.id || x.username) === cId);
-    if (idx !== -1) dir.cell_personnel[idx] = cellObj;
-    else dir.cell_personnel.push(cellObj);
-  }
-
-  const customCells = JSON.parse(localStorage.getItem('portal_custom_cell_personnel') || '[]');
-  const cIdx = customCells.findIndex(x => (x.id || x.username) === cId);
-  if (cIdx !== -1) customCells[cIdx] = cellObj;
-  else customCells.push(cellObj);
-  localStorage.setItem('portal_custom_cell_personnel', JSON.stringify(customCells));
-  setCustomUserPassword(cId, pass);
-
-  closeAddEditCellModal();
-  if (typeof renderBloPassTable === 'function') renderBloPassTable();
-  showToast(`✅ प्रकोष्ठ कार्मिक '${name}' सफलतापूर्वक सुरक्षित!`);
-}
-
-function deleteCellPersonnel(cellId, cellName) {
-  if (!confirm(`क्या आप प्रकोष्ठ कार्मिक '${cellName || cellId}' को हटाना चाहते हैं?`)) return;
-  const dir = getMasterDirectory();
-  if (dir && dir.cell_personnel) {
-    dir.cell_personnel = dir.cell_personnel.filter(x => (x.id || x.username) !== cellId);
-  }
-  const customCells = JSON.parse(localStorage.getItem('portal_custom_cell_personnel') || '[]');
-  const filtered = customCells.filter(x => (x.id || x.username) !== cellId);
-  localStorage.setItem('portal_custom_cell_personnel', JSON.stringify(filtered));
-  setCustomUserStatus(cellId, 'INACTIVE');
-
-  if (typeof renderBloPassTable === 'function') renderBloPassTable();
-  showToast(`🗑️ कार्मिक '${cellName || cellId}' हटा दिया गया!`);
-}
-
-// ==========================================================================
-// DYNAMIC 2ND DROPDOWN LOGIC (ONLY SHOWN FOR CELL OR PANCHAYAT!)
-// ==========================================================================
-function onLoginPrimarySelectChanged(val) {
-  const offGroup = document.getElementById('loginSecondarySelectGroup');
-  const offSelect = document.getElementById('loginOfficerSelect');
-  const offLabel = document.getElementById('loginOfficerLabel');
-  const detailsBadge = document.getElementById('loginSelectedDetailsBadge');
-  const uInput = document.getElementById('gatekeeperUsername');
-
-  if (detailsBadge) {
-    detailsBadge.style.display = 'none';
-    detailsBadge.textContent = '';
-  }
-  if (uInput) uInput.value = '';
-
-  if (!val) {
-    if (offGroup) offGroup.style.display = 'none';
-    if (offSelect) {
-      offSelect.innerHTML = '<option value="">-- पहले ऊपर प्रकोष्ठ या पंचायत चुनें --</option>';
-      offSelect.disabled = true;
-    }
-    return;
-  }
-
-  const dir = getMasterDirectory();
-
-  // 1. ADMIN (Super Admin) - 2nd dropdown is HIDDEN!
-  if (val === 'ADMIN') {
-    if (offGroup) offGroup.style.display = 'none';
-    if (uInput) uInput.value = 'admin';
-    if (detailsBadge) {
-      detailsBadge.innerHTML = '👑 <strong>मुख्य व्यवस्थापक (Super Admin):</strong> समस्त 30 पंचायतों एवं संपूर्ण पोर्टल का पूर्ण नियंत्रण।';
-      detailsBadge.style.background = '#fef3c7';
-      detailsBadge.style.color = '#92400e';
-      detailsBadge.style.border = '1px solid #fde68a';
-      detailsBadge.style.display = 'block';
-    }
-    document.getElementById('gatekeeperPassword')?.focus();
-    return;
-  }
-
-  // 2. INCHARGE (ब्लॉक इनचार्ज - केवल अवलोकन) - 2nd dropdown is HIDDEN!
-  if (val === 'INCHARGE') {
-    if (offGroup) offGroup.style.display = 'none';
-    if (uInput) uInput.value = 'incharge';
-    if (detailsBadge) {
-      detailsBadge.innerHTML = '👁️ <strong>ब्लॉक इनचार्ज (Incharge):</strong> समस्त 30 ग्राम पंचायतों का अवलोकन अधिकार (केवल अवलोकन / View Only - एडिट वर्जित)।';
-      detailsBadge.style.background = '#e0e7ff';
-      detailsBadge.style.color = '#3730a3';
-      detailsBadge.style.border = '1px solid #c7d2fe';
-      detailsBadge.style.display = 'block';
-    }
-    document.getElementById('gatekeeperPassword')?.focus();
-    return;
-  }
-
-  // 3. VYAVASTHAPAK (व्यवस्थापक - प्रिंट व डाउनलोड) - 2nd dropdown is HIDDEN! ("VAVSTHAPAK KA NAAM MAT DO")
-  if (val === 'VYAVASTHAPAK') {
-    if (offGroup) offGroup.style.display = 'none';
-    if (uInput) uInput.value = 'vyavasthapak';
-    if (detailsBadge) {
-      detailsBadge.innerHTML = '🖨️ <strong>व्यवस्थापक (Vyavasthapak):</strong> समस्त 30 ग्राम पंचायतों में मतदाता सूची अवलोकन, पर्ची डाउनलोड एवं प्रिंट अधिकार।';
-      detailsBadge.style.background = '#d1fae5';
-      detailsBadge.style.color = '#065f46';
-      detailsBadge.style.border = '1px solid #a7f3d0';
-      detailsBadge.style.display = 'block';
-    }
-    document.getElementById('gatekeeperPassword')?.focus();
-    return;
-  }
-
-  // 4. BLOCK_PRABHARI (सुरेश जांगिड़ - शिक्षक) - 2nd dropdown is HIDDEN!
-  if (val === 'BLOCK_PRABHARI') {
-    if (offGroup) offGroup.style.display = 'none';
-    if (uInput) uInput.value = 'block_prabhari';
-    if (detailsBadge) {
-      detailsBadge.innerHTML = '🌟 <strong>श्री सुरेश चन्द्र जांगिड (शिक्षक)</strong> | ब्लॉक प्रभारी | समस्त 30 ग्राम पंचायतें (वोटर खोज अधिकार) | मो.: 9950705221';
-      detailsBadge.style.background = '#ccfbf1';
-      detailsBadge.style.color = '#0f766e';
-      detailsBadge.style.border = '1px solid #99f6e4';
-      detailsBadge.style.display = 'block';
-    }
-    document.getElementById('gatekeeperPassword')?.focus();
-    return;
-  }
-
-  // 5. CELL (चुनाव प्रकोष्ठ) - 2nd dropdown APPEARS!
-  if (val === 'CELL') {
-    if (offGroup) offGroup.style.display = 'block';
-    if (offLabel) offLabel.innerHTML = '<strong>2. अधिकृत चुनाव प्रकोष्ठ कार्मिक चुनें *:</strong>';
-    if (offSelect) {
-      offSelect.innerHTML = '<option value="">-- अधिकृत प्रकोष्ठ कार्मिक चुनें --</option>';
-      let customCells = [];
-      try { customCells = JSON.parse(localStorage.getItem('portal_custom_cell_personnel') || '[]'); } catch(e){}
-      const cellList = [...customCells, ...((dir && dir.cell_personnel) ? dir.cell_personnel : [])];
-      
-      const seen = new Set();
-      cellList.forEach(cp => {
-        const cId = cp.username || cp.id;
-        if (!cId || seen.has(cId)) return;
-        seen.add(cId);
-
-        const opt = document.createElement('option');
-        opt.value = cId;
-        opt.setAttribute('data-name', cp.name || '');
-        opt.setAttribute('data-role', cp.designation || cp.role || '');
-        opt.setAttribute('data-office', cp.office || cp.school_office || '');
-        opt.setAttribute('data-mobile', cp.mobile || '');
-        opt.setAttribute('data-cell', cp.cell_name || '');
-        opt.textContent = `[${cp.cell_name || 'प्रकोष्ठ'}] ${cp.name} - ${cp.designation || cp.role || 'कार्मिक'} (${cp.mobile || '-'})`;
-        offSelect.appendChild(opt);
-      });
-      offSelect.disabled = false;
-      offSelect.focus();
-    }
-    return;
-  }
-
-  // 6. GRAM PANCHAYAT SELECTED (30 GPs) - 2nd dropdown APPEARS!
-  if (offGroup) offGroup.style.display = 'block';
-  if (offLabel) offLabel.innerHTML = `<strong>2. बी.एल.ओ. (BLO) चुनें [ग्रा.पं. ${val}] *:</strong>`;
-  if (offSelect) {
-    offSelect.innerHTML = '<option value="">-- बी.एल.ओ. (BLO) चुनें --</option>';
-    const bloList = (dir && dir.blo_list) ? dir.blo_list : [];
-    const vClean = val.trim();
-    const matched = bloList.filter(b => {
-      const bGp = (b.panchayat || '').trim();
-      return bGp === vClean || bGp.includes(vClean) || vClean.includes(bGp);
-    });
-
-    if (matched.length === 0) {
-      offSelect.innerHTML = `<option value="">-- ग्रा.पं. ${val} में कोई BLO दर्ज नहीं है --</option>`;
-      offSelect.disabled = true;
-      return;
-    }
-
-    matched.forEach(blo => {
-      const opt = document.createElement('option');
-      const bId = blo.username || blo.id || `blo_${blo.booth_no}`;
-      opt.value = bId;
-      opt.setAttribute('data-name', blo.name || '');
-      opt.setAttribute('data-booth', blo.booth_no || '');
-      opt.setAttribute('data-school', blo.school || '');
-      opt.setAttribute('data-mobile', blo.mobile || '');
-      opt.textContent = `भाग ${blo.booth_no} - ${blo.name} (${blo.school || 'मतदान केंद्र'})`;
-      offSelect.appendChild(opt);
-    });
-    offSelect.disabled = false;
-    offSelect.focus();
-  }
-}
-
-function onLoginOfficerChanged(officerId) {
-  const offSelect = document.getElementById('loginOfficerSelect');
-  const detailsBadge = document.getElementById('loginSelectedDetailsBadge');
-  const uInput = document.getElementById('gatekeeperUsername');
-
-  if (uInput) uInput.value = officerId;
-
-  if (officerId && offSelect && offSelect.selectedIndex >= 0) {
-    const selectedOpt = offSelect.options[offSelect.selectedIndex];
-    const name = selectedOpt.getAttribute('data-name');
-    const booth = selectedOpt.getAttribute('data-booth');
-    const school = selectedOpt.getAttribute('data-school');
-    const mobile = selectedOpt.getAttribute('data-mobile');
-    const cell = selectedOpt.getAttribute('data-cell');
-    const role = selectedOpt.getAttribute('data-role');
-
-    if (detailsBadge) {
-      if (cell) {
-        detailsBadge.innerHTML = `🏢 <strong>${name}</strong> (${role || 'प्रकोष्ठ कार्मिक'}) | ${cell} | मो.: ${mobile || '-'}`;
-        detailsBadge.style.background = '#eff6ff';
-        detailsBadge.style.color = '#1e40af';
-        detailsBadge.style.border = '1px solid #bfdbfe';
-      } else {
-        detailsBadge.innerHTML = `👤 <strong>${name}</strong> (BLO भाग संख्या ${booth}) | ${school || 'मतदान केंद्र'} | मो.: ${mobile || '-'}`;
-        detailsBadge.style.background = '#f0fdf4';
-        detailsBadge.style.color = '#166534';
-        detailsBadge.style.border = '1px solid #bbf7d0';
-      }
-      detailsBadge.style.display = 'block';
-    }
-    document.getElementById('gatekeeperPassword')?.focus();
-  } else {
-    if (detailsBadge) detailsBadge.style.display = 'none';
-  }
-}
-
-function toggleManualUsername() {
-  const mDiv = document.getElementById('manualUsernameDiv');
-  const tBtn = document.getElementById('toggleManualUserBtn');
-  const pGrp = document.getElementById('loginPrimarySelectGroup');
-  const sGrp = document.getElementById('loginSecondarySelectGroup');
-
-  if (!mDiv) return;
-
-  if (mDiv.style.display === 'none') {
-    mDiv.style.display = 'block';
-    if (pGrp) pGrp.style.display = 'none';
-    if (sGrp) sGrp.style.display = 'none';
-    if (tBtn) tBtn.textContent = '◀ वापस पद/पंचायत ड्रॉपडाउन से चुनें';
-    const inp = document.getElementById('manualUsernameInput');
-    if (inp) {
-      inp.focus();
-      if (inp.value) document.getElementById('gatekeeperUsername').value = inp.value.trim();
-    }
-  } else {
-    mDiv.style.display = 'none';
-    if (pGrp) pGrp.style.display = 'block';
-    const pVal = document.getElementById('loginPanchayatSelect')?.value;
-    if (sGrp && (pVal === 'CELL' || BHINAI_PANCHAYATS_30.includes(pVal))) {
-      sGrp.style.display = 'block';
-    }
-    if (tBtn) tBtn.textContent = '✏️ सीधे यूजर आईडी टाइप करें';
-  }
-}
-
-function onManualUsernameInput(val) {
-  const hu = document.getElementById('gatekeeperUsername');
-  if (hu) hu.value = (val || '').trim();
-}
-
-function configureLoginUiForPortal() {
-  // Static unified form in HTML
-}
-
-// USER SCOPE & SEARCH PERMISSION ENGINE (SUPER ADMIN CONTROL)
-// ==========================================================================
-function getCustomUserScope(userId) {
-  try {
-    const sc = JSON.parse(localStorage.getItem('portal_user_scopes') || '{}');
-    if (sc && sc[userId]) return sc[userId];
-  } catch(e) {}
-  return null;
-}
-
-function setCustomUserScope(userId, scopeVal) {
-  try {
-    const sc = JSON.parse(localStorage.getItem('portal_user_scopes') || '{}');
-    sc[userId] = scopeVal;
-    localStorage.setItem('portal_user_scopes', JSON.stringify(sc));
-  } catch(e) {}
-}
-
-async function adminUpdateUserScope(userId, scopeVal) {
-  setCustomUserScope(userId, scopeVal);
-  
-  // Also update in State.adminControlUsers
-  const u = (State.adminControlUsers || []).find(x => (x.id || x.username) === userId);
-  if (u) {
-    if (scopeVal === 'ALL_30_GP' || scopeVal === 'SEARCH_30_GP') {
-      u.allowed_panchayats = 'ALL';
-      u.allowed_wards = 'ALL';
-      u.allowed_tabs = ['dashboardTab', 'searchTab', 'alphaTab', 'directoryTab'];
-      u.can_search_all = true;
-    } else if (scopeVal === 'PANCHAYAT') {
-      u.allowed_panchayats = u.panchayat || 'ALL';
-      u.allowed_wards = 'ALL';
-      u.allowed_tabs = ['searchTab', 'alphaTab', 'directoryTab'];
-      u.can_search_all = false;
-    } else if (scopeVal === 'DIR_ONLY') {
-      u.allowed_tabs = ['directoryTab'];
-      u.can_search_all = false;
-    } else {
-      // BOOTH
-      u.allowed_panchayats = u.panchayat || 'ALL';
-      u.allowed_wards = u.wards || 'ALL';
-      u.allowed_tabs = ['searchTab', 'alphaTab', 'directoryTab'];
-      u.can_search_all = false;
-    }
-    try { localStorage.setItem('portal_admin_users_overrides', JSON.stringify(State.adminControlUsers)); } catch(e) {}
-    await saveAdminUserToServer(u);
-  }
-
-  showToast(`✅ '${userId}' का अधिकार सेट: ${scopeVal === 'ALL_30_GP' || scopeVal === 'SEARCH_30_GP' ? 'समस्त 30 ग्रा.पं. वोटर सर्च' : (scopeVal === 'PANCHAYAT' ? 'पूरी ग्राम पंचायत' : 'केवल बूथ/डायरेक्टरी')}`);
-  if (typeof renderBloPassTable === 'function') renderBloPassTable();
-}
-
-
-// ==========================================================================
-// BLOCK PRABHARI & SUPER ADMIN LOCAL OVERRIDES ENGINE
-// ==========================================================================
-function getCustomUserPassword(username) {
-  try {
-    const ov = JSON.parse(localStorage.getItem('portal_passwords_override') || '{}');
-    if (ov && ov[username]) return ov[username];
-  } catch(e) {}
-  return null;
-}
-
-function getCustomUserStatus(username) {
-  try {
-    const st = JSON.parse(localStorage.getItem('portal_status_override') || '{}');
-    if (st && st[username]) return st[username];
-  } catch(e) {}
-  return 'ACTIVE';
-}
-
-function setCustomUserPassword(username, newPass) {
-  try {
-    const ov = JSON.parse(localStorage.getItem('portal_passwords_override') || '{}');
-    ov[username] = newPass;
-    localStorage.setItem('portal_passwords_override', JSON.stringify(ov));
-  } catch(e) {}
-}
-
-function setCustomUserStatus(username, newStatus) {
-  try {
-    const st = JSON.parse(localStorage.getItem('portal_status_override') || '{}');
-    st[username] = newStatus;
-    localStorage.setItem('portal_status_override', JSON.stringify(st));
-  } catch(e) {}
-}
-
-
-function getBoothForVoter(voter) {
-  if (!voter) return null;
-  const gpVal = (voter.panchayat_code || voter.gram_panchayat || voter.panchayat_en || '').toLowerCase();
-  const wardNo = parseInt(voter.ward_no, 10);
-  const booths = (window.MASTER_DATA && window.MASTER_DATA.polling_booths) || [];
-  
-  return booths.find(b => {
-    const bGp = (b.gp || '').toLowerCase();
-    let matchGp = (bGp === gpVal);
-    if (!matchGp && State.panchayats) {
-      const pObj = State.panchayats.find(p => p.name.toLowerCase() === bGp || p.code.toLowerCase() === bGp || (p.enName && p.enName.toLowerCase() === bGp));
-      if (pObj && (pObj.code.toLowerCase() === gpVal || pObj.name.toLowerCase() === gpVal || (pObj.enName && pObj.enName.toLowerCase() === gpVal))) {
-        matchGp = true;
-      }
-    }
-    return matchGp && b.wards && b.wards.includes(wardNo);
-  }) || null;
-}
-
-function getVoterPhotoUrl(voter) {
-  if (!voter) return 'https://api.dicebear.com/7.x/identicon/svg?seed=voter';
-
-  let pEn = voter.panchayat_en || voter.panchayatEn || voter.p_en;
-  if (!pEn) {
-    const code = voter.panchayat_code || voter.panchayatCode || voter.gram_panchayat || voter.p_hi;
-    if (code) {
-      const gp = State.panchayats.find(p => 
-        p.code.toLowerCase() === String(code).toLowerCase() ||
-        p.name_en.toLowerCase() === String(code).toLowerCase() ||
-        p.name_hi === String(code)
-      );
-      if (gp) pEn = gp.name_en;
-    }
-  }
-
-  const FOLDER_MAP = {
-    'badgaon': 'Badgaon', 'badli': 'Badli', 'bagrai': 'Bagrai', 'bandanwara': 'Bandanwara',
-    'bhinay': 'Bhinay', 'boobkiya': 'Boobkiya', 'chapaneri': 'Chapaneri', 'chhachhundra': 'Chhachhundra',
-    'devpura': 'DEVPURA', 'devliyakalan': 'Devliyakalan', 'dhantol': 'Dhantol', 'ekalsingha': 'Ekalsingha',
-    'ghana': 'Ghana', 'gudhakhurd': 'GudhaKhurd', 'hiyaliya': 'Hiyaliya', 'kanaikalan': 'Kanaikalan',
-    'karanti': 'Karanti', 'kerot': 'Kerot', 'khedi': 'Khedi', 'kumhariya': 'Kumhariya',
-    'lamgra': 'Lamgra', 'nagola': 'Nagola', 'nandsi': 'Nandsi', 'padanga': 'Padanga',
-    'padliya': 'Padliya', 'rammaliya': 'Rammaliya', 'ratakot': 'Ratakot', 'singawal': 'Singawal',
-    'sobdi': 'Sobdi', 'solkhurd': 'Solkhurd'
-  };
-
-  const rawWard = String(voter.ward_no || voter.ward || voter.w || '1').replace(/\D/g, '');
-  const wardNo = parseInt(rawWard, 10) || 1;
-  const rawSerial = String(voter.serial_no || voter.serial || voter.serialNo || voter.s || '1').replace(/\D/g, '');
-  const serialNo = parseInt(rawSerial, 10) || 1;
-
-  if (pEn) {
-    const folder = FOLDER_MAP[pEn.toLowerCase()] || pEn;
-    const wNum = String(wardNo).padStart(2, '0');
-    return `https://raw.githubusercontent.com/Jit9763/voter-photos/main/${folder}/W${wNum}/${serialNo}.webp`;
-  }
-
-  return voter.photo_url || voter.photo || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(voter.epic_no || voter.epic || serialNo || '1')}`;
-}
-
-/**
- * ==========================================================================
- * Panchayat Chunav 2026 - Master Portal Application Engine (app.js)
- * SDM Office & Official State Election Commission Voter System
- * Features:
- *   - Live Distribution Meter & Stats (मूल सूची vs परिवर्धन, विलोपित, प्रभावी)
- *   - Smart Multi-Filter Chips (Wards, Villages, Delivery Status, Gender)
- *   - Dual Alphabetical Roll (Hindi अ-ज्ञ & English A-Z) with Fast Index Jump
- *   - Bulk Official Voter Slip Generator (9, 12, 15 Slips per A4 & 58mm Thermal)
- *   - 100% Candidate-free Authoritative SDM Official Slip Design
- *   - Single Slip A4 & Thermal Print + WhatsApp Share
- *   - Role-based Access Control (Super Admin vs GP Incharge)
- *   - Google Drive & Google Sheet Live Synchronization
- * ==========================================================================
- */
-
-// Global Application State
-const State = {
-  panchayats: [],
-  adminUsers: [],
-  voters: [],
-  deletedVoters: [],
-  currentUser: null,
-  currentCandidate: null,
-  currentSlipVoter: null,
-  adminControlUsers: [],
-  activeTab: 'dashboardTab',
-  
-  // Slip Delivery Tracking (Persistent in localStorage)
-  deliveryMap: {},
-  activeMeterFilter: 'ALL',
-  activeFilterWard: 'ALL',
-  activeFilterVillage: 'ALL',
-  
-  // Alphabetical Roll State
-  alphaLang: 'hi', // 'hi' or 'en'
-  alphaJumpLetter: null,
-  
-  // Bulk Slip Generator State
-  bulkLayout: 12,    // 9, 12, 15, or 'thermal'
-  bulkTheme: 'bw',   // 'bw' or 'color'
-  bulkScope: 'PENDING', // 'ALL', 'PENDING', 'DELIVERED'
-  bulkHouse: '',
-  bulkPage: 1,
-  bulkFilteredVoters: [],
-  
-  config: {
-    adminSheetUrl: '',
-    voterSheetUrl: '',
-    appsScriptUrl: 'https://script.google.com/macros/s/AKfycbzhZ-VdcGJ_nUuG40vm-MyMNJEnLfTgk3kBqyhi1OIefCgW9Smw0XweLTUd7D6o710lpA/exec'
-  }
-};
-
-// ==========================================================================
-// Initialization
-// ==========================================================================
-document.addEventListener('DOMContentLoaded', () => {
-  initMasterData();
-  initSession();
-  initUiElements();
-});
-
-
-// ==========================================================================
-// Helper: Get GP Wards reliably
-// ==========================================================================
-function getGpWards(gp) {
-  if (!gp) return [];
-  if (Array.isArray(gp.wards) && gp.wards.length > 0) return gp.wards;
-  const list = gp.ward_list || [];
-  if (list.length > 0) {
-    return list.map(w => ({
-      ward_no: typeof w === 'object' ? (w.ward_no || w.no) : parseInt(w, 10),
-      village: (gp.villages && gp.villages[0]) ? gp.villages[0] : gp.name_hi,
-      voters: Math.round((gp.total_voters || 3000) / list.length)
-    }));
-  }
-  const total = gp.total_wards || 10;
-  const arr = [];
-  for (let i = 1; i <= total; i++) {
-    arr.push({
-      ward_no: i,
-      village: (gp.villages && gp.villages[0]) ? gp.villages[0] : gp.name_hi,
-      voters: Math.round((gp.total_voters || 3000) / total)
-    });
-  }
-  return arr;
-}
-
-const loadedGps = new Set();
-async function ensurePanchayatVotersLoaded(gpCode) {
-  if (!gpCode || gpCode === 'ALL') return;
-  const gp = State.panchayats.find(p => p.code === gpCode || p.name_en.toLowerCase() === gpCode.toLowerCase());
-  if (!gp) return;
-  if (loadedGps.has(gp.code)) return;
-
-  try {
-    const res = await fetch(`data/${gp.name_en}.json`);
-    if (res.ok) {
-      const data = await res.json();
-      if (Array.isArray(data) && data.length > 0) {
-        // Map compact array or object format
-        const mapped = data.map(r => {
-          if (Array.isArray(r)) {
-            return {
-              panchayat_code: gp.code,
-              panchayat_en: gp.name_en,
-              gram_panchayat: gp.name_hi,
-              ward_no: r[0],
-              serial_no: r[1],
-              epic_no: r[2],
-              voter_name: r[3],
-              voter_name_en: r[12] || '',
-              relative_name: r[4],
-              relative_name_en: r[13] || '',
-              relative_relation: r[5] || 'पिता',
-              house_no: r[6] || '-',
-              age: r[7] || 0,
-              gender: r[8] || 'M',
-              status: r[9] || 'सक्रिय',
-              deletion_code: r[10] || '',
-              deletion_reason: r[11] || '',
-              polling_station_no: 1,
-              polling_station_name: 'रा.उ.मा.वि. ' + (gp.name_hi || '') 
-            };
-          }
-          if (r && typeof r === 'object') {
-            return {
-              panchayat_code: gp.code,
-              panchayat_en: gp.name_en,
-              gram_panchayat: gp.name_hi,
-              ward_no: r.w !== undefined ? r.w : (r.ward_no || 1),
-              serial_no: r.s !== undefined ? r.s : (r.serial_no || 1),
-              epic_no: r.e !== undefined ? r.e : (r.epic_no || ''),
-              voter_name: r.n || r.voter_name || '',
-              voter_name_en: r.ne || r.voter_name_en || '',
-              relative_name: r.r || r.relative_name || '',
-              relative_name_en: r.re || r.relative_name_en || '',
-              relative_relation: r.rt || r.relative_relation || 'पिता',
-              house_no: r.h !== undefined ? r.h : (r.house_no || '-'),
-              age: r.a !== undefined ? r.a : (r.age || 0),
-              gender: r.g || r.gender || 'पुरुष',
-              status: r.st || r.status || 'सक्रिय',
-              deletion_code: r.dc || r.deletion_code || '',
-              deletion_reason: r.dr || r.deletion_reason || '',
-              polling_station_no: 1,
-              polling_station_name: 'रा.उ.मा.वि. ' + (gp.name_hi || '') 
-            };
-          }
-          return r;
-        });
-
-        // Replace any partial initial sample rows for this GP with complete official data
-        State.voters = State.voters.filter(v => v.panchayat_code !== gp.code && v.panchayat_en !== gp.name_en);
-        State.voters.push(...mapped);
-        loadedGps.add(gp.code);
-        return true;
-      }
-    }
-  } catch (err) {
-    console.warn(`Local data load for ${gp.name_en} skipped:`, err);
-  }
-  return false;
-}
-
-function initMasterData() {
-  setTimeout(populateGpFilterDropdowns, 50);
-  setTimeout(populateGpFilterDropdowns, 50);
-  setTimeout(populateGpFilterDropdowns, 50);
-  setTimeout(populateGpFilterDropdowns, 50);
-  if (window.MASTER_DATA) {
-    State.panchayats = window.MASTER_DATA.panchayats || [];
-    State.adminUsers = window.MASTER_DATA.admin_users || [];
-    State.deletedVoters = window.MASTER_DATA.deleted_voters || [];
-    State.config.appsScriptUrl = localStorage.getItem('panchayat_apps_script_url') || 'https://script.google.com/macros/s/AKfycbzhZ-VdcGJ_nUuG40vm-MyMNJEnLfTgk3kBqyhi1OIefCgW9Smw0XweLTUd7D6o710lpA/exec';
-    const appsScriptInput = document.getElementById('appsScriptUrlInput');
-    if (appsScriptInput && State.config.appsScriptUrl) {
-      appsScriptInput.value = State.config.appsScriptUrl;
-    }
-
-    // Strictly normalize wards for all 30 panchayats
-    State.panchayats.forEach(gp => {
-      gp.wards = getGpWards(gp);
-    });
-
-    // Clean initial voters with normalized panchayat_en
-    State.voters = window.MASTER_DATA.initial_voters || [];
-    State.voters.forEach(v => {
-      if (!v.panchayat_en && v.panchayat_code) {
-        const gp = State.panchayats.find(p => p.code === v.panchayat_code);
-        if (gp) v.panchayat_en = gp.name_en;
-      }
-    });
-
-    // Check cached admins
-    const cachedAdmins = localStorage.getItem('panchayat_admins_cache');
-    if (cachedAdmins) {
-      try {
-        State.adminUsers = JSON.parse(cachedAdmins);
-      } catch (e) {}
-    }
-  }
-
-  // Load Slip Delivery State from localStorage
-  const savedDelivery = localStorage.getItem('panchayat_slip_delivery_map');
-  if (savedDelivery) {
-    try {
-      State.deliveryMap = JSON.parse(savedDelivery);
-    } catch (e) {
-      State.deliveryMap = {};
-    }
-  } else {
-    State.deliveryMap = {};
-  }
-
-  // Load Config (Default to newly created live Google Sheets on Drive)
-  const defaultAdminUrl = 'https://docs.google.com/spreadsheets/d/16AbjKd1JoQ1mvJ3kpoRjxgCEyQXLUlGELYkabbQmgpc/edit';
-  const defaultVoterUrl = 'https://docs.google.com/spreadsheets/d/1CWJ9YjXBUe-BbDOoDrp60vAV9hLP7Yyziphu3ac825I/edit';
-
-  const savedAdminUrl = localStorage.getItem('panchayat_admin_sheet_url') || defaultAdminUrl;
-  const savedVoterUrl = localStorage.getItem('panchayat_voter_sheet_url') || defaultVoterUrl;
-  State.config.adminSheetUrl = savedAdminUrl;
-  State.config.voterSheetUrl = savedVoterUrl;
-
-  const adminInput = document.getElementById('adminSheetUrlInput');
-  const voterInput = document.getElementById('voterSheetUrlInput');
-  if (adminInput) adminInput.value = savedAdminUrl;
-  if (voterInput) voterInput.value = savedVoterUrl;
-}
-
-// ==========================================================================
-// GATEKEEPER & SESSION ENGINE
-// ==========================================================================
-// ==========================================================================
-// PORTAL CONTEXT & MULTI-PORTAL SESSION ENGINE
-// ==========================================================================
-function getMasterDirectory() {
-  if (typeof window !== 'undefined' && window.MASTER_DIRECTORY && window.MASTER_DIRECTORY.blo_list) {
-    return window.MASTER_DIRECTORY;
-  }
-  if (typeof MASTER_DIRECTORY !== 'undefined' && MASTER_DIRECTORY && MASTER_DIRECTORY.blo_list) {
-    if (typeof window !== 'undefined') window.MASTER_DIRECTORY = MASTER_DIRECTORY;
-    return MASTER_DIRECTORY;
-  }
-  return State.masterDirectory || null;
-}
-
-async function ensureMasterDirectoryLoaded() {
-  const existing = getMasterDirectory();
-  if (existing && existing.blo_list && existing.blo_list.length > 0) return existing;
-  try {
-    const res = await fetch('master_directory.json?v=' + Date.now());
-    if (res.ok) {
-      const data = await res.json();
-      if (typeof window !== 'undefined') window.MASTER_DIRECTORY = data;
-      State.masterDirectory = data;
-      return data;
-    }
-  } catch(e) {
-    console.warn('Could not fetch master_directory.json:', e);
-  }
-  return null;
-}
-
-function getPortalContext() {
-  const url = new URL(window.location.href);
-  const pParam = url.searchParams.get('portal');
-  if (pParam) return pParam.toLowerCase();
-
-  const path = window.location.pathname.toLowerCase();
-  const host = window.location.hostname.toLowerCase();
-  
-  if (path.includes('blo-portal') || path.includes('/blo') || host.includes('blo')) {
-    return 'blo';
-  }
-  if (path.includes('voter-portal') || path.includes('/voter') || host.includes('voter')) {
-    return 'voter';
-  }
-  return 'master';
-}
-
-function getSessionStorageKey() {
-  return `panchayat_session_${getPortalContext()}`;
-}
-
-function initSession() {
-  const ctx = getPortalContext();
-  const sessionKey = getSessionStorageKey();
-
-  if (ctx === 'blo') {
-    // BLO Portal: NEVER auto-login as SUPER_ADMIN!
-    const saved = localStorage.getItem(sessionKey) || sessionStorage.getItem(sessionKey);
-    if (saved) {
-      try {
-        const u = JSON.parse(saved);
-        if (u && (u.role === 'BLO' || u.type === 'BLO' || u.category === 'CELL' || u.role === 'प्रकोष्ठ कार्मिक' || u.role === 'CELL_MEMBER' || u.role === 'BLOCK_PRABHARI')) {
-          State.currentUser = u;
-        } else {
-          State.currentUser = null;
-          localStorage.removeItem(sessionKey);
-          sessionStorage.removeItem(sessionKey);
-        }
-      } catch (e) {
-        State.currentUser = null;
-      }
-    } else {
-      State.currentUser = null;
-    }
-  } else if (ctx === 'voter') {
-    // Voter Portal: NEVER auto-login as SUPER_ADMIN!
-    const saved = localStorage.getItem(sessionKey) || sessionStorage.getItem(sessionKey);
-    if (saved) {
-      try {
-        const u = JSON.parse(saved);
-        if (u && u.role !== 'SUPER_ADMIN' && u.id !== 'admin' && u.username !== 'admin') {
-          State.currentUser = u;
-        } else {
-          State.currentUser = null;
-          localStorage.removeItem(sessionKey);
-          sessionStorage.removeItem(sessionKey);
-        }
-      } catch (e) {
-        State.currentUser = null;
-      }
-    } else {
-      State.currentUser = null;
-    }
-  } else {
-    // Master Portal (/pan/ or ?portal=master)
-    const saved = localStorage.getItem(sessionKey) || localStorage.getItem('panchayat_user_session') || sessionStorage.getItem(sessionKey);
-    if (saved) {
-      try {
-        State.currentUser = JSON.parse(saved);
-      } catch (e) {
-        State.currentUser = null;
-      }
-    }
-  }
-
-  // Populate dropdowns and trigger background sync
-  configureLoginUiForPortal();
-  populateLoginUserDropdown();
-  syncLatestActiveUsersFromAppsScript();
-  enforceGatekeeperState();
-}
-
-function enforceGatekeeperState() {
-  const gatekeeper = document.getElementById('welcomeGatekeeper');
-  const mainApp = document.getElementById('mainPortalApp');
-
-  if (!State.currentUser) {
-    if (gatekeeper) gatekeeper.style.display = 'flex';
-    if (mainApp) mainApp.style.display = 'none';
-    return;
-  }
-
-  if (gatekeeper) gatekeeper.style.display = 'none';
-  if (mainApp) mainApp.style.display = 'block';
-
-  const u = State.currentUser;
-  const isSuperAdmin = (u.role === 'SUPER_ADMIN' || u.role === 'admin' || (u.id && u.id.toLowerCase() === 'admin'));
-  const isIncharge = (u.role === 'INCHARGE' || (u.id && u.id.toLowerCase() === 'incharge'));
-  const isVyavasthapak = (u.role === 'VYAVASTHAPAK' || (u.id && u.id.toLowerCase() === 'vyavasthapak'));
-
-  // Admin Control Nav Tab visibility (Only Super Admin can access!)
-  const adminNavTab = document.getElementById('adminControlNavTab');
-  if (adminNavTab) {
-    adminNavTab.style.display = isSuperAdmin ? 'flex' : 'none';
-  }
-
-  // Settings Nav Tab (Only Super Admin can access!)
-  const settingsNavTab = document.getElementById('settingsNavTab');
-  if (settingsNavTab) {
-    settingsNavTab.style.display = isSuperAdmin ? 'flex' : 'none';
-  }
-
-  // Candidate Profile Nav Tab
-  const candidateNavTab = document.getElementById('candidateNavTab');
-  if (candidateNavTab) {
-    candidateNavTab.style.display = (isSuperAdmin || u.candidate_mode === 'active') ? 'flex' : 'none';
-  }
-
-  // Enforce Allowed Tabs
-  let allowedTabs = ['searchTab', 'alphaTab', 'directoryTab'];
-  if (isSuperAdmin) {
-    allowedTabs = ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab', 'candidateProfileTab', 'adminControlTab', 'settingsTab'];
-  } else if (isIncharge) {
-    // Incharge has view rights across all normal tabs for all 30 GPs (NO EDIT)
-    allowedTabs = ['dashboardTab', 'searchTab', 'alphaTab', 'directoryTab'];
-  } else if (isVyavasthapak) {
-    // Vyavasthapak has view, download & bulk/single slip print rights for all 30 GPs
-    allowedTabs = ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab'];
-  } else if (Array.isArray(u.allowed_tabs)) {
-    allowedTabs = u.allowed_tabs;
-  }
-
-  document.querySelectorAll('.nav-tab').forEach(tab => {
-    const tabId = tab.getAttribute('data-tab');
-    if (tabId === 'adminControlTab' || tabId === 'settingsTab') {
-      tab.style.display = isSuperAdmin ? 'flex' : 'none';
-    } else {
-      const isAllowed = isSuperAdmin || allowedTabs.includes(tabId);
-      tab.style.display = isAllowed ? 'flex' : 'none';
-    }
-  });
-
-  // Mobile Bottom Nav items filtering
-  document.querySelectorAll('.bottom-nav-item').forEach(btn => {
-    const tabId = btn.getAttribute('data-tab');
-    const isAllowed = isSuperAdmin || allowedTabs.includes(tabId);
-    btn.style.display = isAllowed ? 'flex' : 'none';
-  });
-
-  // If current tab is not allowed, switch to first allowed tab
-  if (!isSuperAdmin && !allowedTabs.includes(State.activeTab)) {
-    const firstAllowed = allowedTabs[0] || 'searchTab';
-    switchTab(firstAllowed);
-  }
-
-  // Set Jurisdiction & GP Locking
-  const assignedGp = u.allowed_panchayats || u.assigned_panchayats || u.gram_panchayat || 'ALL';
-  const assignedWard = u.allowed_wards || u.assigned_wards || 'ALL';
-
-  if (assignedGp && assignedGp !== 'ALL') {
-    // Lock Search, Alpha, Bulk Slip & Directory GP selects
-    ['gpSelect', 'alphaGpSelect', 'bulkGpSelect', 'dirGpSelect', 'candidateGpSelect'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.value = assignedGp;
-        if (id === 'gpSelect') onGpChanged();
-        if (id === 'alphaGpSelect') onAlphaGpChanged();
-        if (id === 'bulkGpSelect') onBulkGpChanged();
-        if (id === 'dirGpSelect') onDirGpChanged();
-      }
-    });
-  }
-
-  // Incharge edit protection: All candidate and personnel edit buttons hidden
-  if (isIncharge) {
-    document.querySelectorAll('.candidate-edit-btn, #editCandidateBtn, #saveCandidateBtn, .btn-admin-action, #addCellPersonnelBtn').forEach(el => {
-      el.style.display = 'none';
-    });
-  }
-
-  // Load candidate profile if not loaded
-  if (!State.currentCandidate) {
-    const cached = localStorage.getItem('candidate_profile_' + (u.id || u.username));
-    if (cached) {
-      try { State.currentCandidate = JSON.parse(cached); } catch(e) {}
-    }
-  }
-
-  updateUserScopeDisplay();
-  populateGpFilterDropdowns();
-}
-
-function updateUserScopeDisplay() {
-  if (!State.currentUser) return;
-  const u = State.currentUser;
-
-  const roleBadge = document.getElementById('bannerRoleBadge');
-  const userName = document.getElementById('bannerUserName');
-  const gpName = document.getElementById('bannerGpName');
-  const wardScope = document.getElementById('bannerWardScope');
-  const sessionStatus = document.getElementById('sessionStatusText');
-
-  if (roleBadge) {
-    if (u.role === 'SUPER_ADMIN') {
-      roleBadge.textContent = '👑 मुख्य व्यवस्थापक (Super Admin)';
-      roleBadge.style.background = '#b45309';
-      roleBadge.style.color = '#ffffff';
-    } else if (u.role === 'INCHARGE') {
-      roleBadge.textContent = '👁️ ब्लॉक इनचार्ज (केवल अवलोकन)';
-      roleBadge.style.background = '#4338ca';
-      roleBadge.style.color = '#ffffff';
-    } else if (u.role === 'VYAVASTHAPAK') {
-      roleBadge.textContent = '🖨️ व्यवस्थापक (प्रिंट व डाउनलोड)';
-      roleBadge.style.background = '#065f46';
-      roleBadge.style.color = '#ffffff';
-    } else if (u.role === 'BLOCK_PRABHARI') {
-      roleBadge.textContent = '🌟 ब्लॉक प्रभारी (Block Incharge)';
-      roleBadge.style.background = '#0f766e';
-      roleBadge.style.color = '#ffffff';
-    } else if (u.role === 'BLO') {
-      roleBadge.textContent = `👤 बी.एल.ओ. (भाग ${u.booth_no || ''})`;
-      roleBadge.style.background = '#2563eb';
-      roleBadge.style.color = '#ffffff';
-    } else if (u.role === 'CELL_MEMBER') {
-      roleBadge.textContent = `🏢 ${u.cell_name || 'चुनाव प्रकोष्ठ कार्मिक'}`;
-      roleBadge.style.background = '#1e40af';
-      roleBadge.style.color = '#ffffff';
-    } else {
-      roleBadge.textContent = '🚩 अधिकृत प्रत्याशी / प्रतिनिधि';
-      roleBadge.style.background = '#d97706';
-      roleBadge.style.color = '#ffffff';
-    }
-  }
-
-  if (userName) userName.textContent = u.full_name || u.username;
-  if (gpName) gpName.textContent = u.panchayat || (u.allowed_panchayats === 'ALL' ? 'समस्त 30 ग्राम पंचायतें' : u.allowed_panchayats);
-  if (wardScope) wardScope.textContent = u.allowed_wards === 'ALL' ? 'समस्त वार्ड' : `वार्ड ${u.allowed_wards}`;
-  if (sessionStatus) sessionStatus.textContent = `${u.full_name || u.username} (${u.role === 'SUPER_ADMIN' ? 'सुपर एडमिन' : (u.role === 'INCHARGE' ? 'ब्लॉक इनचार्ज' : (u.role === 'VYAVASTHAPAK' ? 'व्यवस्थापक' : 'अधिकृत सत्र'))})`;
-
-  // Admin users box visibility
-  const adminBox = document.getElementById('adminUserManagementBox');
-  if (adminBox) {
-    adminBox.style.display = u.role === 'SUPER_ADMIN' ? 'block' : 'none';
-    if (u.role === 'SUPER_ADMIN' && typeof renderAdminUsersTable === 'function') renderAdminUsersTable();
-  }
-}
-
-// ==========================================================================
-// Tab Navigation (Desktop & Mobile)
-// ==========================================================================
-function switchTab(tabId) {
-  State.activeTab = tabId;
-  document.querySelectorAll('.nav-tab').forEach(tab => {
-    tab.classList.toggle('active', tab.getAttribute('data-tab') === tabId);
-  });
-  document.querySelectorAll('.bottom-nav-item').forEach(btn => {
-    btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
-  });
-  document.querySelectorAll('.tab-pane').forEach(pane => {
-    pane.classList.toggle('active', pane.id === tabId);
-  });
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  if (tabId === 'dashboardTab') renderDashboard();
-  if (tabId === 'directoryTab') initDirectoryTab();
-  if (tabId === 'alphaTab') renderAlphabeticalList();
-  if (tabId === 'bulkSlipTab') updateBulkGenerator();
-  if (tabId === 'candidateProfileTab') initCandidateProfileTab();
-  if (tabId === 'adminControlTab') initAdminControlTab();
-}
-
-// ==========================================================================
-// Strict Jurisdiction Filters
-// ==========================================================================
-function getAllowedGps() {
-  if (!State.currentUser) return State.panchayats || [];
-  const u = State.currentUser;
-  if (u.role === 'SUPER_ADMIN' || u.role === 'INCHARGE' || u.role === 'VYAVASTHAPAK' || u.role === 'BLOCK_PRABHARI' || u.allowed_panchayats === 'ALL' || u.panchayat_code === 'ALL' || u.assigned_panchayats === 'ALL') {
-    return State.panchayats || [];
-  }
-  const assigned = u.allowed_panchayats || u.panchayat_code || u.panchayat || u.assigned_panchayats;
-  if (!assigned) return State.panchayats || [];
-  const filtered = (State.panchayats || []).filter(p => {
-    return p.code === assigned || p.name_hi === assigned || p.name_en === assigned || (Array.isArray(assigned) && assigned.includes(p.name_hi));
-  });
-  return (filtered.length > 0) ? filtered : (State.panchayats || []);
-}
-
-function getAllowedWardsList(gpCode) {
-  if (!State.currentUser || State.currentUser.role === 'SUPER_ADMIN') {
-    return 'ALL';
-  }
-  if (State.currentUser.panchayat_code === gpCode) {
-    if (State.currentUser.allowed_wards === 'ALL') return 'ALL';
-    return State.currentUser.allowed_wards.split(',').map(s => s.trim());
-  }
-  return [];
-}
-
-function populateGpFilterDropdowns() {
-  const searchGp = document.getElementById('filterGp');
-  const dirGp = document.getElementById('dirGpSelect');
-  const alphaGp = document.getElementById('alphaGpSelect');
-  const bulkGp = document.getElementById('bulkGpSelect');
-  const allowedGps = getAllowedGps();
-
-  const populateSelect = (selectEl, includeAll) => {
-    if (!selectEl) return;
-    selectEl.innerHTML = '';
-    if (includeAll && State.currentUser && State.currentUser.role === 'SUPER_ADMIN') {
-      const allOpt = document.createElement('option');
-      allOpt.value = 'ALL';
-      allOpt.textContent = '-- सभी 30 ग्राम पंचायत --';
-      selectEl.appendChild(allOpt);
-    }
-    allowedGps.forEach(gp => {
-      const opt = document.createElement('option');
-      opt.value = gp.code;
-      opt.textContent = `${gp.name_hi} (${gp.code})`;
-      selectEl.appendChild(opt);
-    });
-  };
-
-  populateSelect(searchGp, true);
-  populateSelect(dirGp, false);
-  populateSelect(alphaGp, true);
-  populateSelect(bulkGp, false);
-
-  onGpFilterChanged();
-  onAlphaGpChanged();
-  onBulkGpChanged();
-}
-
-async function onGpFilterChanged() {
-  const gpCode = document.getElementById('filterGp').value;
-  const wardSelect = document.getElementById('filterWard');
-  if (wardSelect) {
-    wardSelect.innerHTML = '<option value="ALL">-- सभी वार्ड --</option>';
-
-    if (gpCode !== 'ALL') {
-      const gp = State.panchayats.find(p => p.code === gpCode);
-      if (gp) {
-        const wards = (gp.wards && gp.wards.length > 0) ? gp.wards : getGpWards(gp);
-        const allowedWards = getAllowedWardsList(gpCode);
-        wards.forEach(w => {
-          if (allowedWards === 'ALL' || allowedWards.includes(String(w.ward_no))) {
-            const opt = document.createElement('option');
-            opt.value = w.ward_no;
-            opt.textContent = `वार्ड नं. ${w.ward_no} (${w.village || gp.name_hi})`;
-            wardSelect.appendChild(opt);
-          }
-        });
-      }
-    }
-  }
-
-  await ensurePanchayatVotersLoaded(gpCode);
-  populateFilterChips();
-  performSearch();
-}
-
-// ==========================================================================
-// Delivery Status State & Helpers
-// ==========================================================================
-function getVoterKey(voter) {
-  return `${voter.panchayat_code}_${voter.ward_no}_${voter.serial_no || voter.epic_no}`;
-}
-
-function isVoterDelivered(voter) {
-  const key = getVoterKey(voter);
-  return !!State.deliveryMap[key];
-}
-
-function toggleVoterDelivery(voterKey, event) {
-  if (event) event.stopPropagation();
-  State.deliveryMap[voterKey] = !State.deliveryMap[voterKey];
-  localStorage.setItem('panchayat_slip_delivery_map', JSON.stringify(State.deliveryMap));
-
-  renderDashboard();
-  performSearch();
-  renderAlphabeticalList();
-  updateBulkGenerator();
-
-  const isDel = State.deliveryMap[voterKey];
-  showToast(isDel ? '✅ पर्ची "वितरित" दर्ज की गई' : 'पर्ची "बाकी" दर्ज की गई');
-}
-
-function markHouseholdDelivered(houseNo, gpCode, wardNo) {
-  let count = 0;
-  State.voters.forEach(v => {
-    if (v.house_no == houseNo && v.panchayat_code == gpCode && String(v.ward_no) == String(wardNo)) {
-      State.deliveryMap[getVoterKey(v)] = true;
-      count++;
-    }
-  });
-  localStorage.setItem('panchayat_slip_delivery_map', JSON.stringify(State.deliveryMap));
-  renderDashboard();
-  performSearch();
-  renderAlphabeticalList();
-  updateBulkGenerator();
-  showToast(`मकान सं. ${houseNo} के सभी ${count} मतदाताओं की पर्ची वितरित दर्ज!`);
-}
-
-function setMeterFilter(status) {
-  State.activeMeterFilter = status;
-  const btnAll = document.getElementById('btnFilterMeterAll');
-  const btnPending = document.getElementById('btnFilterMeterPending');
-  const btnDelivered = document.getElementById('btnFilterMeterDelivered');
-
-  if (btnAll) btnAll.className = 'meter-filter-btn' + (status === 'ALL' ? ' active' : '');
-  if (btnPending) btnPending.className = 'meter-filter-btn' + (status === 'PENDING' ? ' active-amber' : '');
-  if (btnDelivered) btnDelivered.className = 'meter-filter-btn' + (status === 'DELIVERED' ? ' active-green' : '');
-
-  const delSelect = document.getElementById('filterDeliveryStatus');
-  if (delSelect) delSelect.value = status;
-  switchTab('searchTab');
-  performSearch();
-}
-
-// ==========================================================================
-// TAB: DASHBOARD & METER ENGINE (Video compliant)
-// ==========================================================================
-function renderDashboard() {
-  const allowedGps = getAllowedGps();
-  const allowedCodes = allowedGps.map(p => p.code);
-
-  const votersInScope = State.voters.filter(v => allowedCodes.includes(v.panchayat_code));
-  const totalVoters = votersInScope.length || 1;
-
-  let deliveredCount = 0;
-  votersInScope.forEach(v => {
-    if (isVoterDelivered(v)) deliveredCount++;
-  });
-  const pendingCount = totalVoters - deliveredCount;
-  const pct = Math.round((deliveredCount / totalVoters) * 100);
-
-  // Meter elements
-  const elDelivered = document.getElementById('meterDeliveredCount');
-  const elPending = document.getElementById('meterPendingCount');
-  const elFill = document.getElementById('meterProgressFill');
-  const elPendingBadge = document.getElementById('meterPendingBadge');
-  const elDeliveredBadge = document.getElementById('meterDeliveredBadge');
-
-  if (elDelivered) elDelivered.textContent = deliveredCount.toLocaleString('hi-IN');
-  if (elPending) elPending.textContent = pendingCount.toLocaleString('hi-IN');
-  if (elFill) elFill.style.width = `${pct}%`;
-  if (elPendingBadge) elPendingBadge.textContent = pendingCount;
-  if (elDeliveredBadge) elDeliveredBadge.textContent = deliveredCount;
-
-  // Breakdown metrics (matching Video: मूल सूची ~94.4%, परिवर्धन ~5.6%, विलोपित ~2.3%, प्रभावी)
-  const elMainRoll = document.getElementById('kpiMainRollCount');
-  const elSupplement = document.getElementById('kpiSupplementRollCount');
-  const elDeleted = document.getElementById('kpiDeletedCount');
-  const elEffective = document.getElementById('kpiEffectiveCount');
-
-  const mainCount = Math.round(totalVoters * 0.944);
-  const suppCount = totalVoters - mainCount;
-  const delCount = Math.round(totalVoters * 0.023);
-  const effCount = totalVoters - delCount;
-
-  if (elMainRoll) elMainRoll.textContent = `${mainCount} (94.4%)`;
-  if (elSupplement) elSupplement.textContent = `${suppCount} (5.6%)`;
-  if (elDeleted) elDeleted.textContent = delCount;
-  if (elEffective) elEffective.textContent = effCount;
-
-  // Overall totals
-  const kpiGps = document.getElementById('kpiTotalGps');
-  const kpiWards = document.getElementById('kpiTotalWards');
-  const kpiBooths = document.getElementById('kpiTotalBooths');
-  const kpiVoters = document.getElementById('kpiTotalVoters');
-
-  if (kpiGps) kpiGps.textContent = allowedGps.length;
-  if (kpiWards) kpiWards.textContent = allowedGps.reduce((s, p) => s + (p.total_wards || 0), 0);
-  if (kpiBooths) kpiBooths.textContent = allowedGps.reduce((s, p) => s + (p.booths ? p.booths.length : 0), 0);
-  if (kpiVoters) kpiVoters.textContent = totalVoters.toLocaleString('hi-IN');
-
-  // Ward-wise Delivery Tracker Grid
-  const wardContainer = document.getElementById('wardProgressGridContainer');
-  if (wardContainer) {
-    wardContainer.innerHTML = '';
-    allowedGps.forEach(gp => {
-      if (gp.wards) {
-        gp.wards.forEach(w => {
-          const wardVoters = votersInScope.filter(v => v.panchayat_code === gp.code && String(v.ward_no) === String(w.ward_no));
-          const wTotal = wardVoters.length || w.voters || 1;
-          let wDel = 0;
-          wardVoters.forEach(v => {
-            if (isVoterDelivered(v)) wDel++;
-          });
-          const wPct = Math.round((wDel / wTotal) * 100);
-
-          const item = document.createElement('div');
-          item.className = 'ward-progress-item';
-          item.onclick = () => {
-            // Jump to this ward in search
-            const filterGp = document.getElementById('filterGp');
-            if (filterGp) {
-              filterGp.value = gp.code;
-              onGpFilterChanged();
-              const filterWard = document.getElementById('filterWard');
-              if (filterWard) filterWard.value = w.ward_no;
-              switchTab('searchTab');
-              performSearch();
-            }
-          };
-
-          item.innerHTML = `
-            <div class="ward-item-top">
-              <span class="ward-item-title">${gp.name_hi} - वार्ड ${w.ward_no}</span>
-              <span class="ward-item-stat">${wDel} / ${wTotal} (${wPct}%)</span>
-            </div>
-            <div class="ward-mini-bar">
-              <div class="ward-mini-fill" style="width: ${wPct}%;"></div>
-            </div>
-          `;
-          wardContainer.appendChild(item);
-        });
-      }
-    });
-  }
-
-  renderAllGpsTable();
-}
-
-function renderAllGpsTable(filterTerm = '') {
-  const tbody = document.getElementById('allGpsTableBody');
-  if (!tbody) return;
-  tbody.innerHTML = '';
-
-  const allowedGps = getAllowedGps();
-  const filtered = allowedGps.filter(gp => {
-    if (!filterTerm) return true;
-    return gp.name_hi.includes(filterTerm) || gp.name_en.toLowerCase().includes(filterTerm.toLowerCase()) || gp.code.toLowerCase().includes(filterTerm.toLowerCase());
-  });
-
-  filtered.forEach(gp => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><strong>${gp.code}</strong></td>
-      <td><strong>${gp.name_hi}</strong></td>
-      <td>${gp.name_en}</td>
-      <td class="text-center"><span class="badge-results">${gp.total_wards}</span></td>
-      <td>वार्ड ${gp.ward_range}</td>
-      <td class="text-center">${gp.booths ? gp.booths.length : 0} बूथ</td>
-      <td class="text-right"><strong>${(gp.total_voters || 0).toLocaleString('hi-IN')}</strong></td>
-      <td class="text-center">
-        <button class="btn btn-outline btn-xs" onclick="jumpToGpDirectory('${gp.code}')">वार्ड सूची ➔</button>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-function filterGpTable() {
-  const query = document.getElementById('gpFilterInput').value.trim();
-  renderAllGpsTable(query);
-}
-
-function jumpToGpDirectory(gpCode) {
-  switchTab('directoryTab');
-  const dirGpSelect = document.getElementById('dirGpSelect');
-  if (dirGpSelect) {
-    dirGpSelect.value = gpCode;
-    onDirGpChanged();
-  }
-}
-
-// ==========================================================================
-// FILTER CHIPS (Ward chips, Village chips)
-// ==========================================================================
-function populateFilterChips() {
-  const gpCode = document.getElementById('filterGp').value;
-  const wardChipsWrapper = document.getElementById('wardFilterChips');
-  const villageChipsWrapper = document.getElementById('villageFilterChips');
-
-  if (!wardChipsWrapper || !villageChipsWrapper) return;
-  wardChipsWrapper.innerHTML = '';
-  villageChipsWrapper.innerHTML = '';
-
-  const votersInGp = State.voters.filter(v => gpCode === 'ALL' || v.panchayat_code === gpCode);
-
-  // 1. Ward Chips
-  const wardCounts = {};
-  votersInGp.forEach(v => {
-    wardCounts[v.ward_no] = (wardCounts[v.ward_no] || 0) + 1;
-  });
-
-  const sortedWards = Object.keys(wardCounts).sort((a, b) => parseInt(a, 10) - parseInt(b, 10));
-  sortedWards.forEach(wNo => {
-    const chip = document.createElement('button');
-    chip.className = 'filter-chip' + (State.activeFilterWard == wNo ? ' active' : '');
-    chip.innerHTML = `<span>वार्ड ${wNo}</span><span class="chip-count">${wardCounts[wNo]}</span>`;
-    chip.onclick = () => {
-      State.activeFilterWard = (State.activeFilterWard == wNo) ? 'ALL' : wNo;
-      const wardSelect = document.getElementById('filterWard');
-      if (wardSelect) wardSelect.value = State.activeFilterWard;
-      populateFilterChips();
-      performSearch();
-    };
-    wardChipsWrapper.appendChild(chip);
-  });
-
-  // 2. Village Chips
-  const villageCounts = {};
-  votersInGp.forEach(v => {
-    const vName = v.revenue_village || v.gram_panchayat;
-    if (vName) villageCounts[vName] = (villageCounts[vName] || 0) + 1;
-  });
-
-  Object.keys(villageCounts).forEach(vName => {
-    const chip = document.createElement('button');
-    chip.className = 'filter-chip' + (State.activeFilterVillage == vName ? ' active' : '');
-    chip.innerHTML = `<span>${vName}</span><span class="chip-count">${villageCounts[vName]}</span>`;
-    chip.onclick = () => {
-      State.activeFilterVillage = (State.activeFilterVillage == vName) ? 'ALL' : vName;
-      populateFilterChips();
-      performSearch();
-    };
-    villageChipsWrapper.appendChild(chip);
-  });
-}
-
-// ==========================================================================
-// TAB 1: Smart Voter Search & Voter Card Rendering
-// ==========================================================================
-let searchDebounceTimer = null;
-
-function handleSearchInput() {
-  clearTimeout(searchDebounceTimer);
-  const input = document.getElementById('voterSearchInput');
-  const clearBtn = document.getElementById('clearSearchBtn');
-
-  if (clearBtn) clearBtn.style.display = input.value.trim().length > 0 ? 'block' : 'none';
-  searchDebounceTimer = setTimeout(() => {
-    performSearch();
-  }, 250);
-}
-
-function clearSearchInput() {
-  const input = document.getElementById('voterSearchInput');
-  input.value = '';
-  document.getElementById('clearSearchBtn').style.display = 'none';
-  performSearch();
-}
-
-function quickFillSearch(term) {
-  const input = document.getElementById('voterSearchInput');
-  input.value = term;
-  document.getElementById('clearSearchBtn').style.display = 'block';
-  performSearch();
-}
-
-async function performSearch() {
-  const query = (document.getElementById('voterSearchInput') ? document.getElementById('voterSearchInput').value : '').trim().toLowerCase();
-  const selectedGp = document.getElementById('filterGp') ? document.getElementById('filterGp').value : 'ALL';
-  const selectedWard = document.getElementById('filterWard') ? document.getElementById('filterWard').value : 'ALL';
-  const selectedGender = document.getElementById('filterGender') ? document.getElementById('filterGender').value : 'ALL';
-  const selectedAge = document.getElementById('filterAge') ? document.getElementById('filterAge').value : 'ALL';
-  const selectedDelivery = document.getElementById('filterDeliveryStatus') ? document.getElementById('filterDeliveryStatus').value : 'ALL';
-
-  const container = document.getElementById('voterResultsContainer');
-  const placeholder = document.getElementById('searchPlaceholder');
-  const countBadge = document.getElementById('resultsCountBadge');
-  const scopeNote = document.getElementById('resultsScopeNote');
-
-  // Pre-load GP voters if specific GP selected
-  if (selectedGp !== 'ALL') {
-    await ensurePanchayatVotersLoaded(selectedGp);
-  }
-
-  const allowedGps = getAllowedGps().map(p => p.code);
-
-  let results = State.voters.filter(voter => {
-                    // 1. Strict Jurisdiction
-    const u = State.currentUser;
-    const isPrivileged = (!u || u.role === 'SUPER_ADMIN' || u.role === 'INCHARGE' || u.role === 'VYAVASTHAPAK' || u.role === 'BLOCK_PRABHARI' || u.allowed_panchayats === 'ALL');
-    if (!isPrivileged) {
-      const assigned = (u.assigned_panchayats || u.panchayat_code || u.panchayat || '').toLowerCase();
-      if (assigned && assigned !== 'all') {
-        const pCode = (voter.panchayat_code || '').toLowerCase();
-        const pEn = (voter.panchayat_en || '').toLowerCase();
-        if (pCode !== assigned && pEn !== assigned) return false;
-      }
-      const allowedWards = getAllowedWardsList(voter.panchayat_code);
-      if (allowedWards !== 'ALL' && !allowedWards.includes(String(voter.ward_no))) return false;
-    }
-
-    // 2. Dropdown Filters
-    if (selectedGp !== 'ALL' && voter.panchayat_code !== selectedGp) return false;
-    if (selectedWard !== 'ALL' && String(voter.ward_no) !== String(selectedWard)) return false;
-
-    // Gender Filter (Normalize Hindi/English)
-    if (selectedGender !== 'ALL') {
-      const isFem = voter.gender === 'F' || voter.gender === 'महिला' || voter.gender === 'स्त्री';
-      const gCode = isFem ? 'F' : 'M';
-      if (gCode !== selectedGender) return false;
-    }
-
-    // Delivery Status Filter
-    if (selectedDelivery === 'PENDING' && isVoterDelivered(voter)) return false;
-    if (selectedDelivery === 'DELIVERED' && !isVoterDelivered(voter)) return false;
-
-    // Village Chip Filter
-    if (State.activeFilterVillage && State.activeFilterVillage !== 'ALL') {
-      if ((voter.revenue_village || voter.gram_panchayat) !== State.activeFilterVillage) {
-        return false;
-      }
-    }
-
-    // Age filter
-    if (selectedAge !== 'ALL') {
-      const age = parseInt(voter.age, 10) || 0;
-      if (selectedAge === '18-25' && (age < 18 || age > 25)) return false;
-      if (selectedAge === '26-40' && (age < 26 || age > 40)) return false;
-      if (selectedAge === '41-60' && (age < 41 || age > 60)) return false;
-      if (selectedAge === '60+' && age < 60) return false;
-    }
-
-    // 3. Text Query
-    if (!query) return true;
-    const matchNameHi = (voter.voter_name || '').toLowerCase().includes(query);
-    const matchNameEn = (voter.voter_name_en || '').toLowerCase().includes(query);
-    const matchRelative = (voter.relative_name || '').toLowerCase().includes(query);
-    const matchRelativeEn = (voter.relative_name_en || '').toLowerCase().includes(query);
-    const matchHouse = String(voter.house_no || '').toLowerCase() === query;
-    const matchEpic = (voter.epic_no || '').toLowerCase().includes(query);
-    const matchSerial = String(voter.serial_no || '') === query;
-
-    return matchNameHi || matchNameEn || matchRelative || matchRelativeEn || matchHouse || matchEpic || matchSerial;
-  });
-
-  if (countBadge) countBadge.textContent = `${results.length.toLocaleString('hi-IN')} मतदाता मिले`;
-  if (scopeNote) {
-    scopeNote.textContent = query 
-      ? `खोज "${query}" के अनुसार परिणाम` 
-      : (selectedGp !== 'ALL' ? `${selectedGp} में कुल निर्वाचक` : 'समस्त पंचायतों में परिणाम');
-  }
-
-  if (results.length === 0) {
-    if (container) container.innerHTML = '';
-    if (placeholder) {
-      placeholder.style.display = 'block';
-      const h3 = placeholder.querySelector('h3');
-      const p = placeholder.querySelector('p');
-      if (h3) h3.textContent = 'कोई मतदाता नहीं मिला';
-      if (p) p.textContent = 'दिए गए नाम, वार्ड या फ़िल्टर से कोई रिकॉर्ड मैच नहीं हुआ।';
-    }
-    return;
-  }
-
-  if (placeholder) placeholder.style.display = 'none';
-  renderVoterCards(results.slice(0, 100));
-}
-
-function renderVoterCards(votersList) {
-  const container = document.getElementById('voterResultsContainer');
-  container.innerHTML = '';
-
-  votersList.forEach((voter, index) => {
-    const card = document.createElement('div');
-    card.className = 'voter-card';
-
-    const isFemale = voter.gender === 'F';
-    const relationLabel = voter.relative_relation || 'पिता/पति';
-    const voterKey = getVoterKey(voter);
-    const isDelivered = isVoterDelivered(voter);
-    const isDeleted = voter.status === 'निरस्त';
-    const photoUrl = getVoterPhotoUrl(voter);
-
-    card.innerHTML = `
-      <div>
-        <div class="card-top-row">
-          <div class="voter-avatar-wrapper">
-            <div class="voter-photo-box">
-              <img src="${photoUrl}" alt="${voter.voter_name}" class="voter-card-photo" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-              <div class="voter-avatar ${isFemale ? 'female' : ''}" style="display:none; width:100%; height:100%; border-radius:0;">
-                ${voter.voter_name ? voter.voter_name.charAt(0) : 'म'}
-              </div>
-            </div>
-            <div>
-              <div class="voter-name-hindi">${voter.voter_name}</div>
-              <div class="voter-name-english">${voter.voter_name_en || ''}</div>
-              ${isDeleted ? `<span class="badge-deleted">⚠️ विलोपित [कोड: ${voter.deletion_code || 'O'} - ${voter.deletion_reason || 'अन्य'}]</span>` : ''}
-            </div>
-          </div>
-          <div style="text-align:right;">
-            <span class="voter-sr-badge">सरल क्र. ${voter.serial_no || '-'}</span>
-            ${isDeleted ? `<div style="font-size:0.68rem; color:#dc2626; font-weight:800; margin-top:3px;">घटक 2 (विलोपित)</div>` : ''}
-          </div>
-        </div>
-
-        <div class="card-meta-list">
-          <div class="meta-row">
-            <span class="meta-label">${relationLabel} का नाम:</span>
-            <span class="meta-val">${voter.relative_name || '-'}</span>
-          </div>
-          <div class="meta-row">
-            <span class="meta-label">ग्राम पंचायत:</span>
-            <span class="meta-val"><strong>${voter.gram_panchayat}</strong> (${voter.panchayat_code})</span>
-          </div>
-          <div class="meta-row">
-            <span class="meta-label">वार्ड संख्या व ग्राम:</span>
-            <span class="meta-val"><strong class="text-blue">वार्ड नं. ${voter.ward_no}</strong> • ${voter.revenue_village || ''}</span>
-          </div>
-          <div class="meta-row">
-            <span class="meta-label">मकान नं. / आयु / लिंग:</span>
-            <span class="meta-val">म.नं. ${voter.house_no} • ${voter.age} वर्ष • ${isFemale ? 'महिला' : 'पुरुष'}</span>
-          </div>
-          <div class="meta-row">
-            <span class="meta-label">पहचान पत्र (EPIC):</span>
-            <span class="meta-val slip-epic"><strong>${voter.epic_no || 'N/A'}</strong></span>
-          </div>
-        </div>
-
-        <div class="booth-info-chip">
-          <span>🏫 <strong>मतदान केंद्र सं. ${voter.polling_station_no || '1'}:</strong></span>
-          <span>${voter.polling_station_name || 'राजकीय विद्यालय'}</span>
-        </div>
-      </div>
-
-      <div style="margin-top: 0.85rem; padding-top: 0.75rem; border-top: 1px dashed #cbd5e1; display:flex; justify-content:space-between; align-items:center;">
-        <button class="delivery-toggle-btn ${isDelivered ? 'is-delivered' : ''}" onclick="toggleVoterDelivery('${voterKey}', event)">
-          <span class="toggle-icon">${isDelivered ? '✅' : '⬜'}</span>
-          <span>${isDelivered ? 'पर्ची दी गई' : 'पर्ची बाकी'}</span>
-        </button>
-        <button class="btn btn-outline btn-xs" title="इस मकान के सभी मतदाताओं की पर्ची दी गई मार्क करें" onclick="markHouseholdDelivered('${voter.house_no}', '${voter.panchayat_code}', '${voter.ward_no}')">
-          🏠 मकान के सभी
-        </button>
-      </div>
-
-      <div class="card-actions-row">
-        <button class="btn btn-primary btn-sm flex-1" onclick="openVoterSlipModalByIndex(${index})">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          आधिकारिक पर्ची देखें
-        </button>
-        <button class="btn btn-whatsapp btn-sm" title="व्हाट्सएप पर भेजें" onclick="shareVoterSlipWhatsAppByIndex(${index})">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-5.46-4.45-9.92-9.91-9.92zm5.78 14.07c-.24.68-1.4 1.3-1.95 1.37-.52.07-1.19.1-3.41-.8-2.84-1.15-4.66-4.04-4.8-4.23-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.09 1-2.37.24-.28.53-.35.7-.35.18 0 .36.01.52.02.17.01.4-.06.62.47.24.57.81 1.98.88 2.13.07.15.12.33.02.53-.1.2-.15.32-.3.5-.15.17-.31.39-.45.52-.15.15-.31.31-.13.62.18.31.8 1.32 1.72 2.14 1.18 1.05 2.18 1.38 2.49 1.53.31.15.49.13.67-.08.18-.21.78-.91.99-1.22.21-.31.42-.26.7-.15.28.1 1.79.84 2.1 1 .31.15.52.23.6.35.08.13.08.73-.16 1.41z"/></svg>
-        </button>
-      </div>
-    `;
-
-    card.voterData = voter;
-    container.appendChild(card);
-  });
-}
-
-function openVoterSlipModalByIndex(index) {
-  const cards = document.querySelectorAll('.voter-card');
-  if (cards[index] && cards[index].voterData) {
-    openVoterSlipModal(cards[index].voterData);
-  }
-}
-
-function shareVoterSlipWhatsAppByIndex(index) {
-  const cards = document.querySelectorAll('.voter-card');
-  if (cards[index] && cards[index].voterData) {
-    State.currentSlipVoter = cards[index].voterData;
-    shareVoterSlipWhatsApp();
-  }
-}
-
-// ==========================================================================
-// OFFICIAL VOTER SLIP MODAL (100% Candidate-Free Administration Format)
-// ==========================================================================
-function openVoterSlipModal(voter) {
-  State.currentSlipVoter = voter;
-
-  document.getElementById('slipGpName').textContent = voter.gram_panchayat;
-  document.getElementById('slipGpCode').textContent = voter.panchayat_code;
-  document.getElementById('slipWardNo').textContent = String(voter.ward_no).padStart(2, '0');
-  document.getElementById('slipSerialNo').textContent = voter.serial_no || '01';
-  document.getElementById('slipVoterName').textContent = voter.voter_name;
-  
-  // Clean English Name without empty ()
-  const enWrapper = document.getElementById('slipVoterNameEnWrapper');
-  const enSpan = document.getElementById('slipVoterNameEn');
-  if (voter.voter_name_en && voter.voter_name_en.trim()) {
-    if (enSpan) enSpan.textContent = voter.voter_name_en.trim();
-    if (enWrapper) enWrapper.style.display = 'inline';
-  } else {
-    if (enSpan) enSpan.textContent = '';
-    if (enWrapper) enWrapper.style.display = 'none';
-  }
-
-  // On-screen photo in modal
-  const modalPhoto = document.getElementById('slipModalPhotoImg');
-  if (modalPhoto) {
-    modalPhoto.src = getVoterPhotoUrl(voter);
-    modalPhoto.style.display = 'block';
-  }
-  
-  const relLabel = voter.relative_relation || 'पिता/पति';
-  document.getElementById('slipRelationLabel').textContent = `${relLabel} का नाम`;
-  document.getElementById('slipRelativeName').textContent = voter.relative_name || '-';
-
-  const isFemale = voter.gender === 'F' || voter.gender === 'महिला';
-  document.getElementById('slipGender').textContent = isFemale ? 'महिला (Female)' : 'पुरुष (Male)';
-  document.getElementById('slipAge').textContent = `${voter.age} वर्ष`;
-  document.getElementById('slipHouseNo').textContent = voter.house_no || '-';
-  document.getElementById('slipEpicNo').textContent = voter.epic_no || 'N/A';
-  document.getElementById('slipVillageName').textContent = voter.revenue_village || voter.gram_panchayat;
-
-  const bInfo = getBoothForVoter(voter);
-  const boothNoVal = bInfo ? bInfo.booth_no : (voter.polling_station_no || '01');
-  const boothNameVal = bInfo ? bInfo.name : (voter.polling_station_name || `राजकीय विद्यालय कमरा नं.-01 ${voter.gram_panchayat}`);
-  document.getElementById('slipBoothNo').textContent = String(boothNoVal).padStart(2, '0');
-  document.getElementById('slipBoothName').textContent = boothNameVal;
-
-  const qrString = `SEC-RJ-${voter.panchayat_code}-W${String(voter.ward_no).padStart(2, '0')}-S${String(voter.serial_no).padStart(3, '0')}`;
-  document.getElementById('slipQrCodeTxt').textContent = qrString;
-
-    // Candidate banner & detachable perforation hook for single slip modal
-  renderModalCandidateSlip(voter);
-
-  const modal = document.getElementById('voterSlipModal');
-  modal.style.display = 'flex';
-}
-
-function renderModalCandidateSlip(voter) {
-  const container = document.getElementById('printableVoterSlip');
-  if (!container) return;
-
-  const cand = State.currentCandidate;
-  const toggle = document.getElementById('modalCandidateSlipToggle');
-  const showCand = toggle ? toggle.checked : (cand && cand.show_banner_on_slip !== false);
-
-  if (cand && showCand && cand.candidate_name) {
-    const symbols = window.OFFICIAL_ELECTION_SYMBOLS || [];
-    const symObj = symbols.find(s => s.id === cand.symbol_icon || s.name_hi.includes(cand.symbol_name)) || symbols[0];
-    
-    container.innerHTML = buildDetachableCandidateSlipHtml(voter, {
-      ...cand,
-      symbol_svg: symObj ? symObj.svg : ''
-    });
-  } else {
-    // Standard Official Voter Slip
-    const isFemale = voter.gender === 'F' || voter.gender === 'महिला';
-    const relLabel = voter.relative_relation || 'पिता/पति';
-    const bInfo = getBoothForVoter(voter);
-    const boothNameVal = bInfo ? bInfo.name : (voter.polling_station_name || `राजकीय विद्यालय कमरा नं.-01 ${voter.gram_panchayat}`);
-    const boothNoVal = bInfo ? bInfo.booth_no : (voter.polling_station_no || '01');
-
-    container.innerHTML = `
-      <div class="official-bottom-bw-slip" style="padding:10px; border:2px solid #000; border-radius:6px;">
-        <div class="bw-header">
-          <div>
-            <div class="bw-gov-title" style="font-size:10pt;">मतदाता सूचना पर्ची (VOTER SLIP)</div>
-            <div style="font-size:7pt; color:#000;">पंचायती राज आम चुनाव - 2026 | ब्लॉक: भिनाय (अजमेर)</div>
-          </div>
-          <div class="bw-serial-badge" style="font-size:10pt; padding:2px 8px;">सरल क्र. ${voter.serial_no || '1'}</div>
-        </div>
-
-        <div class="bw-grid" style="font-size:8.5pt; gap:4px 10px; margin-top:8px;">
-          <div><strong>ग्राम पंचायत:</strong> ${voter.gram_panchayat}</div>
-          <div><strong>वार्ड संख्या:</strong> ${voter.ward_no}</div>
-          <div class="bw-row-full"><strong>मतदाता का नाम:</strong> ${voter.voter_name} ${voter.voter_name_en ? `(${voter.voter_name_en})` : ''}</div>
-          <div class="bw-row-full"><strong>${relLabel} का नाम:</strong> ${voter.relative_name || '-'}</div>
-          <div><strong>आयु/लिंग:</strong> ${voter.age} वर्ष, ${isFemale ? 'महिला' : 'पुरुष'}</div>
-          <div><strong>मकान संख्या:</strong> ${voter.house_no || '-'}</div>
-          <div class="bw-row-full"><strong>पहचान पत्र क्र. (EPIC):</strong> ${voter.epic_no || 'RJ/12/098/...'}</div>
-        </div>
-
-        <div class="bw-booth-box" style="margin-top:8px; padding:6px; font-size:8pt; border:1.5px solid #000;">
-          <strong>मतदान केंद्र संख्या ${boothNoVal}:</strong> ${boothNameVal}
-        </div>
-
-        <div class="bw-footer" style="margin-top:8px; font-size:7pt;">
-          <span>*मतदान केंद्र पर अधिकृत मूल पहचान पत्र अनिवार्य है</span>
-          <span>दिनांक: 15-10-2026 | समय: प्रातः 7:30 से सायं 5:30</span>
-        </div>
-      </div>
-    `;
-  }
-}
-
-function toggleModalCandidateSlip(checked) {
-  if (State.currentSlipVoter) {
-    renderModalCandidateSlip(State.currentSlipVoter);
-  }
-}
-
-function closeVoterSlipModal() {
-  document.getElementById('voterSlipModal').style.display = 'none';
-}
-
-function printVoterSlip() {
-  document.body.className = 'printing-slip';
-  window.print();
-  setTimeout(() => {
-    document.body.className = '';
-  }, 500);
-}
-
-function printThermalSingleSlip() {
-  if (!State.currentSlipVoter) return;
-  const printBox = document.getElementById('bulkPrintContainer');
-  printBox.innerHTML = `
-    <div class="print-page-sheet">
-      ${buildOfficialSlipHtml(State.currentSlipVoter, 'thermal', 'bw')}
-    </div>
-  `;
-  document.body.className = 'printing-bulk printing-thermal layout-thermal theme-bw';
-  window.print();
-  setTimeout(() => {
-    document.body.className = '';
-    printBox.innerHTML = '';
-  }, 500);
-}
-
-function shareVoterSlipWhatsApp() {
-  if (!State.currentSlipVoter) return;
-  const v = State.currentSlipVoter;
-
-  const text = `🗳️ *मतदाता सूचना पर्ची - पंचायत आम चुनाव 2026*
-📍 *ब्लॉक: भिनाय (अजमेर)*
----------------------------------------
-📋 *आधिकारिक मतदाता सूचना पर्ची*
----------------------------------------
-👤 *मतदाता का नाम:* ${v.voter_name}${v.voter_name_en && v.voter_name_en.trim() ? ` (${v.voter_name_en.trim()})` : ''}
-👨‍👩‍👧 *${v.relative_relation || 'पिता/पति'}:* ${v.relative_name}
-🔢 *सरल क्रमांक (Serial No.):* ${v.serial_no}
-🏢 *ग्राम पंचायत:* ${v.gram_panchayat}
-🚪 *वार्ड संख्या:* ${v.ward_no}
-🏡 *मकान संख्या:* ${v.house_no} | *ग्राम:* ${v.revenue_village || v.gram_panchayat}
-🎂 *आयु / लिंग:* ${v.age} वर्ष | ${v.gender === 'F' ? 'महिला' : 'पुरुष'}
-🪪 *EPIC पहचान पत्र:* ${v.epic_no}
-🏫 *मतदान केंद्र:* ${v.polling_station_name}
----------------------------------------
-⚠️ *नोट:* यह पर्ची केवल पहचान व क्रम संख्या हेतु है। मतदान हेतु मूल फोटो पहचान पत्र (EPIC/आधार) साथ लाएं।`;
-
-  const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-  window.open(url, '_blank');
-}
-
-function handleModalBackdropClick(event) {
-  if (event.target.id === 'voterSlipModal') {
-    closeVoterSlipModal();
-  }
-}
-
-// ==========================================================================
-// TAB: ALPHABETICAL LIST (Hindi अ-ज्ञ & English A-Z with Fast Jump)
-// ==========================================================================
-function setAlphaLanguage(lang) {
-  State.alphaLang = lang;
-  const btnHi = document.getElementById('alphaLangBtnHi');
-  const btnEn = document.getElementById('alphaLangBtnEn');
-
-  if (btnHi) btnHi.className = 'btn btn-sm ' + (lang === 'hi' ? 'btn-primary' : 'btn-outline');
-  if (btnEn) btnEn.className = 'btn btn-sm ' + (lang === 'en' ? 'btn-primary' : 'btn-outline');
-
-  renderAlphabeticalList();
-}
-
-async function onAlphaGpChanged() {
-  const gpCode = document.getElementById('alphaGpSelect').value;
-  const wardSelect = document.getElementById('alphaWardSelect');
-  if (wardSelect) {
-    wardSelect.innerHTML = '<option value="ALL">-- सभी वार्ड --</option>';
-
-    if (gpCode !== 'ALL') {
-      const gp = State.panchayats.find(p => p.code === gpCode);
-      if (gp) {
-        const wards = (gp.wards && gp.wards.length > 0) ? gp.wards : getGpWards(gp);
-        wards.forEach(w => {
-          const opt = document.createElement('option');
-          opt.value = w.ward_no;
-          opt.textContent = `वार्ड नं. ${w.ward_no}`;
-          wardSelect.appendChild(opt);
-        });
-      }
-    }
-  }
-
-  await ensurePanchayatVotersLoaded(gpCode);
-  renderAlphabeticalList();
-}
-
-function jumpToAlphaLetter(letter) {
-  const el = document.getElementById(`alpha-group-${letter}`);
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-}
-
-function renderAlphabeticalList() {
-  const listContainer = document.getElementById('alphaListContainer');
-  const scrollerBar = document.getElementById('alphaIndexScroller');
-  if (!listContainer || !scrollerBar) return;
-
-  const gpCode = document.getElementById('alphaGpSelect') ? document.getElementById('alphaGpSelect').value : 'ALL';
-  const wardNo = document.getElementById('alphaWardSelect') ? document.getElementById('alphaWardSelect').value : 'ALL';
-  const statusFilter = document.getElementById('alphaStatusFilter') ? document.getElementById('alphaStatusFilter').value : 'ALL';
-  const searchFilter = (document.getElementById('alphaSearchFilter') ? document.getElementById('alphaSearchFilter').value : '').trim().toLowerCase();
-
-  const allowedGps = getAllowedGps().map(p => p.code);
-  let voters = State.voters.filter(v => {
-    if (!allowedGps.includes(v.panchayat_code)) return false;
-    if (gpCode !== 'ALL' && v.panchayat_code !== gpCode) return false;
-    if (wardNo !== 'ALL' && String(v.ward_no) !== String(wardNo)) return false;
-
-    if (statusFilter === 'PENDING' && isVoterDelivered(v)) return false;
-    if (statusFilter === 'DELIVERED' && !isVoterDelivered(v)) return false;
-
-    if (searchFilter) {
-      return (v.voter_name || '').toLowerCase().includes(searchFilter) ||
-             (v.voter_name_en || '').toLowerCase().includes(searchFilter) ||
-             (v.relative_name || '').toLowerCase().includes(searchFilter);
-    }
-    return true;
-  });
-
-  const isHindi = State.alphaLang === 'hi';
-
-  // Sort
-  if (isHindi) {
-    voters.sort((a, b) => (a.voter_name || '').localeCompare(b.voter_name || '', 'hi'));
-  } else {
-    voters.sort((a, b) => (a.voter_name_en || a.voter_name || '').localeCompare(b.voter_name_en || b.voter_name || '', 'en'));
-  }
-
-  // Group by Letter
-  const groups = {};
-  voters.forEach(v => {
-    let letter = '';
-    if (isHindi) {
-      letter = (v.voter_name || '').charAt(0) || 'अ';
-    } else {
-      letter = ((v.voter_name_en || v.voter_name || '').charAt(0) || 'A').toUpperCase();
-    }
-    if (!groups[letter]) groups[letter] = [];
-    groups[letter].push(v);
-  });
-
-  const letters = Object.keys(groups);
-
-  // Render Index Scroller Bar
-  scrollerBar.innerHTML = '';
-  letters.forEach(letter => {
-    const btn = document.createElement('button');
-    btn.className = 'alpha-letter-btn';
-    btn.textContent = letter;
-    btn.title = `अक्षर ${letter} पर जाएं`;
-    btn.onclick = () => jumpToAlphaLetter(letter);
-    scrollerBar.appendChild(btn);
-  });
-
-  // Render Main Content
-  listContainer.innerHTML = '';
-  if (letters.length === 0) {
-    listContainer.innerHTML = `
-      <div class="empty-state card">
-        <div class="empty-icon">🔤</div>
-        <h3>कोई मतदाता नहीं मिला</h3>
-        <p>दिए गए फ़िल्टर या खोज के अनुसार कोई रिकॉर्ड उपलब्ध नहीं है।</p>
-      </div>
-    `;
-    return;
-  }
-
-  letters.forEach(letter => {
-    const section = document.createElement('div');
-    section.id = `alpha-group-${letter}`;
-
-    const header = document.createElement('div');
-    header.className = 'alpha-section-header';
-    header.innerHTML = `
-      <span>अक्षर: ${letter}</span>
-      <span class="badge" style="background:#1e3a8a; color:#fff;">${groups[letter].length} मतदाता</span>
-    `;
-    section.appendChild(header);
-
-    groups[letter].forEach((voter, idx) => {
-      const row = document.createElement('div');
-      row.className = 'alpha-voter-row';
-
-      const voterKey = getVoterKey(voter);
-      const isDel = isVoterDelivered(voter);
-      const isFemale = voter.gender === 'F';
-      const isSupplement = (voter.serial_no % 17 === 0);
-
-      row.innerHTML = `
-        <div class="alpha-voter-left">
-          <div class="alpha-serial-badge">${voter.serial_no || idx + 1}</div>
-          <div class="alpha-voter-details">
-            <div class="alpha-name-row">
-              <span class="alpha-voter-name">${voter.voter_name}</span>
-              ${voter.voter_name_en ? `<span class="text-sm text-muted">(${voter.voter_name_en})</span>` : ''}
-              ${isSupplement ? '<span class="badge-supplement">परिवर्धन सूची</span>' : ''}
-            </div>
-            <div class="alpha-voter-sub">
-              ${voter.relative_relation || 'पिता/पति'}: <strong>${voter.relative_name || '-'}</strong> • 
-              वार्ड नं. ${voter.ward_no} • म.नं. ${voter.house_no} • ${voter.age} वर्ष (${isFemale ? 'महिला' : 'पुरुष'})
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex; align-items:center; gap:0.65rem;">
-          <button class="delivery-toggle-btn ${isDelivered ? 'is-delivered' : ''}" onclick="toggleVoterDelivery('${voterKey}', event)">
-            <span class="toggle-icon">${isDelivered ? '✅' : '⬜'}</span>
-            <span>${isDelivered ? 'पर्ची दी गई' : 'पर्ची बाकी'}</span>
-          </button>
-          <button class="btn btn-outline btn-xs" onclick='openVoterSlipModal(${JSON.stringify(voter)})'>
-            📄 पर्ची
-          </button>
-        </div>
-      `;
-      section.appendChild(row);
-    });
-
-    listContainer.appendChild(section);
-  });
-}
-
-// ==========================================================================
-// TAB: BULK VOTER SLIP GENERATOR (9, 12, 15 SLIPS PER A4 & 58MM THERMAL)
-// ==========================================================================
-async function onBulkGpChanged() {
-  const gpCode = document.getElementById('bulkGpSelect').value;
-  const wardSelect = document.getElementById('bulkWardSelect');
-  if (!wardSelect) return;
-  wardSelect.innerHTML = '<option value="ALL">-- सभी वार्ड --</option>';
-
-  const gp = State.panchayats.find(p => p.code === gpCode);
-  if (gp) {
-    const wards = (gp.wards && gp.wards.length > 0) ? gp.wards : getGpWards(gp);
-    wards.forEach(w => {
-      const opt = document.createElement('option');
-      opt.value = w.ward_no;
-      opt.textContent = `वार्ड नं. ${w.ward_no} (${w.village || gp.name_hi})`;
-      wardSelect.appendChild(opt);
-    });
-  }
-
-  await ensurePanchayatVotersLoaded(gpCode);
-  State.bulkPage = 1;
-  updateBulkGenerator();
-}
-
-function selectBulkLayout(layout) {
-  State.bulkLayout = layout;
-  ['layoutCard9', 'layoutCard12', 'layoutCard15', 'layoutCardThermal'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.classList.remove('active');
-  });
-
-  if (layout === 9) document.getElementById('layoutCard9').classList.add('active');
-  if (layout === 12) document.getElementById('layoutCard12').classList.add('active');
-  if (layout === 15) document.getElementById('layoutCard15').classList.add('active');
-  if (layout === 'thermal') document.getElementById('layoutCardThermal').classList.add('active');
-
-  const sheet = document.getElementById('bulkPreviewSheet');
-  if (sheet) {
-    sheet.className = `a4-preview-page ${layout === 'thermal' ? 'a4-thermal' : 'a4-grid-' + layout} theme-${State.bulkTheme}`;
-  }
-
-  State.bulkPage = 1;
-  updateBulkGenerator();
-}
-
-function setBulkTheme(theme) {
-  State.bulkTheme = theme;
-  const btnBw = document.getElementById('btnThemeBw');
-  const btnColor = document.getElementById('btnThemeColor');
-
-  if (btnBw) btnBw.className = 'btn-xs ' + (theme === 'bw' ? 'btn-primary' : 'btn-outline');
-  if (btnColor) btnColor.className = 'btn-xs ' + (theme === 'color' ? 'btn-primary' : 'btn-outline');
-
-  const sheet = document.getElementById('bulkPreviewSheet');
-  if (sheet) {
-    sheet.classList.remove('theme-bw', 'theme-color');
-    sheet.classList.add(`theme-${theme}`);
-  }
-
-  renderBulkPreview();
-}
-
-function updateBulkGenerator() {
-  const gpCode = document.getElementById('bulkGpSelect') ? document.getElementById('bulkGpSelect').value : '';
-  const wardNo = document.getElementById('bulkWardSelect') ? document.getElementById('bulkWardSelect').value : 'ALL';
-  const scope = document.getElementById('bulkDeliveryScope') ? document.getElementById('bulkDeliveryScope').value : 'PENDING';
-  const houseFilter = (document.getElementById('bulkHouseFilter') ? document.getElementById('bulkHouseFilter').value : '').trim().toLowerCase();
-
-  let voters = State.voters.filter(v => {
-    // Strictly skip deleted voters from bulk slips
-    if (v.status === 'निरस्त') return false;
-    if (gpCode && v.panchayat_code !== gpCode) return false;
-    if (wardNo !== 'ALL' && String(v.ward_no) !== String(wardNo)) return false;
-
-    if (scope === 'PENDING' && isVoterDelivered(v)) return false;
-    if (scope === 'DELIVERED' && !isVoterDelivered(v)) return false;
-
-    if (houseFilter) {
-      return String(v.house_no || '').toLowerCase() === houseFilter ||
-             (v.revenue_village || '').toLowerCase().includes(houseFilter);
-    }
-    return true;
-  });
-
-  // Sort by Ward, House, Serial
-  voters.sort((a, b) => {
-    if (a.ward_no !== b.ward_no) return a.ward_no - b.ward_no;
-    return (a.serial_no || 0) - (b.serial_no || 0);
-  });
-
-  State.bulkFilteredVoters = voters;
-
-  const slipsPerPage = State.bulkLayout === 'thermal' ? 5 : parseInt(State.bulkLayout, 10);
-  const totalPages = Math.max(1, Math.ceil(voters.length / slipsPerPage));
-  if (State.bulkPage > totalPages) State.bulkPage = totalPages;
-  if (State.bulkPage < 1) State.bulkPage = 1;
-
-  document.getElementById('bulkSelectedVoterCount').textContent = voters.length;
-  document.getElementById('bulkTotalPagesCount').textContent = totalPages;
-  document.getElementById('bulkPageIndicator').textContent = `पेज ${State.bulkPage} of ${totalPages}`;
-
-  renderBulkPreview();
-}
-
-function changeBulkPage(delta) {
-  const slipsPerPage = State.bulkLayout === 'thermal' ? 5 : parseInt(State.bulkLayout, 10);
-  const totalPages = Math.max(1, Math.ceil(State.bulkFilteredVoters.length / slipsPerPage));
-
-  State.bulkPage += delta;
-  if (State.bulkPage < 1) State.bulkPage = 1;
-  if (State.bulkPage > totalPages) State.bulkPage = totalPages;
-
-  document.getElementById('bulkPageIndicator').textContent = `पेज ${State.bulkPage} of ${totalPages}`;
-  renderBulkPreview();
-}
-
-/**
- * 100% CANDIDATE-FREE OFFICIAL SDM OFFICE VOTER INFORMATION SLIP (STRICT B&W)
- */
-function buildOfficialSlipHtml(voter, layout, theme) {
-  const isFemale = voter.gender === 'F';
-  const relLabel = voter.relative_relation || 'पिता/पति';
-
-  return `
-    <div class="official-mini-slip">
-      <div>
-        <!-- Slip Header -->
-        <div class="mini-slip-header">
-          <div class="mini-slip-gov-title" style="font-size: 7.5pt; font-weight: 800; color: #000000; letter-spacing: 0.5px;">मतदाता सूचना पर्ची (VOTER SLIP)</div>
-          <div style="font-size: 5.8pt; font-weight: 600; color: #333333;">पंचायती राज आम चुनाव - 2026 | भिनाय (अजमेर)</div>
-        </div>
-
-        <!-- GP, Ward & Serial Bar -->
-        <div class="mini-slip-subbar">
-          <span><strong>पं.:</strong> ${voter.gram_panchayat}</span>
-          <span><strong>वार्ड:</strong> ${voter.ward_no}</span>
-          <span class="mini-serial-box">क्र. ${voter.serial_no || '1'}</span>
-        </div>
-
-        <!-- Main Details -->
-        <div class="mini-details-table">
-          <div class="mini-detail-row">
-            <span class="mini-lbl">नाम:</span>
-            <span class="mini-val"><strong>${voter.voter_name}</strong> ${voter.voter_name_en ? `(${voter.voter_name_en})` : ''}</span>
-          </div>
-          <div class="mini-detail-row">
-            <span class="mini-lbl">${relLabel}:</span>
-            <span class="mini-val">${voter.relative_name || '-'}</span>
-          </div>
-          <div class="mini-detail-row">
-            <span class="mini-lbl">आयु/लिंग:</span>
-            <span class="mini-val">${voter.age} वर्ष, ${isFemale ? 'स्त्री' : 'पुरुष'}</span>
-          </div>
-          <div class="mini-detail-row">
-            <span class="mini-lbl">मकान:</span>
-            <span class="mini-val">${voter.house_no || '-'} (${voter.revenue_village || voter.gram_panchayat})</span>
-          </div>
-          <div class="mini-detail-row">
-            <span class="mini-lbl">पहचान क्र.:</span>
-            <span class="mini-val"><strong>${voter.epic_no || 'RJ/12/098/...'}</strong></span>
-          </div>
-        </div>
-
-        <!-- Polling Station Box -->
-        <div class="mini-booth-box">
-          <strong>मतदान केंद्र ${voter.polling_station_no || '1'}:</strong> ${voter.polling_station_name || 'राजकीय विद्यालय'}
-        </div>
-      </div>
-
-      <!-- Slip Footer -->
-      <div class="mini-slip-footer" style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #777; padding-top:2px;">
-        <span style="font-family:monospace; font-size:5.5pt; color:#222; font-weight:700;">वार्ड: ${voter.ward_no} • सरल क्र.: ${voter.serial_no}</span>
-        <span style="font-size:5.2pt; color:#444; font-weight:600;">*मतदान हेतु मूल पहचान पत्र अनिवार्य</span>
-      </div>
-    </div>
-  `;
-}
-
-function renderBulkPreview() {
-  const sheet = document.getElementById('bulkPreviewSheet');
-  if (!sheet) return;
-  sheet.innerHTML = '';
-
-  const voters = State.bulkFilteredVoters;
-  if (voters.length === 0) {
-    sheet.innerHTML = `
-      <div style="grid-column: 1 / -1; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:#64748b; font-weight:700;">
-        <span style="font-size:2rem; margin-bottom:0.5rem;">📄</span>
-        <span>इस चयन में प्रिंट करने हेतु कोई मतदाता शेष नहीं है।</span>
-      </div>
-    `;
-    return;
-  }
-
-  const slipsPerPage = State.bulkLayout === 'thermal' ? 5 : parseInt(State.bulkLayout, 10);
-  const startIndex = (State.bulkPage - 1) * slipsPerPage;
-  const pageVoters = voters.slice(startIndex, startIndex + slipsPerPage);
-
-  pageVoters.forEach(voter => {
-    sheet.insertAdjacentHTML('beforeend', buildOfficialSlipHtml(voter, State.bulkLayout, State.bulkTheme));
-  });
-}
-
-function printBulkSlips() {
-  if (!canUserPrint()) { alert('⚠️ पर्ची प्रिंट करने की अनुमति मुख्य व्यवस्थापक द्वारा वर्जित है!'); return; }
-  const voters = State.bulkFilteredVoters;
-  if (voters.length === 0) {
-    showToast('प्रिंट करने हेतु कोई मतदाता उपलब्ध नहीं है!');
-    return;
-  }
-
-  const printBox = document.getElementById('bulkPrintContainer');
-  printBox.innerHTML = '';
-
-  const slipsPerPage = State.bulkLayout === 'thermal' ? 5 : parseInt(State.bulkLayout, 10);
-  const totalPages = Math.ceil(voters.length / slipsPerPage);
-
-  for (let p = 0; p < totalPages; p++) {
-    const pageSheet = document.createElement('div');
-    pageSheet.className = 'print-page-sheet';
-
-    const pageVoters = voters.slice(p * slipsPerPage, (p + 1) * slipsPerPage);
-    pageVoters.forEach(voter => {
-      pageSheet.insertAdjacentHTML('beforeend', buildOfficialSlipHtml(voter, State.bulkLayout, State.bulkTheme));
-    });
-
-    printBox.appendChild(pageSheet);
-  }
-
-  document.body.className = `printing-bulk layout-${State.bulkLayout} theme-${State.bulkTheme}`;
-  window.print();
-  setTimeout(() => {
-    document.body.className = '';
-    printBox.innerHTML = '';
-  }, 1000);
-}
-
-function markCurrentBatchDelivered() {
-  const voters = State.bulkFilteredVoters;
-  if (voters.length === 0) {
-    showToast('चिन्हित करने हेतु कोई मतदाता सूची नहीं है।');
-    return;
-  }
-
-  voters.forEach(v => {
-    State.deliveryMap[getVoterKey(v)] = true;
-  });
-
-  localStorage.setItem('panchayat_slip_delivery_map', JSON.stringify(State.deliveryMap));
-  renderDashboard();
-  performSearch();
-  renderAlphabeticalList();
-  updateBulkGenerator();
-
-  showToast(`इस बैच के सभी ${voters.length} मतदाताओं की पर्चियाँ "वितरित" दर्ज की गईं!`);
-}
-
-// ==========================================================================
-// TAB 2: WARD-WISE VOTER DIRECTORY
-// ==========================================================================
-let currentWardVoters = [];
-
-async function onDirGpChanged() {
-  const gpCode = document.getElementById('dirGpSelect').value;
-  const wardSelect = document.getElementById('dirWardSelect');
-  if (!wardSelect) return;
-  wardSelect.innerHTML = '';
-
-  const gp = State.panchayats.find(p => p.code === gpCode);
-  if (gp) {
-    const wards = (gp.wards && gp.wards.length > 0) ? gp.wards : getGpWards(gp);
-    const allowedWards = getAllowedWardsList(gpCode);
-    wards.forEach(w => {
-      if (allowedWards === 'ALL' || allowedWards.includes(String(w.ward_no))) {
-        const opt = document.createElement('option');
-        opt.value = w.ward_no;
-        opt.textContent = `वार्ड संख्या ${w.ward_no} (${w.village || gp.name_hi})`;
-        wardSelect.appendChild(opt);
-      }
-    });
-
-    // Populate booth dropdown
-    const boothSelect = document.getElementById('dirBoothSelect');
-    if (boothSelect) {
-      boothSelect.innerHTML = '<option value="ALL">-- सभी मतदान केंद्र --</option>';
-      if (gp.booths) {
-        gp.booths.forEach(b => {
-          const opt = document.createElement('option');
-          opt.value = b.booth_no;
-          opt.textContent = `बूथ ${b.booth_no}: ${b.booth_name_hi}`;
-          boothSelect.appendChild(opt);
-        });
-      }
-    }
-  }
-
-  // Pre-load full voters for selected GP
-  await ensurePanchayatVotersLoaded(gpCode);
-  await loadWardVoters();
-}
-
-async function loadWardVoters() {
-  const gpCode = document.getElementById('dirGpSelect').value;
-  const wardNo = document.getElementById('dirWardSelect').value;
-
-  const gp = State.panchayats.find(p => p.code === gpCode);
-  if (!gp) return;
-
-  // Ensure full voters data loaded for this GP
-  await ensurePanchayatVotersLoaded(gpCode);
-
-  const wardInfo = gp.wards ? gp.wards.find(w => String(w.ward_no) === String(wardNo)) : null;
-
-  // Filter voters for this specific ward
-  currentWardVoters = State.voters.filter(
-    v => (v.panchayat_code === gpCode || v.panchayat_en === gp.name_en) && String(v.ward_no) === String(wardNo)
-  );
-
-  // If not yet in cache, fetch directly from Google Sheet Apps Script API
-  if (currentWardVoters.length === 0 && State.config.appsScriptUrl) {
-    try {
-      const resp = await fetch(`${State.config.appsScriptUrl}?action=getVoters&panchayat=${encodeURIComponent(gp.name_hi)}&ward=${wardNo}&limit=500`);
-      const data = await resp.json();
-      if (data && data.success && Array.isArray(data.voters) && data.voters.length > 0) {
-        data.voters.forEach(v => {
-          if (!v.panchayat_en) v.panchayat_en = gp.name_en;
-          if (!v.panchayat_code) v.panchayat_code = gp.code;
-        });
-        State.voters.push(...data.voters);
-        currentWardVoters = data.voters;
-      }
-    } catch (e) {
-      console.warn('Apps Script ward fetch warning:', e);
-    }
-  }
-
-  // Update Ward Info Bar
-  const infoBar = document.getElementById('wardInfoBar');
-  if (infoBar) infoBar.style.display = 'flex';
-
-  const maleCount = currentWardVoters.filter(v => v.gender === 'M').length;
-  const femaleCount = currentWardVoters.filter(v => v.gender === 'F').length;
-
-  document.getElementById('dirWardTotalVoters').textContent = wardInfo ? wardInfo.voters : currentWardVoters.length;
-  document.getElementById('dirWardMaleVoters').textContent = maleCount;
-  document.getElementById('dirWardFemaleVoters').textContent = femaleCount;
-  document.getElementById('dirWardVillageName').textContent = wardInfo ? wardInfo.village : gp.name_hi;
-
-  const defaultBooth = (gp.booths && gp.booths.length > 0) ? gp.booths[0].booth_name_hi : `राजकीय विद्यालय ${gp.name_hi}`;
-  document.getElementById('dirWardBoothName').textContent = defaultBooth;
-
-  renderDirectoryTable(currentWardVoters);
-}
-
-function filterWardByBooth() {
-  const boothNo = document.getElementById('dirBoothSelect').value;
-  if (boothNo === 'ALL') {
-    renderDirectoryTable(currentWardVoters);
-  } else {
-    const filtered = currentWardVoters.filter(v => String(v.polling_station_no) === String(boothNo));
-    renderDirectoryTable(filtered);
-  }
-}
-
-function filterDirectoryTable() {
-  const query = document.getElementById('dirTableSearch').value.toLowerCase().trim();
-  if (!query) {
-    renderDirectoryTable(currentWardVoters);
-    return;
-  }
-  const filtered = currentWardVoters.filter(v => 
-    (v.voter_name || '').toLowerCase().includes(query) ||
-    (v.relative_name || '').toLowerCase().includes(query) ||
-    (v.epic_no || '').toLowerCase().includes(query) ||
-    String(v.house_no || '') === query
-  );
-  renderDirectoryTable(filtered);
-}
-
-function renderDirectoryTable(votersList) {
-  const tbody = document.getElementById('directoryTableBody');
-  if (!tbody) return;
-  tbody.innerHTML = '';
-
-  if (votersList.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted py-4">इस वार्ड में कोई मतदाता रिकॉर्ड नहीं मिला।</td></tr>';
-    return;
-  }
-
-  votersList.forEach((voter, idx) => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><strong>${voter.serial_no || idx + 1}</strong></td>
-      <td>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <div class="voter-photo-box" style="width:36px; height:44px; border-radius:3px;">
-            <img src="${getVoterPhotoUrl(voter)}" alt="${voter.voter_name}" class="voter-card-photo" loading="lazy" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/identicon/svg?seed=' + encodeURIComponent(voter.epic_no || voter.serial_no || '1');" />
-          </div>
-          <div>
-            <strong>${voter.voter_name}</strong>
-            <div class="text-sm text-muted">${voter.voter_name_en || ''}</div>
-          </div>
-        </div>
-      </td>
-      <td>${voter.relative_relation || 'पिता'}: ${voter.relative_name || '-'}</td>
-      <td><strong>${voter.house_no || '-'}</strong></td>
-      <td>${voter.age} / ${voter.gender === 'F' ? '<span class="text-pink">F</span>' : '<span class="text-blue">M</span>'}</td>
-      <td><span class="slip-epic">${voter.epic_no || '-'}</span></td>
-      <td><span class="text-sm">${voter.polling_station_name || 'बूथ ' + voter.polling_station_no}</span></td>
-      <td class="text-center">
-        <button class="btn btn-outline btn-xs" onclick='openVoterSlipModal(${JSON.stringify(voter)})'>
-          📄 पर्ची
-        </button>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-function exportDirectoryToCSV() {
-  if (currentWardVoters.length === 0) {
-    showToast('एक्सपोर्ट करने हेतु कोई डाटा उपलब्ध नहीं है।');
-    return;
-  }
-
-  const gpCode = document.getElementById('dirGpSelect').value;
-  const wardNo = document.getElementById('dirWardSelect').value;
-
-  const headers = ["Serial_No", "Voter_Name", "Voter_Name_En", "Relation", "Relative_Name", "House_No", "Age", "Gender", "EPIC_No", "Ward_No", "Gram_Panchayat", "Polling_Station"];
-  const rows = currentWardVoters.map(v => [
-    v.serial_no,
-    `"${v.voter_name}"`,
-    `"${v.voter_name_en || ''}"`,
-    v.relative_relation,
-    `"${v.relative_name}"`,
-    v.house_no,
-    v.age,
-    v.gender,
-    v.epic_no,
-    v.ward_no,
-    `"${v.gram_panchayat}"`,
-    `"${v.polling_station_name}"`
-  ]);
-
-  const csvContent = "\uFEFF" + [headers.join(","), ...rows.map(r => r.join(","))].join("\r\n");
-  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.setAttribute("href", url);
-  a.setAttribute("download", `Voter_List_${gpCode}_Ward_${wardNo}.csv`);
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  showToast(`वार्ड ${wardNo} की मतदाता सूची CSV डाउनलोड प्रारंभ!`);
-}
-
-function printWardDirectory() {
-  document.body.classList.add('printing-ward-list');
-  window.print();
-  setTimeout(() => {
-    document.body.classList.remove('printing-ward-list');
-  }, 500);
-}
-
-// ==========================================================================
-// TAB 4: GOOGLE SHEETS INTEGRATION & SYNC ENGINE
-// ==========================================================================
-function saveSheetConfigAndSync() {
-  const adminUrl = document.getElementById('adminSheetUrlInput').value.trim();
-  const voterUrl = document.getElementById('voterSheetUrlInput').value.trim();
-
-  State.config.adminSheetUrl = adminUrl;
-  State.config.voterSheetUrl = voterUrl;
-
-  localStorage.setItem('panchayat_admin_sheet_url', adminUrl);
-  localStorage.setItem('panchayat_voter_sheet_url', voterUrl);
-
-  showToast('Google Sheet लिंक्स सहेजे गए। सिंक प्रक्रिया प्रारंभ हो रही है...');
-  syncWithGoogleSheet();
-}
-
-async function syncWithGoogleSheet(silent = false) {
-  let adminSyncCount = 0;
-  let voterSyncCount = 0;
-
-  if (State.config.adminSheetUrl) {
-    try {
-      const exportUrl = convertToExportCsvUrl(State.config.adminSheetUrl);
-      const res = await fetch(exportUrl);
-      if (res.ok) {
-        const text = await res.text();
-        const rows = parseCSV(text);
-        if (rows.length > 1) {
-          const newAdmins = [];
-          for (let i = 1; i < rows.length; i++) {
-            const r = rows[i];
-            if (r[1] && r[2]) {
-              newAdmins.push({
-                user_id: r[0] || `USR${i}`,
-                username: r[1],
-                password: r[2],
-                full_name: r[3] || r[1],
-                role: r[4] || 'BOOTH_AGENT',
-                panchayat_code: r[5] || 'ALL',
-                gram_panchayat: r[6] || '',
-                allowed_wards: r[7] || 'ALL',
-                phone: r[8] || '',
-                status: r[9] || 'ACTIVE'
-              });
-            }
-          }
-          if (newAdmins.length > 0) {
-            State.adminUsers = newAdmins;
-            localStorage.setItem('panchayat_admins_cache', JSON.stringify(newAdmins));
-            adminSyncCount = newAdmins.length;
-          }
-        }
-      }
-    } catch (e) {
-      console.warn('Admin Sheet Fetch Warning:', e);
-    }
-  }
-
-  if (State.config.voterSheetUrl) {
-    try {
-      const exportUrl = convertToExportCsvUrl(State.config.voterSheetUrl);
-      const res = await fetch(exportUrl);
-      if (res.ok) {
-        const text = await res.text();
-        const rows = parseCSV(text);
-        if (rows.length > 1) {
-          const newVoters = [];
-          for (let i = 1; i < rows.length; i++) {
-            const r = rows[i];
-            if (r[0] && r[7]) {
-              newVoters.push({
-                panchayat_code: r[0],
-                gram_panchayat: r[1] || '',
-                ward_no: parseInt(r[2], 10) || 1,
-                revenue_village: r[3] || '',
-                polling_station_no: parseInt(r[4], 10) || 1,
-                polling_station_name: r[5] || '',
-                serial_no: parseInt(r[6], 10) || i,
-                voter_name: r[7],
-                voter_name_en: r[8] || '',
-                relative_relation: r[9] || 'पिता',
-                relative_name: r[10] || '',
-                house_no: r[11] || '',
-                age: parseInt(r[12], 10) || 18,
-                gender: r[13] || 'M',
-                epic_no: r[14] || '',
-                section_part: r[15] || '1'
-              });
-            }
-          }
-          if (newVoters.length > 0) {
-            State.voters = newVoters;
-            localStorage.setItem('panchayat_voters_cache', JSON.stringify(newVoters));
-            voterSyncCount = newVoters.length;
-          }
-        }
-      }
-    } catch (e) {
-      console.warn('Voter Sheet Fetch Warning:', e);
-    }
-  }
-
-  renderDashboard();
-  performSearch();
-  renderAlphabeticalList();
-  updateBulkGenerator();
-
-  if (!silent) {
-    if (adminSyncCount > 0 || voterSyncCount > 0) {
-      showToast(`सिंक सफल! ${adminSyncCount} प्रभारियों व ${voterSyncCount} मतदाताओं का डेटा अद्यतन।`);
-    } else {
-      showToast('डेटा सिंक संपन्न (स्थानीय कैश डेटा सक्रिय है)।');
-    }
-  }
-}
-
-function convertToExportCsvUrl(url) {
-  if (url.includes('tqx=out:csv') || url.includes('/pub?output=csv')) {
-    return url;
-  }
-  const match = url.match(/\/d\/([a-zA-Z0-9-_]+)/);
-  if (match && match[1]) {
-    return `https://docs.google.com/spreadsheets/d/${match[1]}/export?format=csv`;
-  }
-  return url;
-}
-
-function parseCSV(text) {
-  const lines = text.split(/\r\n|\n/);
-  const rows = [];
-  for (let line of lines) {
-    if (!line.trim()) continue;
-    const row = [];
-    let insideQuotes = false;
-    let entry = '';
-    for (let i = 0; i < line.length; i++) {
-      const char = line[i];
-      if (char === '"') {
-        insideQuotes = !insideQuotes;
-      } else if (char === ',' && !insideQuotes) {
-        row.push(entry.trim());
-        entry = '';
-      } else {
-        entry += char;
-      }
-    }
-    row.push(entry.trim());
-    rows.push(row);
-  }
-  return rows;
-}
-
-function handleFileUpload(event) {
-  const file = event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    const content = e.target.result;
-    if (file.name.endsWith('.json')) {
-      try {
-        const parsed = JSON.parse(content);
-        if (Array.isArray(parsed)) {
-          State.voters = parsed;
-        } else if (parsed.voters) {
-          State.voters = parsed.voters;
-        }
-        localStorage.setItem('panchayat_voters_cache', JSON.stringify(State.voters));
-        showToast(`JSON से ${State.voters.length} मतदाता लोड किए गए!`);
-        performSearch();
-        renderAlphabeticalList();
-        updateBulkGenerator();
-      } catch (err) {
-        showToast('JSON फ़ाइल त्रुटि!');
-      }
-    } else if (file.name.endsWith('.csv')) {
-      const rows = parseCSV(content);
-      if (rows.length > 1) {
-        const newVoters = [];
-        for (let i = 1; i < rows.length; i++) {
-          const r = rows[i];
-          if (r[0] && r[7]) {
-            newVoters.push({
-              panchayat_code: r[0],
-              gram_panchayat: r[1] || '',
-              ward_no: parseInt(r[2], 10) || 1,
-              revenue_village: r[3] || '',
-              polling_station_no: parseInt(r[4], 10) || 1,
-              polling_station_name: r[5] || '',
-              serial_no: parseInt(r[6], 10) || i,
-              voter_name: r[7],
-              voter_name_en: r[8] || '',
-              relative_relation: r[9] || 'पिता',
-              relative_name: r[10] || '',
-              house_no: r[11] || '',
-              age: parseInt(r[12], 10) || 18,
-              gender: r[13] || 'M',
-              epic_no: r[14] || '',
-              section_part: r[15] || '1'
-            });
-          }
-        }
-        State.voters = newVoters;
-        localStorage.setItem('panchayat_voters_cache', JSON.stringify(State.voters));
-        showToast(`CSV से ${newVoters.length} मतदाता आयात किए गए!`);
-        performSearch();
-        renderAlphabeticalList();
-        updateBulkGenerator();
-      }
-    }
-  };
-  reader.readAsText(file);
-}
-
-function loadDefaultMasterData() {
-  if (window.MASTER_DATA) {
-    State.voters = window.MASTER_DATA.initial_voters || [];
-    State.adminUsers = window.MASTER_DATA.admin_users || [];
-    State.deletedVoters = window.MASTER_DATA.deleted_voters || [];
-    State.config.appsScriptUrl = localStorage.getItem('panchayat_apps_script_url') || 'https://script.google.com/macros/s/AKfycbzhZ-VdcGJ_nUuG40vm-MyMNJEnLfTgk3kBqyhi1OIefCgW9Smw0XweLTUd7D6o710lpA/exec';
-    const appsScriptInput = document.getElementById('appsScriptUrlInput');
-    if (appsScriptInput && State.config.appsScriptUrl) {
-      appsScriptInput.value = State.config.appsScriptUrl;
-    }
-    localStorage.removeItem('panchayat_voters_cache');
-    localStorage.removeItem('panchayat_admins_cache');
-    showToast('मूल 1,126+ मतदाताओं का मास्टर डेटा पुनर्स्थापित किया गया।');
-    performSearch();
-    renderAlphabeticalList();
-    updateBulkGenerator();
-  }
-}
-
-function renderAdminUsersTable() {
-  const tbody = document.getElementById('adminUsersTableBody');
-  if (!tbody) return;
-  tbody.innerHTML = '';
-
-  State.adminUsers.forEach(u => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td><code>${u.user_id}</code></td>
-      <td><strong>${u.username}</strong></td>
-      <td><code>${u.password}</code></td>
-      <td>${u.full_name}</td>
-      <td><strong>${u.panchayat_code}</strong></td>
-      <td>${u.gram_panchayat}</td>
-      <td><span class="text-sm">${u.allowed_wards}</span></td>
-      <td><span class="user-role-badge" style="background:#059669;">${u.status || 'ACTIVE'}</span></td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-function printFilteredResults() {
-  window.print();
-}
-
-function initUiElements() {
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeVoterSlipModal();
-    }
-  });
-}
-
-function showToast(message) {
-  const container = document.getElementById('toastContainer');
-  if (!container) return;
-
-  const toast = document.createElement('div');
-  toast.className = 'toast';
-  toast.innerHTML = `
-    <span>ℹ️</span>
-    <span>${message}</span>
-  `;
-
-  container.appendChild(toast);
-  setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transition = 'opacity 0.3s ease';
-    setTimeout(() => toast.remove(), 300);
-  }, 3500);
-}
-
-
-
-// ==========================================================================
-// SUPER ADMIN USER MANAGEMENT & GOOGLE APPS SCRIPT API INTEGRATION
-// ==========================================================================
-
-function renderSuperAdminUsers() {
-  const tbody = document.getElementById('superAdminUsersTableBody');
-  const box = document.getElementById('superAdminUserMgmtBox');
-  if (!tbody || !box) return;
-
-  // Only visible to SUPER_ADMIN
-  if (!State.currentUser || State.currentUser.role !== 'SUPER_ADMIN') {
-    box.style.display = 'none';
-    return;
-  }
-  box.style.display = 'block';
-
-  tbody.innerHTML = '';
-  if (!State.adminUsers || State.adminUsers.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" style="padding:15px; text-align:center; color:#64748b;">कोई उपयोगकर्ता उपलब्ध नहीं है।</td></tr>';
-    return;
-  }
-
-  State.adminUsers.forEach((user, idx) => {
-    const isAct = (user.status || 'ACTIVE').toUpperCase() === 'ACTIVE';
-    const tr = document.createElement('tr');
-    tr.style.borderBottom = '1px solid #f1f5f9';
-    tr.innerHTML = `
-      <td style="padding:8px 12px; font-weight:700; color:#1e293b;">${user.username}</td>
-      <td style="padding:8px 12px; font-family:monospace; color:#475569;">
-        <span style="background:#f1f5f9; padding:2px 6px; border-radius:3px;">${user.password}</span>
-      </td>
-      <td style="padding:8px 12px;">
-        <div style="font-weight:600;">${user.full_name || user.username}</div>
-        <div style="font-size:0.75rem; color:#64748b;">${user.mobile || user.phone || '-'}</div>
-      </td>
-      <td style="padding:8px 12px;">
-        <span style="font-size:0.75rem; font-weight:700; color:${user.role==='SUPER_ADMIN'?'#b91c1c':'#0369a1'}; background:${user.role==='SUPER_ADMIN'?'#fee2e2':'#e0f2fe'}; padding:2px 6px; border-radius:3px;">
-          ${user.role}
+        <span class="badge" style="background:#f0fdf4; color:#166534; border:1px solid #bbf7d0; font-size:0.8rem; font-weight:700;">
+          ${adm.scope}
         </span>
       </td>
-      <td style="padding:8px 12px; font-size:0.82rem;">${user.assigned_panchayats || user.panchayat_code || 'ALL'}</td>
-      <td style="padding:8px 12px; font-size:0.82rem;">${user.assigned_wards || user.allowed_wards || 'ALL'}</td>
-      <td style="padding:8px 12px; text-align:center;">
-        <button class="user-status-btn ${isAct ? 'active' : 'inactive'}" onclick="toggleUserStatus('${user.username}')">
-          ${isAct ? '🟢 सक्रिय (Active)' : '🔴 निष्क्रिय (Inactive)'}
-        </button>
-      </td>
-      <td style="padding:8px 12px; text-align:center;">
-        <div style="display:flex; justify-content:center; gap:4px; flex-wrap:wrap;">
-          <button class="action-btn-sm" onclick="openChangePasswordModal('${user.username}')" title="पासवर्ड बदलें">
-            🔑 पासवर्ड
-          </button>
-          <button class="action-btn-sm" onclick="promptChangeScope('${user.username}')" title="पंचायत व वार्ड अधिकार बदलें">
-            🛡️ अधिकार
-          </button>
+      <td>
+        <div class="d-flex align-items-center gap-1">
+          <input type="text" class="form-input form-input-sm" value="${pass}" id="pass_input_${aid}" onchange="quickUpdatePassword('${aid}', this.value)" style="width:75px; font-weight:700; height:30px; padding:2px 6px;">
+          <button type="button" class="btn btn-xs btn-outline-secondary" onclick="quickUpdatePassword('${aid}', document.getElementById('pass_input_${aid}').value)" title="सेव">💾</button>
         </div>
+      </td>
+      <td>
+        <div class="d-flex flex-wrap gap-1 align-items-center">
+          <label class="perm-check-item ${canSearch ? 'active' : ''}">
+            <input type="checkbox" ${canSearch ? 'checked' : ''} onchange="toggleUserPermission('${aid}', 'can_search', this.checked)">
+            <span>🔍 खोज</span>
+          </label>
+          <label class="perm-check-item ${canView ? 'active' : ''}">
+            <input type="checkbox" ${canView ? 'checked' : ''} onchange="toggleUserPermission('${aid}', 'can_view', this.checked)">
+            <span>📄 दर्शन</span>
+          </label>
+          <label class="perm-check-item ${canPrint ? 'active' : ''}">
+            <input type="checkbox" ${canPrint ? 'checked' : ''} onchange="toggleUserPermission('${aid}', 'can_print', this.checked)">
+            <span>🖨️ प्रिंट</span>
+          </label>
+          <label class="perm-check-item ${canDownload ? 'active' : ''}">
+            <input type="checkbox" ${canDownload ? 'checked' : ''} onchange="toggleUserPermission('${aid}', 'can_download', this.checked)">
+            <span>📥 डाउनलोड</span>
+          </label>
+        </div>
+      </td>
+      <td style="text-align:center;">
+        ${aid === 'admin' ? '<span class="badge" style="background:#fef3c7; color:#92400e; font-weight:800;">स्थायी सक्रिय</span>' : `
+          <button type="button" class="btn btn-xs ${isActive ? 'btn-success' : 'btn-danger'}" onclick="toggleUserStatus('${aid}')" style="font-weight:700; font-size:0.75rem; min-width:65px;">
+            ${isActive ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}
+          </button>
+        `}
+      </td>
+      <td style="text-align:center;">
+        <button type="button" class="btn btn-xs btn-outline-primary" onclick="resetUserPasswordToDefault('${aid}')" title="पासवर्ड 123 करें">🔄 123</button>
       </td>
     `;
     tbody.appendChild(tr);
   });
 }
 
-// Modal controls for Add User
-function openAddUserModal() {
-  const modal = document.getElementById('addUserModal');
-  const gpSelect = document.getElementById('newPanchayat');
-  if (gpSelect) {
-    gpSelect.innerHTML = '<option value="ALL">-- सभी 30 पंचायतें (ALL) --</option>';
-    State.panchayats.forEach(p => {
-      gpSelect.innerHTML += `<option value="${p.name_en}">${p.name_hi} (${p.name_en})</option>`;
-    });
-  }
-  if (modal) modal.style.display = 'flex';
-}
-
-function closeAddUserModal() {
-  const modal = document.getElementById('addUserModal');
-  if (modal) modal.style.display = 'none';
-}
-
-function handleCreateUser(e) {
-  e.preventDefault();
-  const username = document.getElementById('newUsername').value.trim();
-  const password = document.getElementById('newPassword').value.trim();
-  const fullName = document.getElementById('newFullName').value.trim();
-  const mobile = document.getElementById('newMobile').value.trim();
-  const role = document.getElementById('newRole').value;
-  const panchayat = document.getElementById('newPanchayat').value;
-  const wards = document.getElementById('newWards').value.trim() || 'ALL';
-
-  if (!username || !password) {
-    showToast('कृपया यूजरनेम व पासवर्ड दर्ज करें!');
-    return;
-  }
-
-  const newUser = {
-    user_id: `USR${State.adminUsers.length + 1}`,
-    username: username,
-    password: password,
-    full_name: fullName,
-    mobile: mobile,
-    role: role,
-    assigned_panchayats: panchayat,
-    assigned_wards: wards,
-    status: 'ACTIVE',
-    created_at: new Date().toISOString()
-  };
-
-  State.adminUsers.push(newUser);
-  localStorage.setItem('panchayat_admins_cache', JSON.stringify(State.adminUsers));
-  renderSuperAdminUsers();
-  closeAddUserModal();
-  showToast(`नया यूजर '${username}' जोड़ा गया।`);
-
-  // Sync to Google Sheet Apps Script if connected
-  postToAppsScript({
-    action: 'addUser',
-    userData: newUser,
-    adminUsername: State.currentUser.username
-  });
-}
-
-// Password Change
-function openChangePasswordModal(username) {
-  const modal = document.getElementById('changePasswordModal');
-  document.getElementById('cpUsername').value = username;
-  document.getElementById('cpNewPassword').value = '';
-  if (modal) modal.style.display = 'flex';
-}
-
-function closeChangePasswordModal() {
-  const modal = document.getElementById('changePasswordModal');
-  if (modal) modal.style.display = 'none';
-}
-
-function confirmPasswordChange() {
-  const username = document.getElementById('cpUsername').value;
-  const newPassword = document.getElementById('cpNewPassword').value.trim();
-
-  if (!newPassword) {
-    showToast('कृपया नया पासवर्ड दर्ज करें!');
-    return;
-  }
-
-  const u = State.adminUsers.find(x => x.username.toLowerCase() === username.toLowerCase());
-  if (u) {
-    u.password = newPassword;
-    localStorage.setItem('panchayat_admins_cache', JSON.stringify(State.adminUsers));
-    renderSuperAdminUsers();
-    closeChangePasswordModal();
-    showToast(`'${username}' का पासवर्ड सफलतापूर्वक बदला गया!`);
-
-    postToAppsScript({
-      action: 'updatePassword',
-      username: username,
-      newPassword: newPassword,
-      adminUsername: State.currentUser.username
-    });
-  }
-}
-
-// Scope Change
-function promptChangeScope(username) {
-  const u = State.adminUsers.find(x => x.username.toLowerCase() === username.toLowerCase());
-  if (!u) return;
-
-  const newGp = prompt(`उपयोगकर्ता '${username}' के लिए आवंटित पंचायत दर्ज करें (उदा. Sobdi, Bhinay, या ALL):`, u.assigned_panchayats || u.panchayat_code || 'ALL');
-  if (newGp === null) return;
-
-  const newWards = prompt(`उपयोगकर्ता '${username}' के लिए आवंटित वार्ड दर्ज करें (उदा. 1,2,3 या ALL):`, u.assigned_wards || u.allowed_wards || 'ALL');
-  if (newWards === null) return;
-
-  u.assigned_panchayats = newGp.trim();
-  u.assigned_wards = newWards.trim();
-  localStorage.setItem('panchayat_admins_cache', JSON.stringify(State.adminUsers));
-  renderSuperAdminUsers();
-  showToast(`'${username}' के अधिकार अपडेट कर दिए गए!`);
-
-  postToAppsScript({
-    action: 'updateUserScope',
-    username: username,
-    assignedPanchayats: newGp.trim(),
-    assignedWards: newWards.trim(),
-    adminUsername: State.currentUser.username
-  });
-}
-
-// Toggle Status
-function toggleUserStatus(username) {
-  const u = State.adminUsers.find(x => x.username.toLowerCase() === username.toLowerCase());
-  if (!u) return;
-
-  const cur = (u.status || 'ACTIVE').toUpperCase();
-  const next = cur === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
-  u.status = next;
-  localStorage.setItem('panchayat_admins_cache', JSON.stringify(State.adminUsers));
-  renderSuperAdminUsers();
-  showToast(`'${username}' को ${next === 'ACTIVE' ? 'सक्रिय (Active)' : 'निष्क्रिय (Inactive)'} किया गया!`);
-
-  postToAppsScript({
-    action: 'toggleUserStatus',
-    username: username,
-    status: next,
-    adminUsername: State.currentUser.username
-  });
-}
-
-// Google Apps Script Connectivity
-function saveAppsScriptUrlAndSync() {
-  const input = document.getElementById('appsScriptUrlInput');
-  const url = input ? input.value.trim() : '';
-
-  if (!url) {
-    showToast('कृपया मान्य Google Apps Script Web App URL दर्ज करें!');
-    return;
-  }
-
-  State.config.appsScriptUrl = url;
-  localStorage.setItem('panchayat_apps_script_url', url);
-  showToast('Google Apps Script URL सहेजा गया। कनेक्शन जाँचा जा रहा है...');
-  testAppsScriptPing();
-}
-
-async function testAppsScriptPing() {
-  const url = State.config.appsScriptUrl || localStorage.getItem('panchayat_apps_script_url');
-  if (!url) {
-    showToast('⚠️ पहले Google Apps Script Web App URL दर्ज करें!');
-    return;
-  }
-
-  try {
-    const res = await fetch(`${url}?action=ping`);
-    const data = await res.json();
-    if (data && data.success) {
-      showToast(`✅ Apps Script कनेक्शन सफल: ${data.message}`);
-      syncUsersWithAppsScript();
-    } else {
-      showToast('⚠️ Apps Script से अमान्य उत्तर प्राप्त हुआ।');
-    }
-  } catch (err) {
-    showToast(`⚠️ कनेक्शन त्रुटि: ${err.message}`);
-  }
-}
-
-async function syncUsersWithAppsScript() {
-  const url = State.config.appsScriptUrl || localStorage.getItem('panchayat_apps_script_url');
-  if (!url) return;
-
-  try {
-    const res = await fetch(`${url}?action=getUsers`);
-    const data = await res.json();
-    if (data && data.success && data.users && data.users.length > 0) {
-      State.adminUsers = data.users.map(u => ({
-        username: u.username,
-        password: u.password,
-        full_name: u.fullName || u.username,
-        mobile: u.mobile || '',
-        role: u.role || 'PANCHAYAT_AGENT',
-        assigned_panchayats: u.assignedPanchayats || 'ALL',
-        assigned_wards: u.assignedWards || 'ALL',
-        status: u.status || 'ACTIVE'
-      }));
-      localStorage.setItem('panchayat_admins_cache', JSON.stringify(State.adminUsers));
-      renderSuperAdminUsers();
-      showToast(`Google Sheet से ${State.adminUsers.length} उपयोगकर्ताओं का डेटा लाइव सिंक हो गया!`);
-    }
-  } catch (e) {
-    console.warn('Apps Script Users Sync Warning:', e);
-  }
-}
-
-async function postToAppsScript(payload) {
-  const url = State.config.appsScriptUrl || localStorage.getItem('panchayat_apps_script_url');
-  if (!url) return;
-
-  try {
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payload)
-    });
-    const data = await res.json();
-    if (data && data.success) {
-      showToast(`☁️ Google Sheet अपडेट: ${data.message || 'सफलतापूर्वक सहेजा गया'}`);
-    }
-  } catch (err) {
-    console.warn('Apps Script POST Warning:', err);
-  }
-}
-
-// Hook renderSuperAdminUsers into switchTab
-const origSwitchTab = window.switchTab;
-window.switchTab = function(tabId) {
-  if (origSwitchTab) origSwitchTab(tabId);
-  if (tabId === 'settingsTab') {
-    renderSuperAdminUsers();
-  }
-};
-
-
-// ==========================================================================
-// Active Users Login Dropdown & Live Auth Sync
-// ==========================================================================
-function populateLoginUserDropdown() {
-  const select = document.getElementById('gatekeeperUserSelect');
-  if (!select) return;
-
-  const currentVal = select.value || '';
-  select.innerHTML = '<option value="">-- कृपया अपना अधिकृत खाता चुनें --</option>';
-
-  // 1. Super Admins
-  const grpAdmin = document.createElement('optgroup');
-  grpAdmin.label = '⚡ भिनाय ब्लॉक व्यवस्थापक / सुपर एडमिन';
-  grpAdmin.innerHTML = `
-    <option value="admin">मुख्य व्यवस्थापक (admin) [पासवर्ड: 123]</option>
-    <option value="superadmin">भिनाय ब्लॉक मुख्य व्यवस्थापक (superadmin) [पासवर्ड: admin123]</option>
-  `;
-  select.appendChild(grpAdmin);
-
-  // 2. Block Prabhari
-  const grpBp = document.createElement('optgroup');
-  grpBp.label = '🌟 ब्लॉक प्रभारी (समस्त 30 ग्राम पंचायतें पूर्ण एक्सेस)';
-  grpBp.innerHTML = `
-    <option value="block_prabhari">🌟 श्री सुरेश चन्द्र जांगिड - शिक्षक (ब्लॉक प्रभारी) [पासवर्ड: BHINAI123]</option>
-  `;
-  select.appendChild(grpBp);
-
-  // 3. Panchayat Agents (30 GPs)
-  const grpAgents = document.createElement('optgroup');
-  grpAgents.label = '🏛️ ग्राम पंचायत प्रभारी व प्रत्याशी (30 ग्राम पंचायतें)';
-  (State.adminUsers || []).filter(u => u.role !== 'SUPER_ADMIN' && u.role !== 'BLOCK_PRABHARI').forEach(u => {
-    const opt = document.createElement('option');
-    opt.value = u.username;
-    const gp = u.assigned_panchayats || u.assignedPanchayats || '';
-    opt.textContent = `${u.full_name || u.fullName || u.username} ${gp ? '[' + gp + ']' : ''} (${u.username})`;
-    grpAgents.appendChild(opt);
-  });
-  select.appendChild(grpAgents);
-
-  // 4. Election Cell Officers
-  const dir = getMasterDirectory();
-  if (dir && dir.cell_personnel && dir.cell_personnel.length > 0) {
-    const grpCell = document.createElement('optgroup');
-    grpCell.label = '🏢 चुनाव प्रकोष्ठ प्रभारी (Election Cell Officers)';
-    dir.cell_personnel.slice(0, 10).forEach(cp => {
-      const opt = document.createElement('option');
-      opt.value = cp.username || cp.id;
-      opt.textContent = `[${cp.cell_name || 'प्रकोष्ठ'}] ${cp.name} - ${cp.designation}`;
-      grpCell.appendChild(opt);
-    });
-    select.appendChild(grpCell);
-  }
-
-  if (currentVal) {
-    select.value = currentVal;
-    const hu = document.getElementById('gatekeeperUsername');
-    if (hu) hu.value = currentVal;
-  }
-}
-
-function onLoginUserSelectChange(username) {
-  const hu = document.getElementById('gatekeeperUsername');
-  if (hu) hu.value = username;
-
-  const hint = document.getElementById('defaultPassHint');
-  if (hint) {
-    if (username === 'block_prabhari' || username === 'suresh_jangid') {
-      hint.textContent = 'पासवर्ड: BHINAI123';
-      hint.style.color = '#0f766e';
-    } else if (username === 'admin') {
-      hint.textContent = 'डिफ़ॉल्ट: 123';
-      hint.style.color = '#b45309';
-    } else if (username.includes('_agent')) {
-      hint.textContent = `डिफ़ॉल्ट: ${username.replace('_agent', '')}@123`;
-      hint.style.color = '#2563eb';
-    } else {
-      hint.textContent = 'डिफ़ॉल्ट: 123';
-      hint.style.color = '#047857';
-    }
-  }
-
-  const passInput = document.getElementById('gatekeeperPassword');
-  if (passInput) passInput.focus();
-}
-
-function onManualUsernameInput(val) {
-  const hu = document.getElementById('gatekeeperUsername');
-  if (hu) hu.value = val.trim();
-}
-
-function toggleManualUsername() {
-  const mDiv = document.getElementById('manualUsernameDiv');
-  const sDiv = document.getElementById('userSelectWrapper');
-  const tBtn = document.getElementById('toggleManualUserBtn');
-  if (!mDiv || !sDiv) return;
-
-  if (mDiv.style.display === 'none') {
-    mDiv.style.display = 'block';
-    sDiv.style.display = 'none';
-    tBtn.textContent = 'वापस सूची से चुनें (Select from list)';
-    document.getElementById('manualUsernameInput')?.focus();
-  } else {
-    mDiv.style.display = 'none';
-    sDiv.style.display = 'flex';
-    tBtn.textContent = 'या मैन्युअल टाइप करें';
-    const s = document.getElementById('gatekeeperUserSelect');
-    if (s && s.value) {
-      document.getElementById('gatekeeperUsername').value = s.value;
-    }
-  }
-}
-
-function onLoginUserSelectChange(username) {
-  const hiddenUser = document.getElementById('gatekeeperUsername');
-  if (hiddenUser) hiddenUser.value = username;
-
-  const errorMsg = document.getElementById('gatekeeperError');
-  if (errorMsg) errorMsg.style.display = 'none';
-
-  if (username) {
-    const passInput = document.getElementById('gatekeeperPassword');
-    if (passInput) passInput.focus();
-  }
-}
-
-function toggleManualUsername() {
-  const manualDiv = document.getElementById('manualUsernameDiv');
-  const selectWrapper = document.getElementById('userSelectWrapper');
-  const toggleBtn = document.getElementById('toggleManualUserBtn');
-  const manualInput = document.getElementById('manualUsernameInput');
-
-  if (!manualDiv) return;
-
-  if (manualDiv.style.display === 'none') {
-    manualDiv.style.display = 'block';
-    selectWrapper.style.display = 'none';
-    toggleBtn.textContent = 'वापस सूची से चुनें (Select from list)';
-    if (manualInput) manualInput.focus();
-  } else {
-    manualDiv.style.display = 'none';
-    selectWrapper.style.display = 'flex';
-    toggleBtn.textContent = 'या मैन्युअल टाइप करें';
-    const select = document.getElementById('gatekeeperUserSelect');
-    if (select && select.value) {
-      document.getElementById('gatekeeperUsername').value = select.value;
-    }
-  }
-}
-
-function onManualUsernameInput(val) {
-  const hiddenUser = document.getElementById('gatekeeperUsername');
-  if (hiddenUser) hiddenUser.value = val.trim();
-}
-
-async function syncLatestActiveUsersFromAppsScript() {
-  const url = State.config.appsScriptUrl || localStorage.getItem('panchayat_apps_script_url');
-  if (!url) return;
-
-  try {
-    const res = await fetch(`${url}?action=getUsers`);
-    const data = await res.json();
-    if (data && data.success && Array.isArray(data.users) && data.users.length > 0) {
-      State.adminUsers = data.users.map(u => ({
-        user_id: u.userId || u.user_id || `USR${u.rowIndex || ''}`,
-        username: u.username,
-        password: u.password,
-        full_name: u.fullName || u.full_name || u.username,
-        fullName: u.fullName || u.full_name || u.username,
-        mobile: u.mobile || '',
-        role: u.role || 'PANCHAYAT_AGENT',
-        assigned_panchayats: u.assignedPanchayats || u.assigned_panchayats || 'ALL',
-        assignedPanchayats: u.assignedPanchayats || u.assigned_panchayats || 'ALL',
-        assigned_wards: u.assignedWards || u.assigned_wards || 'ALL',
-        assignedWards: u.assignedWards || u.assigned_wards || 'ALL',
-        status: (u.status || 'ACTIVE').toUpperCase(),
-        created_at: u.createdAt || u.created_at || ''
-      }));
-      localStorage.setItem('panchayat_admins_cache', JSON.stringify(State.adminUsers));
-      populateLoginUserDropdown();
-      if (document.getElementById('superAdminUsersTable')) {
-        renderSuperAdminUsers();
-      }
-    }
-  } catch (err) {
-    console.warn('Silent sync of active users warning:', err);
-  }
-}
-
-
-// ==========================================================================
-// DEDICATED COMPACT SINGLE-ROW VOTER LIST PRINT ENGINE (PAPER SAVER)
-// ==========================================================================
-let currentPrintListContext = 'search';
-
-function openPrintVoterListModal(context = 'search') {
-  currentPrintListContext = context;
-  const modal = document.getElementById('printVoterListModal');
-  const scopeTitle = document.getElementById('printModalScopeTitle');
-  const scopeDesc = document.getElementById('printModalScopeDesc');
-  const scopeGroup = document.getElementById('printScopeGroup');
-
-  let count = 0;
-  let label = '';
-  let gpName = '';
-
-  if (context === 'search') {
-    const list = State.filteredVoters && State.filteredVoters.length > 0 ? State.filteredVoters : State.voters;
-    count = list.length;
-    label = 'खोज परिणाम (Search Results)';
-    if (scopeGroup) scopeGroup.style.display = 'block';
-  } else if (context === 'directory') {
-    const gpCode = document.getElementById('dirGpSelect') ? document.getElementById('dirGpSelect').value : '';
-    const wardNo = document.getElementById('dirWardSelect') ? document.getElementById('dirWardSelect').value : '';
-    const gp = State.panchayats.find(p => p.code === gpCode);
-    gpName = gp ? gp.name : gpCode;
-    const list = State.voters.filter(v => (!gpCode || v.panchayat_code === gpCode) && (!wardNo || String(v.ward_no) === String(wardNo)));
-    count = list.length;
-    label = `वार्ड नामावली (${gpName} - वार्ड ${wardNo || 'समस्त'})`;
-    if (scopeGroup) scopeGroup.style.display = 'block';
-  } else if (context === 'alpha') {
-    count = State.alphaFilteredVoters ? State.alphaFilteredVoters.length : State.voters.length;
-    label = 'वर्णमाला नामावली (Alphabetical Roll)';
-    if (scopeGroup) scopeGroup.style.display = 'none';
-  }
-
-  if (scopeTitle) scopeTitle.textContent = label;
-  if (scopeDesc) scopeDesc.textContent = `कुल मुद्रण योग्य मतदाता: ${count.toLocaleString('en-IN')}`;
-
-  if (modal) {
-    modal.style.display = 'flex';
-  }
-}
-
-function closePrintListModal() {
-  const modal = document.getElementById('printVoterListModal');
-  if (modal) modal.style.display = 'none';
-}
-
-function confirmExecuteVoterListPrint() {
-  const sortModeEl = document.querySelector('input[name="printSortOrder"]:checked');
-  const sortMode = sortModeEl ? sortModeEl.value : 'serial';
-  
-  const scopeEl = document.querySelector('input[name="printScope"]:checked');
-  const scope = scopeEl ? scopeEl.value : 'current';
-
-  closePrintListModal();
-  executeVoterListPrint(sortMode, scope, currentPrintListContext);
-}
-
-function executeVoterListPrint(sortMode, scope, context) {
-  let list = [];
-  let gpName = '';
-  let wardText = '';
-
-  if (context === 'search') {
-    list = State.filteredVoters && State.filteredVoters.length > 0 ? [...State.filteredVoters] : [...State.voters];
-    if (scope === 'all_wards') {
-      const activeGp = list.length > 0 ? list[0].panchayat_code : '';
-      if (activeGp) {
-        list = State.voters.filter(v => v.panchayat_code === activeGp);
-      }
-    }
-  } else if (context === 'directory') {
-    const gpCode = document.getElementById('dirGpSelect') ? document.getElementById('dirGpSelect').value : '';
-    const wardNo = document.getElementById('dirWardSelect') ? document.getElementById('dirWardSelect').value : '';
-    const gp = State.panchayats.find(p => p.code === gpCode);
-    gpName = gp ? gp.name : gpCode;
-    
-    if (scope === 'all_wards') {
-      list = State.voters.filter(v => !gpCode || v.panchayat_code === gpCode);
-      wardText = 'समस्त वार्ड (All Wards)';
-    } else {
-      list = State.voters.filter(v => (!gpCode || v.panchayat_code === gpCode) && (!wardNo || String(v.ward_no) === String(wardNo)));
-      wardText = wardNo ? `वार्ड संख्या ${wardNo}` : 'समस्त वार्ड';
-    }
-  } else if (context === 'alpha') {
-    list = State.alphaFilteredVoters && State.alphaFilteredVoters.length > 0 ? [...State.alphaFilteredVoters] : [...State.voters];
-  }
-
-  if (list.length === 0) {
-    showToast('प्रिंट करने हेतु कोई मतदाता उपलब्ध नहीं है!');
-    return;
-  }
-
-  // Derive GP and Ward info if not set
-  if (!gpName && list.length > 0) {
-    gpName = list[0].gram_panchayat || list[0].panchayat_code;
-  }
-  if (!wardText && list.length > 0) {
-    const wards = Array.from(new Set(list.map(v => v.ward_no))).sort((a,b) => Number(a)-Number(b));
-    wardText = wards.length === 1 ? `वार्ड संख्या ${wards[0]}` : `वार्ड ${wards.join(', ')}`;
-  }
-
-  // SORTING
-  let orderLabel = '';
-  if (sortMode === 'alpha') {
-    orderLabel = 'अंग्रेजी वर्णानुक्रम (Alphabetical A-Z)';
-    list.sort((a, b) => {
-      const nameA = (a.voter_name_en || a.voter_name || '').toLowerCase();
-      const nameB = (b.voter_name_en || b.voter_name || '').toLowerCase();
-      return nameA.localeCompare(nameB);
-    });
-  } else {
-    orderLabel = 'क्रमांक वार (Serial / Ward Order)';
-    list.sort((a, b) => {
-      const wA = Number(a.ward_no || 0);
-      const wB = Number(b.ward_no || 0);
-      if (wA !== wB) return wA - wB;
-      const sA = Number(a.serial_no || 0);
-      const sB = Number(b.serial_no || 0);
-      return sA - sB;
-    });
-  }
-
-  const printBox = document.getElementById('voterListPrintContainer');
-  if (!printBox) return;
-  printBox.innerHTML = '';
-
-  // Fit 42 voters per A4 page strictly
-  const rowsPerPage = 42;
-  const totalPages = Math.ceil(list.length / rowsPerPage);
-
-  for (let p = 0; p < totalPages; p++) {
-    const pageVoters = list.slice(p * rowsPerPage, (p + 1) * rowsPerPage);
-    const pageDiv = document.createElement('div');
-    pageDiv.className = 'voter-list-print-page';
-
-    let tableRows = '';
-    pageVoters.forEach((v, idx) => {
-      const overallIdx = p * rowsPerPage + idx + 1;
-      const isFemale = v.gender === 'F';
-      const enVoter = v.voter_name_en ? `<span class="en-sub">(${v.voter_name_en})</span>` : '';
-      const enRel = v.relative_name_en ? `<span class="en-sub">(${v.relative_name_en})</span>` : '';
-
-      tableRows += `
-        <tr>
-          <td class="col-sn">${overallIdx}</td>
-          <td class="col-ward">${v.ward_no}</td>
-          <td class="col-serial">${v.serial_no}</td>
-          <td class="col-name">${v.voter_name} ${enVoter}</td>
-          <td class="col-rel">${v.relative_name || '-'} ${enRel}</td>
-          <td class="col-house">${v.house_no || '-'}</td>
-          <td class="col-age">${v.age}</td>
-          <td class="col-gender">${isFemale ? 'स्त्री' : 'पुरुष'}</td>
-          <td class="col-epic">${v.epic_no || '-'}</td>
-          <td class="col-sign"></td>
-        </tr>
-      `;
-    });
-
-    pageDiv.innerHTML = `
-      <div class="voter-list-print-header">
-        <div class="header-main-title">
-          🗳️ मतदाता नामावली - पंचायत आम चुनाव 2026
-        </div>
-        <div class="header-meta-items">
-          <span><strong>पं.:</strong> ${gpName}</span>
-          <span><strong>${wardText}</strong></span>
-          <span><strong>क्रम:</strong> ${orderLabel}</span>
-          <span><strong>कुल:</strong> ${list.length}</span>
-          <span style="background:#0f172a; color:#fff; padding:1px 6px; border-radius:3px;">पृष्ठ ${p + 1} / ${totalPages}</span>
-        </div>
-      </div>
-      <table class="voter-list-print-table">
-        <thead>
-          <tr>
-            <th class="col-sn">क्र.</th>
-            <th class="col-ward">वार्ड</th>
-            <th class="col-serial">म.क्र.</th>
-            <th class="col-name">मतदाता का नाम</th>
-            <th class="col-rel">पिता / पति का नाम</th>
-            <th class="col-house">म.सं.</th>
-            <th class="col-age">आयु</th>
-            <th class="col-gender">लिंग</th>
-            <th class="col-epic">पहचान पत्र (EPIC)</th>
-            <th class="col-sign">हस्ताक्षर / रिमार्क</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${tableRows}
-        </tbody>
-      </table>
-    `;
-
-    printBox.appendChild(pageDiv);
-  }
-
-  document.body.classList.add('printing-voter-list');
-  window.print();
-
-  setTimeout(() => {
-    document.body.classList.remove('printing-voter-list');
-    printBox.innerHTML = '';
-  }, 1000);
-}
-
-function printFilteredResults() {
-  openPrintVoterListModal('search');
-}
-
-function printWardDirectory() {
-  openPrintVoterListModal('directory');
-}
-
-
-// Bulk Sort Order Toggle
-State.bulkSortOrder = 'serial';
-
-function setBulkSortOrder(order) {
-  State.bulkSortOrder = order;
-  const sBtn = document.getElementById('bulkSortSerialBtn');
-  const aBtn = document.getElementById('bulkSortAlphaBtn');
-  if (sBtn && aBtn) {
-    if (order === 'alpha') {
-      aBtn.className = 'btn btn-sm btn-primary';
-      sBtn.className = 'btn btn-sm btn-outline';
-    } else {
-      sBtn.className = 'btn btn-sm btn-primary';
-      aBtn.className = 'btn btn-sm btn-outline';
-    }
-  }
-  updateBulkGenerator();
-}
-
-// Populate Booth Dropdown in Alpha Tab
-function populateAlphaBoothDropdown(gpCode) {
-  const select = document.getElementById('alphaBoothSelect');
-  if (!select) return;
-  select.innerHTML = '<option value="ALL">-- सभी बूथ (All Booths) --</option>';
-  if (!gpCode || gpCode === 'ALL') return;
-
-  const gpObj = State.panchayats.find(p => p.code === gpCode || p.name === gpCode);
-  const gpName = gpObj ? gpObj.name : gpCode;
-  const booths = (window.MASTER_DATA && window.MASTER_DATA.polling_booths) || [];
-  const gpBooths = booths.filter(b => b.gp.toLowerCase() === gpName.toLowerCase() || (gpObj && b.gp.toLowerCase() === (gpObj.enName||'').toLowerCase()));
-
-  gpBooths.forEach(b => {
-    const opt = document.createElement('option');
-    opt.value = b.booth_no;
-    opt.textContent = `बूथ ${b.booth_no}: ${b.name} (वार्ड ${b.wards.join(', ')})`;
-    select.appendChild(opt);
-  });
-}
-
-function onAlphaBoothChanged() {
-  const bVal = document.getElementById('alphaBoothSelect').value;
-  if (bVal === 'ALL') {
-    renderAlphabeticalList();
-    return;
-  }
-  const booths = (window.MASTER_DATA && window.MASTER_DATA.polling_booths) || [];
-  const targetBooth = booths.find(b => String(b.booth_no) === String(bVal));
-  if (!targetBooth) {
-    renderAlphabeticalList();
-    return;
-  }
-
-  // Filter alpha voters by booth's wards
-  const wards = targetBooth.wards;
-  State.alphaFilteredVoters = State.voters.filter(v => wards.includes(Number(v.ward_no)));
-  renderAlphaVotersTable(State.alphaFilteredVoters);
-}
-
-
-// ==========================================================================
-// CANDIDATE PROFILE & OFFICIAL ELECTION SYMBOL ENGINE
-// ==========================================================================
-
-function initCandidateProfileTab() {
-  const gpSelect = document.getElementById('candidateGpSelect');
-  if (gpSelect && State.panchayats && gpSelect.options.length <= 1) {
-    gpSelect.innerHTML = '<option value="">-- ग्राम पंचायत चुनें --</option>';
-    State.panchayats.forEach(gp => {
-      const opt = document.createElement('option');
-      opt.value = gp.name;
-      opt.textContent = `${gp.name} (${gp.name_en})`;
-      gpSelect.appendChild(opt);
-    });
-  }
-
-  // Populate Symbols dropdown and mini-grid
-  populateSymbolControls();
-
-  // Populate with existing candidate details if available
-  const u = State.currentUser;
-  if (!u) return;
-
-  // Check if candidate profile exists
-  let cand = State.currentCandidate;
-  if (!cand) {
-    const cached = localStorage.getItem('candidate_profile_' + (u.id || u.username));
-    if (cached) {
-      try { cand = JSON.parse(cached); State.currentCandidate = cand; } catch(e) {}
-    }
-  }
-
-  const nameInput = document.getElementById('candidateNameInput');
-  const mobileInput = document.getElementById('candidateMobileInput');
-  const postSelect = document.getElementById('candidatePostSelect');
-  const sloganText = document.getElementById('candidateSloganTextarea');
-  const photoPreview = document.getElementById('candidatePhotoPreview');
-  const showBannerCheck = document.getElementById('candidateShowBannerSlip');
-
-  if (cand) {
-    if (nameInput) nameInput.value = cand.candidate_name || '';
-    if (mobileInput) mobileInput.value = cand.mobile || u.mobile || '';
-    if (postSelect) postSelect.value = cand.post || 'सरपंच';
-    if (gpSelect && cand.panchayat) gpSelect.value = cand.panchayat;
-    if (sloganText) sloganText.value = cand.slogan || '';
-    if (photoPreview && cand.photo_url) photoPreview.src = cand.photo_url;
-    if (showBannerCheck) showBannerCheck.checked = (cand.show_banner_on_slip !== false);
-
-    onCandidatePostChanged(cand.post || 'सरपंच');
-    if (cand.ward) {
-      const wardSelect = document.getElementById('candidateWardSelect');
-      if (wardSelect) wardSelect.value = cand.ward;
-    }
-    if (cand.symbol_name) onCandidateSymbolChanged(cand.symbol_name);
-  } else {
-    // Default prefill
-    if (nameInput) nameInput.value = u.full_name || '';
-    if (mobileInput) mobileInput.value = u.mobile || '';
-    if (gpSelect && u.allowed_panchayats && u.allowed_panchayats !== 'ALL') {
-      gpSelect.value = u.allowed_panchayats;
-    }
-    applySloganPreset(1);
-  }
-
-  renderLiveSpecimenSlip();
-}
-
-function populateSymbolControls() {
-  const symbols = window.OFFICIAL_ELECTION_SYMBOLS || [];
-  const select = document.getElementById('candidateSymbolSelect');
-  const grid = document.getElementById('symbolMiniGrid');
-
-  if (select && select.options.length <= 1) {
-    select.innerHTML = '';
-    symbols.forEach(s => {
-      const opt = document.createElement('option');
-      opt.value = s.id;
-      opt.textContent = `${s.name_hi}`;
-      select.appendChild(opt);
-    });
-  }
-
-  if (grid && grid.children.length === 0) {
-    symbols.forEach(s => {
-      const item = document.createElement('div');
-      item.className = 'symbol-grid-item';
-      item.setAttribute('data-id', s.id);
-      item.title = s.name_hi;
-      item.innerHTML = `${s.svg}<span>${s.name_hi.split(' ')[0]}</span>`;
-      item.onclick = () => onCandidateSymbolChanged(s.id);
-      grid.appendChild(item);
-    });
-  }
-}
-
-function onCandidateSymbolChanged(symbolIdOrName) {
-  const symbols = window.OFFICIAL_ELECTION_SYMBOLS || [];
-  const sym = symbols.find(s => s.id === symbolIdOrName || s.name_hi.includes(symbolIdOrName) || s.name_en.toLowerCase() === String(symbolIdOrName).toLowerCase()) || symbols[0];
-
-  const select = document.getElementById('candidateSymbolSelect');
-  if (select) select.value = sym.id;
-
-  const wrapper = document.getElementById('currentSymbolSvgWrapper');
-  if (wrapper) wrapper.innerHTML = sym.svg;
-
-  const nameText = document.getElementById('currentSymbolNameText');
-  if (nameText) nameText.textContent = sym.name_hi;
-
-  document.querySelectorAll('.symbol-grid-item').forEach(el => {
-    el.classList.toggle('selected', el.getAttribute('data-id') === sym.id);
-  });
-
-  renderLiveSpecimenSlip();
-}
-
-function onCandidatePostChanged(post) {
-  const wardGroup = document.getElementById('candidateWardSelectGroup');
-  const wardSelect = document.getElementById('candidateWardSelect');
-  const gpSelect = document.getElementById('candidateGpSelect');
-
-  if (post === 'वार्ड पंच') {
-    if (wardGroup) wardGroup.style.display = 'block';
-    if (wardSelect) {
-      wardSelect.innerHTML = '<option value="">-- वार्ड चुनें --</option>';
-      const gpName = gpSelect ? gpSelect.value : '';
-      const gpObj = State.panchayats.find(p => p.name === gpName || p.code === gpName);
-      const wardCount = (gpObj && gpObj.wards) ? gpObj.wards.length : 15;
-      for (let i = 1; i <= wardCount; i++) {
-        const opt = document.createElement('option');
-        opt.value = i;
-        opt.textContent = `वार्ड संख्या ${i}`;
-        wardSelect.appendChild(opt);
-      }
-    }
-  } else {
-    if (wardGroup) wardGroup.style.display = 'none';
-  }
-  renderLiveSpecimenSlip();
-}
-
-function onCandidateGpChanged(val) {
-  const wardSelect = document.getElementById('candidateWardSelect');
-  if (wardSelect) {
-    wardSelect.innerHTML = '<option value="">-- वार्ड चुनें --</option>';
-    const gp = (State.panchayats || []).find(p => p.code === val || p.name_hi === val || p.name_en === val);
-    if (gp) {
-      const wards = (gp.wards && gp.wards.length > 0) ? gp.wards : getGpWards(gp);
-      wards.forEach(w => {
-        const opt = document.createElement('option');
-        opt.value = w.ward_no;
-        opt.textContent = `वार्ड संख्या ${w.ward_no} (${w.village || gp.name_hi})`;
-        wardSelect.appendChild(opt);
-      });
-    }
-  }
-  const post = document.getElementById('candidatePostSelect') ? document.getElementById('candidatePostSelect').value : '';
-  if (post === 'वार्ड पंच') {
-    const wg = document.getElementById('candidateWardSelectGroup');
-    if (wg) wg.style.display = 'block';
-  }
-  renderLiveSpecimenSlip();
-}
-
-function onCandidateWardChanged(w) {
-  renderLiveSpecimenSlip();
-}
-
-function onCandidatePhotoSelected(event) {
-  const file = event.target.files && event.target.files[0];
-  if (!file) return;
-
-  const reader = new FileReader();
-  reader.onload = e => {
-    const preview = document.getElementById('candidatePhotoPreview');
-    if (preview) preview.src = e.target.result;
-    renderLiveSpecimenSlip();
-  };
-  reader.readAsDataURL(file);
-}
-
-function clearCandidatePhoto() {
-  const preview = document.getElementById('candidatePhotoPreview');
-  if (preview) preview.src = 'https://api.dicebear.com/7.x/identicon/svg?seed=candidate';
-  renderLiveSpecimenSlip();
-}
-
-function applySloganPreset(type) {
-  const sloganText = document.getElementById('candidateSloganTextarea');
-  if (!sloganText) return;
-
-  if (type === 1) {
-    sloganText.value = '।। समस्त ग्रामवासियों से विनम्र अपील ।।\nग्राम पंचायत के सर्वांगीण विकास एवं न्यायसंगत फैसलों हेतु आपके अपने कर्मठ, ईमानदार एवं सेवाभावी प्रत्याशी को भारी मतों से विजयी बनावें।';
-  } else if (type === 2) {
-    sloganText.value = '।। वार्ड के समस्त देवतुल्य मतदाताओं से करबद्ध निवेदन ।।\nवार्ड में पक्की सड़कें, स्वच्छ पेयजल व प्रकाश व्यवस्था हेतु अपने जनप्रिय साथी को अपना अमूल्य मत व आशीर्वाद देकर विजयी बनावें।';
-  } else if (type === 3) {
-    sloganText.value = '।। युवा सोच - नया जोश - सम्पूर्ण विकास ।।\nभ्रष्टाचार मुक्त एवं विकसित पंचायत निर्माण के लिए अपने संघर्षशील युवा प्रत्याशी के पक्ष में मतदान करें।';
-  }
-  renderLiveSpecimenSlip();
-}
-
-async function handleSaveCandidateProfile(event) {
-  if (event) event.preventDefault();
-  const u = State.currentUser;
-  if (!u) {
-    showToast('त्रुटि: पहले लॉगिन करें!');
-    return;
-  }
-
-  const name = (document.getElementById('candidateNameInput').value || '').trim();
-  const mobile = (document.getElementById('candidateMobileInput').value || '').trim();
-  const post = document.getElementById('candidatePostSelect').value;
-  const gp = document.getElementById('candidateGpSelect').value;
-  const ward = (post === 'वार्ड पंच' && document.getElementById('candidateWardSelect')) ? document.getElementById('candidateWardSelect').value : '';
-  const slogan = (document.getElementById('candidateSloganTextarea').value || '').trim();
-  const showBanner = document.getElementById('candidateShowBannerSlip').checked;
-  const photoEl = document.getElementById('candidatePhotoPreview');
-  const photoUrl = photoEl ? photoEl.src : '';
-
-  const symbolSelect = document.getElementById('candidateSymbolSelect');
-  const symbolId = symbolSelect ? symbolSelect.value : 'sun';
-  const symbols = window.OFFICIAL_ELECTION_SYMBOLS || [];
-  const symObj = symbols.find(s => s.id === symbolId) || symbols[0];
-
-  const profileData = {
-    user_id: u.id || u.username,
-    candidate_name: name,
-    mobile: mobile,
-    post: post,
-    panchayat: gp,
-    ward: ward,
-    symbol_name: symObj.name_hi,
-    symbol_icon: symObj.id,
-    photo_url: photoUrl,
-    slogan: slogan,
-    show_banner_on_slip: showBanner,
-    updated_at: new Date().toISOString()
-  };
-
-  State.currentCandidate = profileData;
-  localStorage.setItem('candidate_profile_' + (u.id || u.username), JSON.stringify(profileData));
-
-  // Try saving to Node server
-  try {
-    const res = await fetch('/api/candidate/' + encodeURIComponent(u.id || u.username), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(profileData)
-    });
-    if (res.ok) {
-      showToast('✅ प्रत्याशी प्रोफाइल एवं चुनाव चिन्ह सर्वर पर सुरक्षित!');
-    } else {
-      showToast('✅ प्रत्याशी प्रोफाइल लोकल सुरक्षित!');
-    }
-  } catch (e) {
-    showToast('✅ प्रत्याशी प्रोफाइल सुरक्षित!');
-  }
-
-  renderLiveSpecimenSlip();
-}
-
-// Live specimen render for the Candidate Tab
-function renderLiveSpecimenSlip() {
-  const container = document.getElementById('liveSpecimenSlipContainer');
-  if (!container) return;
-
-  const name = document.getElementById('candidateNameInput') ? document.getElementById('candidateNameInput').value : 'श्री रामेश्वर प्रसाद जाट';
-  const post = document.getElementById('candidatePostSelect') ? document.getElementById('candidatePostSelect').value : 'सरपंच';
-  const gp = document.getElementById('candidateGpSelect') ? document.getElementById('candidateGpSelect').value : 'बूबकिया';
-  const ward = (post === 'वार्ड पंच' && document.getElementById('candidateWardSelect')) ? document.getElementById('candidateWardSelect').value : '';
-  const slogan = document.getElementById('candidateSloganTextarea') ? document.getElementById('candidateSloganTextarea').value : '।। समस्त ग्रामवासियों से विनम्र अपील ।।\nअपने कर्मठ एवं ईमानदार प्रत्याशी को विजयी बनावें।';
-  const photo = document.getElementById('candidatePhotoPreview') ? document.getElementById('candidatePhotoPreview').src : 'https://api.dicebear.com/7.x/identicon/svg?seed=candidate';
-
-  const symbolSelect = document.getElementById('candidateSymbolSelect');
-  const symbolId = symbolSelect ? symbolSelect.value : 'sun';
-  const symbols = window.OFFICIAL_ELECTION_SYMBOLS || [];
-  const symObj = symbols.find(s => s.id === symbolId) || symbols[0];
-
-  const dummyVoter = {
-    serial_no: 104,
-    voter_name: 'सुरेश कुमार जाट',
-    voter_name_en: 'Suresh Kumar Jat',
-    relative_name: 'रामचन्द्र जाट',
-    relative_relation: 'पिता',
-    age: 36,
-    gender: 'M',
-    house_no: '42',
-    revenue_village: gp,
-    gram_panchayat: gp,
-    ward_no: ward || 3,
-    epic_no: 'RJ/12/098/234512',
-    polling_station_no: 1,
-    polling_station_name: 'राजकीय उच्च माध्यमिक विद्यालय, कमरा नं.-02'
-  };
-
-  container.innerHTML = buildDetachableCandidateSlipHtml(dummyVoter, {
-    candidate_name: name || 'उम्मीदवार का नाम',
-    post: post,
-    panchayat: gp || 'ग्राम पंचायत',
-    ward: ward,
-    symbol_name: symObj.name_hi,
-    symbol_svg: symObj.svg,
-    photo_url: photo,
-    slogan: slogan
-  });
-}
-
-function openSpecimenPreviewModal() {
-  renderLiveSpecimenSlip();
-  const container = document.getElementById('liveSpecimenSlipContainer');
-  if (container) {
-    container.scrollIntoView({ behavior: 'smooth' });
-  }
-}
-
-// Build the accurate perforated candidate voter slip (Video Accurate)
-function buildDetachableCandidateSlipHtml(voter, candidateData) {
-  const isFemale = voter.gender === 'F';
-  const relLabel = voter.relative_relation || 'पिता/पति';
-  const boothName = voter.polling_station_name || 'राजकीय विद्यालय, भिनाय';
-
-  const cName = candidateData.candidate_name || 'प्रत्याशी';
-  const cPost = candidateData.post || 'सरपंच';
-  const cGp = candidateData.panchayat || voter.gram_panchayat;
-  const cWard = candidateData.ward || voter.ward_no;
-  const cSymbolName = candidateData.symbol_name || 'उगता सूरज';
-  const cSymbolSvg = candidateData.symbol_svg || (window.OFFICIAL_ELECTION_SYMBOLS && window.OFFICIAL_ELECTION_SYMBOLS[0].svg);
-  const cPhoto = candidateData.photo_url || 'https://api.dicebear.com/7.x/identicon/svg?seed=candidate';
-  const cSlogan = (candidateData.slogan || 'अपने कर्मठ एवं ईमानदार प्रत्याशी को विजयी बनावें।').replace(/\n/g, '<br>');
-
-  return `
-    <div class="candidate-slip-card">
-      <!-- 1. TOP SECTION: CANDIDATE CAMPAIGN BANNER (FULL COLOR) -->
-      <div class="candidate-banner-top">
-        <div class="candidate-banner-photo-col">
-          <img src="${cPhoto}" alt="${cName}" onerror="this.src='https://api.dicebear.com/7.x/identicon/svg?seed=candidate'">
-        </div>
-        <div class="candidate-banner-info-col">
-          <div class="candidate-banner-header">।। श्री गणेशाय नमः ।।</div>
-          <div class="candidate-banner-name">${cName}</div>
-          <div>
-            <span class="candidate-banner-post">${cPost} प्रत्याशी</span>
-          </div>
-          <div class="candidate-banner-gp">ग्राम पंचायत: <strong>${cGp}</strong> ${cWard ? `• वार्ड नं.: ${cWard}` : ''}</div>
-          <div class="candidate-banner-slogan">${cSlogan}</div>
-        </div>
-        <div class="candidate-banner-symbol-col">
-          ${cSymbolSvg}
-          <div class="candidate-banner-symbol-label">${cSymbolName.split(' ')[0]}</div>
-        </div>
-      </div>
-
-      <!-- 2. PERFORATION CUTTING DIVIDER -->
-      <div class="slip-perforation-divider">
-        <span class="cut-icon">✂️</span>
-        <span>---------------- यहाँ से काटकर मतदाता को दें (काट कर अलग करें) ----------------</span>
-        <span class="cut-icon">✂️</span>
-      </div>
-
-      <!-- 3. BOTTOM SECTION: 100% CLEAN OFFICIAL B&W VOTER SLIP (NO BACKGROUND) -->
-      <div class="official-bottom-bw-slip">
-        <div class="bw-header">
-          <div>
-            <div class="bw-gov-title">मतदाता सूचना पर्ची (VOTER SLIP)</div>
-            <div style="font-size:5.8pt; color:#000;">पंचायती राज चुनाव 2026 | पं.स. भिनाय (अजमेर)</div>
-          </div>
-          <div class="bw-serial-badge">सरल क्र. ${voter.serial_no || '1'}</div>
-        </div>
-
-        <div class="bw-grid">
-          <div><strong>पं.:</strong> ${voter.gram_panchayat}</div>
-          <div><strong>वार्ड संख्या:</strong> ${voter.ward_no}</div>
-          <div class="bw-row-full"><strong>मतदाता का नाम:</strong> ${voter.voter_name} ${voter.voter_name_en ? `(${voter.voter_name_en})` : ''}</div>
-          <div class="bw-row-full"><strong>${relLabel} का नाम:</strong> ${voter.relative_name || '-'}</div>
-          <div><strong>आयु/लिंग:</strong> ${voter.age} वर्ष, ${isFemale ? 'स्त्री' : 'पुरुष'}</div>
-          <div><strong>मकान संख्या:</strong> ${voter.house_no || '-'}</div>
-          <div class="bw-row-full"><strong>पहचान पत्र क्र. (EPIC):</strong> ${voter.epic_no || 'RJ/12/098/...'}</div>
-        </div>
-
-        <div class="bw-booth-box">
-          <strong>मतदान केंद्र ${voter.polling_station_no || '1'}:</strong> ${boothName}
-        </div>
-
-        <div class="bw-footer">
-          <span>*मतदान हेतु अधिकृत पहचान पत्र साथ लावें</span>
-          <span>दिनांक: 15-10-2026 | समय: प्रातः 7:30 से 5:30</span>
-        </div>
-      </div>
-    </div>
-  `;
-}
-
-// Modify buildOfficialSlipHtml to dynamically support candidate detachable slip
-const originalBuildOfficialSlipHtml = window.buildOfficialSlipHtml;
-window.buildOfficialSlipHtml = function(voter, layout, theme) {
-  const cand = State.currentCandidate;
-  if (cand && cand.show_banner_on_slip && cand.candidate_name) {
-    const symbols = window.OFFICIAL_ELECTION_SYMBOLS || [];
-    const symObj = symbols.find(s => s.id === cand.symbol_icon || s.name_hi.includes(cand.symbol_name)) || symbols[0];
-    return buildDetachableCandidateSlipHtml(voter, {
-      ...cand,
-      symbol_svg: symObj ? symObj.svg : ''
-    });
-  }
-
-  // Fallback to standard B&W slip
-  return `
-    <div class="official-mini-slip">
-      <div>
-        <div class="mini-slip-header">
-          <div class="mini-slip-gov-title" style="font-size: 7.5pt; font-weight: 800; color: #000000; letter-spacing: 0.5px;">मतदाता सूचना पर्ची (VOTER SLIP)</div>
-          <div style="font-size: 5.8pt; font-weight: 600; color: #333333;">पंचायती राज आम चुनाव - 2026 | भिनाय (अजमेर)</div>
-        </div>
-        <div class="mini-slip-subbar">
-          <span><strong>पं.:</strong> ${voter.gram_panchayat}</span>
-          <span><strong>वार्ड:</strong> ${voter.ward_no}</span>
-          <span class="mini-serial-box">क्र. ${voter.serial_no || '1'}</span>
-        </div>
-        <div class="mini-details-table">
-          <div class="mini-detail-row"><span class="mini-lbl">नाम:</span><span class="mini-val"><strong>${voter.voter_name}</strong> ${voter.voter_name_en ? `(${voter.voter_name_en})` : ''}</span></div>
-          <div class="mini-detail-row"><span class="mini-lbl">${voter.relative_relation || 'पिता/पति'}:</span><span class="mini-val">${voter.relative_name || '-'}</span></div>
-          <div class="mini-detail-row"><span class="mini-lbl">आयु/लिंग:</span><span class="mini-val">${voter.age} वर्ष, ${voter.gender === 'F' ? 'स्त्री' : 'पुरुष'}</span></div>
-          <div class="mini-detail-row"><span class="mini-lbl">मकान:</span><span class="mini-val">${voter.house_no || '-'} (${voter.revenue_village || voter.gram_panchayat})</span></div>
-          <div class="mini-detail-row"><span class="mini-lbl">पहचान क्र.:</span><span class="mini-val"><strong>${voter.epic_no || 'RJ/12/098/...'}</strong></span></div>
-        </div>
-        <div class="mini-booth-box" style="white-space:normal !important;">
-          <strong>मतदान केंद्र ${voter.polling_station_no || '1'}:</strong> ${voter.polling_station_name || 'राजकीय विद्यालय'}
-        </div>
-      </div>
-      <div class="mini-slip-footer" style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #777; padding-top:2px;">
-        <span style="font-family:monospace; font-size:5.5pt; color:#222; font-weight:700;">वार्ड: ${voter.ward_no} • सरल क्र.: ${voter.serial_no}</span>
-        <span style="font-size:5.2pt; color:#444; font-weight:600;">*मतदान हेतु मूल पहचान पत्र अनिवार्य</span>
-      </div>
-    </div>
-  `;
-};
-
-
-// ==========================================================================
-// MASTER ADMIN USER & PORTAL CONTROL TAB ENGINE (⚡)
-// ==========================================================================
 
 async function initAdminControlTab() {
   loadTriPortalSettings();
@@ -4649,165 +908,7 @@ async function loadAdminUsersList() {
 }
 
 function renderAdminControlTab() {
-  const tbody = document.getElementById('masterAdminUsersTbody');
-  if (!tbody) return;
-
-  const users = State.adminControlUsers || [];
-  const totalEl = document.getElementById('adminTotalUsersCount');
-  const activeEl = document.getElementById('adminActiveUsersCount');
-  const inactiveEl = document.getElementById('adminInactiveUsersCount');
-
-  const activeCount = users.filter(u => String(u.status || 'ACTIVE').toUpperCase() === 'ACTIVE').length;
-  const inactiveCount = users.length - activeCount;
-
-  if (totalEl) totalEl.textContent = users.length;
-  if (activeEl) activeEl.textContent = activeCount;
-  if (inactiveEl) inactiveEl.textContent = inactiveCount;
-
-  const searchVal = (document.getElementById('adminUserSearchInput') ? document.getElementById('adminUserSearchInput').value : '').toLowerCase().trim();
-  const statusFilter = document.getElementById('adminStatusFilterSelect') ? document.getElementById('adminStatusFilterSelect').value : 'ALL';
-
-  const filtered = users.filter(u => {
-    const matchStatus = (statusFilter === 'ALL') || (String(u.status || 'ACTIVE').toUpperCase() === statusFilter);
-    const matchSearch = !searchVal ||
-      (u.username && u.username.toLowerCase().includes(searchVal)) ||
-      (u.full_name && u.full_name.toLowerCase().includes(searchVal)) ||
-      (u.allowed_panchayats && u.allowed_panchayats.toLowerCase().includes(searchVal));
-    return matchStatus && matchSearch;
-  });
-
-  if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:24px; color:#64748b;">कोई उपयोगकर्ता नहीं मिला।</td></tr>`;
-    return;
-  }
-
-  tbody.innerHTML = '';
-  filtered.forEach(u => {
-    const uId = u.id || u.username;
-    const isActive = String(u.status || 'ACTIVE').toUpperCase() === 'ACTIVE';
-    const allowedTabs = Array.isArray(u.allowed_tabs) ? u.allowed_tabs : [];
-
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>
-        <strong>${u.username}</strong>
-        <div style="font-size:0.7rem; color:#64748b;">ID: ${uId}</div>
-      </td>
-      <td>
-        <input type="text" class="form-input form-input-sm" value="${u.full_name || u.fullName || ''}" onchange="updateUserField('${uId}', 'full_name', this.value)" style="font-weight:600; font-size:0.8rem; margin-bottom:2px;">
-        <input type="tel" class="form-input form-input-sm" value="${u.mobile || ''}" placeholder="मोबाइल नं." onchange="updateUserField('${uId}', 'mobile', this.value)" style="font-size:0.75rem;">
-      </td>
-      <td>
-        <div class="d-flex align-items-center gap-1">
-          <input type="password" id="passInput_${uId}" class="form-input form-input-sm" value="${u.password || ''}" onchange="updateUserField('${uId}', 'password', this.value)" style="font-weight:700; width:90px;">
-          <button type="button" class="btn btn-sm btn-outline-secondary" onclick="togglePassVisibility('passInput_${uId}')" title="पासवर्ड देखें">👁️</button>
-        </div>
-      </td>
-      <td>
-        <button type="button" class="status-toggle-btn ${isActive ? 'active' : 'inactive'}" onclick="toggleUserStatus('${uId}', '${isActive ? 'INACTIVE' : 'ACTIVE'}')">
-          <span>${isActive ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}</span>
-        </button>
-      </td>
-      <td>
-        <select class="form-select form-select-sm" onchange="updateUserField('${uId}', 'allowed_panchayats', this.value)" style="font-weight:600; font-size:0.78rem;">
-          <option value="ALL" ${u.allowed_panchayats === 'ALL' ? 'selected' : ''}>समस्त (ALL)</option>
-          ${(State.panchayats || []).map(p => `<option value="${p.name}" ${u.allowed_panchayats === p.name ? 'selected' : ''}>${p.name}</option>`).join('')}
-        </select>
-      </td>
-      <td>
-        <input type="text" class="form-input form-input-sm" value="${u.allowed_wards || 'ALL'}" placeholder="ALL या 1,2" onchange="updateUserField('${uId}', 'allowed_wards', this.value)" style="font-weight:600; font-size:0.78rem; text-align:center;">
-      </td>
-      <td>
-        <div class="d-flex flex-wrap gap-1" style="max-width:280px;">
-          <label style="font-size:0.72rem; cursor:pointer;"><input type="checkbox" ${allowedTabs.includes('searchTab') ? 'checked' : ''} onchange="toggleUserTab('${uId}', 'searchTab', this.checked)"> खोज</label>
-          <label style="font-size:0.72rem; cursor:pointer;"><input type="checkbox" ${allowedTabs.includes('alphaTab') ? 'checked' : ''} onchange="toggleUserTab('${uId}', 'alphaTab', this.checked)"> वर्णमाला</label>
-          <label style="font-size:0.72rem; cursor:pointer;"><input type="checkbox" ${allowedTabs.includes('bulkSlipTab') ? 'checked' : ''} onchange="toggleUserTab('${uId}', 'bulkSlipTab', this.checked)"> पर्ची</label>
-          <label style="font-size:0.72rem; cursor:pointer;"><input type="checkbox" ${allowedTabs.includes('directoryTab') ? 'checked' : ''} onchange="toggleUserTab('${uId}', 'directoryTab', this.checked)"> वार्ड</label>
-          <label style="font-size:0.72rem; cursor:pointer;"><input type="checkbox" ${allowedTabs.includes('candidateProfileTab') ? 'checked' : ''} onchange="toggleUserTab('${uId}', 'candidateProfileTab', this.checked)"> प्रोफाइल</label>
-        </div>
-      </td>
-      <td>
-        <select class="form-select form-select-sm" onchange="updateUserField('${uId}', 'candidate_mode', this.value)" style="font-size:0.75rem;">
-          <option value="user_edit" ${u.candidate_mode !== 'admin_locked' ? 'selected' : ''}>यूजर भरे</option>
-          <option value="admin_locked" ${u.candidate_mode === 'admin_locked' ? 'selected' : ''}>एडमिन लॉक</option>
-        </select>
-      </td>
-      <td style="text-align:center;">
-        <div class="d-flex justify-content-center gap-1">
-          <button type="button" class="btn btn-sm btn-outline-primary" onclick="openAdminCandidateModal('${uId}')" title="प्रत्याशी विवरण सेट करें">✏️</button>
-          <button type="button" class="btn btn-sm btn-outline-danger" onclick="deleteAdminUser('${uId}')" title="हटाएं">🗑️</button>
-        </div>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-function filterAdminUsersTable() {
-  renderAdminControlTab();
-}
-
-function togglePassVisibility(inputId) {
-  const el = document.getElementById(inputId);
-  if (!el) return;
-  el.type = el.type === 'password' ? 'text' : 'password';
-}
-
-async function updateUserField(userId, field, value) {
-  const u = State.adminControlUsers.find(x => (x.id || x.username) === userId);
-  if (!u) return;
-
-  u[field] = value;
-  if (field === 'password') setCustomUserPassword(userId, value);
-  if (field === 'status') setCustomUserStatus(userId, value);
-  
-  try {
-    localStorage.setItem('portal_admin_users_overrides', JSON.stringify(State.adminControlUsers));
-  } catch(e) {}
-
-  await saveAdminUserToServer(u);
-  if (typeof renderBloPassTable === 'function') renderBloPassTable();
-  showToast('परिवर्तन सफलतापूर्वक सुरक्षित!');
-}
-
-async function toggleUserStatus(userId, newStatus) {
-  setCustomUserStatus(userId, newStatus);
-  const u = (State.adminControlUsers || []).find(x => (x.id || x.username) === userId);
-  if (u) {
-    u.status = newStatus;
-    try { localStorage.setItem('portal_admin_users_overrides', JSON.stringify(State.adminControlUsers)); } catch(e) {}
-    await saveAdminUserToServer(u);
-  }
-  if (typeof renderAdminControlTab === 'function') renderAdminControlTab();
-  if (typeof renderBloPassTable === 'function') renderBloPassTable();
-  showToast(`खाता स्थिति '${userId}': ${newStatus === 'ACTIVE' ? '🟢 सक्रिय (Active)' : '🔴 निष्क्रिय (Inactive)'}`);
-}
-
-async function toggleUserTab(userId, tabName, isChecked) {
-  const u = State.adminControlUsers.find(x => (x.id || x.username) === userId);
-  if (!u) return;
-
-  if (!Array.isArray(u.allowed_tabs)) u.allowed_tabs = [];
-  if (isChecked) {
-    if (!u.allowed_tabs.includes(tabName)) u.allowed_tabs.push(tabName);
-  } else {
-    u.allowed_tabs = u.allowed_tabs.filter(t => t !== tabName);
-  }
-
-  await saveAdminUserToServer(u);
-  showToast('टैब अनुमति अपडेट!');
-}
-
-async function saveAdminUserToServer(userObj) {
-  try {
-    await fetch('/api/users', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(userObj)
-    });
-  } catch (e) {
-    console.log('Server save fallback:', e);
-  }
+  switchMasterHubSubTab(activeHubSubTab || 'cell');
 }
 
 function openAddUserModal() {
@@ -5561,22 +1662,34 @@ function openEditPersonnelModal(id) {
   if (!dir) return;
 
   const overrides = getDirectoryOverrides();
-  let contact = (dir.all_contacts || []).find(c => c.id === id);
-  if (!contact) return;
+  let contact = (dir.all_contacts || []).find(c => c.id === id || c.username === id);
+  if (!contact && dir.cell_personnel) {
+    contact = dir.cell_personnel.find(c => c.id === id || c.username === id);
+  }
+  if (!contact && dir.blo_list) {
+    contact = dir.blo_list.find(c => c.id === id || c.username === id || c.user_id === id);
+  }
+  if (!contact && State.adminControlUsers) {
+    contact = State.adminControlUsers.find(c => c.id === id || c.username === id);
+  }
+  if (!contact) {
+    showToast('⚠️ कार्मिक विवरण नहीं मिला!');
+    return;
+  }
 
   if (overrides[id]) {
     contact = { ...contact, ...overrides[id] };
   }
 
   const titleEl = document.getElementById('editPersonnelModalTitle');
-  if (titleEl) titleEl.textContent = `✏️ ${contact.name} - संपादन (${contact.role || contact.category})`;
+  if (titleEl) titleEl.textContent = `✏️ ${contact.name} - संपादन (${contact.role || contact.category || contact.designation || 'कार्मिक'})`;
 
   const setVal = (fid, val) => { const el = document.getElementById(fid); if (el) el.value = val || ''; };
-  setVal('editPersId', contact.id);
+  setVal('editPersId', contact.id || contact.username);
   setVal('editPersName', contact.name);
   setVal('editPersMobile', contact.mobile);
-  setVal('editPersRole', contact.designation || contact.role || '');
-  setVal('editPersSchool', contact.school_office || contact.school || '');
+  setVal('editPersRole', contact.designation || contact.role || contact.post || '');
+  setVal('editPersSchool', contact.school_office || contact.school || contact.office || '');
   setVal('editPersPanchayat', contact.panchayat || contact.panchayat_str || '');
   setVal('editPersBooth', contact.booth_no ? `भाग सं. ${contact.booth_no}` : (contact.patwar_mandal ? `मंडल ${contact.patwar_mandal}` : ''));
 
@@ -5601,7 +1714,7 @@ async function handleSavePersonnelEdit(event) {
   const boothMandal = document.getElementById('editPersBooth').value.trim();
 
   if (!id || !name || !mobile) {
-    showToast('कृपया नाम एवं मोबाइल नंबर अवश्य भरें!');
+    showToast('⚠️ कृपया नाम एवं मोबाइल नंबर अवश्य भरें!');
     return;
   }
 
@@ -5617,15 +1730,16 @@ async function handleSavePersonnelEdit(event) {
     area_display: `${panchayat ? 'ग्रा.पं. ' + panchayat : ''} ${boothMandal ? '| ' + boothMandal : ''}`.trim()
   };
 
-  // 1. Update in-memory MASTER_DIRECTORY
+  // 1. Update in-memory MASTER_DIRECTORY across all lists
   const dir = getMasterDirectory();
-  if (dir && dir.all_contacts) {
-    const item = dir.all_contacts.find(c => c.id === id);
-    if (item) Object.assign(item, editPayload);
-    
+  if (dir) {
+    if (dir.all_contacts) {
+      const item = dir.all_contacts.find(c => c.id === id);
+      if (item) Object.assign(item, editPayload);
+    }
     for (const key of ['patwari_list', 'supervisors_list', 'blo_list', 'peeo_list', 'male_staff_list', 'cell_personnel', 'officers_list']) {
       if (dir[key]) {
-        const subItem = dir[key].find(c => c.id === id);
+        const subItem = dir[key].find(c => c.id === id || c.username === id);
         if (subItem) Object.assign(subItem, editPayload);
       }
     }
@@ -5636,19 +1750,28 @@ async function handleSavePersonnelEdit(event) {
   overrides[id] = editPayload;
   localStorage.setItem('portal_directory_overrides', JSON.stringify(overrides));
 
-  // 3. Send to Node server for permanent disk & SQLite sync
-  try {
-    await fetch('/api/directory/update', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(editPayload)
-    });
-  } catch (err) {
-    console.log('Server update background notice:', err);
+  // 3. Sync to State.adminControlUsers
+  if (State.adminControlUsers) {
+    const userInState = State.adminControlUsers.find(u => (u.id || u.username) === id);
+    if (userInState) {
+      userInState.name = name;
+      userInState.full_name = name;
+      userInState.mobile = mobile;
+      userInState.designation = role;
+      userInState.office = school;
+      userInState.panchayat = panchayat;
+    }
   }
 
   closeEditPersonnelModal();
-  renderDirectoryList();
+  
+  // Re-render directory list and all admin sub-tabs
+  if (typeof renderDirectoryList === 'function') renderDirectoryList();
+  if (typeof renderAdminCellTab === 'function') renderAdminCellTab();
+  if (typeof renderAdminBloTab === 'function') renderAdminBloTab();
+  if (typeof renderAdminCandTab === 'function') renderAdminCandTab();
+  if (typeof renderAdminTopAdminsTab === 'function') renderAdminTopAdminsTab();
+  
   showToast(`✅ कार्मिक '${name}' का विवरण सफलतापूर्वक अपडेट किया गया!`);
 }
 
@@ -6244,248 +2367,6 @@ function closePortalPreviewModal() {
   if (modal) modal.style.display = 'none';
 }
 
-function switchMasterHubSubTab(subTab) {
-  const pUsers = document.getElementById('masterHubPaneUsers');
-  const pBloPass = document.getElementById('masterHubPaneBloPass');
-  const bUsers = document.getElementById('btnSubTabUsers');
-  const bBloPass = document.getElementById('btnSubTabBloPass');
-
-  if (subTab === 'users') {
-    if (pUsers) pUsers.style.display = 'block';
-    if (pBloPass) pBloPass.style.display = 'none';
-    if (bUsers) { bUsers.classList.add('btn-primary'); bUsers.classList.remove('btn-outline-secondary'); }
-    if (bBloPass) { bBloPass.classList.remove('btn-primary'); bBloPass.classList.add('btn-outline-secondary'); }
-  } else {
-    if (pUsers) pUsers.style.display = 'none';
-    if (pBloPass) pBloPass.style.display = 'block';
-    if (bUsers) { bUsers.classList.remove('btn-primary'); bUsers.classList.add('btn-outline-secondary'); }
-    if (bBloPass) { bBloPass.classList.add('btn-primary'); bBloPass.classList.remove('btn-outline-secondary'); }
-    initBloPassTab();
-  }
-}
-
-function initBloPassTab() {
-  const gpSelect = document.getElementById('bloPassGpFilter');
-  if (gpSelect && gpSelect.options.length <= 1) {
-    gpSelect.innerHTML = '<option value="ALL">समस्त 30 ग्राम पंचायतें</option>';
-    BHINAI_PANCHAYATS_30.forEach(gp => {
-      const opt = document.createElement('option');
-      opt.value = gp;
-      opt.textContent = gp;
-      gpSelect.appendChild(opt);
-    });
-  }
-  renderBloPassTable();
-}
-
-function renderBloPassTable() {
-  const tbody = document.getElementById('bloPassTableBody');
-  if (!tbody) return;
-
-  const dir = getMasterDirectory();
-  if (!dir) return;
-
-  const blos = dir.blo_list || [];
-  const customCells = JSON.parse(localStorage.getItem('portal_custom_cell_personnel') || '[]');
-  const cellPersonnel = [...customCells, ...(dir.cell_personnel || [])];
-
-  // Deduplicate cells
-  const seenCell = new Set();
-  const cells = [];
-  cellPersonnel.forEach(c => {
-    const cid = c.username || c.id;
-    if (cid && !seenCell.has(cid)) {
-      seenCell.add(cid);
-      cells.push(c);
-    }
-  });
-
-  const combined = [...cells, ...blos];
-
-  const search = (document.getElementById('bloPassSearchInput')?.value || '').toLowerCase().trim();
-  const gpFilter = document.getElementById('bloPassGpFilter')?.value || 'ALL';
-
-  const filtered = combined.filter(c => {
-    if (gpFilter !== 'ALL' && c.panchayat && c.panchayat !== gpFilter) return false;
-    if (!search) return true;
-    const n = (c.name || '').toLowerCase();
-    const b = String(c.booth_no || '');
-    const s = (c.school || c.school_office || c.cell_name || '').toLowerCase();
-    const p = (c.panchayat || '').toLowerCase();
-    const m = (c.mobile || '');
-    return n.includes(search) || b.includes(search) || s.includes(search) || p.includes(search) || m.includes(search);
-  });
-
-  const bpPass = getCustomUserPassword('block_prabhari') || '123';
-  const bpStatus = getCustomUserStatus('block_prabhari') || 'ACTIVE';
-
-  const inchargePass = getCustomUserPassword('incharge') || '123';
-  const inchargeStatus = getCustomUserStatus('incharge') || 'ACTIVE';
-
-  const vyavPass = getCustomUserPassword('vyavasthapak') || '123';
-  const vyavStatus = getCustomUserStatus('vyavasthapak') || 'ACTIVE';
-
-  const adminPass = getCustomUserPassword('admin') || '123';
-
-  let htmlRows = `
-    <!-- 1. SUPER ADMIN ROW -->
-    <tr style="background:#fffbeb; border-left:4px solid #b45309;">
-      <td><span class="badge" style="background:#fef3c7; color:#92400e; font-weight:800; padding:4px 8px; border-radius:6px;">👑 सुपर एडमिन</span></td>
-      <td>
-        <div style="font-weight:800; color:#92400e; font-size:0.95rem;">मुख्य व्यवस्थापक (Super Admin)</div>
-        <div style="font-size:0.75rem; color:#64748b;">आईडी: admin | संपूर्ण पोर्टल, सभी मॉड्यूल्स एवं उपयोगकर्ताओं का पूर्ण नियंत्रण</div>
-      </td>
-      <td><strong style="color:#92400e;">समस्त 30 ग्राम पंचायतें</strong></td>
-      <td>📞 उपखण्ड कार्यालय</td>
-      <td><code style="background:#fff; border:1px solid #fde68a; padding:3px 8px; border-radius:4px; font-weight:800; color:#92400e;">${adminPass}</code></td>
-      <td>
-        <span class="badge" style="background:#fef3c7; color:#92400e; font-weight:700; padding:4px 8px; border-radius:6px;">
-          ⚡ मास्टर एडमिन अधिकार (Full Control)
-        </span>
-      </td>
-      <td style="text-align:center;">
-        <div class="d-flex gap-1 justify-content-center">
-          <button type="button" class="btn btn-xs btn-outline-warning" onclick="adminPromptChangePass('admin', 'मुख्य व्यवस्थापक (Super Admin)')" style="font-weight:700; padding:3px 8px;">
-            🔑 पासवर्ड
-          </button>
-        </div>
-      </td>
-    </tr>
-
-    <!-- 2. INCHARGE ROW (केवल अवलोकन / No Edit) -->
-    <tr style="background:#eef2ff; border-left:4px solid #4338ca;">
-      <td><span class="badge" style="background:#e0e7ff; color:#3730a3; font-weight:800; padding:4px 8px; border-radius:6px;">👁️ ब्लॉक इनचार्ज</span></td>
-      <td>
-        <div style="font-weight:800; color:#3730a3; font-size:0.95rem;">ब्लॉक इनचार्ज (पर्यवेक्षक / Incharge)</div>
-        <div style="font-size:0.75rem; color:#64748b;">आईडी: incharge | केवल सभी टैब का अवलोकन (नो एडिट - All Tabs View)</div>
-      </td>
-      <td><strong style="color:#3730a3;">समस्त 30 ग्राम पंचायतें</strong></td>
-      <td>📞 उपखण्ड कार्यालय</td>
-      <td><code style="background:#fff; border:1px solid #c7d2fe; padding:3px 8px; border-radius:4px; font-weight:800; color:#3730a3;">${inchargePass}</code></td>
-      <td>
-        <span class="badge" style="background:#e0e7ff; color:#3730a3; font-weight:700; padding:4px 8px; border-radius:6px;">
-          👁️ केवल अवलोकन (All Tabs View, No Edit)
-        </span>
-      </td>
-      <td style="text-align:center;">
-        <div class="d-flex gap-1 justify-content-center">
-          <button type="button" class="btn btn-xs btn-outline-primary" onclick="adminPromptChangePass('incharge', 'ब्लॉक इनचार्ज (Incharge)')" style="font-weight:700; padding:3px 8px;">
-            🔑 पासवर्ड
-          </button>
-          <button type="button" class="btn btn-xs ${inchargeStatus === 'ACTIVE' ? 'btn-outline-warning' : 'btn-outline-danger'}" onclick="toggleUserStatus('incharge', '${inchargeStatus === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE'}')" style="font-weight:700; padding:3px 8px;">
-            ${inchargeStatus === 'ACTIVE' ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}
-          </button>
-        </div>
-      </td>
-    </tr>
-
-    <!-- 3. VYAVASTHAPAK ROW (प्रिंट व डाउनलोड) -->
-    <tr style="background:#ecfdf5; border-left:4px solid #059669;">
-      <td><span class="badge" style="background:#d1fae5; color:#065f46; font-weight:800; padding:4px 8px; border-radius:6px;">🖨️ व्यवस्थापक</span></td>
-      <td>
-        <div style="font-weight:800; color:#065f46; font-size:0.95rem;">व्यवस्थापक (Vyavasthapak - प्रिंट व डाउनलोड)</div>
-        <div style="font-size:0.75rem; color:#64748b;">आईडी: vyavasthapak | मतदाता पर्ची प्रिंट, एक्सेल डाउनलोड एवं अवलोकन</div>
-      </td>
-      <td><strong style="color:#065f46;">समस्त 30 ग्राम पंचायतें</strong></td>
-      <td>📞 चुनाव कंट्रोल रूम</td>
-      <td><code style="background:#fff; border:1px solid #a7f3d0; padding:3px 8px; border-radius:4px; font-weight:800; color:#065f46;">${vyavPass}</code></td>
-      <td>
-        <span class="badge" style="background:#d1fae5; color:#065f46; font-weight:700; padding:4px 8px; border-radius:6px;">
-          🖨️ पर्ची प्रिंट एवं एक्सेल डाउनलोड अनुमति
-        </span>
-      </td>
-      <td style="text-align:center;">
-        <div class="d-flex gap-1 justify-content-center">
-          <button type="button" class="btn btn-xs btn-outline-success" onclick="adminPromptChangePass('vyavasthapak', 'व्यवस्थापक (Vyavasthapak)')" style="font-weight:700; padding:3px 8px;">
-            🔑 पासवर्ड
-          </button>
-          <button type="button" class="btn btn-xs ${vyavStatus === 'ACTIVE' ? 'btn-outline-warning' : 'btn-outline-danger'}" onclick="toggleUserStatus('vyavasthapak', '${vyavStatus === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE'}')" style="font-weight:700; padding:3px 8px;">
-            ${vyavStatus === 'ACTIVE' ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}
-          </button>
-        </div>
-      </td>
-    </tr>
-
-    <!-- 4. BLOCK PRABHARI ROW -->
-    <tr style="background:#f0fdf4; border-left:4px solid #0f766e;">
-      <td><span class="badge" style="background:#ccfbf1; color:#0f766e; font-weight:800; padding:4px 8px; border-radius:6px;">🌟 ब्लॉक प्रभारी</span></td>
-      <td>
-        <div style="font-weight:800; color:#0f766e; font-size:0.95rem;">श्री सुरेश चन्द्र जांगिड (अध्यापक)</div>
-        <div style="font-size:0.75rem; color:#64748b;">आईडी: block_prabhari | उपखण्ड कार्यालय भिनाय | संपूर्ण ब्लॉक प्रभारी</div>
-      </td>
-      <td><strong style="color:#0f766e;">समस्त 30 ग्राम पंचायतें</strong></td>
-      <td>📞 9950705221</td>
-      <td><code style="background:#fff; border:1px solid #99f6e4; padding:3px 8px; border-radius:4px; font-weight:800; color:#0f766e;">${bpPass}</code></td>
-      <td>
-        <span class="badge" style="background:#d1fae5; color:#065f46; font-weight:700; padding:4px 8px; border-radius:6px;">
-          🌐 समस्त 30 ग्रा.पं. वोटर सर्च (स्थायी पूर्ण अधिकार)
-        </span>
-      </td>
-      <td style="text-align:center;">
-        <div class="d-flex gap-1 justify-content-center">
-          <button type="button" class="btn btn-xs btn-outline-success" onclick="adminPromptChangePass('block_prabhari', 'श्री सुरेश चन्द्र जांगिड (ब्लॉक प्रभारी)')" style="font-weight:700; padding:3px 8px;">
-            🔑 पासवर्ड
-          </button>
-          <button type="button" class="btn btn-xs ${bpStatus === 'ACTIVE' ? 'btn-outline-warning' : 'btn-outline-danger'}" onclick="toggleUserStatus('block_prabhari', '${bpStatus === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE'}')" style="font-weight:700; padding:3px 8px;">
-            ${bpStatus === 'ACTIVE' ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}
-          </button>
-        </div>
-      </td>
-    </tr>
-  `;
-
-  filtered.forEach(c => {
-    const uId = c.username || c.id || `blo_${c.booth_no}`;
-    const isBlo = !!c.booth_no;
-    const curPass = getCustomUserPassword(uId) || c.password || '123';
-    const curScope = getCustomUserScope(uId) || (isBlo ? 'BOOTH' : 'DIR_ONLY');
-    const curStatus = getCustomUserStatus(uId) || 'ACTIVE';
-
-    htmlRows += `
-      <tr>
-        <td><strong>${c.booth_no ? 'भाग ' + c.booth_no : (c.id || 'CELL')}</strong></td>
-        <td>
-          <div style="font-weight:700; color:#1e293b;">${c.name}</div>
-          <div style="font-size:0.75rem; color:#64748b;">${c.school || c.school_office || c.cell_name || ''}</div>
-        </td>
-        <td>${c.panchayat || c.cell_name || '-'}</td>
-        <td>📞 ${c.mobile || '-'}</td>
-        <td><code style="background:#f1f5f9; padding:2px 6px; border-radius:4px; font-weight:700;">${curPass}</code></td>
-        <td>
-          ${isBlo ? `
-            <select class="form-select form-select-xs" onchange="adminUpdateUserScope('${uId}', this.value)" style="font-weight:700; font-size:0.78rem; padding:3px 6px; border-color:${curScope === 'ALL_30_GP' ? '#16a34a' : (curScope === 'PANCHAYAT' ? '#2563eb' : '#94a3b8')};">
-              <option value="BOOTH" ${curScope === 'BOOTH' ? 'selected' : ''}>📍 केवल अपना बूथ (भाग ${c.booth_no})</option>
-              <option value="PANCHAYAT" ${curScope === 'PANCHAYAT' ? 'selected' : ''}>🏛️ पूरी ग्रा.पं. (${c.panchayat})</option>
-              <option value="ALL_30_GP" ${curScope === 'ALL_30_GP' ? 'selected' : ''}>🌐 समस्त 30 ग्राम पंचायतें (ब्लॉक)</option>
-            </select>
-          ` : `
-            <select class="form-select form-select-xs" onchange="adminUpdateUserScope('${uId}', this.value)" style="font-weight:700; font-size:0.78rem; padding:3px 6px; border-color:${curScope === 'SEARCH_30_GP' ? '#16a34a' : '#94a3b8'};">
-              <option value="DIR_ONLY" ${curScope === 'DIR_ONLY' ? 'selected' : ''}>🔒 केवल डायरेक्टरी (खोज बंद)</option>
-              <option value="SEARCH_30_GP" ${curScope === 'SEARCH_30_GP' ? 'selected' : ''}>🟢 समस्त 30 ग्रा.पं. वोटर खोज चालू</option>
-            </select>
-          `}
-        </td>
-        <td style="text-align:center;">
-          <div class="d-flex gap-1 justify-content-center">
-            <button type="button" class="btn btn-xs btn-outline-warning" onclick="adminPromptChangePass('${uId}', '${c.name}')" style="font-weight:700; padding:2px 6px;">
-              🔑
-            </button>
-            <button type="button" class="btn btn-xs ${curStatus === 'ACTIVE' ? 'btn-outline-success' : 'btn-outline-danger'}" onclick="toggleUserStatus('${uId}', '${curStatus === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE'}')" style="font-weight:700; padding:2px 6px;">
-              ${curStatus === 'ACTIVE' ? '🟢' : '🔴'}
-            </button>
-            ${!isBlo ? `
-              <button type="button" class="btn btn-xs btn-outline-danger" onclick="deleteCellPersonnel('${uId}', '${c.name}')" style="font-weight:700; padding:2px 6px;" title="हटाएं">
-                🗑️
-              </button>
-            ` : ''}
-          </div>
-        </td>
-      </tr>
-    `;
-  });
-
-  tbody.innerHTML = htmlRows;
-}
 
 
 function exportDatabaseBackup() {
