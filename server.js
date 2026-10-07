@@ -62,19 +62,25 @@ function seedDatabase() {
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
+      const toStr = (val, def = '') => {
+        if (val === null || val === undefined) return def;
+        if (typeof val === 'object') return JSON.stringify(val);
+        return String(val);
+      };
+
       userList.forEach(u => {
         insertUser.run(
-          u.id || u.username,
-          u.username,
-          u.password || '123',
-          u.full_name || u.fullName || u.name || u.username,
-          u.mobile || '',
-          u.role || 'BLO',
-          u.status || 'ACTIVE',
-          u.allowed_panchayats || u.panchayat || 'ALL',
-          u.allowed_wards || u.assigned_wards || u.wards || 'ALL',
-          Array.isArray(u.allowed_tabs) ? JSON.stringify(u.allowed_tabs) : (u.allowed_tabs || '[]'),
-          u.candidate_mode || 'user_edit',
+          toStr(u.id || u.username),
+          toStr(u.username || u.id),
+          toStr(u.password || '123'),
+          toStr(u.full_name || u.fullName || u.name || u.username),
+          toStr(u.mobile || ''),
+          toStr(u.role || 'BLO'),
+          toStr(u.status || 'ACTIVE'),
+          toStr(u.allowed_panchayats || u.panchayat || 'ALL'),
+          toStr(u.allowed_wards || u.assigned_wards || u.wards || 'ALL'),
+          toStr(Array.isArray(u.allowed_tabs) ? JSON.stringify(u.allowed_tabs) : (u.allowed_tabs || '[]')),
+          toStr(u.candidate_mode || 'user_edit'),
           new Date().toISOString(),
           new Date().toISOString()
         );
