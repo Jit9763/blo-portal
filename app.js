@@ -666,6 +666,7 @@ async function ensurePanchayatVotersLoaded(gpCode) {
 }
 
 function initMasterData() {
+  setTimeout(populateGpFilterDropdowns, 50);
   if (window.MASTER_DATA) {
     State.panchayats = window.MASTER_DATA.panchayats || [];
     State.adminUsers = window.MASTER_DATA.admin_users || [];
@@ -949,6 +950,7 @@ function enforceGatekeeperState() {
   }
 
   updateUserScopeDisplay();
+  populateGpFilterDropdowns();
 }
 
 function updateUserScopeDisplay() {
@@ -1034,10 +1036,17 @@ function switchTab(tabId) {
 // Strict Jurisdiction Filters
 // ==========================================================================
 function getAllowedGps() {
-  if (!State.currentUser || State.currentUser.role === 'SUPER_ADMIN' || State.currentUser.panchayat_code === 'ALL') {
-    return State.panchayats;
+  if (!State.currentUser) return State.panchayats || [];
+  const u = State.currentUser;
+  if (u.role === 'SUPER_ADMIN' || u.role === 'INCHARGE' || u.role === 'VYAVASTHAPAK' || u.role === 'BLOCK_PRABHARI' || u.allowed_panchayats === 'ALL' || u.panchayat_code === 'ALL' || u.assigned_panchayats === 'ALL') {
+    return State.panchayats || [];
   }
-  return State.panchayats.filter(p => p.code === State.currentUser.panchayat_code);
+  const assigned = u.allowed_panchayats || u.panchayat_code || u.panchayat || u.assigned_panchayats;
+  if (!assigned) return State.panchayats || [];
+  const filtered = (State.panchayats || []).filter(p => {
+    return p.code === assigned || p.name_hi === assigned || p.name_en === assigned || (Array.isArray(assigned) && assigned.includes(p.name_hi));
+  });
+  return (filtered.length > 0) ? filtered : (State.panchayats || []);
 }
 
 function getAllowedWardsList(gpCode) {
@@ -1425,9 +1434,11 @@ async function performSearch() {
   const allowedGps = getAllowedGps().map(p => p.code);
 
   let results = State.voters.filter(voter => {
-    // 1. Strict Jurisdiction
-    if (State.currentUser && State.currentUser.role !== 'SUPER_ADMIN') {
-      const assigned = (State.currentUser.assigned_panchayats || State.currentUser.panchayat_code || '').toLowerCase();
+        // 1. Strict Jurisdiction
+    const u = State.currentUser;
+    const isPrivileged = (!u || u.role === 'SUPER_ADMIN' || u.role === 'INCHARGE' || u.role === 'VYAVASTHAPAK' || u.role === 'BLOCK_PRABHARI' || u.allowed_panchayats === 'ALL');
+    if (!isPrivileged) {
+      const assigned = (u.assigned_panchayats || u.panchayat_code || u.panchayat || '').toLowerCase();
       if (assigned && assigned !== 'all') {
         const pCode = (voter.panchayat_code || '').toLowerCase();
         const pEn = (voter.panchayat_en || '').toLowerCase();
@@ -4338,6 +4349,8 @@ const BHINAI_PANCHAYATS_30 = [
 
 function populateBloPrimaryDropdown() {
   const pSelect = document.getElementById('loginPanchayatSelect');
+  const panSelect = document.getElementById('panAdminSelect');
+  if (panSelect && panSelect.value) { username = panSelect.value; }
   if (!pSelect) return;
 
   pSelect.innerHTML = `
@@ -5050,6 +5063,8 @@ async function handleGatekeeperLogin(event) {
   }
 
   const pSelect = document.getElementById('loginPanchayatSelect');
+  const panSelect = document.getElementById('panAdminSelect');
+  if (panSelect && panSelect.value) { username = panSelect.value; }
   const offSelect = document.getElementById('loginOfficerSelect');
 
   if (!username) {
