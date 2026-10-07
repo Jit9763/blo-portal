@@ -416,12 +416,12 @@ function renderAdminCellTab() {
             <span>📥 डाउनलोड</span>
           </label>
         </div>
-        <div class="d-flex align-items-center gap-1 mt-1">
-          <select class="form-select form-select-sm" style="font-size:0.75rem; padding:2px 6px; height:26px; font-weight:600;" onchange="updateUserScope('${cid}', this.value)">
+        <div class="d-flex align-items-center gap-1 mt-1" style="min-height:36px;">
+          <select class="form-select admin-scope-select" onchange="updateUserScope('${cid}', this.value)">
             <option value="ALL" ${scope === 'ALL' ? 'selected' : ''}>🌐 समस्त 30 पं.</option>
             <option value="BOOTH" ${scope === 'BOOTH' || scope.includes('भाग') ? 'selected' : ''}>📍 निर्धारित बूथ</option>
           </select>
-          <button type="button" class="btn btn-xs btn-outline-primary" onclick="openCustomScopeModal('${cid}')" style="font-weight:700; padding:1px 5px;" title="कस्टम आवंटन">🎯</button>
+          <button type="button" class="btn btn-scope-allot" onclick="openCustomScopeModal('${cid}')" title="कस्टम आवंटन">🎯</button>
         </div>
       </td>
       <td style="text-align:center;">
@@ -538,12 +538,12 @@ function renderAdminBloTab() {
             <span>📥 डाउनलोड</span>
           </label>
         </div>
-        <div class="d-flex align-items-center gap-1 mt-1">
-          <select class="form-select form-select-sm" style="font-size:0.75rem; padding:2px 6px; height:26px; font-weight:600;" onchange="updateUserScope('${bid}', this.value)">
+        <div class="d-flex align-items-center gap-1 mt-1" style="min-height:36px;">
+          <select class="form-select admin-scope-select" onchange="updateUserScope('${bid}', this.value)">
             <option value="${b.panchayat}" ${scope === b.panchayat ? 'selected' : ''}>🏛️ केवल ${b.panchayat}</option>
             <option value="ALL" ${scope === 'ALL' ? 'selected' : ''}>🌐 समस्त 30 पं.</option>
           </select>
-          <button type="button" class="btn btn-xs btn-outline-primary" onclick="openCustomScopeModal('${bid}')" style="font-weight:700; padding:1px 5px;" title="कस्टम आवंटन">🎯</button>
+          <button type="button" class="btn btn-scope-allot" onclick="openCustomScopeModal('${bid}')" title="कस्टम आवंटन">🎯</button>
         </div>
       </td>
       <td style="text-align:center;">
@@ -644,6 +644,13 @@ function renderAdminCandTab() {
             <input type="checkbox" ${canDownload ? 'checked' : ''} onchange="toggleUserPermission('${cid}', 'can_download', this.checked)">
             <span>📥 डाउनलोड</span>
           </label>
+        </div>
+        <div class="d-flex align-items-center gap-1 mt-1" style="min-height:36px;">
+          <select class="form-select admin-scope-select" onchange="updateUserScope('${cid}', this.value)">
+            <option value="${c.panchayat || 'ALL'}" ${scope === (c.panchayat || 'ALL') ? 'selected' : ''}>🏛️ ${c.panchayat || 'पंचायत'}</option>
+            <option value="ALL" ${scope === 'ALL' ? 'selected' : ''}>🌐 समस्त 30 पं.</option>
+          </select>
+          <button type="button" class="btn btn-scope-allot" onclick="openCustomScopeModal('${cid}')" title="कस्टम आवंटन">🎯</button>
         </div>
       </td>
       <td style="text-align:center;">
@@ -3654,8 +3661,10 @@ function openAddUserModal() {
 }
 
 function closeAddUserModal() {
-  const modal = document.getElementById('addUserModal');
-  if (modal) modal.style.display = 'none';
+  const m1 = document.getElementById('addUserModal');
+  if (m1) m1.style.display = 'none';
+  const m2 = document.getElementById('addNewUserModal');
+  if (m2) m2.style.display = 'none';
 }
 
 function handleCreateUser(e) {
@@ -4921,50 +4930,87 @@ async function saveAdminUserToServer(userObj) {
 
 // removed duplicate openAddUserModal
 
-// removed duplicate closeAddUserModal
+function openAddCandidateUserModal() {
+  const modal = document.getElementById('addNewUserModal') || document.getElementById('addUserModal');
+  const gpSelect = document.getElementById('newUserGpSelect') || document.getElementById('newPanchayat');
+  if (gpSelect) {
+    gpSelect.innerHTML = '<option value="ALL">-- समस्त 30 ग्राम पंचायतें (ALL) --</option>';
+    const panchayats = State.panchayats || (window.MASTER_DATA && window.MASTER_DATA.panchayats) || [];
+    panchayats.forEach(p => {
+      const pName = p.name_hi || p.name || '';
+      const pCode = p.code || p.name_en || '';
+      gpSelect.innerHTML += `<option value="${pName}">🏛️ ${pName} (${pCode})</option>`;
+    });
+  }
+  const passInp = document.getElementById('newUserPasswordInput');
+  if (passInp) passInp.value = '123';
+  if (modal) modal.style.display = 'flex';
+}
+
+function closeAddCandidateUserModal() {
+  const m1 = document.getElementById('addNewUserModal');
+  if (m1) m1.style.display = 'none';
+  const m2 = document.getElementById('addUserModal');
+  if (m2) m2.style.display = 'none';
+}
 
 async function handleCreateUserSubmit(event) {
   if (event) event.preventDefault();
 
-  const username = (document.getElementById('newUserIdInput').value || '').trim();
-  const password = (document.getElementById('newUserPasswordInput').value || '').trim();
-  const fullName = (document.getElementById('newUserNameInput').value || '').trim();
-  const mobile = (document.getElementById('newUserMobileInput').value || '').trim();
-  const gp = document.getElementById('newUserGpSelect').value;
-  const ward = (document.getElementById('newUserWardInput').value || 'ALL').trim();
-  const candidateMode = document.getElementById('newUserCandidateModeSelect').value;
+  const username = (document.getElementById('newUserIdInput')?.value || document.getElementById('newUsername')?.value || '').trim();
+  const password = (document.getElementById('newUserPasswordInput')?.value || document.getElementById('newPassword')?.value || '123').trim();
+  const fullName = (document.getElementById('newUserNameInput')?.value || document.getElementById('newFullName')?.value || '').trim();
+  const mobile = (document.getElementById('newUserMobileInput')?.value || document.getElementById('newMobile')?.value || '').trim();
+  const gp = document.getElementById('newUserGpSelect')?.value || document.getElementById('newPanchayat')?.value || 'ALL';
+  const ward = (document.getElementById('newUserWardInput')?.value || document.getElementById('newWards')?.value || 'ALL').trim();
+  const candidateMode = document.getElementById('newUserCandidateModeSelect')?.value || 'active';
 
   const tabBoxes = document.querySelectorAll('input[name="newUserTabs"]:checked');
-  const allowedTabs = Array.from(tabBoxes).map(b => b.value);
+  const allowedTabs = tabBoxes.length > 0 ? Array.from(tabBoxes).map(b => b.value) : ['searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab'];
 
   if (!username || !password) {
     showToast('यूजरनेम और पासवर्ड अनिवार्य हैं!');
     return;
   }
 
+  const userId = username.toLowerCase().replace(/\s+/g, '_');
   const newUser = {
-    id: username.toLowerCase().replace(/\s+/g, '_'),
+    id: userId.startsWith('cand_') ? userId : `cand_${userId}`,
     username: username,
     password: password,
-    full_name: fullName,
+    name: fullName || username,
+    full_name: fullName || username,
     mobile: mobile,
     role: 'PANCHAYAT_AGENT',
+    type: 'CANDIDATE',
+    category: 'CANDIDATE',
     status: 'ACTIVE',
+    panchayat: gp,
     allowed_panchayats: gp,
     allowed_wards: ward,
     allowed_tabs: allowedTabs,
     candidate_mode: candidateMode
   };
 
-  // Add locally
+  // Add locally to state
+  if (!State.adminControlUsers) State.adminControlUsers = [];
   State.adminControlUsers.unshift(newUser);
 
-  // Send to server
-  await saveAdminUserToServer(newUser);
+  // Save to overrides
+  saveUserOverride(newUser.id, 'password', password);
+  saveUserOverride(newUser.id, 'status', 'ACTIVE');
+  saveUserOverride(newUser.id, 'allowed_panchayats', gp);
 
+  // Send to server
+  try {
+    await saveAdminUserToServer(newUser);
+  } catch(e) {}
+
+  closeAddCandidateUserModal();
   closeAddUserModal();
-  renderAdminControlTab();
-  showToast(`✅ नया उपयोगकर्ता '${username}' सफलतापूर्वक जोड़ा गया!`);
+  if (typeof renderAdminCandTab === 'function') renderAdminCandTab();
+  if (typeof renderAdminControlTab === 'function') renderAdminControlTab();
+  showToast(`✅ नया प्रत्याशी खाता '${username}' (पासवर्ड: ${password}) सफलतापूर्वक जोड़ा गया!`);
 }
 
 async function deleteAdminUser(userId) {

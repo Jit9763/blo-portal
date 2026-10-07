@@ -4242,3 +4242,60 @@ input::placeholder {
 .admin-users-table tr:hover td {
   background: #f8fafc !important;
 }
+
+/* Fix for clipped / cut-off scope dropdown & allotment icon in admin tables */
+.admin-scope-select {
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  padding: 2px 26px 2px 8px !important;
+  font-size: 0.82rem !important;
+  line-height: normal !important;
+  font-weight: 600 !important;
+  border: 1.5px solid #cbd5e1 !important;
+  border-radius: 6px !important;
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  box-sizing: border-box !important;
+  max-width: 175px !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
+}
+
+.admin-scope-select:focus {
+  border-color: #2563eb !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2) !important;
+}
+
+.btn-scope-allot {
+  height: 32px !important;
+  min-height: 32px !important;
+  max-height: 32px !important;
+  width: 32px !important;
+  min-width: 32px !important;
+  padding: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 1rem !important;
+  border-radius: 6px !important;
+  border: 1.5px solid #3b82f6 !important;
+  background: #eff6ff !important;
+  color: #1d4ed8 !important;
+  cursor: pointer !important;
+  vertical-align: middle !important;
+  transition: all 0.15s ease !important;
+}
+
+.btn-scope-allot:hover {
+  background: #dbeafe !important;
+  transform: scale(1.05);
+}
+
+.admin-users-table td {
+  padding: 8px 10px !important;
+  vertical-align: middle !important;
+  overflow: visible !important;
+}
+

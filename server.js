@@ -151,6 +151,9 @@ function exportToJson() {
       candidates
     };
     fs.writeFileSync(JSON_PATH, JSON.stringify(payload, null, 2), 'utf8');
+    if (typeof scheduleAutoPushToGithub === 'function') {
+      scheduleAutoPushToGithub('database_json_export');
+    }
   } catch (err) {
     console.error('JSON export error:', err);
   }
@@ -191,6 +194,40 @@ const MIME_TYPES = {
   '.svg': 'image/svg+xml',
   '.ico': 'image/x-icon'
 };
+
+// Auto-Sync & Push to GitHub Engine
+let autoPushTimer = null;
+let isPushing = false;
+
+function scheduleAutoPushToGithub(reason = 'update') {
+  if (autoPushTimer) clearTimeout(autoPushTimer);
+  console.log(`[AUTO-SYNC] Setting auto-push scheduled in 2.5s (Trigger: ${reason})...`);
+  autoPushTimer = setTimeout(() => {
+    executeGithubPush(reason);
+  }, 2500);
+}
+
+function executeGithubPush(reason = 'update', callback = null) {
+  if (isPushing) {
+    console.log('[AUTO-SYNC] A deployment push is already running, will not overlap.');
+    if (callback) callback(null, 'Already in progress');
+    return;
+  }
+  isPushing = true;
+  const { exec } = require('node:child_process');
+  const deployScript = path.join(path.dirname(__dirname), 'deploy_tri_portals.py');
+  console.log(`[AUTO-SYNC] Running deployment script: python "${deployScript}" ...`);
+  exec(`python "${deployScript}"`, { cwd: path.dirname(__dirname) }, (error, stdout, stderr) => {
+    isPushing = false;
+    if (error) {
+      console.error('[AUTO-SYNC] Push failed:', error.message);
+      if (callback) callback(error);
+    } else {
+      console.log('[AUTO-SYNC] Push SUCCESS! All 3 repositories live on GitHub.');
+      if (callback) callback(null, stdout);
+    }
+  });
+}
 
 const server = http.createServer(async (req, res) => {
   // CORS & Cache Busting Headers
@@ -266,7 +303,8 @@ const server = http.createServer(async (req, res) => {
         const data = await parseJsonBody(req);
         const p = path.join(__dirname, 'portal_settings.json');
         fs.writeFileSync(p, JSON.stringify(data, null, 2), 'utf8');
-        res.end(JSON.stringify({ success: true, settings: data }));
+        scheduleAutoPushToGithub('portal_settings');
+        res.end(JSON.stringify({ success: true, settings: data, auto_push_scheduled: true }));
       } catch(e) {
         res.writeHead(500);
         res.end(JSON.stringify({ success: false, error: e.message }));
@@ -274,10 +312,15 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    if (pathname === '/api/sync-all-portals' && req.method === 'POST') {
-      const { exec } = require('node:child_process');
-      exec('git add . && git commit -m "sync: 1-click tri-portal sync" && git push origin main && git push voter-portal main && git push blo-portal main', { cwd: __dirname }, (error, stdout, stderr) => {
-        res.end(JSON.stringify({ success: !error, output: stdout || (error ? error.message : 'OK') }));
+    // Explicit manual push endpoint
+    if ((pathname === '/api/push-to-github' || pathname === '/api/sync-all-portals') && req.method === 'POST') {
+      executeGithubPush('api_manual', (err, output) => {
+        if (err) {
+          res.writeHead(500);
+          res.end(JSON.stringify({ success: false, error: err.message }));
+        } else {
+          res.end(JSON.stringify({ success: true, message: 'तीनों पोर्टल्स (pan, blo-portal, voter-portal) गिटहब पर लाइव हो गए!', output }));
+        }
       });
       return;
     }
