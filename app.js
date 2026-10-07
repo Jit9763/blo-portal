@@ -139,46 +139,8 @@ function deleteCellPersonnel(cellId, cellName) {
 // CONTEXT-AWARE LOGIN UI CONFIGURATOR
 // ==========================================================================
 function configureLoginUiForPortal() {
-  const ctx = getPortalContext();
-  const vBox = document.getElementById('voterLoginContainer');
-  const bBox = document.getElementById('bloLoginContainer');
-  const mBox = document.getElementById('masterLoginContainer');
-  const cardTitle = document.querySelector('.login-card-title');
-  const cardDesc = document.querySelector('.login-card-desc');
-  const badge = document.querySelector('.gatekeeper-badge');
-
-  if (ctx === 'voter') {
-    // 1. VOTER PORTAL: NO DROPDOWN - ONLY USER ID & PASSWORD
-    if (vBox) vBox.style.display = 'block';
-    if (bBox) bBox.style.display = 'none';
-    if (mBox) mBox.style.display = 'none';
-    if (cardTitle) cardTitle.textContent = '🗳️ मतदाता एवं अधिकृत प्रत्याशी प्रवेश';
-    if (cardDesc) cardDesc.textContent = 'कृपया अपनी यूजर आईडी एवं पासवर्ड दर्ज करके प्रवेश करें:';
-    if (badge) badge.textContent = '🗳️ मतदाता पर्ची एवं प्रत्याशी पोर्टल 2026';
-    const vInput = document.getElementById('voterDirectIdInput');
-    if (vInput) {
-      document.getElementById('gatekeeperUsername').value = vInput.value.trim();
-      vInput.focus();
-    }
-  } else if (ctx === 'blo') {
-    // 2. BLO & CELL PORTAL: DROPDOWN (Cell at top, Block Prabhari, 30 Panchayats)
-    if (vBox) vBox.style.display = 'none';
-    if (bBox) bBox.style.display = 'block';
-    if (mBox) mBox.style.display = 'none';
-    if (cardTitle) cardTitle.textContent = '🏢 बी.एल.ओ. एवं चुनाव प्रकोष्ठ अधिकृत प्रवेश';
-    if (cardDesc) cardDesc.textContent = 'कृपया प्रकोष्ठ या ग्राम पंचायत चुनकर अपना नाम चुनें:';
-    if (badge) badge.textContent = '📍 बी.एल.ओ. एवं चुनाव प्रकोष्ठ अधिकृत पोर्टल 2026';
-    populateBloPrimaryDropdown();
-  } else {
-    // 3. MASTER ADMIN PORTAL (pan): UNIFIED MASTER USER DROPDOWN
-    if (vBox) vBox.style.display = 'none';
-    if (bBox) bBox.style.display = 'none';
-    if (mBox) mBox.style.display = 'block';
-    if (cardTitle) cardTitle.textContent = '👑 त्रि-पोर्टल मास्टर एडमिन प्रवेश';
-    if (cardDesc) cardDesc.textContent = 'कृपया अपना अधिकृत खाता चुनें अथवा यूजरनेम दर्ज करें:';
-    if (badge) badge.textContent = '⚡ त्रि-पोर्टल मास्टर कंट्रोल रूम 2026';
-    populateLoginUserDropdown();
-  }
+  // Single unified form is directly in HTML, no hiding containers needed!
+  const dir = getMasterDirectory();
 }
 
 function populateBloPrimaryDropdown() {
@@ -214,7 +176,7 @@ async function onLoginPrimarySelectChanged(val) {
 
   if (!val) {
     if (offSelect) {
-      offSelect.innerHTML = '<option value="">-- पहले प्रकोष्ठ या पंचायत चुनें --</option>';
+      offSelect.innerHTML = '<option value="">-- पहले ऊपर प्रकोष्ठ या पंचायत चुनें --</option>';
       offSelect.disabled = true;
     }
     return;
@@ -229,7 +191,6 @@ async function onLoginPrimarySelectChanged(val) {
       const customCells = JSON.parse(localStorage.getItem('portal_custom_cell_personnel') || '[]');
       const cellList = [...customCells, ...((dir && dir.cell_personnel) ? dir.cell_personnel : [])];
       
-      // Deduplicate by id/username
       const seen = new Set();
       cellList.forEach(cp => {
         const cId = cp.username || cp.id;
@@ -247,6 +208,7 @@ async function onLoginPrimarySelectChanged(val) {
         offSelect.appendChild(opt);
       });
       offSelect.disabled = false;
+      offSelect.focus();
     }
     return;
   }
@@ -266,6 +228,28 @@ async function onLoginPrimarySelectChanged(val) {
       detailsBadge.style.background = '#ccfbf1';
       detailsBadge.style.color = '#0f766e';
       detailsBadge.style.border = '1px solid #99f6e4';
+      detailsBadge.style.display = 'block';
+    }
+    document.getElementById('gatekeeperPassword')?.focus();
+    return;
+  }
+
+  if (val === 'ADMIN') {
+    if (offLabel) offLabel.innerHTML = '<strong>2. व्यवस्थापक पद *:</strong>';
+    if (offSelect) {
+      offSelect.innerHTML = `
+        <option value="admin">👑 मुख्य व्यवस्थापक (Super Admin - Full Control)</option>
+        <option value="superadmin">⚡ भिनाय ब्लॉक मुख्य व्यवस्थापक (superadmin)</option>
+      `;
+      offSelect.disabled = false;
+      offSelect.value = 'admin';
+    }
+    if (uInput) uInput.value = 'admin';
+    if (detailsBadge) {
+      detailsBadge.innerHTML = '👑 <strong>सुपर एडमिन एक्सेस:</strong> सभी 30 पंचायतों एवं संपूर्ण पोर्टल का पूर्ण नियंत्रण।';
+      detailsBadge.style.background = '#fef3c7';
+      detailsBadge.style.color = '#92400e';
+      detailsBadge.style.border = '1px solid #fde68a';
       detailsBadge.style.display = 'block';
     }
     document.getElementById('gatekeeperPassword')?.focus();
@@ -301,6 +285,7 @@ async function onLoginPrimarySelectChanged(val) {
       offSelect.appendChild(opt);
     });
     offSelect.disabled = false;
+    offSelect.focus();
   }
 }
 
@@ -334,12 +319,12 @@ function onLoginOfficerChanged(officerId) {
       }
       detailsBadge.style.display = 'block';
     }
+    document.getElementById('gatekeeperPassword')?.focus();
   } else {
     if (detailsBadge) detailsBadge.style.display = 'none';
   }
 }
 
-// Self Password Reset Modal
 function openSelfPasswordModal() {
   const u = State.currentUser;
   if (!u) return;
@@ -1471,4 +1456,44 @@ function exportDatabaseBackup() {
   a.download = `panchayat_election_master_backup_${new Date().toISOString().split('T')[0]}.json`;
   a.click();
   showToast('✅ मास्टर डेटाबेस बैकअप डाउनलोड हुआ!');
+}
+
+
+
+// ==========================================================================
+// MANUAL USERNAME TOGGLE & INPUT HANDLERS
+// ==========================================================================
+function toggleManualUsername() {
+  const mDiv = document.getElementById('manualUsernameDiv');
+  const tBtn = document.getElementById('toggleManualUserBtn');
+  const pGrp = document.getElementById('loginPrimarySelectGroup');
+  const sGrp = document.getElementById('loginSecondarySelectGroup');
+
+  if (!mDiv) return;
+
+  if (mDiv.style.display === 'none') {
+    mDiv.style.display = 'block';
+    if (pGrp) pGrp.style.display = 'none';
+    if (sGrp) sGrp.style.display = 'none';
+    if (tBtn) tBtn.textContent = '◀ वापस ड्रॉपडाउन से चुनें';
+    const inp = document.getElementById('manualUsernameInput');
+    if (inp) {
+      inp.focus();
+      if (inp.value) document.getElementById('gatekeeperUsername').value = inp.value.trim();
+    }
+  } else {
+    mDiv.style.display = 'none';
+    if (pGrp) pGrp.style.display = 'block';
+    if (sGrp) sGrp.style.display = 'block';
+    if (tBtn) tBtn.textContent = '✏️ सीधे यूजर आईडी टाइप करें';
+    const offSelect = document.getElementById('loginOfficerSelect');
+    if (offSelect && offSelect.value) {
+      document.getElementById('gatekeeperUsername').value = offSelect.value;
+    }
+  }
+}
+
+function onManualUsernameInput(val) {
+  const hu = document.getElementById('gatekeeperUsername');
+  if (hu) hu.value = (val || '').trim();
 }
