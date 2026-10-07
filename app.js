@@ -1,5 +1,635 @@
 
 // ==========================================================================
+// SUPER ADMIN 3 DEDICATED TABS & GRANULAR PERMISSIONS CONTROLLER
+// ==========================================================================
+
+let activeHubSubTab = 'cell';
+
+function switchMasterHubSubTab(tabName) {
+  activeHubSubTab = tabName;
+  const panes = {
+    cell: document.getElementById('masterHubPaneCell'),
+    blo: document.getElementById('masterHubPaneBlo'),
+    cand: document.getElementById('masterHubPaneCand'),
+    admins: document.getElementById('masterHubPaneAdmins')
+  };
+  const btns = {
+    cell: document.getElementById('btnSubTabCell'),
+    blo: document.getElementById('btnSubTabBlo'),
+    cand: document.getElementById('btnSubTabCand'),
+    admins: document.getElementById('btnSubTabAdmins')
+  };
+
+  Object.keys(panes).forEach(k => {
+    if (panes[k]) panes[k].style.display = (k === tabName) ? 'block' : 'none';
+    if (btns[k]) {
+      if (k === tabName) btns[k].classList.add('active');
+      else btns[k].classList.remove('active');
+    }
+  });
+
+  if (tabName === 'cell') renderAdminCellTab();
+  else if (tabName === 'blo') renderAdminBloTab();
+  else if (tabName === 'cand') renderAdminCandTab();
+  else if (tabName === 'admins') renderAdminTopAdminsTab();
+}
+
+function getUserOverrides() {
+  try {
+    return JSON.parse(localStorage.getItem('portal_user_overrides') || '{}');
+  } catch(e) {
+    return {};
+  }
+}
+
+function saveUserOverride(userId, key, value) {
+  const overrides = getUserOverrides();
+  if (!overrides[userId]) overrides[userId] = {};
+  overrides[userId][key] = value;
+  localStorage.setItem('portal_user_overrides', JSON.stringify(overrides));
+  
+  // Also sync in State.adminControlUsers
+  if (State.adminControlUsers) {
+    const u = State.adminControlUsers.find(x => (x.id || x.username) === userId);
+    if (u) u[key] = value;
+  }
+}
+
+function toggleUserPermission(userId, permKey, isChecked) {
+  saveUserOverride(userId, permKey, isChecked);
+  showToast(`✅ अनुमति अद्यतन: ${userId} -> ${permKey} = ${isChecked ? 'हाँ' : 'नहीं'}`);
+}
+
+function updateUserScope(userId, scopeVal) {
+  saveUserOverride(userId, 'allowed_panchayats', scopeVal);
+  showToast(`🌐 कार्यक्षेत्र अद्यतन: ${userId} -> ${scopeVal}`);
+}
+
+function toggleUserStatus(userId) {
+  const overrides = getUserOverrides();
+  const cur = (overrides[userId] && overrides[userId].status) || 'ACTIVE';
+  const newStatus = (cur === 'ACTIVE') ? 'INACTIVE' : 'ACTIVE';
+  saveUserOverride(userId, 'status', newStatus);
+  showToast(`स्थिति बदली: ${userId} -> ${newStatus === 'ACTIVE' ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}`);
+  
+  if (activeHubSubTab === 'cell') renderAdminCellTab();
+  else if (activeHubSubTab === 'blo') renderAdminBloTab();
+  else if (activeHubSubTab === 'cand') renderAdminCandTab();
+}
+
+function quickUpdatePassword(userId, newPass) {
+  if (!newPass) return;
+  saveUserOverride(userId, 'password', newPass);
+  setCustomUserPassword(userId, newPass);
+  showToast(`🔑 पासवर्ड सुरक्षित: ${userId} -> ${newPass}`);
+}
+
+function resetUserPasswordToDefault(userId) {
+  quickUpdatePassword(userId, '123');
+  showToast(`🔑 पासवर्ड डिफ़ॉल्ट '123' पर रीसेट कर दिया गया!`);
+  if (activeHubSubTab === 'cell') renderAdminCellTab();
+  else if (activeHubSubTab === 'blo') renderAdminBloTab();
+  else if (activeHubSubTab === 'cand') renderAdminCandTab();
+}
+
+// -------------------------------------------------------------------------
+// 1. RENDER CELL TAB (18 OFFICIAL CELLS - 59 KARMIK)
+// -------------------------------------------------------------------------
+function renderAdminCellTab() {
+  const tbody = document.getElementById('adminCellTableBody');
+  if (!tbody) return;
+
+  const dir = getMasterDirectory();
+  const rawCells = (dir && dir.cell_personnel) ? dir.cell_personnel : [];
+  const overrides = getUserOverrides();
+
+  const searchVal = (document.getElementById('adminCellSearchInput') ? document.getElementById('adminCellSearchInput').value : '').toLowerCase().trim();
+  const cellFilter = document.getElementById('adminCellFilterSelect') ? document.getElementById('adminCellFilterSelect').value : 'ALL';
+  const statusFilter = document.getElementById('adminCellStatusFilter') ? document.getElementById('adminCellStatusFilter').value : 'ALL';
+
+  const filtered = rawCells.filter(c => {
+    const cid = c.id || c.username;
+    const ov = overrides[cid] || {};
+    const effectiveStatus = ov.status || c.status || 'ACTIVE';
+    
+    if (statusFilter !== 'ALL' && effectiveStatus !== statusFilter) return false;
+    if (cellFilter !== 'ALL' && c.cell_id !== cellFilter && c.cell_name !== cellFilter) return false;
+    
+    if (searchVal) {
+      const match = (c.name && c.name.toLowerCase().includes(searchVal)) ||
+                    (c.designation && c.designation.toLowerCase().includes(searchVal)) ||
+                    (c.office && c.office.toLowerCase().includes(searchVal)) ||
+                    (c.cell_name && c.cell_name.toLowerCase().includes(searchVal)) ||
+                    (c.mobile && c.mobile.includes(searchVal)) ||
+                    (cid && cid.toLowerCase().includes(searchVal));
+      if (!match) return false;
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:24px; color:#64748b; font-weight:600;">कोई प्रकोष्ठ कार्मिक नहीं मिला।</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = '';
+  filtered.forEach((c, idx) => {
+    const cid = c.id || c.username;
+    const ov = overrides[cid] || {};
+    const pass = ov.password || c.password || '123';
+    const status = ov.status || c.status || 'ACTIVE';
+    const isActive = (status === 'ACTIVE');
+    const canSearch = (ov.can_search !== undefined) ? ov.can_search : (c.can_search !== false);
+    const canView = (ov.can_view !== undefined) ? ov.can_view : (c.can_view !== false);
+    const canPrint = (ov.can_print !== undefined) ? ov.can_print : (c.can_print === true);
+    const canDownload = (ov.can_download !== undefined) ? ov.can_download : (c.can_download !== false);
+    const scope = ov.allowed_panchayats || c.allowed_panchayats || 'ALL';
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>
+        <strong style="color:#1e3a8a;">${cid}</strong>
+        <div style="font-size:0.75rem; color:#64748b;">क्र.सं. ${idx+1}</div>
+      </td>
+      <td>
+        <div style="font-weight:700; color:#0f172a;">${c.name}</div>
+        <div style="font-size:0.78rem; color:#475569;">${c.designation || c.post || ''}</div>
+        <div style="font-size:0.74rem; color:#64748b;">${c.office || ''}</div>
+      </td>
+      <td>
+        <span class="badge" style="background:#eff6ff; color:#1e40af; border:1px solid #bfdbfe; font-size:0.78rem; font-weight:700;">
+          ${c.cell_name || 'चुनाव प्रकोष्ठ'}
+        </span>
+        <div style="font-size:0.75rem; color:#059669; font-weight:600; margin-top:2px;">
+          ${c.role_in_cell || 'प्रकोष्ठ सदस्य'}
+        </div>
+      </td>
+      <td>
+        <a href="tel:${c.mobile}" style="font-weight:700; color:#0284c7; text-decoration:none;">📞 ${c.mobile}</a>
+      </td>
+      <td>
+        <div class="d-flex align-items-center gap-1">
+          <input type="text" class="form-input form-input-sm" value="${pass}" id="pass_input_${cid}" onchange="quickUpdatePassword('${cid}', this.value)" style="width:75px; font-weight:700; height:30px; padding:2px 6px;">
+          <button type="button" class="btn btn-xs btn-outline-secondary" onclick="quickUpdatePassword('${cid}', document.getElementById('pass_input_${cid}').value)" title="सेव">💾</button>
+        </div>
+      </td>
+      <td>
+        <div class="d-flex flex-wrap gap-1 align-items-center">
+          <label class="perm-check-item ${canSearch ? 'active' : ''}">
+            <input type="checkbox" ${canSearch ? 'checked' : ''} onchange="toggleUserPermission('${cid}', 'can_search', this.checked)">
+            <span>🔍 खोज</span>
+          </label>
+          <label class="perm-check-item ${canView ? 'active' : ''}">
+            <input type="checkbox" ${canView ? 'checked' : ''} onchange="toggleUserPermission('${cid}', 'can_view', this.checked)">
+            <span>📄 दर्शन</span>
+          </label>
+          <label class="perm-check-item ${canPrint ? 'active' : ''}">
+            <input type="checkbox" ${canPrint ? 'checked' : ''} onchange="toggleUserPermission('${cid}', 'can_print', this.checked)">
+            <span>🖨️ प्रिंट</span>
+          </label>
+          <label class="perm-check-item ${canDownload ? 'active' : ''}">
+            <input type="checkbox" ${canDownload ? 'checked' : ''} onchange="toggleUserPermission('${cid}', 'can_download', this.checked)">
+            <span>📥 डाउनलोड</span>
+          </label>
+        </div>
+        <div style="margin-top:4px;">
+          <select class="form-select form-select-sm" style="font-size:0.75rem; padding:2px 6px; height:26px; font-weight:600;" onchange="updateUserScope('${cid}', this.value)">
+            <option value="ALL" ${scope === 'ALL' ? 'selected' : ''}>🌐 समस्त 30 पंचायतें</option>
+            <option value="BOOTH" ${scope === 'BOOTH' ? 'selected' : ''}>📍 केवल निर्धारित बूथ</option>
+          </select>
+        </div>
+      </td>
+      <td style="text-align:center;">
+        <button type="button" class="btn btn-xs ${isActive ? 'btn-success' : 'btn-danger'}" onclick="toggleUserStatus('${cid}')" style="font-weight:700; font-size:0.75rem; min-width:65px;">
+          ${isActive ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}
+        </button>
+      </td>
+      <td style="text-align:center;">
+        <div class="d-flex justify-content-center gap-1">
+          <button type="button" class="btn btn-xs btn-outline-primary" onclick="resetUserPasswordToDefault('${cid}')" title="पासवर्ड 123 करें">🔄 123</button>
+          <button type="button" class="btn btn-xs btn-outline-danger" onclick="deleteCellPersonnel('${cid}', '${c.name}')" title="हटाएं">🗑️</button>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// -------------------------------------------------------------------------
+// 2. RENDER BLO TAB (126 BOOTHS ACROSS 30 PANCHAYATS)
+// -------------------------------------------------------------------------
+function renderAdminBloTab() {
+  const tbody = document.getElementById('adminBloTableBody');
+  if (!tbody) return;
+
+  const dir = getMasterDirectory();
+  const rawBlos = (dir && dir.blo_list) ? dir.blo_list : [];
+  const overrides = getUserOverrides();
+
+  const searchVal = (document.getElementById('adminBloSearchInput') ? document.getElementById('adminBloSearchInput').value : '').toLowerCase().trim();
+  const gpFilter = document.getElementById('adminBloGpFilter') ? document.getElementById('adminBloGpFilter').value : 'ALL';
+  const statusFilter = document.getElementById('adminBloStatusFilter') ? document.getElementById('adminBloStatusFilter').value : 'ALL';
+
+  const filtered = rawBlos.filter(b => {
+    const bid = b.username || b.id || b.user_id;
+    const ov = overrides[bid] || {};
+    const effectiveStatus = ov.status || b.status || 'ACTIVE';
+    
+    if (statusFilter !== 'ALL' && effectiveStatus !== statusFilter) return false;
+    if (gpFilter !== 'ALL' && b.panchayat !== gpFilter) return false;
+
+    if (searchVal) {
+      const match = (b.name && b.name.toLowerCase().includes(searchVal)) ||
+                    (b.school && b.school.toLowerCase().includes(searchVal)) ||
+                    (b.panchayat && b.panchayat.toLowerCase().includes(searchVal)) ||
+                    (b.booth_no && String(b.booth_no).includes(searchVal)) ||
+                    (b.mobile && b.mobile.includes(searchVal)) ||
+                    (bid && bid.toLowerCase().includes(searchVal));
+      if (!match) return false;
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:24px; color:#64748b; font-weight:600;">कोई बी.एल.ओ. नहीं मिला।</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = '';
+  filtered.forEach(b => {
+    const bid = b.username || b.id || b.user_id;
+    const ov = overrides[bid] || {};
+    const pass = ov.password || b.password || '123';
+    const status = ov.status || b.status || 'ACTIVE';
+    const isActive = (status === 'ACTIVE');
+    const canSearch = (ov.can_search !== undefined) ? ov.can_search : (b.can_search !== false);
+    const canView = (ov.can_view !== undefined) ? ov.can_view : (b.can_view !== false);
+    const canPrint = (ov.can_print !== undefined) ? ov.can_print : (b.can_print === true);
+    const canDownload = (ov.can_download !== undefined) ? ov.can_download : (b.can_download !== false);
+    const scope = ov.allowed_panchayats || b.panchayat || 'BOOTH';
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>
+        <span class="badge" style="background:#fef3c7; color:#92400e; font-weight:800; font-size:0.82rem; border:1px solid #fde68a;">
+          भाग सं. ${b.booth_no}
+        </span>
+        <div style="font-size:0.75rem; color:#64748b; margin-top:2px;">ID: ${bid}</div>
+      </td>
+      <td>
+        <div style="font-weight:700; color:#0f172a;">${b.name}</div>
+        <div style="font-size:0.78rem; color:#475569;">${b.post || 'अध्यापक / BLO'}</div>
+        <div style="font-size:0.74rem; color:#64748b;">${b.school || ''}</div>
+      </td>
+      <td>
+        <div style="font-weight:700; color:#1e40af;">🏛️ ${b.panchayat}</div>
+        <div style="font-size:0.76rem; color:#64748b;">वार्ड: ${b.wards || '-'}</div>
+      </td>
+      <td>
+        <a href="tel:${b.mobile}" style="font-weight:700; color:#0284c7; text-decoration:none;">📞 ${b.mobile}</a>
+      </td>
+      <td>
+        <div class="d-flex align-items-center gap-1">
+          <input type="text" class="form-input form-input-sm" value="${pass}" id="pass_input_${bid}" onchange="quickUpdatePassword('${bid}', this.value)" style="width:75px; font-weight:700; height:30px; padding:2px 6px;">
+          <button type="button" class="btn btn-xs btn-outline-secondary" onclick="quickUpdatePassword('${bid}', document.getElementById('pass_input_${bid}').value)" title="सेव">💾</button>
+        </div>
+      </td>
+      <td>
+        <div class="d-flex flex-wrap gap-1 align-items-center">
+          <label class="perm-check-item ${canSearch ? 'active' : ''}">
+            <input type="checkbox" ${canSearch ? 'checked' : ''} onchange="toggleUserPermission('${bid}', 'can_search', this.checked)">
+            <span>🔍 खोज</span>
+          </label>
+          <label class="perm-check-item ${canView ? 'active' : ''}">
+            <input type="checkbox" ${canView ? 'checked' : ''} onchange="toggleUserPermission('${bid}', 'can_view', this.checked)">
+            <span>📄 दर्शन</span>
+          </label>
+          <label class="perm-check-item ${canPrint ? 'active' : ''}">
+            <input type="checkbox" ${canPrint ? 'checked' : ''} onchange="toggleUserPermission('${bid}', 'can_print', this.checked)">
+            <span>🖨️ प्रिंट</span>
+          </label>
+          <label class="perm-check-item ${canDownload ? 'active' : ''}">
+            <input type="checkbox" ${canDownload ? 'checked' : ''} onchange="toggleUserPermission('${bid}', 'can_download', this.checked)">
+            <span>📥 डाउनलोड</span>
+          </label>
+        </div>
+        <div style="margin-top:4px;">
+          <select class="form-select form-select-sm" style="font-size:0.75rem; padding:2px 6px; height:26px; font-weight:600;" onchange="updateUserScope('${bid}', this.value)">
+            <option value="${b.panchayat}" ${scope === b.panchayat ? 'selected' : ''}>🏛️ केवल ${b.panchayat}</option>
+            <option value="ALL" ${scope === 'ALL' ? 'selected' : ''}>🌐 समस्त 30 पंचायतें</option>
+          </select>
+        </div>
+      </td>
+      <td style="text-align:center;">
+        <button type="button" class="btn btn-xs ${isActive ? 'btn-success' : 'btn-danger'}" onclick="toggleUserStatus('${bid}')" style="font-weight:700; font-size:0.75rem; min-width:65px;">
+          ${isActive ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}
+        </button>
+      </td>
+      <td style="text-align:center;">
+        <button type="button" class="btn btn-xs btn-outline-primary" onclick="resetUserPasswordToDefault('${bid}')" title="पासवर्ड 123 करें">🔄 123</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// -------------------------------------------------------------------------
+// 3. RENDER CANDIDATE TAB (CANDIDATES & PANCHAYAT AGENTS)
+// -------------------------------------------------------------------------
+function renderAdminCandTab() {
+  const tbody = document.getElementById('adminCandTableBody');
+  if (!tbody) return;
+
+  const users = State.adminControlUsers || [];
+  const candUsers = users.filter(u => u.type === 'CANDIDATE' || u.category === 'CANDIDATE' || (u.id && u.id.startsWith('cand_')));
+  const overrides = getUserOverrides();
+
+  const searchVal = (document.getElementById('adminCandSearchInput') ? document.getElementById('adminCandSearchInput').value : '').toLowerCase().trim();
+  const gpFilter = document.getElementById('adminCandGpFilter') ? document.getElementById('adminCandGpFilter').value : 'ALL';
+
+  const filtered = candUsers.filter(c => {
+    const cid = c.id || c.username;
+    if (gpFilter !== 'ALL' && c.panchayat !== gpFilter) return false;
+    if (searchVal) {
+      const match = (c.name && c.name.toLowerCase().includes(searchVal)) ||
+                    (c.panchayat && c.panchayat.toLowerCase().includes(searchVal)) ||
+                    (c.mobile && c.mobile.includes(searchVal)) ||
+                    (cid && cid.toLowerCase().includes(searchVal));
+      if (!match) return false;
+    }
+    return true;
+  });
+
+  if (filtered.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:24px; color:#64748b; font-weight:600;">कोई प्रत्याशी खाता नहीं मिला। ऊपर दिए गए बटन से नया प्रत्याशी जोड़ें।</td></tr>';
+    return;
+  }
+
+  tbody.innerHTML = '';
+  filtered.forEach(c => {
+    const cid = c.id || c.username;
+    const ov = overrides[cid] || {};
+    const pass = ov.password || c.password || '123';
+    const status = ov.status || c.status || 'ACTIVE';
+    const isActive = (status === 'ACTIVE');
+    const canSearch = (ov.can_search !== undefined) ? ov.can_search : true;
+    const canView = (ov.can_view !== undefined) ? ov.can_view : true;
+    const canPrint = (ov.can_print !== undefined) ? ov.can_print : true;
+    const canDownload = (ov.can_download !== undefined) ? ov.can_download : true;
+    const scope = ov.allowed_panchayats || c.panchayat || 'ALL';
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>
+        <strong style="color:#d97706;">${cid}</strong>
+      </td>
+      <td>
+        <div style="font-weight:700; color:#0f172a;">${c.name}</div>
+        <div style="font-size:0.75rem; color:#64748b;">${c.designation || 'प्रत्याशी'}</div>
+      </td>
+      <td>
+        <div style="font-weight:700; color:#1e40af;">🏛️ ${c.panchayat || '-'}</div>
+        <div style="font-size:0.75rem; color:#d97706; font-weight:700;">वार्ड: ${c.allowed_wards || 'समस्त'}</div>
+      </td>
+      <td>
+        <a href="tel:${c.mobile}" style="font-weight:700; color:#0284c7; text-decoration:none;">📞 ${c.mobile || '-'}</a>
+      </td>
+      <td>
+        <div class="d-flex align-items-center gap-1">
+          <input type="text" class="form-input form-input-sm" value="${pass}" id="pass_input_${cid}" onchange="quickUpdatePassword('${cid}', this.value)" style="width:75px; font-weight:700; height:30px; padding:2px 6px;">
+          <button type="button" class="btn btn-xs btn-outline-secondary" onclick="quickUpdatePassword('${cid}', document.getElementById('pass_input_${cid}').value)" title="सेव">💾</button>
+        </div>
+      </td>
+      <td>
+        <div class="d-flex flex-wrap gap-1 align-items-center">
+          <label class="perm-check-item ${canSearch ? 'active' : ''}">
+            <input type="checkbox" ${canSearch ? 'checked' : ''} onchange="toggleUserPermission('${cid}', 'can_search', this.checked)">
+            <span>🔍 खोज</span>
+          </label>
+          <label class="perm-check-item ${canView ? 'active' : ''}">
+            <input type="checkbox" ${canView ? 'checked' : ''} onchange="toggleUserPermission('${cid}', 'can_view', this.checked)">
+            <span>📄 दर्शन</span>
+          </label>
+          <label class="perm-check-item ${canPrint ? 'active' : ''}">
+            <input type="checkbox" ${canPrint ? 'checked' : ''} onchange="toggleUserPermission('${cid}', 'can_print', this.checked)">
+            <span>🖨️ प्रिंट</span>
+          </label>
+          <label class="perm-check-item ${canDownload ? 'active' : ''}">
+            <input type="checkbox" ${canDownload ? 'checked' : ''} onchange="toggleUserPermission('${cid}', 'can_download', this.checked)">
+            <span>📥 डाउनलोड</span>
+          </label>
+        </div>
+      </td>
+      <td style="text-align:center;">
+        <button type="button" class="btn btn-xs ${isActive ? 'btn-success' : 'btn-danger'}" onclick="toggleUserStatus('${cid}')" style="font-weight:700; font-size:0.75rem; min-width:65px;">
+          ${isActive ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}
+        </button>
+      </td>
+      <td style="text-align:center;">
+        <button type="button" class="btn btn-xs btn-outline-primary" onclick="resetUserPasswordToDefault('${cid}')" title="पासवर्ड 123 करें">🔄 123</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// -------------------------------------------------------------------------
+// 4. RENDER TOP ADMINS TAB (SUPER ADMIN, INCHARGE, VYAVASTHAPAK, BLOCK PRABHARI)
+// -------------------------------------------------------------------------
+function renderAdminTopAdminsTab() {
+  const tbody = document.getElementById('adminTopAdminsTableBody');
+  if (!tbody) return;
+
+  const topAdmins = [
+    {
+      id: 'admin',
+      name: 'मुख्य व्यवस्थापक (Super Admin)',
+      role_title: '👑 मुख्य व्यवस्थापक',
+      mobile: '7023293283',
+      scope: 'सम्पूर्ण नियंत्रण - समस्त 30 पंचायतें, डेटा संपादन, यूजर प्रबंधन',
+      default_pass: '123'
+    },
+    {
+      id: 'incharge',
+      name: 'ब्लॉक इनचार्ज (Incharge)',
+      role_title: '👁️ ब्लॉक इनचार्ज',
+      mobile: '7023293283',
+      scope: 'समस्त 30 ग्राम पंचायतें (केवल अवलोकन / View Only - नो एडिट)',
+      default_pass: '123'
+    },
+    {
+      id: 'vyavasthapak',
+      name: 'व्यवस्थापक (Vyavasthapak)',
+      role_title: '🖨️ व्यवस्थापक',
+      mobile: '9950705221',
+      scope: 'समस्त 30 ग्राम पंचायतें (मतदाता सूची अवलोकन, पर्ची डाउनलोड एवं प्रिंट)',
+      default_pass: '123'
+    },
+    {
+      id: 'block_prabhari',
+      name: 'श्री सुरेश चन्द्र जांगिड (शिक्षक)',
+      role_title: '🌟 ब्लॉक प्रभारी',
+      mobile: '9950705221',
+      scope: 'समस्त 30 ग्राम पंचायतें (मतदाता खोज, डायरेक्टरी एवं समग्र नियंत्रण)',
+      default_pass: '123'
+    }
+  ];
+
+  const overrides = getUserOverrides();
+  tbody.innerHTML = '';
+
+  topAdmins.forEach(adm => {
+    const ov = overrides[adm.id] || {};
+    const pass = ov.password || adm.default_pass;
+
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong style="color:#1e40af;">${adm.id}</strong></td>
+      <td>
+        <div style="font-weight:700; color:#0f172a;">${adm.name}</div>
+      </td>
+      <td>
+        <span class="badge" style="background:#fef3c7; color:#92400e; font-weight:700; font-size:0.82rem; border:1px solid #fde68a;">
+          ${adm.role_title}
+        </span>
+      </td>
+      <td>
+        <a href="tel:${adm.mobile}" style="font-weight:700; color:#0284c7; text-decoration:none;">📞 ${adm.mobile}</a>
+      </td>
+      <td>
+        <div class="d-flex align-items-center gap-1">
+          <input type="text" class="form-input form-input-sm" value="${pass}" id="pass_input_${adm.id}" onchange="quickUpdatePassword('${adm.id}', this.value)" style="width:85px; font-weight:700; height:30px; padding:2px 6px;">
+          <button type="button" class="btn btn-xs btn-outline-secondary" onclick="quickUpdatePassword('${adm.id}', document.getElementById('pass_input_${adm.id}').value)" title="सेव">💾</button>
+        </div>
+      </td>
+      <td><div style="font-size:0.82rem; color:#475569;">${adm.scope}</div></td>
+      <td style="text-align:center;">
+        <button type="button" class="btn btn-xs btn-outline-primary" onclick="resetUserPasswordToDefault('${adm.id}')" title="पासवर्ड 123 करें">🔄 123</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+// -------------------------------------------------------------------------
+// PERMISSION ACCESS ENFORCERS (PRINT, DOWNLOAD, SEARCH)
+// -------------------------------------------------------------------------
+function canUserPrint() {
+  if (!State.currentUser) return false;
+  const u = State.currentUser;
+  if (u.role === 'SUPER_ADMIN' || u.role === 'VYAVASTHAPAK') return true;
+  const ov = getUserOverrides()[u.id || u.username] || {};
+  return (ov.can_print !== undefined) ? ov.can_print : (u.can_print === true);
+}
+
+function canUserDownload() {
+  if (!State.currentUser) return false;
+  const u = State.currentUser;
+  if (u.role === 'SUPER_ADMIN' || u.role === 'VYAVASTHAPAK' || u.role === 'INCHARGE' || u.role === 'BLOCK_PRABHARI') return true;
+  const ov = getUserOverrides()[u.id || u.username] || {};
+  return (ov.can_download !== undefined) ? ov.can_download : (u.can_download !== false);
+}
+
+// -------------------------------------------------------------------------
+// ENHANCED POPULATE GP FILTER DROPDOWNS (POPULATES ALL DROPDOWNS RELIABLY)
+// -------------------------------------------------------------------------
+function populateGpFilterDropdowns() {
+  const allowedGps = getAllowedGps();
+  if (!allowedGps || allowedGps.length === 0) return;
+
+  const isSuper = (!State.currentUser || State.currentUser.role === 'SUPER_ADMIN' || State.currentUser.role === 'INCHARGE' || State.currentUser.role === 'VYAVASTHAPAK' || State.currentUser.role === 'BLOCK_PRABHARI');
+
+  // Helper to populate any GP select element
+  const fillSelect = (selectEl, includeAll, defaultVal) => {
+    if (!selectEl) return;
+    const cur = selectEl.value;
+    selectEl.innerHTML = '';
+    if (includeAll) {
+      const allOpt = document.createElement('option');
+      allOpt.value = 'ALL';
+      allOpt.textContent = '-- सभी 30 ग्राम पंचायत --';
+      selectEl.appendChild(allOpt);
+    }
+    allowedGps.forEach(gp => {
+      const opt = document.createElement('option');
+      opt.value = gp.code || gp.name_hi;
+      opt.textContent = `${gp.name_hi} (${gp.code || ''})`;
+      selectEl.appendChild(opt);
+    });
+
+    if (cur && Array.from(selectEl.options).some(o => o.value === cur)) {
+      selectEl.value = cur;
+    } else if (defaultVal && Array.from(selectEl.options).some(o => o.value === defaultVal)) {
+      selectEl.value = defaultVal;
+    } else if (includeAll) {
+      selectEl.value = 'ALL';
+    } else if (selectEl.options.length > 0) {
+      selectEl.selectedIndex = 0;
+    }
+  };
+
+  // 1. Core tabs
+  fillSelect(document.getElementById('filterGp'), isSuper);
+  fillSelect(document.getElementById('dirGpSelect'), false);
+  fillSelect(document.getElementById('alphaGpSelect'), isSuper);
+  fillSelect(document.getElementById('bulkGpSelect'), false);
+
+  // 2. Candidate Tab
+  const candGp = document.getElementById('candidateGpSelect');
+  fillSelect(candGp, false);
+  if (candGp && typeof onCandidateGpChanged === 'function') {
+    onCandidateGpChanged(candGp.value);
+  }
+
+  // 3. Admin Hub Filters
+  fillSelect(document.getElementById('adminBloGpFilter'), true);
+  fillSelect(document.getElementById('adminCandGpFilter'), true);
+  fillSelect(document.getElementById('bloPassGpFilter'), true);
+  fillSelect(document.getElementById('newUserGpSelect'), false);
+  fillSelect(document.getElementById('bloEditGp'), false);
+
+  // 4. Admin Cell Filter (18 official cells)
+  const cellFilter = document.getElementById('adminCellFilterSelect');
+  if (cellFilter) {
+    const curCell = cellFilter.value;
+    cellFilter.innerHTML = '<option value="ALL">-- समस्त 18 चुनाव प्रकोष्ठ --</option>';
+    const dir = getMasterDirectory();
+    if (dir && dir.official_cells) {
+      dir.official_cells.forEach(cell => {
+        const opt = document.createElement('option');
+        opt.value = cell.cell_id;
+        opt.textContent = `${cell.cell_no}. ${cell.cell_name}`;
+        cellFilter.appendChild(opt);
+      });
+    }
+    if (curCell && Array.from(cellFilter.options).some(o => o.value === curCell)) {
+      cellFilter.value = curCell;
+    }
+  }
+
+  // 5. Directory GP/Booth filter
+  const dirGpBooth = document.getElementById('dirGpBoothFilterSelect');
+  if (dirGpBooth && dirGpBooth.options.length <= 1) {
+    dirGpBooth.innerHTML = '<option value="ALL">🌍 समस्त पंचायतें व बूथ (All 30 Panchayats)</option>';
+    const gpGroup = document.createElement('optgroup');
+    gpGroup.label = '🏛️ ग्राम पंचायत चुनें (30 Panchayats)';
+    allowedGps.forEach(gp => {
+      const opt = document.createElement('option');
+      opt.value = 'GP:' + gp.name_hi;
+      opt.textContent = `🏛️ ग्रा.पं. ${gp.name_hi} (${gp.code || ''})`;
+      gpGroup.appendChild(opt);
+    });
+    dirGpBooth.appendChild(gpGroup);
+  }
+
+  // Trigger sub-updates
+  if (typeof onGpFilterChanged === 'function') onGpFilterChanged();
+  if (typeof onAlphaGpChanged === 'function') onAlphaGpChanged();
+  if (typeof onBulkGpChanged === 'function') onBulkGpChanged();
+}
+
+
+// ==========================================================================
 // MASTER DIRECTORY SYNCHRONOUS RESOLVER
 // ==========================================================================
 function getMasterDirectory() {
@@ -666,6 +1296,7 @@ async function ensurePanchayatVotersLoaded(gpCode) {
 }
 
 function initMasterData() {
+  setTimeout(populateGpFilterDropdowns, 50);
   setTimeout(populateGpFilterDropdowns, 50);
   setTimeout(populateGpFilterDropdowns, 50);
   setTimeout(populateGpFilterDropdowns, 50);
@@ -1436,7 +2067,7 @@ async function performSearch() {
   const allowedGps = getAllowedGps().map(p => p.code);
 
   let results = State.voters.filter(voter => {
-                // 1. Strict Jurisdiction
+                    // 1. Strict Jurisdiction
     const u = State.currentUser;
     const isPrivileged = (!u || u.role === 'SUPER_ADMIN' || u.role === 'INCHARGE' || u.role === 'VYAVASTHAPAK' || u.role === 'BLOCK_PRABHARI' || u.allowed_panchayats === 'ALL');
     if (!isPrivileged) {
@@ -2182,6 +2813,7 @@ function renderBulkPreview() {
 }
 
 function printBulkSlips() {
+  if (!canUserPrint()) { alert('⚠️ पर्ची प्रिंट करने की अनुमति मुख्य व्यवस्थापक द्वारा वर्जित है!'); return; }
   const voters = State.bulkFilteredVoters;
   if (voters.length === 0) {
     showToast('प्रिंट करने हेतु कोई मतदाता उपलब्ध नहीं है!');
@@ -3633,9 +4265,26 @@ function onCandidatePostChanged(post) {
   renderLiveSpecimenSlip();
 }
 
-function onCandidateGpChanged(gp) {
+function onCandidateGpChanged(val) {
+  const wardSelect = document.getElementById('candidateWardSelect');
+  if (wardSelect) {
+    wardSelect.innerHTML = '<option value="">-- वार्ड चुनें --</option>';
+    const gp = (State.panchayats || []).find(p => p.code === val || p.name_hi === val || p.name_en === val);
+    if (gp) {
+      const wards = (gp.wards && gp.wards.length > 0) ? gp.wards : getGpWards(gp);
+      wards.forEach(w => {
+        const opt = document.createElement('option');
+        opt.value = w.ward_no;
+        opt.textContent = `वार्ड संख्या ${w.ward_no} (${w.village || gp.name_hi})`;
+        wardSelect.appendChild(opt);
+      });
+    }
+  }
   const post = document.getElementById('candidatePostSelect') ? document.getElementById('candidatePostSelect').value : '';
-  if (post === 'वार्ड पंच') onCandidatePostChanged(post);
+  if (post === 'वार्ड पंच') {
+    const wg = document.getElementById('candidateWardSelectGroup');
+    if (wg) wg.style.display = 'block';
+  }
   renderLiveSpecimenSlip();
 }
 

@@ -2,8 +2,8 @@
   "panchayats": [
     {
       "code": "GP01",
-      "name_en": "Badgaon",
       "name_hi": "बड़गांव",
+      "name_en": "Badgaon",
       "samiti": "भिनाय",
       "district": "अजमेर",
       "total_wards": 13,
@@ -23,17 +23,100 @@
         12,
         13
       ],
-      "villages": [
-        "बड़गांव"
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "बड़गांव",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "केरियाखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "बडगांव",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "रघुनाथपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "बड़गांव",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "केरियाखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "बडगांव",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "रघुनाथपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "बड़गांव",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "केरियाखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "बडगांव",
+          "voters": 250
+        },
+        {
+          "ward_no": 12,
+          "no": 12,
+          "village": "रघुनाथपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 13,
+          "no": 13,
+          "village": "बड़गांव",
+          "voters": 250
+        }
       ],
-      "total_voters": 4210,
-      "active_voters": 4076,
-      "deleted_voters": 134
+      "villages": [
+        "बड़गांव",
+        "केरियाखुर्द",
+        "बडगांव",
+        "रघुनाथपुरा"
+      ],
+      "total_voters": 3250,
+      "active_voters": 3250,
+      "deleted_voters": 0
     },
     {
       "code": "GP02",
+      "name_hi": "बड़ली",
       "name_en": "Badli",
-      "name_hi": "बदली",
       "samiti": "भिनाय",
       "district": "अजमेर",
       "total_wards": 11,
@@ -51,17 +134,86 @@
         10,
         11
       ],
-      "villages": [
-        "बदली"
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "बड़ली",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "बडली",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "बड़ली",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "बडली",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "बड़ली",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "बडली",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "बड़ली",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "बडली",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "बड़ली",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "बडली",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "बड़ली",
+          "voters": 250
+        }
       ],
-      "total_voters": 3620,
-      "active_voters": 3511,
-      "deleted_voters": 109
+      "villages": [
+        "बड़ली",
+        "बडली"
+      ],
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
     },
     {
       "code": "GP03",
+      "name_hi": "बगराई",
       "name_en": "Bagrai",
-      "name_hi": "बाघराई",
       "samiti": "भिनाय",
       "district": "अजमेर",
       "total_wards": 7,
@@ -75,17 +227,61 @@
         6,
         7
       ],
-      "villages": [
-        "बाघराई"
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "बगराई",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "बगराई",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "बगराई",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "बगराई",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "बगराई",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "बगराई",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "बगराई",
+          "voters": 250
+        }
       ],
-      "total_voters": 2177,
-      "active_voters": 2073,
-      "deleted_voters": 104
+      "villages": [
+        "बगराई"
+      ],
+      "total_voters": 1750,
+      "active_voters": 1750,
+      "deleted_voters": 0
     },
     {
       "code": "GP04",
-      "name_en": "Bandanwara",
       "name_hi": "बांदनवाड़ा",
+      "name_en": "Bandanwara",
       "samiti": "भिनाय",
       "district": "अजमेर",
       "total_wards": 17,
@@ -109,17 +305,122 @@
         16,
         17
       ],
-      "villages": [
-        "बांदनवाड़ा"
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "बांदनवाड़ा",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "बान्दनवाडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "बांदनवाड़ा",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "बान्दनवाडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "बांदनवाड़ा",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "बान्दनवाडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "बांदनवाड़ा",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "बान्दनवाडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "बांदनवाड़ा",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "बान्दनवाडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "बांदनवाड़ा",
+          "voters": 250
+        },
+        {
+          "ward_no": 12,
+          "no": 12,
+          "village": "बान्दनवाडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 13,
+          "no": 13,
+          "village": "बांदनवाड़ा",
+          "voters": 250
+        },
+        {
+          "ward_no": 14,
+          "no": 14,
+          "village": "बान्दनवाडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 15,
+          "no": 15,
+          "village": "बांदनवाड़ा",
+          "voters": 250
+        },
+        {
+          "ward_no": 16,
+          "no": 16,
+          "village": "बान्दनवाडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 17,
+          "no": 17,
+          "village": "बांदनवाड़ा",
+          "voters": 250
+        }
       ],
-      "total_voters": 6374,
-      "active_voters": 5861,
-      "deleted_voters": 513
+      "villages": [
+        "बांदनवाड़ा",
+        "बान्दनवाडा"
+      ],
+      "total_voters": 4250,
+      "active_voters": 4250,
+      "deleted_voters": 0
     },
     {
       "code": "GP05",
-      "name_en": "Bhinay",
       "name_hi": "भिनाय",
+      "name_en": "Bhinay",
       "samiti": "भिनाय",
       "district": "अजमेर",
       "total_wards": 21,
@@ -147,17 +448,145 @@
         20,
         21
       ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 12,
+          "no": 12,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 13,
+          "no": 13,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 14,
+          "no": 14,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 15,
+          "no": 15,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 16,
+          "no": 16,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 17,
+          "no": 17,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 18,
+          "no": 18,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 19,
+          "no": 19,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 20,
+          "no": 20,
+          "village": "भिनाय",
+          "voters": 250
+        },
+        {
+          "ward_no": 21,
+          "no": 21,
+          "village": "भिनाय",
+          "voters": 250
+        }
+      ],
       "villages": [
         "भिनाय"
       ],
-      "total_voters": 8120,
-      "active_voters": 7396,
-      "deleted_voters": 724
+      "total_voters": 5250,
+      "active_voters": 5250,
+      "deleted_voters": 0
     },
     {
       "code": "GP06",
+      "name_hi": "बूबकिया",
       "name_en": "Boobkiya",
-      "name_hi": "बुबकिया",
       "samiti": "भिनाय",
       "district": "अजमेर",
       "total_wards": 11,
@@ -175,17 +604,90 @@
         10,
         11
       ],
-      "villages": [
-        "बुबकिया"
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "बूबकिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "रेण",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "खायडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "सोलखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "सोलकला",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "पीपलिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "बूबकिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "रेण",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "खायडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "सोलखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "सोलकला",
+          "voters": 250
+        }
       ],
-      "total_voters": 3561,
-      "active_voters": 3429,
-      "deleted_voters": 132
+      "villages": [
+        "बूबकिया",
+        "रेण",
+        "खायडा",
+        "सोलखुर्द",
+        "सोलकला",
+        "पीपलिया"
+      ],
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
     },
     {
       "code": "GP07",
-      "name_en": "Chapaneri",
       "name_hi": "चापानेरी",
+      "name_en": "Chapaneri",
       "samiti": "भिनाय",
       "district": "अजमेर",
       "total_wards": 11,
@@ -202,18 +704,86 @@
         9,
         10,
         11
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "चापानेरी",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "चापानेरी",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "चापानेरी",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "चापानेरी",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "चापानेरी",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "चापानेरी",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "चापानेरी",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "चापानेरी",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "चापानेरी",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "चापानेरी",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "चापानेरी",
+          "voters": 250
+        }
       ],
       "villages": [
         "चापानेरी"
       ],
-      "total_voters": 3742,
-      "active_voters": 3333,
-      "deleted_voters": 409
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
     },
     {
       "code": "GP08",
+      "name_hi": "छछून्दरा",
       "name_en": "Chhachhundra",
-      "name_hi": "छाछूंदड़ा",
       "samiti": "भिनाय",
       "district": "अजमेर",
       "total_wards": 11,
@@ -231,17 +801,89 @@
         10,
         11
       ],
-      "villages": [
-        "छाछूंदड़ा"
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "सेदरिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "छछून्दरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "सरगांव",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "जोरावरपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "रतनपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "सेदरिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "छछून्दरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "सरगांव",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "जोरावरपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "रतनपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "सेदरिया",
+          "voters": 250
+        }
       ],
-      "total_voters": 3979,
-      "active_voters": 3687,
-      "deleted_voters": 292
+      "villages": [
+        "सेदरिया",
+        "छछून्दरा",
+        "सरगांव",
+        "जोरावरपुरा",
+        "रतनपुरा"
+      ],
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
     },
     {
       "code": "GP09",
-      "name_en": "DEVPURA",
       "name_hi": "देवपुरा",
+      "name_en": "Devpura",
       "samiti": "भिनाय",
       "district": "अजमेर",
       "total_wards": 11,
@@ -259,339 +901,90 @@
         10,
         11
       ],
-      "villages": [
-        "देवपुरा"
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "अमरगढ",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "मोतीपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "रूपपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "रामपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "देवपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "गज्जनाड़ी",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "अमरगढ",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "मोतीपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "रूपपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "रामपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "देवपुरा",
+          "voters": 250
+        }
       ],
-      "total_voters": 3418,
-      "active_voters": 3180,
-      "deleted_voters": 238
+      "villages": [
+        "अमरगढ",
+        "मोतीपुरा",
+        "रूपपुरा",
+        "रामपुरा",
+        "देवपुरा",
+        "गज्जनाड़ी"
+      ],
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
     },
     {
       "code": "GP10",
+      "name_hi": "देवलियाकलां",
       "name_en": "Devliyakalan",
-      "name_hi": "देवलीयाकलां",
-      "samiti": "भिनाय",
-      "district": "अजमेर",
-      "total_wards": 15,
-      "ward_range": "1-15",
-      "ward_list": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13,
-        14,
-        15
-      ],
-      "villages": [
-        "देवलीयाकलां"
-      ],
-      "total_voters": 5364,
-      "active_voters": 5090,
-      "deleted_voters": 274
-    },
-    {
-      "code": "GP11",
-      "name_en": "Dhantol",
-      "name_hi": "धांतोल",
-      "samiti": "भिनाय",
-      "district": "अजमेर",
-      "total_wards": 9,
-      "ward_range": "1-9",
-      "ward_list": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-      ],
-      "villages": [
-        "धांतोल"
-      ],
-      "total_voters": 2937,
-      "active_voters": 2798,
-      "deleted_voters": 139
-    },
-    {
-      "code": "GP12",
-      "name_en": "Ekalsingha",
-      "name_hi": "एकलसिंहा",
-      "samiti": "भिनाय",
-      "district": "अजमेर",
-      "total_wards": 9,
-      "ward_range": "1-9",
-      "ward_list": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-      ],
-      "villages": [
-        "एकलसिंहा"
-      ],
-      "total_voters": 2807,
-      "active_voters": 2673,
-      "deleted_voters": 134
-    },
-    {
-      "code": "GP13",
-      "name_en": "Ghana",
-      "name_hi": "घाना",
-      "samiti": "भिनाय",
-      "district": "अजमेर",
-      "total_wards": 7,
-      "ward_range": "1-7",
-      "ward_list": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7
-      ],
-      "villages": [
-        "घाना"
-      ],
-      "total_voters": 2545,
-      "active_voters": 2404,
-      "deleted_voters": 141
-    },
-    {
-      "code": "GP14",
-      "name_en": "GudhaKhurd",
-      "name_hi": "गुढ़ाखुर्द",
-      "samiti": "भिनाय",
-      "district": "अजमेर",
-      "total_wards": 11,
-      "ward_range": "1-11",
-      "ward_list": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "villages": [
-        "गुढ़ाखुर्द"
-      ],
-      "total_voters": 3388,
-      "active_voters": 3234,
-      "deleted_voters": 154
-    },
-    {
-      "code": "GP15",
-      "name_en": "Hiyaliya",
-      "name_hi": "हियालिया",
-      "samiti": "भिनाय",
-      "district": "अजमेर",
-      "total_wards": 7,
-      "ward_range": "1-7",
-      "ward_list": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7
-      ],
-      "villages": [
-        "हियालिया"
-      ],
-      "total_voters": 2129,
-      "active_voters": 2079,
-      "deleted_voters": 50
-    },
-    {
-      "code": "GP16",
-      "name_en": "Kanaikalan",
-      "name_hi": "कानाईकलां",
-      "samiti": "भिनाय",
-      "district": "अजमेर",
-      "total_wards": 9,
-      "ward_range": "1-9",
-      "ward_list": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9
-      ],
-      "villages": [
-        "कानाईकलां"
-      ],
-      "total_voters": 3220,
-      "active_voters": 3084,
-      "deleted_voters": 136
-    },
-    {
-      "code": "GP17",
-      "name_en": "Karanti",
-      "name_hi": "करांटी",
-      "samiti": "भिनाय",
-      "district": "अजमेर",
-      "total_wards": 7,
-      "ward_range": "1-7",
-      "ward_list": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7
-      ],
-      "villages": [
-        "करांटी"
-      ],
-      "total_voters": 2218,
-      "active_voters": 2047,
-      "deleted_voters": 171
-    },
-    {
-      "code": "GP18",
-      "name_en": "Kerot",
-      "name_hi": "केरोट",
-      "samiti": "भिनाय",
-      "district": "अजमेर",
-      "total_wards": 11,
-      "ward_range": "1-11",
-      "ward_list": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "villages": [
-        "केरोट"
-      ],
-      "total_voters": 3664,
-      "active_voters": 3465,
-      "deleted_voters": 199
-    },
-    {
-      "code": "GP19",
-      "name_en": "Khedi",
-      "name_hi": "खेड़ी",
-      "samiti": "भिनाय",
-      "district": "अजमेर",
-      "total_wards": 11,
-      "ward_range": "1-11",
-      "ward_list": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "villages": [
-        "खेड़ी"
-      ],
-      "total_voters": 3300,
-      "active_voters": 3117,
-      "deleted_voters": 183
-    },
-    {
-      "code": "GP20",
-      "name_en": "Kumhariya",
-      "name_hi": "कुम्हारिया",
-      "samiti": "भिनाय",
-      "district": "अजमेर",
-      "total_wards": 11,
-      "ward_range": "1-11",
-      "ward_list": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "villages": [
-        "कुम्हारिया"
-      ],
-      "total_voters": 4313,
-      "active_voters": 3845,
-      "deleted_voters": 468
-    },
-    {
-      "code": "GP21",
-      "name_en": "Lamgra",
-      "name_hi": "लामगरा",
-      "samiti": "भिनाय",
-      "district": "अजमेर",
-      "total_wards": 11,
-      "ward_range": "1-11",
-      "ward_list": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "villages": [
-        "लामगरा"
-      ],
-      "total_voters": 3585,
-      "active_voters": 3385,
-      "deleted_voters": 200
-    },
-    {
-      "code": "GP22",
-      "name_en": "Nagola",
-      "name_hi": "नागोला",
       "samiti": "भिनाय",
       "district": "अजमेर",
       "total_wards": 13,
@@ -611,17 +1004,99 @@
         12,
         13
       ],
-      "villages": [
-        "नागोला"
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "देवलियाकलां",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "माताजी का खेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "देवलियाकला",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "देवलियाकलां",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "माताजी का खेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "देवलियाकला",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "देवलियाकलां",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "माताजी का खेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "देवलियाकला",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "देवलियाकलां",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "माताजी का खेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 12,
+          "no": 12,
+          "village": "देवलियाकला",
+          "voters": 250
+        },
+        {
+          "ward_no": 13,
+          "no": 13,
+          "village": "देवलियाकलां",
+          "voters": 250
+        }
       ],
-      "total_voters": 4242,
-      "active_voters": 4068,
-      "deleted_voters": 174
+      "villages": [
+        "देवलियाकलां",
+        "माताजी का खेडा",
+        "देवलियाकला"
+      ],
+      "total_voters": 3250,
+      "active_voters": 3250,
+      "deleted_voters": 0
     },
     {
-      "code": "GP23",
-      "name_en": "Nandsi",
-      "name_hi": "नांदसी",
+      "code": "GP11",
+      "name_hi": "धांतोल",
+      "name_en": "Dhantol",
       "samiti": "भिनाय",
       "district": "अजमेर",
       "total_wards": 11,
@@ -639,21 +1114,1266 @@
         10,
         11
       ],
-      "villages": [
-        "नांदसी"
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "उदयगढ़खेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "गुजरवाडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "धांतोल",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "उदयगढ़खेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "गुजरवाडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "धांतोल",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "उदयगढ़खेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "गुजरवाडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "धांतोल",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "उदयगढ़खेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "गुजरवाडा",
+          "voters": 250
+        }
       ],
-      "total_voters": 4141,
-      "active_voters": 3799,
-      "deleted_voters": 342
+      "villages": [
+        "उदयगढ़खेडा",
+        "गुजरवाडा",
+        "धांतोल"
+      ],
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
+    },
+    {
+      "code": "GP12",
+      "name_hi": "एकलसिंहा",
+      "name_en": "Ekalsingha",
+      "samiti": "भिनाय",
+      "district": "अजमेर",
+      "total_wards": 13,
+      "ward_range": "1-13",
+      "ward_list": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "एकलसिंहा",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "हियालिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "बनेडिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "बालापुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "एकलसिंगा",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "ढाणी",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "झबरकिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "एकलसिंहा",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "हियालिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "बनेडिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "बालापुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 12,
+          "no": 12,
+          "village": "एकलसिंगा",
+          "voters": 250
+        },
+        {
+          "ward_no": 13,
+          "no": 13,
+          "village": "ढाणी",
+          "voters": 250
+        }
+      ],
+      "villages": [
+        "एकलसिंहा",
+        "हियालिया",
+        "बनेडिया",
+        "बालापुरा",
+        "एकलसिंगा",
+        "ढाणी",
+        "झबरकिया"
+      ],
+      "total_voters": 3250,
+      "active_voters": 3250,
+      "deleted_voters": 0
+    },
+    {
+      "code": "GP13",
+      "name_hi": "घणा",
+      "name_en": "Ghana",
+      "samiti": "भिनाय",
+      "district": "अजमेर",
+      "total_wards": 9,
+      "ward_range": "1-9",
+      "ward_list": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "घणा",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "घणा",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "घणा",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "घणा",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "घणा",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "घणा",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "घणा",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "घणा",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "घणा",
+          "voters": 250
+        }
+      ],
+      "villages": [
+        "घणा"
+      ],
+      "total_voters": 2250,
+      "active_voters": 2250,
+      "deleted_voters": 0
+    },
+    {
+      "code": "GP14",
+      "name_hi": "गुढाखुर्द",
+      "name_en": "GudhaKhurd",
+      "samiti": "भिनाय",
+      "district": "अजमेर",
+      "total_wards": 11,
+      "ward_range": "1-11",
+      "ward_list": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "बगराई",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "खेडी",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "गुढाखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "गुढाकला",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "पाण्डोलाई",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "इन्द्रपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "बगराई",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "खेडी",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "गुढाखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "गुढाकला",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "पाण्डोलाई",
+          "voters": 250
+        }
+      ],
+      "villages": [
+        "बगराई",
+        "खेडी",
+        "गुढाखुर्द",
+        "गुढाकला",
+        "पाण्डोलाई",
+        "इन्द्रपुरा"
+      ],
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
+    },
+    {
+      "code": "GP15",
+      "name_hi": "हियालिया",
+      "name_en": "Hiyaliya",
+      "samiti": "भिनाय",
+      "district": "अजमेर",
+      "total_wards": 9,
+      "ward_range": "1-9",
+      "ward_list": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "हियालिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "हियालिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "हियालिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "हियालिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "हियालिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "हियालिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "हियालिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "हियालिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "हियालिया",
+          "voters": 250
+        }
+      ],
+      "villages": [
+        "हियालिया"
+      ],
+      "total_voters": 2250,
+      "active_voters": 2250,
+      "deleted_voters": 0
+    },
+    {
+      "code": "GP16",
+      "name_hi": "कनईकला",
+      "name_en": "Kanaikalan",
+      "samiti": "भिनाय",
+      "district": "अजमेर",
+      "total_wards": 11,
+      "ward_range": "1-11",
+      "ward_list": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "कनईकला",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "कनईखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "धान्धो का खेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "निमेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "लक्ष्मीपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "कनईकला",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "कनईखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "धान्धो का खेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "निमेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "लक्ष्मीपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "कनईकला",
+          "voters": 250
+        }
+      ],
+      "villages": [
+        "कनईकला",
+        "कनईखुर्द",
+        "धान्धो का खेडा",
+        "निमेडा",
+        "लक्ष्मीपुरा"
+      ],
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
+    },
+    {
+      "code": "GP17",
+      "name_hi": "करांटी",
+      "name_en": "Karanti",
+      "samiti": "भिनाय",
+      "district": "अजमेर",
+      "total_wards": 11,
+      "ward_range": "1-11",
+      "ward_list": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "दौलतपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "प्रतापपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "करांटी",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "गोवलिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "खेडी",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "गोपालपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "गोरधनपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "दौलतपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "प्रतापपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "करांटी",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "गोवलिया",
+          "voters": 250
+        }
+      ],
+      "villages": [
+        "दौलतपुरा",
+        "प्रतापपुरा",
+        "करांटी",
+        "गोवलिया",
+        "खेडी",
+        "गोपालपुरा",
+        "गोरधनपुरा"
+      ],
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
+    },
+    {
+      "code": "GP18",
+      "name_hi": "कैरोंट",
+      "name_en": "Kerot",
+      "samiti": "भिनाय",
+      "district": "अजमेर",
+      "total_wards": 9,
+      "ward_range": "1-9",
+      "ward_list": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "कैरोंट",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "जैतपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "कैरोट",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "कादोलाई",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "कैरोंट",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "जैतपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "कैरोट",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "कादोलाई",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "कैरोंट",
+          "voters": 250
+        }
+      ],
+      "villages": [
+        "कैरोंट",
+        "जैतपुरा",
+        "कैरोट",
+        "कादोलाई"
+      ],
+      "total_voters": 2250,
+      "active_voters": 2250,
+      "deleted_voters": 0
+    },
+    {
+      "code": "GP19",
+      "name_hi": "खेडी",
+      "name_en": "Khedi",
+      "samiti": "भिनाय",
+      "district": "अजमेर",
+      "total_wards": 9,
+      "ward_range": "1-9",
+      "ward_list": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "खेडी",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "खेडी",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "खेडी",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "खेडी",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "खेडी",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "खेडी",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "खेडी",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "खेडी",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "खेडी",
+          "voters": 250
+        }
+      ],
+      "villages": [
+        "खेडी"
+      ],
+      "total_voters": 2250,
+      "active_voters": 2250,
+      "deleted_voters": 0
+    },
+    {
+      "code": "GP20",
+      "name_hi": "कुम्हारिया",
+      "name_en": "Kumhariya",
+      "samiti": "भिनाय",
+      "district": "अजमेर",
+      "total_wards": 11,
+      "ward_range": "1-11",
+      "ward_list": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "सूरजपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "बगराई",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "कुम्हारिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "कीटाप",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "सूरजपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "बगराई",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "कुम्हारिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "कीटाप",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "सूरजपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "बगराई",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "कुम्हारिया",
+          "voters": 250
+        }
+      ],
+      "villages": [
+        "सूरजपुरा",
+        "बगराई",
+        "कुम्हारिया",
+        "कीटाप"
+      ],
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
+    },
+    {
+      "code": "GP21",
+      "name_hi": "लामगरा",
+      "name_en": "Lamgra",
+      "samiti": "भिनाय",
+      "district": "अजमेर",
+      "total_wards": 13,
+      "ward_range": "1-13",
+      "ward_list": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "बडलाखेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "उदयपुरखेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "भेरुखेड़ा",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "नीमेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "गनाहेड़ा",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "लामगरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "बडलाखेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "उदयपुरखेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "भेरुखेड़ा",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "नीमेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "गनाहेड़ा",
+          "voters": 250
+        },
+        {
+          "ward_no": 12,
+          "no": 12,
+          "village": "लामगरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 13,
+          "no": 13,
+          "village": "बडलाखेडा",
+          "voters": 250
+        }
+      ],
+      "villages": [
+        "बडलाखेडा",
+        "उदयपुरखेडा",
+        "भेरुखेड़ा",
+        "नीमेडा",
+        "गनाहेड़ा",
+        "लामगरा"
+      ],
+      "total_voters": 3250,
+      "active_voters": 3250,
+      "deleted_voters": 0
+    },
+    {
+      "code": "GP22",
+      "name_hi": "नागोला",
+      "name_en": "Nagola",
+      "samiti": "भिनाय",
+      "district": "अजमेर",
+      "total_wards": 13,
+      "ward_range": "1-13",
+      "ward_list": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "बडला उर्फ़ काला तालाब",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "सपनीखेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "बालापुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "नागोला",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "बडला उर्फ़ काला तालाब",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "सपनीखेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "बालापुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "नागोला",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "बडला उर्फ़ काला तालाब",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "सपनीखेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "बालापुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 12,
+          "no": 12,
+          "village": "नागोला",
+          "voters": 250
+        },
+        {
+          "ward_no": 13,
+          "no": 13,
+          "village": "बडला उर्फ़ काला तालाब",
+          "voters": 250
+        }
+      ],
+      "villages": [
+        "बडला उर्फ़ काला तालाब",
+        "सपनीखेडा",
+        "बालापुरा",
+        "नागोला"
+      ],
+      "total_voters": 3250,
+      "active_voters": 3250,
+      "deleted_voters": 0
+    },
+    {
+      "code": "GP23",
+      "name_hi": "नान्दसी",
+      "name_en": "Nandsi",
+      "samiti": "भिनाय",
+      "district": "अजमेर",
+      "total_wards": 11,
+      "ward_range": "1-11",
+      "ward_list": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "काचरिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "नान्दसी",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "कुरथल",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "काचरिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "नान्दसी",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "कुरथल",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "काचरिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "नान्दसी",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "कुरथल",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "काचरिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "नान्दसी",
+          "voters": 250
+        }
+      ],
+      "villages": [
+        "काचरिया",
+        "नान्दसी",
+        "कुरथल"
+      ],
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
     },
     {
       "code": "GP24",
+      "name_hi": "पड़ांगा",
       "name_en": "Padanga",
-      "name_hi": "पाड़ंगा",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 7,
-      "ward_range": "1-7",
+      "total_wards": 11,
+      "ward_range": "1-11",
       "ward_list": [
         1,
         2,
@@ -661,23 +2381,98 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "पड़ांगा",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "पड़ागा",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "सवाईपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "अर्जुनपुरा 92202",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "पड़ांगा",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "पड़ागा",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "सवाईपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "अर्जुनपुरा 92202",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "पड़ांगा",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "पड़ागा",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "सवाईपुरा",
+          "voters": 250
+        }
       ],
       "villages": [
-        "पाड़ंगा"
+        "पड़ांगा",
+        "पड़ागा",
+        "सवाईपुरा",
+        "अर्जुनपुरा 92202"
       ],
-      "total_voters": 2612,
-      "active_voters": 2342,
-      "deleted_voters": 270
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
     },
     {
       "code": "GP25",
+      "name_hi": "पाडलिया",
       "name_en": "Padliya",
-      "name_hi": "पादलिया",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 9,
-      "ward_range": "1-9",
+      "total_wards": 11,
+      "ward_range": "1-11",
       "ward_list": [
         1,
         2,
@@ -687,23 +2482,97 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "चावण्डिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "पाडलिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "बीलिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "मूण्डिया खेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "गोरधनपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "चावण्डिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "पाडलिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "बीलिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "मूण्डिया खेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "गोरधनपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "चावण्डिया",
+          "voters": 250
+        }
       ],
       "villages": [
-        "पादलिया"
+        "चावण्डिया",
+        "पाडलिया",
+        "बीलिया",
+        "मूण्डिया खेडा",
+        "गोरधनपुरा"
       ],
-      "total_voters": 3065,
-      "active_voters": 2929,
-      "deleted_voters": 136
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
     },
     {
       "code": "GP26",
+      "name_hi": "राममालिया",
       "name_en": "Rammaliya",
-      "name_hi": "रामावत/राममालिया",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 7,
-      "ward_range": "1-7",
+      "total_wards": 11,
+      "ward_range": "1-11",
       "ward_list": [
         1,
         2,
@@ -711,23 +2580,98 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "हीरापुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "राममालिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "रघुनाथगढ़",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "पीलोदा",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "हीरापुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "राममालिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "रघुनाथगढ़",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "पीलोदा",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "हीरापुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "राममालिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "रघुनाथगढ़",
+          "voters": 250
+        }
       ],
       "villages": [
-        "रामावत/राममालिया"
+        "हीरापुरा",
+        "राममालिया",
+        "रघुनाथगढ़",
+        "पीलोदा"
       ],
-      "total_voters": 2739,
-      "active_voters": 2661,
-      "deleted_voters": 78
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
     },
     {
       "code": "GP27",
-      "name_en": "Ratakot",
       "name_hi": "राताकोट",
+      "name_en": "Ratakot",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 9,
-      "ward_range": "1-9",
+      "total_wards": 11,
+      "ward_range": "1-11",
       "ward_list": [
         1,
         2,
@@ -737,23 +2681,94 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "झीपिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "राताकोट",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "झीपिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "राताकोट",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "झीपिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "राताकोट",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "झीपिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "राताकोट",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "झीपिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "राताकोट",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "झीपिया",
+          "voters": 250
+        }
       ],
       "villages": [
+        "झीपिया",
         "राताकोट"
       ],
-      "total_voters": 3328,
-      "active_voters": 3097,
-      "deleted_voters": 231
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
     },
     {
       "code": "GP28",
-      "name_en": "Singawal",
       "name_hi": "सिंगावल",
+      "name_en": "Singawal",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 9,
-      "ward_range": "1-9",
+      "total_wards": 11,
+      "ward_range": "1-11",
       "ward_list": [
         1,
         2,
@@ -763,23 +2778,96 @@
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "सिंगावल",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "मथानिया 92205",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "खटानो का खेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "सिगावल",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "सिंगावल",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "मथानिया 92205",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "खटानो का खेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "सिगावल",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "सिंगावल",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "मथानिया 92205",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "खटानो का खेडा",
+          "voters": 250
+        }
       ],
       "villages": [
-        "सिंगावल"
+        "सिंगावल",
+        "मथानिया 92205",
+        "खटानो का खेडा",
+        "सिगावल"
       ],
-      "total_voters": 3337,
-      "active_voters": 3143,
-      "deleted_voters": 194
+      "total_voters": 2750,
+      "active_voters": 2750,
+      "deleted_voters": 0
     },
     {
       "code": "GP29",
+      "name_hi": "सोबडी",
       "name_en": "Sobdi",
-      "name_hi": "सोबड़ी",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 7,
-      "ward_range": "1-7",
+      "total_wards": 13,
+      "ward_range": "1-13",
       "ward_list": [
         1,
         2,
@@ -787,19 +2875,111 @@
         4,
         5,
         6,
-        7
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "सोबडी",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "कुम्हारियाखेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "तेलाडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "प्रतापपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "रूपपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "चावण्डिया",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "घणा",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "सोबडी",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "कुम्हारियाखेडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "तेलाडा",
+          "voters": 250
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "प्रतापपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 12,
+          "no": 12,
+          "village": "रूपपुरा",
+          "voters": 250
+        },
+        {
+          "ward_no": 13,
+          "no": 13,
+          "village": "चावण्डिया",
+          "voters": 250
+        }
       ],
       "villages": [
-        "सोबड़ी"
+        "सोबडी",
+        "कुम्हारियाखेडा",
+        "तेलाडा",
+        "प्रतापपुरा",
+        "रूपपुरा",
+        "चावण्डिया",
+        "घणा"
       ],
-      "total_voters": 2292,
-      "active_voters": 2181,
-      "deleted_voters": 111
+      "total_voters": 3250,
+      "active_voters": 3250,
+      "deleted_voters": 0
     },
     {
       "code": "GP30",
-      "name_en": "Solkhurd",
       "name_hi": "सोलखुर्द",
+      "name_en": "Solkhurd",
       "samiti": "भिनाय",
       "district": "अजमेर",
       "total_wards": 9,
@@ -814,13 +2994,69 @@
         7,
         8,
         9
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "सोलखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "सोलखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "सोलखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "सोलखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "सोलखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "सोलखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "सोलखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "सोलखुर्द",
+          "voters": 250
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "सोलखुर्द",
+          "voters": 250
+        }
       ],
       "villages": [
         "सोलखुर्द"
       ],
-      "total_voters": 2487,
-      "active_voters": 2420,
-      "deleted_voters": 67
+      "total_voters": 2250,
+      "active_voters": 2250,
+      "deleted_voters": 0
     }
   ],
   "admin_users": [

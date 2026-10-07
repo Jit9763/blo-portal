@@ -3913,3 +3913,201 @@ p, span, h1, h2, h3, h4, h5, h6, td, th, div, label, a, strong, small {
     line-height: 1.3 !important;
   }
 }
+
+
+/* ==========================================================================
+   HIGH CONTRAST & CRYSTAL CLEAR LIGHT-THEME FORM STYLING
+   ========================================================================== */
+.form-group label,
+.form-label,
+label,
+.admin-card label,
+.modal-dialog label {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+  font-size: 0.9rem !important;
+  line-height: 1.4 !important;
+}
+
+.form-input,
+.form-select,
+.form-control,
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+select,
+textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1.5px solid #94a3b8 !important;
+  border-radius: 8px !important;
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  font-family: inherit !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-control:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+select:focus,
+textarea:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2) !important;
+  outline: none !important;
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+}
+
+.form-input::placeholder,
+.form-control::placeholder,
+input::placeholder {
+  color: #64748b !important;
+  font-weight: 500 !important;
+  opacity: 1 !important;
+}
+
+/* Modals & Dialogs: Pure Crisp White with Dark Fonts */
+.modal-container,
+.modal-content,
+.modal-box,
+.custom-modal-content {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-radius: 12px !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08) !important;
+}
+
+.modal-header {
+  background: #f8fafc !important;
+  border-bottom: 1.5px solid #e2e8f0 !important;
+  color: #0f172a !important;
+  padding: 1rem 1.5rem !important;
+}
+
+.modal-title,
+.modal-header h3,
+.modal-header h2 {
+  color: #0f172a !important;
+  font-weight: 800 !important;
+}
+
+.modal-body {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  padding: 1.5rem !important;
+}
+
+.modal-footer {
+  background: #f8fafc !important;
+  border-top: 1.5px solid #e2e8f0 !important;
+  padding: 1rem 1.5rem !important;
+}
+
+/* Tables in Admin Hub */
+.admin-users-table,
+.blo-pass-table,
+.table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+  width: 100% !important;
+}
+
+.admin-users-table th,
+.blo-pass-table th,
+.table th {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  font-weight: 800 !important;
+  font-size: 0.85rem !important;
+  border-bottom: 2px solid #cbd5e1 !important;
+  padding: 10px 12px !important;
+  text-align: left !important;
+}
+
+.admin-users-table td,
+.blo-pass-table td,
+.table td {
+  color: #1e293b !important;
+  font-size: 0.85rem !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  padding: 10px 12px !important;
+  vertical-align: middle !important;
+}
+
+.admin-users-table tbody tr:hover,
+.blo-pass-table tbody tr:hover,
+.table tbody tr:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Permission Checklist Item styling */
+.perm-check-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #f8fafc;
+  padding: 4px 8px;
+  margin: 2px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #1e293b;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.15s ease;
+}
+
+.perm-check-item:hover {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+.perm-check-item input[type="checkbox"] {
+  accent-color: #2563eb;
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}
+
+.perm-check-item.active {
+  background: #dbeafe;
+  border-color: #60a5fa;
+  color: #1e40af;
+}
+
+/* Sub-Tab Navigation in Master Hub */
+.hub-subtab-btn {
+  padding: 8px 16px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  border: 1.5px solid #cbd5e1;
+  background: #f8fafc;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hub-subtab-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.hub-subtab-btn.active {
+  background: #1e40af !important;
+  color: #ffffff !important;
+  border-color: #1e40af !important;
+  box-shadow: 0 4px 6px -1px rgba(30, 64, 175, 0.25) !important;
+}

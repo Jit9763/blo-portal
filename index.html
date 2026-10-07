@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Tiro+Devanagari+Hindi:ital@0;1&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261007_1791379991">
+  <link rel="stylesheet" href="styles.css?v=1791397568">
 </head>
 <body>
 
@@ -53,36 +53,42 @@
 
         <!-- Simplified Unified Login Form -->
         <form id="gatekeeperLoginForm" onsubmit="handleGatekeeperLogin(event)" style="margin-top:12px;">
-          <!-- DIRECT USER ID INPUT -->
+          <input type="hidden" id="gatekeeperUsername" value="admin">
+
+          <!-- SINGLE DROPDOWN: पद चुनें -->
           <div class="form-group mb-3">
-            <label for="gatekeeperUsername" style="font-size:0.88rem; color:#1e293b;"><strong>यूजर आईडी (User ID) *:</strong></label>
-            <div class="input-with-icon">
-              <span class="input-icon">👤</span>
-              <input type="text" id="gatekeeperUsername" class="form-input" placeholder="यूजर आईडी दर्ज करें (उदा. badgaon_agent, blo_225)" required autocomplete="username" style="font-weight:700; height:42px;">
-            </div>
+            <label for="panAdminSelect" style="font-size:0.9rem; color:#0f172a; font-weight:700;">
+              <strong>1. अधिकृत पद चुनें *:</strong>
+            </label>
+            <select id="panAdminSelect" class="form-select" onchange="document.getElementById('gatekeeperUsername').value = this.value; document.getElementById('gatekeeperPassword').focus();" style="font-weight:700; cursor:pointer; font-size:0.95rem; height:44px; border:2px solid #cbd5e1; background:#ffffff; color:#0f172a;">
+              <option value="admin">👑 मुख्य व्यवस्थापक (Super Admin - पूर्ण नियंत्रण)</option>
+              <option value="incharge">👁️ ब्लॉक इनचार्ज (Incharge - केवल अवलोकन/All Tabs View)</option>
+              <option value="vyavasthapak">🖨️ व्यवस्थापक (Vyavasthapak - प्रिंट व डाउनलोड)</option>
+              <option value="block_prabhari">🌟 ब्लॉक प्रभारी (सुरेश जांगिड़ - शिक्षक)</option>
+            </select>
           </div>
 
           <!-- PASSWORD FIELD -->
           <div class="form-group mb-3">
-            <label for="gatekeeperPassword" style="font-size:0.88rem; color:#1e293b;"><strong>पासवर्ड (Password) *:</strong></label>
+            <label for="gatekeeperPassword" style="font-size:0.9rem; color:#0f172a; font-weight:700;"><strong>पासवर्ड (Password) *:</strong></label>
             <div class="input-with-icon">
               <span class="input-icon">🔑</span>
-              <input type="password" id="gatekeeperPassword" class="form-input" placeholder="पासवर्ड दर्ज करें (डिफ़ॉल्ट 123)" required autocomplete="current-password" style="font-weight:700; height:42px;">
+              <input type="password" id="gatekeeperPassword" class="form-input" placeholder="पासवर्ड दर्ज करें (डिफ़ॉल्ट 123)" required autocomplete="current-password" style="font-weight:700; height:44px; background:#ffffff; color:#0f172a; border:1.5px solid #cbd5e1;">
             </div>
           </div>
 
           <div class="login-options-row mb-3">
-            <label class="remember-label">
+            <label class="remember-label" style="color:#1e293b; font-weight:600;">
               <input type="checkbox" id="gatekeeperRememberMe" checked>
               <span>सत्र याद रखें (Remember Session)</span>
             </label>
-            <span style="font-size:0.75rem; color:#64748b;">भिनाय (अजमेर)</span>
+            <span style="font-size:0.75rem; color:#475569; font-weight:600;">भिनाय (अजमेर)</span>
           </div>
 
           <div id="gatekeeperError" class="alert-error" style="display:none; margin-bottom:12px;"></div>
 
           <button type="submit" class="btn btn-login-submit btn-block" style="height:44px; font-size:1rem; font-weight:700;">
-            <span>मतदाता पोर्टल में प्रवेश करें (Login & Access)</span>
+            <span>मास्टर एडमिन पोर्टल में प्रवेश करें (Login)</span>
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </form>
@@ -1027,84 +1033,163 @@
 
           </div>
 
-          <!-- SUB-NAVIGATION FOR MASTER HUB -->
-          <div class="d-flex gap-2 mb-3 pb-2" style="border-bottom:1px solid #e2e8f0;">
-            <button type="button" class="btn btn-sm btn-primary" id="btnSubTabUsers" onclick="switchMasterHubSubTab('users')" style="font-weight:700;">
-              👥 1. प्रत्याशी व यूजर खाते (Accounts)
+                    <!-- SUB-NAVIGATION FOR MASTER HUB (3 DEDICATED TABS AS REQUESTED + TOP ADMINS) -->
+          <div class="d-flex gap-2 mb-3 pb-2 flex-wrap" style="border-bottom:2px solid #cbd5e1;">
+            <button type="button" class="hub-subtab-btn active" id="btnSubTabCell" onclick="switchMasterHubSubTab('cell')">
+              🏢 1. चुनाव प्रकोष्ठ कार्मिक (18 प्रकोष्ठ - 59 कार्मिक)
             </button>
-            <button type="button" class="btn btn-sm btn-outline-secondary" id="btnSubTabBloPass" onclick="switchMasterHubSubTab('bloPass')" style="font-weight:700;">
-              🔑 2. 126 BLO, प्रकोष्ठ व ब्लॉक प्रभारी त्वरित पासवर्ड कंट्रोल
+            <button type="button" class="hub-subtab-btn" id="btnSubTabBlo" onclick="switchMasterHubSubTab('blo')">
+              👤 2. बी.एल.ओ. (BLOs - 126 मतदान केंद्र)
+            </button>
+            <button type="button" class="hub-subtab-btn" id="btnSubTabCand" onclick="switchMasterHubSubTab('cand')">
+              🚩 3. प्रत्याशी एवं पंचायत प्रतिनिधि (Candidates & Agents)
+            </button>
+            <button type="button" class="hub-subtab-btn" id="btnSubTabAdmins" onclick="switchMasterHubSubTab('admins')">
+              👑 4. शीर्ष प्रशासनिक अधिकारी (Super Admin / Incharge / Vyavasthapak / ब्लॉक प्रभारी)
             </button>
           </div>
 
-          <!-- SUB-PANE 1: USER & CANDIDATE ACCOUNTS -->
-          <div id="masterHubPaneUsers">
-            <!-- Filter & Search Toolbar -->
-            <div class="admin-toolbar-row mb-3 d-flex gap-2 flex-wrap">
-              <div class="search-input-wrapper flex-1" style="min-width:260px;">
-                <input type="text" id="adminUserSearchInput" class="form-input" placeholder="🔍 यूजरनेम, नाम या पंचायत से खोजें..." oninput="filterAdminUsersTable()">
+          <!-- ============================================================= -->
+          <!-- SUB-PANE 1: 🏢 चुनाव प्रकोष्ठ कार्मिक (18 OFFICIAL CELLS) -->
+          <!-- ============================================================= -->
+          <div id="masterHubPaneCell">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+              <div class="search-input-wrapper flex-1" style="min-width:280px;">
+                <input type="text" id="adminCellSearchInput" class="form-input" placeholder="🔍 कार्मिक नाम, प्रकोष्ठ, पदनाम या मोबाइल से खोजें..." oninput="renderAdminCellTab()">
               </div>
-              <select id="adminStatusFilterSelect" class="form-select" style="max-width:200px; font-weight:600;" onchange="filterAdminUsersTable()">
-                <option value="ALL">समस्त खाते (All)</option>
-                <option value="ACTIVE">केवल सक्रिय (Active)</option>
-                <option value="INACTIVE">केवल निष्क्रिय (Inactive)</option>
+              <select id="adminCellFilterSelect" class="form-select" style="max-width:280px; font-weight:700;" onchange="renderAdminCellTab()">
+                <option value="ALL">-- समस्त 18 चुनाव प्रकोष्ठ --</option>
               </select>
+              <select id="adminCellStatusFilter" class="form-select" style="max-width:160px; font-weight:600;" onchange="renderAdminCellTab()">
+                <option value="ALL">समस्त स्थिति</option>
+                <option value="ACTIVE">केवल सक्रिय</option>
+                <option value="INACTIVE">केवल निष्क्रिय</option>
+              </select>
+              <button type="button" class="btn btn-sm btn-primary" onclick="openAddCellModal()" style="font-weight:700;">
+                ➕ नया प्रकोष्ठ कार्मिक जोड़ें
+              </button>
             </div>
 
-            <!-- Single Row Master User Table -->
-            <div class="table-responsive admin-users-table-wrapper" style="overflow-x:auto;">
-              <table class="table admin-users-table" id="masterAdminUsersTable" style="min-width:1100px;">
-                <thead>
+            <div class="table-responsive" style="max-height:550px; overflow-y:auto; border:1px solid #cbd5e1; border-radius:8px;">
+              <table class="table admin-users-table" style="min-width:1150px; font-size:0.85rem;">
+                <thead style="position:sticky; top:0; z-index:5;">
                   <tr>
-                    <th style="width:140px;">यूजर ID</th>
-                    <th style="width:160px;">नाम व मोबाइल</th>
-                    <th style="width:140px;">पासवर्ड</th>
-                    <th style="width:110px;">स्थिति (Status)</th>
-                    <th style="width:150px;">अनुमत पंचायत</th>
-                    <th style="width:100px;">अनुमत वार्ड</th>
-                    <th>अनुमत टैब्स (Allowed Tabs)</th>
-                    <th style="width:130px;">प्रत्याशी मोड</th>
-                    <th style="width:130px; text-align:center;">कार्रवाई</th>
+                    <th style="width:120px;">यूजर ID</th>
+                    <th style="width:180px;">कार्मिक नाम एवं पदनाम</th>
+                    <th style="width:200px;">चुनाव प्रकोष्ठ</th>
+                    <th style="width:120px;">मोबाइल नंबर</th>
+                    <th style="width:120px;">पासवर्ड</th>
+                    <th style="min-width:260px;">अनुमतियाँ चेकलिस्ट (Permissions Checklist)</th>
+                    <th style="width:100px; text-align:center;">स्थिति</th>
+                    <th style="width:110px; text-align:center;">कार्रवाई</th>
                   </tr>
                 </thead>
-                <tbody id="masterAdminUsersTbody">
+                <tbody id="adminCellTableBody">
                   <!-- Dynamically populated rows -->
                 </tbody>
               </table>
             </div>
           </div>
 
-          <!-- SUB-PANE 2: 126 BLO & CELL PASSWORD QUICK MANAGER -->
-          <div id="masterHubPaneBloPass" style="display:none;">
+          <!-- ============================================================= -->
+          <!-- SUB-PANE 2: 👤 बी.एल.ओ. (BLOs - 126 BOOTHS ACROSS 30 GPS) -->
+          <!-- ============================================================= -->
+          <div id="masterHubPaneBlo" style="display:none;">
             <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-              <div class="search-input-wrapper flex-1" style="min-width:260px;">
-                <input type="text" id="bloPassSearchInput" class="form-input" placeholder="🔍 भाग संख्या (1-126), BLO नाम, विद्यालय या प्रकोष्ठ से खोजें..." oninput="renderBloPassTable()">
+              <div class="search-input-wrapper flex-1" style="min-width:280px;">
+                <input type="text" id="adminBloSearchInput" class="form-input" placeholder="🔍 भाग सं. (1-126), BLO नाम, विद्यालय या मोबाइल से खोजें..." oninput="renderAdminBloTab()">
               </div>
-              <select id="bloPassGpFilter" class="form-select" style="max-width:220px; font-weight:600;" onchange="renderBloPassTable()">
-                <option value="ALL">समस्त 30 ग्राम पंचायतें</option>
+              <select id="adminBloGpFilter" class="form-select" style="max-width:260px; font-weight:700;" onchange="renderAdminBloTab()">
+                <option value="ALL">-- समस्त 30 ग्राम पंचायतें --</option>
+              </select>
+              <select id="adminBloStatusFilter" class="form-select" style="max-width:160px; font-weight:600;" onchange="renderAdminBloTab()">
+                <option value="ALL">समस्त स्थिति</option>
+                <option value="ACTIVE">केवल सक्रिय</option>
+                <option value="INACTIVE">केवल निष्क्रिय</option>
               </select>
             </div>
 
-            <div class="table-responsive" style="max-height:480px; overflow-y:auto; border:1px solid #e2e8f0; border-radius:8px;">
-              <table class="table table-sm" style="width:100%; font-size:0.85rem;">
-                <thead style="background:#f1f5f9; position:sticky; top:0;">
+            <div class="table-responsive" style="max-height:550px; overflow-y:auto; border:1px solid #cbd5e1; border-radius:8px;">
+              <table class="table admin-users-table" style="min-width:1150px; font-size:0.85rem;">
+                <thead style="position:sticky; top:0; z-index:5;">
                   <tr>
-                    <th style="width:90px;">भाग सं./ID</th>
-                    <th>नाम व विद्यालय/कार्यालय</th>
-                    <th style="width:130px;">ग्राम पंचायत/प्रकोष्ठ</th>
+                    <th style="width:100px;">भाग सं./ID</th>
+                    <th style="width:180px;">बी.एल.ओ. नाम व पद</th>
+                    <th style="width:180px;">ग्राम पंचायत व वार्ड</th>
                     <th style="width:120px;">मोबाइल नंबर</th>
-                    <th style="width:100px;">पासवर्ड</th>
-                    <th style="width:110px; text-align:center;">पासवर्ड बदलें</th>
+                    <th style="width:120px;">पासवर्ड</th>
+                    <th style="min-width:260px;">अनुमतियाँ चेकलिस्ट (Permissions Checklist)</th>
+                    <th style="width:100px; text-align:center;">स्थिति</th>
+                    <th style="width:110px; text-align:center;">कार्रवाई</th>
                   </tr>
                 </thead>
-                <tbody id="bloPassTableBody">
-                  <!-- Populated dynamically -->
+                <tbody id="adminBloTableBody">
+                  <!-- Dynamically populated rows -->
                 </tbody>
               </table>
             </div>
           </div>
 
-        </div>
+          <!-- ============================================================= -->
+          <!-- SUB-PANE 3: 🚩 प्रत्याशी एवं पंचायत प्रतिनिधि -->
+          <!-- ============================================================= -->
+          <div id="masterHubPaneCand" style="display:none;">
+            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+              <div class="search-input-wrapper flex-1" style="min-width:280px;">
+                <input type="text" id="adminCandSearchInput" class="form-input" placeholder="🔍 प्रत्याशी नाम, पंचायत, पद या मोबाइल से खोजें..." oninput="renderAdminCandTab()">
+              </div>
+              <select id="adminCandGpFilter" class="form-select" style="max-width:260px; font-weight:700;" onchange="renderAdminCandTab()">
+                <option value="ALL">-- समस्त 30 ग्राम पंचायतें --</option>
+              </select>
+              <button type="button" class="btn btn-sm btn-primary" onclick="openAddCandidateUserModal()" style="font-weight:700;">
+                ➕ नया प्रत्याशी / प्रतिनिधि खाता जोड़ें
+              </button>
+            </div>
+
+            <div class="table-responsive" style="max-height:550px; overflow-y:auto; border:1px solid #cbd5e1; border-radius:8px;">
+              <table class="table admin-users-table" style="min-width:1150px; font-size:0.85rem;">
+                <thead style="position:sticky; top:0; z-index:5;">
+                  <tr>
+                    <th style="width:120px;">यूजर ID</th>
+                    <th style="width:180px;">प्रत्याशी / प्रतिनिधि नाम</th>
+                    <th style="width:160px;">ग्राम पंचायत व पद</th>
+                    <th style="width:120px;">मोबाइल नंबर</th>
+                    <th style="width:120px;">पासवर्ड</th>
+                    <th style="min-width:260px;">अनुमतियाँ चेकलिस्ट (Permissions Checklist)</th>
+                    <th style="width:100px; text-align:center;">स्थिति</th>
+                    <th style="width:110px; text-align:center;">कार्रवाई</th>
+                  </tr>
+                </thead>
+                <tbody id="adminCandTableBody">
+                  <!-- Dynamically populated rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- ============================================================= -->
+          <!-- SUB-PANE 4: 👑 शीर्ष प्रशासनिक अधिकारी -->
+          <!-- ============================================================= -->
+          <div id="masterHubPaneAdmins" style="display:none;">
+            <div class="table-responsive" style="border:1px solid #cbd5e1; border-radius:8px;">
+              <table class="table admin-users-table" style="min-width:1000px; font-size:0.88rem;">
+                <thead>
+                  <tr>
+                    <th style="width:140px;">यूजर ID</th>
+                    <th style="width:200px;">नाम व पद</th>
+                    <th style="width:180px;">प्रशासनिक भूमिका</th>
+                    <th style="width:140px;">मोबाइल नंबर</th>
+                    <th style="width:140px;">पासवर्ड</th>
+                    <th>अधिकार व दायरा</th>
+                    <th style="width:120px; text-align:center;">कार्रवाई</th>
+                  </tr>
+                </thead>
+                <tbody id="adminTopAdminsTableBody">
+                  <!-- Dynamically populated rows -->
+                </tbody>
+              </table>
+            </div>
+          </div>
       </section>
 
       <section id="settingsTab" class="tab-pane">
@@ -1635,9 +1720,9 @@
 
   <!-- Scripts -->
     <script src="symbols_master.js?v=20261005_2300"></script>
-  <script src="master_directory.js?v=1791387255"></script>
-  <script src="master_data.js?v=1791387255"></script>
-  <script src="app.js?v=1791387255"></script>
+  <script src="master_directory.js?v=1791397568"></script>
+  <script src="master_data.js?v=1791397568"></script>
+  <script src="app.js?v=1791397568"></script>
 
   <!-- Super Admin: Add New User Modal -->
   <div id="addUserModal" class="modal-overlay no-print" style="display:none;" onclick="if(event.target===this) closeAddUserModal()">
