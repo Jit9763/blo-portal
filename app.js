@@ -2788,7 +2788,7 @@ function renderAlphabeticalList() {
       row.className = 'alpha-voter-row';
 
       const voterKey = getVoterKey(voter);
-      const isDel = isVoterDelivered(voter);
+      const isDelivered = isVoterDelivered(voter);
       const isFemale = voter.gender === 'F';
       const isSupplement = (voter.serial_no % 17 === 0);
 
