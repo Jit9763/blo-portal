@@ -668,6 +668,7 @@ async function ensurePanchayatVotersLoaded(gpCode) {
 function initMasterData() {
   setTimeout(populateGpFilterDropdowns, 50);
   setTimeout(populateGpFilterDropdowns, 50);
+  setTimeout(populateGpFilterDropdowns, 50);
   if (window.MASTER_DATA) {
     State.panchayats = window.MASTER_DATA.panchayats || [];
     State.adminUsers = window.MASTER_DATA.admin_users || [];
@@ -1435,7 +1436,7 @@ async function performSearch() {
   const allowedGps = getAllowedGps().map(p => p.code);
 
   let results = State.voters.filter(voter => {
-            // 1. Strict Jurisdiction
+                // 1. Strict Jurisdiction
     const u = State.currentUser;
     const isPrivileged = (!u || u.role === 'SUPER_ADMIN' || u.role === 'INCHARGE' || u.role === 'VYAVASTHAPAK' || u.role === 'BLOCK_PRABHARI' || u.allowed_panchayats === 'ALL');
     if (!isPrivileged) {
