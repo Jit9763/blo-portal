@@ -1818,6 +1818,235 @@ async function adminPromptChangePass(userId, name) {
 // UNIFIED GATEKEEPER LOGIN & LOGOUT HANDLERS
 // ==========================================================================
 
+
+// ==========================================================================
+// CORE PORTAL HELPERS & SESSION STATE ENGINE
+// ==========================================================================
+
+function getPortalContext() {
+  const url = new URL(window.location.href);
+  const pParam = url.searchParams.get('portal');
+  if (pParam) return pParam.toLowerCase();
+
+  const path = window.location.pathname.toLowerCase();
+  const host = window.location.hostname.toLowerCase();
+  
+  if (path.includes('blo-portal') || path.includes('/blo') || host.includes('blo')) {
+    return 'blo';
+  }
+  if (path.includes('voter-portal') || path.includes('/voter') || host.includes('voter')) {
+    return 'voter';
+  }
+  return 'master';
+}
+
+function getSessionStorageKey() {
+  return `panchayat_session_${getPortalContext()}`;
+}
+
+function getCustomUserPassword(username) {
+  try {
+    const uov = JSON.parse(localStorage.getItem('portal_user_overrides') || '{}');
+    if (uov && uov[username] && uov[username].password) return uov[username].password;
+    const ov = JSON.parse(localStorage.getItem('portal_passwords_override') || '{}');
+    if (ov && ov[username]) return ov[username];
+  } catch(e) {}
+  return '123';
+}
+
+function setCustomUserPassword(username, newPass) {
+  try {
+    const ov = JSON.parse(localStorage.getItem('portal_passwords_override') || '{}');
+    ov[username] = newPass;
+    localStorage.setItem('portal_passwords_override', JSON.stringify(ov));
+
+    const uov = JSON.parse(localStorage.getItem('portal_user_overrides') || '{}');
+    if (!uov[username]) uov[username] = {};
+    uov[username].password = newPass;
+    localStorage.setItem('portal_user_overrides', JSON.stringify(uov));
+  } catch(e) {}
+}
+
+function getCustomUserStatus(username) {
+  try {
+    const uov = JSON.parse(localStorage.getItem('portal_user_overrides') || '{}');
+    if (uov && uov[username] && uov[username].status) return uov[username].status;
+    const st = JSON.parse(localStorage.getItem('portal_status_override') || '{}');
+    if (st && st[username]) return st[username];
+  } catch(e) {}
+  return 'ACTIVE';
+}
+
+function setCustomUserStatus(username, newStatus) {
+  try {
+    const st = JSON.parse(localStorage.getItem('portal_status_override') || '{}');
+    st[username] = newStatus;
+    localStorage.setItem('portal_status_override', JSON.stringify(st));
+
+    const uov = JSON.parse(localStorage.getItem('portal_user_overrides') || '{}');
+    if (!uov[username]) uov[username] = {};
+    uov[username].status = newStatus;
+    localStorage.setItem('portal_user_overrides', JSON.stringify(uov));
+  } catch(e) {}
+}
+
+function getCustomUserScope(userId) {
+  try {
+    const uov = JSON.parse(localStorage.getItem('portal_user_overrides') || '{}');
+    if (uov && uov[userId] && uov[userId].allowed_panchayats) return uov[userId].allowed_panchayats;
+    const sc = JSON.parse(localStorage.getItem('portal_user_scopes') || '{}');
+    if (sc && sc[userId]) return sc[userId];
+  } catch(e) {}
+  return null;
+}
+
+function setCustomUserScope(userId, scopeVal) {
+  try {
+    const sc = JSON.parse(localStorage.getItem('portal_user_scopes') || '{}');
+    sc[userId] = scopeVal;
+    localStorage.setItem('portal_user_scopes', JSON.stringify(sc));
+
+    const uov = JSON.parse(localStorage.getItem('portal_user_overrides') || '{}');
+    if (!uov[userId]) uov[userId] = {};
+    uov[userId].allowed_panchayats = scopeVal;
+    localStorage.setItem('portal_user_overrides', JSON.stringify(uov));
+  } catch(e) {}
+}
+
+function configureLoginUiForPortal() {
+  // Static unified login form in HTML
+}
+
+function showToast(message) {
+  let container = document.getElementById('toastContainer');
+  if (!container) {
+    container = document.createElement('div');
+    container.id = 'toastContainer';
+    container.style.cssText = 'position:fixed; bottom:20px; right:20px; z-index:99999; display:flex; flex-direction:column; gap:8px;';
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.style.cssText = 'background:#1e293b; color:#ffffff; padding:12px 18px; border-radius:8px; box-shadow:0 10px 15px -3px rgba(0,0,0,0.3); font-weight:700; font-size:0.9rem; display:flex; align-items:center; gap:8px; border-left:4px solid #10b981; animation:fadeIn 0.3s ease;';
+  toast.innerHTML = `
+    <span>ℹ️</span>
+    <span>${message}</span>
+  `;
+
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s ease';
+    setTimeout(() => toast.remove(), 300);
+  }, 3500);
+}
+
+function deleteCellPersonnel(cellId, cellName) {
+  if (!confirm(`क्या आप प्रकोष्ठ कार्मिक '${cellName || cellId}' को हटाना चाहते हैं?`)) return;
+  const dir = getMasterDirectory();
+  if (dir && dir.cell_personnel) {
+    dir.cell_personnel = dir.cell_personnel.filter(x => (x.id || x.username) !== cellId);
+  }
+  const customCells = JSON.parse(localStorage.getItem('portal_custom_cell_personnel') || '[]');
+  const filtered = customCells.filter(x => (x.id || x.username) !== cellId);
+  localStorage.setItem('portal_custom_cell_personnel', JSON.stringify(filtered));
+  setCustomUserStatus(cellId, 'INACTIVE');
+
+  if (typeof renderAdminCellTab === 'function') renderAdminCellTab();
+  showToast(`🗑️ कार्मिक '${cellName || cellId}' हटा दिया गया!`);
+}
+
+function enforceGatekeeperState() {
+  const gatekeeper = document.getElementById('welcomeGatekeeper');
+  const mainApp = document.getElementById('mainPortalApp');
+
+  if (!State.currentUser) {
+    if (gatekeeper) gatekeeper.style.display = 'flex';
+    if (mainApp) mainApp.style.display = 'none';
+    return;
+  }
+
+  if (gatekeeper) gatekeeper.style.display = 'none';
+  if (mainApp) mainApp.style.display = 'block';
+
+  const u = State.currentUser;
+  const isSuperAdmin = (u.role === 'SUPER_ADMIN' || u.role === 'admin' || (u.id && u.id.toLowerCase() === 'admin'));
+  const isIncharge = (u.role === 'INCHARGE' || (u.id && u.id.toLowerCase() === 'incharge'));
+  const isVyavasthapak = (u.role === 'VYAVASTHAPAK' || (u.id && u.id.toLowerCase() === 'vyavasthapak'));
+
+  // Admin Control Nav Tab visibility (Only Super Admin can access!)
+  const adminNavTab = document.getElementById('adminControlNavTab');
+  if (adminNavTab) {
+    adminNavTab.style.display = isSuperAdmin ? 'flex' : 'none';
+  }
+
+  // Settings Nav Tab (Only Super Admin can access!)
+  const settingsNavTab = document.getElementById('settingsNavTab');
+  if (settingsNavTab) {
+    settingsNavTab.style.display = isSuperAdmin ? 'flex' : 'none';
+  }
+
+  // Candidate Profile Nav Tab
+  const candidateNavTab = document.getElementById('candidateNavTab');
+  if (candidateNavTab) {
+    candidateNavTab.style.display = (isSuperAdmin || u.candidate_mode === 'active') ? 'flex' : 'none';
+  }
+
+  // Enforce Allowed Tabs
+  let allowedTabs = ['searchTab', 'alphaTab', 'directoryTab'];
+  if (isSuperAdmin) {
+    allowedTabs = ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab', 'candidateProfileTab', 'adminControlTab', 'settingsTab'];
+  } else if (isIncharge) {
+    allowedTabs = ['dashboardTab', 'searchTab', 'alphaTab', 'directoryTab'];
+  } else if (isVyavasthapak) {
+    allowedTabs = ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab'];
+  } else if (Array.isArray(u.allowed_tabs)) {
+    allowedTabs = u.allowed_tabs;
+  }
+
+  document.querySelectorAll('.nav-tab').forEach(tab => {
+    const tabId = tab.getAttribute('data-tab');
+    if (tabId === 'adminControlTab' || tabId === 'settingsTab') {
+      tab.style.display = isSuperAdmin ? 'flex' : 'none';
+    } else {
+      const isAllowed = isSuperAdmin || allowedTabs.includes(tabId);
+      tab.style.display = isAllowed ? 'flex' : 'none';
+    }
+  });
+
+  document.querySelectorAll('.bottom-nav-item').forEach(btn => {
+    const tabId = btn.getAttribute('data-tab');
+    const isAllowed = isSuperAdmin || allowedTabs.includes(tabId);
+    btn.style.display = isAllowed ? 'flex' : 'none';
+  });
+
+  if (!isSuperAdmin && !allowedTabs.includes(State.activeTab)) {
+    const firstAllowed = allowedTabs[0] || 'searchTab';
+    switchTab(firstAllowed);
+  }
+
+  // Set Jurisdiction & GP Locking
+  const assignedGp = u.allowed_panchayats || u.assigned_panchayats || u.gram_panchayat || 'ALL';
+  if (assignedGp && assignedGp !== 'ALL') {
+    ['gpSelect', 'alphaGpSelect', 'bulkGpSelect', 'dirGpSelect', 'candidateGpSelect'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.value = assignedGp;
+        if (id === 'gpSelect' && typeof onGpChanged === 'function') onGpChanged();
+        if (id === 'alphaGpSelect' && typeof onAlphaGpChanged === 'function') onAlphaGpChanged();
+      }
+    });
+  }
+
+  // Render header profile chip if present
+  const userProfileEl = document.getElementById('headerUserProfileName');
+  if (userProfileEl) {
+    userProfileEl.textContent = u.full_name || u.name || u.username;
+  }
+}
+
+
 async function handleGatekeeperLogin(event) {
   if (event) event.preventDefault();
   const errorDiv = document.getElementById('gatekeeperError');
