@@ -2755,13 +2755,15 @@ function renderVoterCards(votersList) {
         </div>
 
         ${slipCutUrl ? `
-        <div class="search-slip-cut-row" style="margin-top:0.65rem; padding:0.45rem 0.65rem; background:#f8fafc; border:1px solid #e2e8f0; border-radius:6px; display:flex; align-items:center; justify-content:space-between; gap:0.65rem;">
-          <div style="font-size:0.75rem; font-weight:700; color:#1e3a8a; line-height:1.25;">
-            <span>📑 मूल मतदाता सूची पर्ची कटिंग:</span>
-            <div style="font-size:0.68rem; color:#64748b; font-weight:500;">मूल रिकॉर्ड सत्यापन हेतु क्लिक करें</div>
+        <div class="search-slip-cut-card">
+          <div class="search-slip-cut-header">
+            <span class="search-slip-cut-title">
+              📑 मूल मतदाता सूची पर्ची कटिंग:
+            </span>
+            <span class="search-slip-cut-hint">🔍 बड़ा देखने हेतु क्लिक करें</span>
           </div>
-          <div class="alpha-slip-cut-box" style="width:130px; height:52px;" onclick="viewSlipCutModal('${slipCutUrl}', '${(voter.voter_name||'').replace(/'/g, "\\'")}', '${voter.serial_no||''}')" title="मूल मतदाता पर्ची कटिंग (बड़ा देखने हेतु क्लिक करें)">
-            <img src="${slipCutUrl}" alt="पर्ची कटिंग" class="alpha-slip-cut-img" loading="lazy" onerror="this.parentElement.style.display='none';" />
+          <div class="search-slip-cut-full" onclick="viewSlipCutModal('${slipCutUrl}', '${(voter.voter_name||'').replace(/'/g, "\\'")}', '${voter.serial_no||''}')" title="मूल मतदाता पर्ची कटिंग (बड़ा देखने हेतु क्लिक करें)">
+            <img src="${slipCutUrl}" alt="पर्ची कटिंग" class="search-slip-cut-img" loading="lazy" onerror="this.closest('.search-slip-cut-card').style.display='none';" />
             <span class="slip-cut-zoom-badge">🔍 बड़ा देखें</span>
           </div>
         </div>
