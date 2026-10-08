@@ -34985,1128 +34985,1592 @@
   ],
   "polling_booths": [
     {
-      "gp": "Badgaon",
       "booth_no": 1,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बड़गांव",
+      "gp": "Badgaon",
+      "gp_hindi": "बड़गांव",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बडगांव",
       "wards": [
         1,
         2
-      ]
+      ],
+      "ps_ward": 15,
+      "zp_ward": 11,
+      "total_voters": 679
     },
     {
-      "gp": "Badgaon",
       "booth_no": 2,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-10 बड़गांव",
+      "gp": "Badgaon",
+      "gp_hindi": "बड़गांव",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-10 बडगांव",
       "wards": [
         3,
         4
-      ]
+      ],
+      "ps_ward": 15,
+      "zp_ward": 11,
+      "total_voters": 658
     },
     {
-      "gp": "Badgaon",
       "booth_no": 3,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 बड़गांव",
+      "gp": "Badgaon",
+      "gp_hindi": "बड़गांव",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 बडगांव",
       "wards": [
         5,
         6,
         7
-      ]
+      ],
+      "ps_ward": 15,
+      "zp_ward": 11,
+      "total_voters": 933
     },
     {
-      "gp": "Badgaon",
       "booth_no": 4,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 बड़गांव",
+      "gp": "Badgaon",
+      "gp_hindi": "बड़गांव",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 बडगांव",
       "wards": [
         8,
         9,
         10
-      ]
+      ],
+      "ps_ward": 15,
+      "zp_ward": 11,
+      "total_voters": 910
     },
     {
-      "gp": "Badgaon",
       "booth_no": 5,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-15 बड़गांव",
+      "gp": "Badgaon",
+      "gp_hindi": "बड़गांव",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-15 बडगांव",
       "wards": [
         11,
         12,
         13
-      ]
+      ],
+      "ps_ward": 15,
+      "zp_ward": 11,
+      "total_voters": 896
     },
     {
-      "gp": "Badli",
       "booth_no": 6,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 बदली",
+      "gp": "Badli",
+      "gp_hindi": "बड़ली",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 बड़ली",
       "wards": [
         1,
         2
-      ]
+      ],
+      "ps_ward": 9,
+      "zp_ward": 9,
+      "total_voters": 830
     },
     {
-      "gp": "Badli",
       "booth_no": 7,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 बदली",
+      "gp": "Badli",
+      "gp_hindi": "बड़ली",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 बड़ली",
       "wards": [
         3,
         4,
         5
-      ]
+      ],
+      "ps_ward": 9,
+      "zp_ward": 9,
+      "total_voters": 780
     },
     {
-      "gp": "Badli",
       "booth_no": 8,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 बदली",
+      "gp": "Badli",
+      "gp_hindi": "बड़ली",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 बड़ली",
       "wards": [
         6,
         7,
         8
-      ]
+      ],
+      "ps_ward": 9,
+      "zp_ward": 9,
+      "total_voters": 1063
     },
     {
-      "gp": "Badli",
       "booth_no": 9,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 बदली",
+      "gp": "Badli",
+      "gp_hindi": "बड़ली",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 बड़ली",
       "wards": [
         9,
         10,
         11
-      ]
+      ],
+      "ps_ward": 9,
+      "zp_ward": 9,
+      "total_voters": 838
     },
     {
-      "gp": "Bagrai",
       "booth_no": 10,
+      "gp": "Bagrai",
+      "gp_hindi": "बगराई",
       "name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 बगराई",
       "wards": [
         1,
         2,
         3,
         4
-      ]
+      ],
+      "ps_ward": 11,
+      "zp_ward": 11,
+      "total_voters": 1121
     },
     {
-      "gp": "Bagrai",
       "booth_no": 11,
+      "gp": "Bagrai",
+      "gp_hindi": "बगराई",
       "name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 बगराई",
       "wards": [
         5,
         6,
         7
-      ]
+      ],
+      "ps_ward": 11,
+      "zp_ward": 11,
+      "total_voters": 952
     },
     {
-      "gp": "Bandanwara",
       "booth_no": 12,
+      "gp": "Bandanwara",
+      "gp_hindi": "बांदनवाड़ा",
       "name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-14 बांदनवाड़ा",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 2,
+      "zp_ward": 10,
+      "total_voters": 1053
     },
     {
-      "gp": "Bandanwara",
       "booth_no": 13,
+      "gp": "Bandanwara",
+      "gp_hindi": "बांदनवाड़ा",
       "name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-15 बांदनवाड़ा",
       "wards": [
         4,
         5,
         6
-      ]
+      ],
+      "ps_ward": 2,
+      "zp_ward": 10,
+      "total_voters": 1034
     },
     {
-      "gp": "Bandanwara",
       "booth_no": 14,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बांदनवाड़ा+(प्राथमिक अनुभाग)",
+      "gp": "Bandanwara",
+      "gp_hindi": "बांदनवाड़ा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बांदनवाड़ा़(प्राथमिक अनुभाग)",
       "wards": [
         7,
         8
-      ]
+      ],
+      "ps_ward": 2,
+      "zp_ward": 10,
+      "total_voters": 719
     },
     {
-      "gp": "Bandanwara",
       "booth_no": 15,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 बांदनवाड़ा+(प्राथमिक अनुभाग)",
+      "gp": "Bandanwara",
+      "gp_hindi": "बांदनवाड़ा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 बांदनवाड़ा़(प्राथमिक अनुभाग)",
       "wards": [
         9,
         10,
         11
-      ]
+      ],
+      "ps_ward": 2,
+      "zp_ward": 10,
+      "total_voters": 1007
     },
     {
-      "gp": "Bandanwara",
       "booth_no": 16,
+      "gp": "Bandanwara",
+      "gp_hindi": "बांदनवाड़ा",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 बांदनवाड़ा",
       "wards": [
         12,
         13,
         16
-      ]
+      ],
+      "ps_ward": 2,
+      "zp_ward": 10,
+      "total_voters": 1059
     },
     {
-      "gp": "Bandanwara",
       "booth_no": 17,
+      "gp": "Bandanwara",
+      "gp_hindi": "बांदनवाड़ा",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-9 बांदनवाड़ा",
       "wards": [
         14,
         15,
         17
-      ]
+      ],
+      "ps_ward": 2,
+      "zp_ward": 10,
+      "total_voters": 989
     },
     {
-      "gp": "Bhinay",
       "booth_no": 18,
+      "gp": "Bhinay",
+      "gp_hindi": "भिनाय",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-19 भिनाय",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 6,
+      "zp_ward": 10,
+      "total_voters": 1145
     },
     {
-      "gp": "Bhinay",
       "booth_no": 19,
+      "gp": "Bhinay",
+      "gp_hindi": "भिनाय",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-33 भिनाय",
       "wards": [
         4,
         5,
         6
-      ]
+      ],
+      "ps_ward": 6,
+      "zp_ward": 10,
+      "total_voters": 933
     },
     {
-      "gp": "Bhinay",
       "booth_no": 20,
+      "gp": "Bhinay",
+      "gp_hindi": "भिनाय",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-37 भिनाय",
       "wards": [
         7,
         8,
         9
-      ]
+      ],
+      "ps_ward": 6,
+      "zp_ward": 10,
+      "total_voters": 1077
     },
     {
-      "gp": "Bhinay",
       "booth_no": 21,
+      "gp": "Bhinay",
+      "gp_hindi": "भिनाय",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-39 भिनाय",
       "wards": [
         10,
         11,
         12
-      ]
+      ],
+      "ps_ward": 6,
+      "zp_ward": 10,
+      "total_voters": 819
     },
     {
-      "gp": "Bhinay",
       "booth_no": 22,
+      "gp": "Bhinay",
+      "gp_hindi": "भिनाय",
       "name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-4 भिनाय",
       "wards": [
         13,
         14,
         15
-      ]
+      ],
+      "ps_ward": 6,
+      "zp_ward": 10,
+      "total_voters": 1033
     },
     {
-      "gp": "Bhinay",
       "booth_no": 23,
+      "gp": "Bhinay",
+      "gp_hindi": "भिनाय",
       "name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-5 भिनाय",
       "wards": [
         16,
         17
-      ]
+      ],
+      "ps_ward": 6,
+      "zp_ward": 10,
+      "total_voters": 799
     },
     {
-      "gp": "Bhinay",
       "booth_no": 24,
+      "gp": "Bhinay",
+      "gp_hindi": "भिनाय",
       "name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-09 भिनाय",
       "wards": [
         18,
         19
-      ]
+      ],
+      "ps_ward": 6,
+      "zp_ward": 10,
+      "total_voters": 683
     },
     {
-      "gp": "Bhinay",
       "booth_no": 25,
+      "gp": "Bhinay",
+      "gp_hindi": "भिनाय",
       "name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-10 भिनाय",
       "wards": [
         20,
         21
-      ]
+      ],
+      "ps_ward": 6,
+      "zp_ward": 10,
+      "total_voters": 907
     },
     {
-      "gp": "Boobkiya",
       "booth_no": 26,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 बुबकिया",
+      "gp": "Boobkiya",
+      "gp_hindi": "बूबकिया",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-7 बूबकिया",
       "wards": [
         1,
         2,
         3,
         4
-      ]
+      ],
+      "ps_ward": 18,
+      "zp_ward": 10,
+      "total_voters": 1023
     },
     {
-      "gp": "Boobkiya",
       "booth_no": 27,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-10 बुबकिया",
+      "gp": "Boobkiya",
+      "gp_hindi": "बूबकिया",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-10 बूबकिया",
       "wards": [
         5,
         6
-      ]
+      ],
+      "ps_ward": 17,
+      "zp_ward": 10,
+      "total_voters": 671
     },
     {
-      "gp": "Boobkiya",
       "booth_no": 28,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 बुबकिया",
+      "gp": "Boobkiya",
+      "gp_hindi": "बूबकिया",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-11 बूबकिया",
       "wards": [
         7,
         8
-      ]
+      ],
+      "ps_ward": 17,
+      "zp_ward": 10,
+      "total_voters": 740
     },
     {
-      "gp": "Boobkiya",
       "booth_no": 29,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 बुबकिया",
+      "gp": "Boobkiya",
+      "gp_hindi": "बूबकिया",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-12 बूबकिया",
       "wards": [
         9,
         10,
         11
-      ]
+      ],
+      "ps_ward": 17,
+      "zp_ward": 10,
+      "total_voters": 995
     },
     {
-      "gp": "Chapaneri",
       "booth_no": 30,
+      "gp": "Chapaneri",
+      "gp_hindi": "चापानेरी",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 चापानेरी",
       "wards": [
         1,
         2
-      ]
+      ],
+      "ps_ward": 12,
+      "zp_ward": 11,
+      "total_voters": 774
     },
     {
-      "gp": "Chapaneri",
       "booth_no": 31,
+      "gp": "Chapaneri",
+      "gp_hindi": "चापानेरी",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 चापानेरी",
       "wards": [
         3,
         4,
         5
-      ]
+      ],
+      "ps_ward": 12,
+      "zp_ward": 11,
+      "total_voters": 925
     },
     {
-      "gp": "Chapaneri",
       "booth_no": 32,
+      "gp": "Chapaneri",
+      "gp_hindi": "चापानेरी",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 चापानेरी",
       "wards": [
         6,
         7,
         8
-      ]
+      ],
+      "ps_ward": 12,
+      "zp_ward": 11,
+      "total_voters": 701
     },
     {
-      "gp": "Chapaneri",
       "booth_no": 33,
+      "gp": "Chapaneri",
+      "gp_hindi": "चापानेरी",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 चापानेरी",
       "wards": [
         9,
         10,
         11
-      ]
+      ],
+      "ps_ward": 12,
+      "zp_ward": 11,
+      "total_voters": 962
     },
     {
-      "gp": "Chhachhundra",
       "booth_no": 34,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 छाछूंदड़ा",
+      "gp": "Chhachhundra",
+      "gp_hindi": "छछून्दरा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 छछुन्दरा",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 5,
+      "zp_ward": 10,
+      "total_voters": 1032
     },
     {
-      "gp": "Chhachhundra",
       "booth_no": 35,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 छाछूंदड़ा",
+      "gp": "Chhachhundra",
+      "gp_hindi": "छछून्दरा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 छछुन्दरा",
       "wards": [
         4,
         5,
         6
-      ]
+      ],
+      "ps_ward": 5,
+      "zp_ward": 10,
+      "total_voters": 846
     },
     {
-      "gp": "Chhachhundra",
       "booth_no": 36,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 छाछूंदड़ा",
+      "gp": "Chhachhundra",
+      "gp_hindi": "छछून्दरा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 छछुन्दरा",
       "wards": [
         7,
         8
-      ]
+      ],
+      "ps_ward": 5,
+      "zp_ward": 10,
+      "total_voters": 829
     },
     {
-      "gp": "Chhachhundra",
       "booth_no": 37,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 छाछूंदड़ा",
+      "gp": "Chhachhundra",
+      "gp_hindi": "छछून्दरा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 छछुन्दरा",
       "wards": [
         9,
         10,
         11
-      ]
+      ],
+      "ps_ward": 5,
+      "zp_ward": 10,
+      "total_voters": 980
     },
     {
-      "gp": "Devliyakalan",
       "booth_no": 38,
-      "name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 देवलीयाकलां",
+      "gp": "Devliyakalan",
+      "gp_hindi": "देवलियाकलां",
+      "name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 देवलियाकलां",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 10,
+      "zp_ward": 9,
+      "total_voters": 854
     },
     {
-      "gp": "Devliyakalan",
       "booth_no": 39,
-      "name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 देवलीयाकलां",
+      "gp": "Devliyakalan",
+      "gp_hindi": "देवलियाकलां",
+      "name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 देवलियाकलां",
       "wards": [
         4,
         5
-      ]
+      ],
+      "ps_ward": 10,
+      "zp_ward": 9,
+      "total_voters": 824
     },
     {
-      "gp": "Devliyakalan",
       "booth_no": 40,
-      "name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 देवलीयाकलां",
+      "gp": "Devliyakalan",
+      "gp_hindi": "देवलियाकलां",
+      "name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 देवलियाकलां",
       "wards": [
         6,
         7
-      ]
+      ],
+      "ps_ward": 10,
+      "zp_ward": 9,
+      "total_voters": 763
     },
     {
-      "gp": "Devliyakalan",
       "booth_no": 41,
-      "name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-20 देवलीयाकलां",
+      "gp": "Devliyakalan",
+      "gp_hindi": "देवलियाकलां",
+      "name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-20 देवलियाकलां",
       "wards": [
         8,
         9
-      ]
+      ],
+      "ps_ward": 10,
+      "zp_ward": 9,
+      "total_voters": 739
     },
     {
-      "gp": "Devliyakalan",
       "booth_no": 42,
-      "name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-2 देवलीयाकलां",
+      "gp": "Devliyakalan",
+      "gp_hindi": "देवलियाकलां",
+      "name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-2 देवलियाकला",
       "wards": [
         10,
         11,
         12
-      ]
+      ],
+      "ps_ward": 10,
+      "zp_ward": 9,
+      "total_voters": 988
     },
     {
-      "gp": "Devliyakalan",
       "booth_no": 43,
-      "name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-3 देवलीयाकलां",
+      "gp": "Devliyakalan",
+      "gp_hindi": "देवलियाकलां",
+      "name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-3 देवलियाकला",
       "wards": [
         13,
         14,
         15
-      ]
+      ],
+      "ps_ward": 10,
+      "zp_ward": 9,
+      "total_voters": 942
     },
     {
-      "gp": "DEVPURA",
       "booth_no": 44,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 देवपुरा(देवरिया)",
+      "gp": "DEVPURA",
+      "gp_hindi": "देवपुरा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 देवपुरा(देवपुरा)",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 1,
+      "zp_ward": 9,
+      "total_voters": 794
     },
     {
-      "gp": "DEVPURA",
       "booth_no": 45,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 देवपुरा(देवरिया)",
+      "gp": "DEVPURA",
+      "gp_hindi": "देवपुरा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 देवपुरा(देवपुरा)",
       "wards": [
         4,
         5,
         6
-      ]
+      ],
+      "ps_ward": 1,
+      "zp_ward": 9,
+      "total_voters": 907
     },
     {
-      "gp": "DEVPURA",
       "booth_no": 46,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 देवपुरा(देवरिया)",
+      "gp": "DEVPURA",
+      "gp_hindi": "देवपुरा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 देवपुरा(देवपुरा)",
       "wards": [
         7,
         8
-      ]
+      ],
+      "ps_ward": 1,
+      "zp_ward": 9,
+      "total_voters": 706
     },
     {
-      "gp": "DEVPURA",
       "booth_no": 47,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 देवपुरा(देवरिया)",
+      "gp": "DEVPURA",
+      "gp_hindi": "देवपुरा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 देवपुरा(देवपुरा)",
       "wards": [
         9,
         10,
         11
-      ]
+      ],
+      "ps_ward": 1,
+      "zp_ward": 9,
+      "total_voters": 773
     },
     {
-      "gp": "Dhantol",
       "booth_no": 48,
+      "gp": "Dhantol",
+      "gp_hindi": "धांतोल",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 धांतोल",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 18,
+      "zp_ward": 10,
+      "total_voters": 1120
     },
     {
-      "gp": "Dhantol",
       "booth_no": 49,
+      "gp": "Dhantol",
+      "gp_hindi": "धांतोल",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 धांतोल",
       "wards": [
         4,
         5,
         6
-      ]
+      ],
+      "ps_ward": 18,
+      "zp_ward": 10,
+      "total_voters": 801
     },
     {
-      "gp": "Dhantol",
       "booth_no": 50,
+      "gp": "Dhantol",
+      "gp_hindi": "धांतोल",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 धांतोल",
       "wards": [
         7,
         8,
         9
-      ]
+      ],
+      "ps_ward": 18,
+      "zp_ward": 10,
+      "total_voters": 877
     },
     {
-      "gp": "Ekalsingha",
       "booth_no": 51,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 एकलसिंहा",
+      "gp": "Ekalsingha",
+      "gp_hindi": "एकलसिंहा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 एकलसिंहा़",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 7,
+      "zp_ward": 9,
+      "total_voters": 930
     },
     {
-      "gp": "Ekalsingha",
       "booth_no": 52,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 एकलसिंहा",
+      "gp": "Ekalsingha",
+      "gp_hindi": "एकलसिंहा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 एकलसिंहा़",
       "wards": [
         4,
         5,
         6
-      ]
+      ],
+      "ps_ward": 7,
+      "zp_ward": 9,
+      "total_voters": 907
     },
     {
-      "gp": "Ekalsingha",
       "booth_no": 53,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 एकलसिंहा",
+      "gp": "Ekalsingha",
+      "gp_hindi": "एकलसिंहा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 एकलसिंहा़",
       "wards": [
         7,
         8,
         9
-      ]
+      ],
+      "ps_ward": 7,
+      "zp_ward": 9,
+      "total_voters": 837
     },
     {
-      "gp": "Ghana",
       "booth_no": 54,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 घाना",
+      "gp": "Ghana",
+      "gp_hindi": "घणा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 घणा",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 8,
+      "zp_ward": 10,
+      "total_voters": 889
     },
     {
-      "gp": "Ghana",
       "booth_no": 55,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 घाना",
+      "gp": "Ghana",
+      "gp_hindi": "घणा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 घणा",
       "wards": [
         4,
         5
-      ]
+      ],
+      "ps_ward": 8,
+      "zp_ward": 10,
+      "total_voters": 818
     },
     {
-      "gp": "Ghana",
       "booth_no": 56,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 घाना",
+      "gp": "Ghana",
+      "gp_hindi": "घणा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 घणा",
       "wards": [
         6,
         7
-      ]
+      ],
+      "ps_ward": 8,
+      "zp_ward": 10,
+      "total_voters": 699
     },
     {
-      "gp": "GudhaKhurd",
       "booth_no": 57,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 गुढ़ाखुर्द",
+      "gp": "GudhaKhurd",
+      "gp_hindi": "गुढाखुर्द",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 गुढाखुर्द",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 11,
+      "zp_ward": 11,
+      "total_voters": 791
     },
     {
-      "gp": "GudhaKhurd",
       "booth_no": 58,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 गुढ़ाखुर्द",
+      "gp": "GudhaKhurd",
+      "gp_hindi": "गुढाखुर्द",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 गुढाखुर्द",
       "wards": [
         4,
         5
-      ]
+      ],
+      "ps_ward": 11,
+      "zp_ward": 11,
+      "total_voters": 653
     },
     {
-      "gp": "GudhaKhurd",
       "booth_no": 59,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 गुढ़ाखुर्द",
+      "gp": "GudhaKhurd",
+      "gp_hindi": "गुढाखुर्द",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 गुढाखुर्द",
       "wards": [
         6,
         7,
         8
-      ]
+      ],
+      "ps_ward": 11,
+      "zp_ward": 11,
+      "total_voters": 956
     },
     {
-      "gp": "GudhaKhurd",
       "booth_no": 60,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 गुढ़ाखुर्द",
+      "gp": "GudhaKhurd",
+      "gp_hindi": "गुढाखुर्द",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 गुढाखुर्द",
       "wards": [
         9,
         10,
         11
-      ]
+      ],
+      "ps_ward": 11,
+      "zp_ward": 11,
+      "total_voters": 834
     },
     {
-      "gp": "Hiyaliya",
       "booth_no": 61,
-      "name": "राजकीय उच्च प्राथमिक विद्यालय कमरा नं.-3 हियालिया",
+      "gp": "Hiyaliya",
+      "gp_hindi": "हियालिया",
+      "name": "राजकीय उच्च पर्राथमिक विद्यालय कमरा नं.-3 हियालिया",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 7,
+      "zp_ward": 9,
+      "total_voters": 981
     },
     {
-      "gp": "Hiyaliya",
       "booth_no": 62,
-      "name": "राजकीय उच्च प्राथमिक विद्यालय कमरा नं.-4 हियालिया",
+      "gp": "Hiyaliya",
+      "gp_hindi": "हियालिया",
+      "name": "राजकीय उच्च पर्राथमिक विद्यालय कमरा नं.-4 हियालिया",
       "wards": [
         4,
         5,
         6,
         7
-      ]
+      ],
+      "ps_ward": 7,
+      "zp_ward": 9,
+      "total_voters": 1098
     },
     {
-      "gp": "Kanaikalan",
       "booth_no": 63,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कानाईकलां",
+      "gp": "Kanaikalan",
+      "gp_hindi": "कनईकला",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कनेईकलां",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 14,
+      "zp_ward": 11,
+      "total_voters": 982
     },
     {
-      "gp": "Kanaikalan",
       "booth_no": 64,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 कानाईकलां",
+      "gp": "Kanaikalan",
+      "gp_hindi": "कनईकला",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 कनेईकलां",
       "wards": [
         4,
         5,
         6
-      ]
+      ],
+      "ps_ward": 14,
+      "zp_ward": 11,
+      "total_voters": 1129
     },
     {
-      "gp": "Kanaikalan",
       "booth_no": 65,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 कानाईकलां",
+      "gp": "Kanaikalan",
+      "gp_hindi": "कनईकला",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 कनेईकलां",
       "wards": [
         7,
         8,
         9
-      ]
+      ],
+      "ps_ward": 14,
+      "zp_ward": 11,
+      "total_voters": 974
     },
     {
-      "gp": "Karanti",
       "booth_no": 66,
+      "gp": "Karanti",
+      "gp_hindi": "करांटी",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 करांटी",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 4,
+      "zp_ward": 9,
+      "total_voters": 835
     },
     {
-      "gp": "Karanti",
       "booth_no": 67,
+      "gp": "Karanti",
+      "gp_hindi": "करांटी",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 करांटी",
       "wards": [
         4,
         5
-      ]
+      ],
+      "ps_ward": 4,
+      "zp_ward": 9,
+      "total_voters": 616
     },
     {
-      "gp": "Karanti",
       "booth_no": 68,
+      "gp": "Karanti",
+      "gp_hindi": "करांटी",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 करांटी",
       "wards": [
         6,
         7
-      ]
+      ],
+      "ps_ward": 4,
+      "zp_ward": 9,
+      "total_voters": 596
     },
     {
-      "gp": "Kerot",
       "booth_no": 69,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-10 केरोट",
+      "gp": "Kerot",
+      "gp_hindi": "कैरोंट",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-10 कैरोट",
       "wards": [
         1,
         2
-      ]
+      ],
+      "ps_ward": 13,
+      "zp_ward": 11,
+      "total_voters": 766
     },
     {
-      "gp": "Kerot",
       "booth_no": 70,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 केरोट",
+      "gp": "Kerot",
+      "gp_hindi": "कैरोंट",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 कैरोट",
       "wards": [
         3,
         4,
         5
-      ]
+      ],
+      "ps_ward": 13,
+      "zp_ward": 11,
+      "total_voters": 915
     },
     {
-      "gp": "Kerot",
       "booth_no": 71,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 केरोट",
+      "gp": "Kerot",
+      "gp_hindi": "कैरोंट",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 कैरोट",
       "wards": [
         6,
         7,
         8
-      ]
+      ],
+      "ps_ward": 13,
+      "zp_ward": 11,
+      "total_voters": 901
     },
     {
-      "gp": "Kerot",
       "booth_no": 72,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 केरोट",
+      "gp": "Kerot",
+      "gp_hindi": "कैरोंट",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 कैरोट",
       "wards": [
         9,
         10,
         11
-      ]
+      ],
+      "ps_ward": 13,
+      "zp_ward": 11,
+      "total_voters": 883
     },
     {
-      "gp": "Khedi",
       "booth_no": 73,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 खेड़ी",
+      "gp": "Khedi",
+      "gp_hindi": "खेडी",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 8- खेडी",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 4,
+      "zp_ward": 9,
+      "total_voters": 893
     },
     {
-      "gp": "Khedi",
       "booth_no": 74,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-9 खेड़ी",
+      "gp": "Khedi",
+      "gp_hindi": "खेडी",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 9- खेडी",
       "wards": [
         4,
         5,
         6
-      ]
+      ],
+      "ps_ward": 4,
+      "zp_ward": 9,
+      "total_voters": 807
     },
     {
-      "gp": "Khedi",
       "booth_no": 75,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-10 खेड़ी",
+      "gp": "Khedi",
+      "gp_hindi": "खेडी",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 10- खेडी",
       "wards": [
         7,
         8,
         9
-      ]
+      ],
+      "ps_ward": 4,
+      "zp_ward": 9,
+      "total_voters": 912
     },
     {
-      "gp": "Khedi",
       "booth_no": 76,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 खेड़ी",
+      "gp": "Khedi",
+      "gp_hindi": "खेडी",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 11- खेडी",
       "wards": [
         10,
         11
-      ]
+      ],
+      "ps_ward": 5,
+      "zp_ward": 9,
+      "total_voters": 505
     },
     {
-      "gp": "Kumhariya",
       "booth_no": 77,
+      "gp": "Kumhariya",
+      "gp_hindi": "कुम्हारिया",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कुम्हारिया",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 19,
+      "zp_ward": 10,
+      "total_voters": 1157
     },
     {
-      "gp": "Kumhariya",
       "booth_no": 78,
+      "gp": "Kumhariya",
+      "gp_hindi": "कुम्हारिया",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 कुम्हारिया",
       "wards": [
         4,
         5,
         6
-      ]
+      ],
+      "ps_ward": 19,
+      "zp_ward": 10,
+      "total_voters": 934
     },
     {
-      "gp": "Kumhariya",
       "booth_no": 79,
+      "gp": "Kumhariya",
+      "gp_hindi": "कुम्हारिया",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 कुम्हारिया",
       "wards": [
         7,
         8,
         9
-      ]
+      ],
+      "ps_ward": 19,
+      "zp_ward": 10,
+      "total_voters": 1031
     },
     {
-      "gp": "Kumhariya",
       "booth_no": 80,
+      "gp": "Kumhariya",
+      "gp_hindi": "कुम्हारिया",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 कुम्हारिया",
       "wards": [
         10,
         11
-      ]
+      ],
+      "ps_ward": 19,
+      "zp_ward": 10,
+      "total_voters": 723
     },
     {
-      "gp": "Lamgra",
       "booth_no": 81,
+      "gp": "Lamgra",
+      "gp_hindi": "लामगरा",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 लामगरा",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 9,
+      "zp_ward": 9,
+      "total_voters": 873
     },
     {
-      "gp": "Lamgra",
       "booth_no": 82,
+      "gp": "Lamgra",
+      "gp_hindi": "लामगरा",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 लामगरा",
       "wards": [
         4,
         5
-      ]
+      ],
+      "ps_ward": 9,
+      "zp_ward": 9,
+      "total_voters": 778
     },
     {
-      "gp": "Lamgra",
       "booth_no": 83,
+      "gp": "Lamgra",
+      "gp_hindi": "लामगरा",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-9 लामगरा",
       "wards": [
         6,
         7,
         8
-      ]
+      ],
+      "ps_ward": 9,
+      "zp_ward": 9,
+      "total_voters": 927
     },
     {
-      "gp": "Lamgra",
       "booth_no": 84,
+      "gp": "Lamgra",
+      "gp_hindi": "लामगरा",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 लामगरा",
       "wards": [
         9,
         10,
         11
-      ]
+      ],
+      "ps_ward": 9,
+      "zp_ward": 9,
+      "total_voters": 811
     },
     {
-      "gp": "Nagola",
       "booth_no": 85,
+      "gp": "Nagola",
+      "gp_hindi": "नागोला",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 नागोला",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 16,
+      "zp_ward": 11,
+      "total_voters": 1087
     },
     {
-      "gp": "Nagola",
       "booth_no": 86,
+      "gp": "Nagola",
+      "gp_hindi": "नागोला",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 नागोला",
       "wards": [
         4,
         5,
         6
-      ]
+      ],
+      "ps_ward": 16,
+      "zp_ward": 11,
+      "total_voters": 974
     },
     {
-      "gp": "Nagola",
       "booth_no": 87,
+      "gp": "Nagola",
+      "gp_hindi": "नागोला",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 नागोला",
       "wards": [
         7,
         8,
         9
-      ]
+      ],
+      "ps_ward": 16,
+      "zp_ward": 11,
+      "total_voters": 907
     },
     {
-      "gp": "Nagola",
       "booth_no": 88,
+      "gp": "Nagola",
+      "gp_hindi": "नागोला",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 नागोला",
       "wards": [
         10,
         11,
         12,
         13
-      ]
+      ],
+      "ps_ward": 16,
+      "zp_ward": 11,
+      "total_voters": 1101
     },
     {
-      "gp": "Nandsi",
       "booth_no": 89,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 नांदसी",
+      "gp": "Nandsi",
+      "gp_hindi": "नान्दसी",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 नान्दसी",
       "wards": [
         1,
         2
-      ]
+      ],
+      "ps_ward": 12,
+      "zp_ward": 11,
+      "total_voters": 651
     },
     {
-      "gp": "Nandsi",
       "booth_no": 90,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 नांदसी",
+      "gp": "Nandsi",
+      "gp_hindi": "नान्दसी",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 नान्दसी",
       "wards": [
         3,
         4
-      ]
+      ],
+      "ps_ward": 12,
+      "zp_ward": 11,
+      "total_voters": 731
     },
     {
-      "gp": "Nandsi",
       "booth_no": 91,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 नांदसी",
+      "gp": "Nandsi",
+      "gp_hindi": "नान्दसी",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 नान्दसी",
       "wards": [
         5,
         6
-      ]
+      ],
+      "ps_ward": 13,
+      "zp_ward": 11,
+      "total_voters": 669
     },
     {
-      "gp": "Nandsi",
       "booth_no": 92,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 नांदसी",
+      "gp": "Nandsi",
+      "gp_hindi": "नान्दसी",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 नान्दसी",
       "wards": [
         7,
         8,
         9
-      ]
+      ],
+      "ps_ward": 13,
+      "zp_ward": 11,
+      "total_voters": 881
     },
     {
-      "gp": "Nandsi",
       "booth_no": 93,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 नांदसी",
+      "gp": "Nandsi",
+      "gp_hindi": "नान्दसी",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 नान्दसी",
       "wards": [
         10,
         11
-      ]
+      ],
+      "ps_ward": 13,
+      "zp_ward": 11,
+      "total_voters": 867
     },
     {
-      "gp": "Padanga",
       "booth_no": 94,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.- 10 पाड़ंगा",
+      "gp": "Padanga",
+      "gp_hindi": "पड़ांगा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 10 पड़ागा",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 1,
+      "zp_ward": 9,
+      "total_voters": 852
     },
     {
-      "gp": "Padanga",
       "booth_no": 95,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.- 13 पाड़ंगा",
+      "gp": "Padanga",
+      "gp_hindi": "पड़ांगा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 13 पड़ागा",
       "wards": [
         4,
         5
-      ]
+      ],
+      "ps_ward": 1,
+      "zp_ward": 9,
+      "total_voters": 694
     },
     {
-      "gp": "Padanga",
       "booth_no": 96,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 पाड़ंगा",
+      "gp": "Padanga",
+      "gp_hindi": "पड़ांगा",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर-14 पड़ागा",
       "wards": [
         6,
         7
-      ]
+      ],
+      "ps_ward": 1,
+      "zp_ward": 9,
+      "total_voters": 796
     },
     {
-      "gp": "Padliya",
       "booth_no": 97,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 पादलिया",
+      "gp": "Padliya",
+      "gp_hindi": "पाडलिया",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 पाडलिया",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 14,
+      "zp_ward": 11,
+      "total_voters": 812
     },
     {
-      "gp": "Padliya",
       "booth_no": 98,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 पादलिया",
+      "gp": "Padliya",
+      "gp_hindi": "पाडलिया",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 पाडलिया",
       "wards": [
         4,
         5,
         6
-      ]
+      ],
+      "ps_ward": 14,
+      "zp_ward": 11,
+      "total_voters": 1036
     },
     {
-      "gp": "Padliya",
       "booth_no": 99,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 पादलिया",
+      "gp": "Padliya",
+      "gp_hindi": "पाडलिया",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 पाडलिया",
       "wards": [
         7,
         8,
         9
-      ]
+      ],
+      "ps_ward": 14,
+      "zp_ward": 11,
+      "total_voters": 1093
     },
     {
-      "gp": "Rammaliya",
       "booth_no": 100,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 राम्मलिया",
+      "gp": "Rammaliya",
+      "gp_hindi": "राममालिया",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 राममालिया",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 18,
+      "zp_ward": 11,
+      "total_voters": 1040
     },
     {
-      "gp": "Rammaliya",
       "booth_no": 101,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 राम्मलिया",
+      "gp": "Rammaliya",
+      "gp_hindi": "राममालिया",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 राममालिया",
       "wards": [
         4,
         5
-      ]
+      ],
+      "ps_ward": 18,
+      "zp_ward": 11,
+      "total_voters": 841
     },
     {
-      "gp": "Rammaliya",
       "booth_no": 102,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 राम्मलिया",
+      "gp": "Rammaliya",
+      "gp_hindi": "राममालिया",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 राममालिया",
       "wards": [
         6,
         7
-      ]
+      ],
+      "ps_ward": 18,
+      "zp_ward": 11,
+      "total_voters": 780
     },
     {
-      "gp": "Ratakot",
       "booth_no": 103,
+      "gp": "Ratakot",
+      "gp_hindi": "राताकोट",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 राताकोट",
       "wards": [
         1,
         2
-      ]
+      ],
+      "ps_ward": 3,
+      "zp_ward": 9,
+      "total_voters": 654
     },
     {
-      "gp": "Ratakot",
       "booth_no": 104,
+      "gp": "Ratakot",
+      "gp_hindi": "राताकोट",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 राताकोट",
       "wards": [
         3,
         4
-      ]
+      ],
+      "ps_ward": 3,
+      "zp_ward": 9,
+      "total_voters": 721
     },
     {
-      "gp": "Ratakot",
       "booth_no": 105,
+      "gp": "Ratakot",
+      "gp_hindi": "राताकोट",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-17 राताकोट",
       "wards": [
         5,
         6
-      ]
+      ],
+      "ps_ward": 3,
+      "zp_ward": 9,
+      "total_voters": 692
     },
     {
-      "gp": "Ratakot",
       "booth_no": 106,
+      "gp": "Ratakot",
+      "gp_hindi": "राताकोट",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 राताकोट",
       "wards": [
         7,
         8,
         9
-      ]
+      ],
+      "ps_ward": 3,
+      "zp_ward": 9,
+      "total_voters": 1030
     },
     {
-      "gp": "Singawal",
       "booth_no": 107,
+      "gp": "Singawal",
+      "gp_hindi": "सिंगावल",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 सिंगावल",
       "wards": [
         1,
         2
-      ]
+      ],
+      "ps_ward": 3,
+      "zp_ward": 9,
+      "total_voters": 864
     },
     {
-      "gp": "Singawal",
       "booth_no": 108,
+      "gp": "Singawal",
+      "gp_hindi": "सिंगावल",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 सिंगावल",
       "wards": [
         3,
         4
-      ]
+      ],
+      "ps_ward": 3,
+      "zp_ward": 9,
+      "total_voters": 710
     },
     {
-      "gp": "Singawal",
       "booth_no": 109,
+      "gp": "Singawal",
+      "gp_hindi": "सिंगावल",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 सिंगावल",
       "wards": [
         5,
         6
-      ]
+      ],
+      "ps_ward": 3,
+      "zp_ward": 9,
+      "total_voters": 726
     },
     {
-      "gp": "Singawal",
       "booth_no": 110,
+      "gp": "Singawal",
+      "gp_hindi": "सिंगावल",
       "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 सिंगावल",
       "wards": [
         7,
         8,
         9
-      ]
+      ],
+      "ps_ward": 3,
+      "zp_ward": 9,
+      "total_voters": 843
     },
     {
-      "gp": "Sobdi",
       "booth_no": 111,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 सोबड़ी",
+      "gp": "Sobdi",
+      "gp_hindi": "सोबडी",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 सोबडी",
       "wards": [
         1,
         7
-      ]
+      ],
+      "ps_ward": 8,
+      "zp_ward": 10,
+      "total_voters": 625
     },
     {
-      "gp": "Sobdi",
       "booth_no": 112,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 सोबड़ी",
+      "gp": "Sobdi",
+      "gp_hindi": "सोबडी",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 सोबडी",
       "wards": [
         2,
         3
-      ]
+      ],
+      "ps_ward": 8,
+      "zp_ward": 10,
+      "total_voters": 758
     },
     {
-      "gp": "Sobdi",
       "booth_no": 113,
-      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 सोबड़ी",
+      "gp": "Sobdi",
+      "gp_hindi": "सोबडी",
+      "name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 सोबडी",
       "wards": [
         4,
         5,
         6
-      ]
+      ],
+      "ps_ward": 17,
+      "zp_ward": 10,
+      "total_voters": 798
     },
     {
-      "gp": "Solkhurd",
       "booth_no": 114,
+      "gp": "Solkhurd",
+      "gp_hindi": "सोलखुर्द",
       "name": "राजकीय प्राथमिक विद्यालय कमरा नं.-1 सोलखुर्द",
       "wards": [
         1,
         2,
         3
-      ]
+      ],
+      "ps_ward": 17,
+      "zp_ward": 10,
+      "total_voters": 1001
     },
     {
-      "gp": "Solkhurd",
       "booth_no": 115,
+      "gp": "Solkhurd",
+      "gp_hindi": "सोलखुर्द",
       "name": "राजकीय प्राथमिक विद्यालय कमरा नं.-2 सोलखुर्द",
       "wards": [
         4,
         5,
         6
-      ]
+      ],
+      "ps_ward": 17,
+      "zp_ward": 10,
+      "total_voters": 740
     },
     {
-      "gp": "Solkhurd",
       "booth_no": 116,
+      "gp": "Solkhurd",
+      "gp_hindi": "सोलखुर्द",
       "name": "राजकीय प्राथमिक विद्यालय कमरा नं.-3 सोलखुर्द",
       "wards": [
         7,
         8,
         9
-      ]
+      ],
+      "ps_ward": 17,
+      "zp_ward": 10,
+      "total_voters": 681
     }
   ]
 }

@@ -94,7 +94,7 @@
         </form>
 
         <div class="gatekeeper-footer-note mt-3">
-          <span>⚠️ <strong>सुरक्षा सूचना:</strong> बी.एल.ओ. को केवल उनके भाग संख्या/बूथ का डेटा, तथा प्रकोष्ठ कार्मिकों को अधिकृत चुनाव डायरेक्टरी का एक्सेस उपलब्ध होगा।</span>
+          <span>⚠️ <strong>सुरक्षा सूचना:</strong> बी.एल.ओ. को केवल उनके मतदान केंद्र (बूथ क्रमांक)/वार्ड का डेटा, तथा प्रकोष्ठ कार्मिकों को अधिकृत चुनाव डायरेक्टरी का एक्सेस उपलब्ध होगा।</span>
         </div>
       </div>
 
@@ -596,13 +596,13 @@
           <div class="card p-3 mb-3" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px;">
             <div class="d-flex gap-2 flex-wrap">
               <div class="search-input-wrapper flex-1" style="min-width:240px;">
-                <input type="text" id="dirUnifiedSearchInput" class="form-input" placeholder="🔍 नाम, मोबाइल, स्कूल, पटवार मंडल, भाग सं. से खोजें..." oninput="filterDirectoryList()">
+                <input type="text" id="dirUnifiedSearchInput" class="form-input" placeholder="🔍 नाम, मोबाइल, स्कूल, पटवार मंडल, बूथ क्र. से खोजें..." oninput="filterDirectoryList()">
               </div>
               <select id="dirCategoryFilterSelect" class="form-select" style="max-width:240px; font-weight:700; color:#1e3a8a;" onchange="onDirCategorySelectChanged(this.value)">
                 <option value="ALL">🌟 समस्त संवर्ग (सभी 662 संपर्क)</option>
                 <option value="PATWARI">🏛️ पटवारी (Patwari - 49)</option>
                 <option value="SUPERVISOR">👮 सुपरवाइजर (Supervisor - 98)</option>
-                <option value="BLO">📍 बी.एल.ओ. (BLO / प्रगणक - 126)</option>
+                <option value="BLO">📍 बी.एल.ओ. (BLO / प्रगणक - 116 बूथ)</option>
                 <option value="PEEO">🎓 पीईईओ / संस्था प्रधान (PEEO - 49)</option>
                 <option value="STAFF">👨‍🏫 पुरुष कार्मिक (Staff - 307)</option>
                 <option value="CELL">🏢 चुनाव प्रकोष्ठ (Election Cell - 29)</option>
@@ -1025,7 +1025,7 @@
                   <button type="button" class="btn btn-xs" id="btnToggleBloPortalLive" onclick="togglePortalStatus('blo')" style="font-weight:700; background:#4f46e5; color:#fff; padding:3px 8px; border-radius:4px; border:none; cursor:pointer;">🟢 चालू (ON)</button>
                 </div>
                 <div style="font-size:0.75rem; color:#4338ca; margin-top:2px;">
-                  🔒 <strong>प्रतिबंध:</strong> थोक पर्ची प्रिंटिंग अवरुद्ध | केवल अपना भाग/बूथ एक्सेस
+                  🔒 <strong>प्रतिबंध:</strong> थोक पर्ची प्रिंटिंग अवरुद्ध | केवल अपना बूथ/वार्ड एक्सेस
                 </div>
               </div>
 
@@ -1121,7 +1121,7 @@
               <table class="table admin-users-table" style="min-width:1150px; font-size:0.85rem;">
                 <thead style="position:sticky; top:0; z-index:5;">
                   <tr>
-                    <th style="width:100px;">भाग सं./ID</th>
+                    <th style="width:100px;">बूथ क्र./ID</th>
                     <th style="width:180px;">बी.एल.ओ. नाम व पद</th>
                     <th style="width:180px;">ग्राम पंचायत व वार्ड</th>
                     <th style="width:120px;">मोबाइल नंबर</th>
@@ -1640,7 +1640,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label><strong>भाग संख्या (Booth No.) *:</strong></label>
+            <label><strong>बूथ क्रमांक (Booth No. 1-116) *:</strong></label>
             <input type="text" id="bloEditBoothNo" class="form-input" required placeholder="उदा. 329" style="font-weight:700;">
           </div>
         </div>

@@ -267,7 +267,7 @@ function updateScopeBoothOptions() {
     matchedBlos.forEach(b => {
       const opt = document.createElement('option');
       opt.value = b.booth_no;
-      opt.textContent = `[${b.panchayat}] भाग सं. ${b.booth_no} - ${b.school || b.name}`;
+      opt.textContent = `[${b.panchayat}] बूथ क्र. ${b.booth_no} - ${b.school || b.name}`;
       boothSel.appendChild(opt);
     });
   }
@@ -586,7 +586,7 @@ function renderAdminBloTab() {
     tr.innerHTML = `
       <td>
         <span class="badge" style="background:#fef3c7; color:#92400e; font-weight:800; font-size:0.82rem; border:1px solid #fde68a;">
-          भाग सं. ${b.booth_no}
+          बूथ क्र. ${b.booth_no}
         </span>
         <div style="font-size:0.75rem; color:#64748b; margin-top:2px;">ID: ${bid}</div>
       </td>
@@ -1221,7 +1221,7 @@ function onLoginPrimarySelectChanged(val) {
       opt.setAttribute('data-booth', blo.booth_no || '');
       opt.setAttribute('data-school', blo.school || '');
       opt.setAttribute('data-mobile', blo.mobile || '');
-      opt.textContent = `भाग ${blo.booth_no} - ${blo.name} (${blo.school || 'मतदान केंद्र'})`;
+      opt.textContent = `बूथ ${blo.booth_no} - ${blo.name} (${blo.school || 'मतदान केंद्र'})`;
       offSelect.appendChild(opt);
     });
     offSelect.disabled = false;
@@ -1252,7 +1252,7 @@ function onLoginOfficerChanged(officerId) {
         detailsBadge.style.color = '#1e40af';
         detailsBadge.style.border = '1px solid #bfdbfe';
       } else {
-        detailsBadge.innerHTML = `👤 <strong>${name}</strong> (BLO भाग संख्या ${booth}) | ${school || 'मतदान केंद्र'} | मो.: ${mobile || '-'}`;
+        detailsBadge.innerHTML = `👤 <strong>${name}</strong> (BLO बूथ क्रमांक ${booth}) | ${school || 'मतदान केंद्र'} | मो.: ${mobile || '-'}`;
         detailsBadge.style.background = '#f0fdf4';
         detailsBadge.style.color = '#166534';
         detailsBadge.style.border = '1px solid #bbf7d0';
@@ -1414,14 +1414,16 @@ function getBoothForVoter(voter) {
 
   const matchWithWard = booths.find(b => {
     const bGp = (b.gp || '').toLowerCase().trim();
-    const isGpMatch = (bGp === targetEn || bGp === targetHi.toLowerCase() || bGp === targetCode);
+    const bGpHid = (b.gp_hindi || '').trim();
+    const isGpMatch = (bGp === targetEn || bGpHid === targetHi || bGp === targetHi.toLowerCase() || bGp === targetCode);
     return isGpMatch && Array.isArray(b.wards) && b.wards.includes(wardNo);
   });
   if (matchWithWard) return matchWithWard;
 
   return booths.find(b => {
     const bGp = (b.gp || '').toLowerCase().trim();
-    return (bGp === targetEn || bGp === targetHi.toLowerCase() || bGp === targetCode);
+    const bGpHid = (b.gp_hindi || '').trim();
+    return (bGp === targetEn || bGpHid === targetHi || bGp === targetHi.toLowerCase() || bGp === targetCode);
   }) || null;
 }
 
@@ -2014,7 +2016,7 @@ function updateUserScopeDisplay() {
       roleBadge.style.background = '#0f766e';
       roleBadge.style.color = '#ffffff';
     } else if (u.role === 'BLO') {
-      roleBadge.textContent = `👤 बी.एल.ओ. (भाग ${u.booth_no || ''})`;
+      roleBadge.textContent = `👤 बी.एल.ओ. (बूथ ${u.booth_no || ''})`;
       roleBadge.style.background = '#2563eb';
       roleBadge.style.color = '#ffffff';
     } else if (u.role === 'CELL_MEMBER') {
@@ -5527,7 +5529,7 @@ async function onLoginPrimarySelectChanged(val) {
       opt.setAttribute('data-booth', blo.booth_no || '');
       opt.setAttribute('data-school', blo.school || '');
       opt.setAttribute('data-mobile', blo.mobile || '');
-      opt.textContent = `भाग ${blo.booth_no} - ${blo.name} (${blo.school || 'मतदान केंद्र'})`;
+      opt.textContent = `बूथ ${blo.booth_no} - ${blo.name} (${blo.school || 'मतदान केंद्र'})`;
       offSelect.appendChild(opt);
     });
     offSelect.disabled = false;
@@ -5557,7 +5559,7 @@ function onLoginOfficerChanged(officerId) {
         detailsBadge.style.color = '#1e40af';
         detailsBadge.style.border = '1px solid #bfdbfe';
       } else if (booth) {
-        detailsBadge.innerHTML = `📍 <strong>${name}</strong> | भाग सं.: <strong>${booth}</strong> | ${school} | मो.: ${mobile}`;
+        detailsBadge.innerHTML = `📍 <strong>${name}</strong> | बूथ क्र.: <strong>${booth}</strong> | ${school} | मो.: ${mobile}`;
         detailsBadge.style.background = '#f0fdf4';
         detailsBadge.style.color = '#047857';
         detailsBadge.style.border = '1px solid #bbf7d0';
@@ -5663,7 +5665,7 @@ function initDirectoryTab() {
     // Optgroup 2: 126 Booths
     const bloList = dir.blo_list || [];
     const boothGroup = document.createElement('optgroup');
-    boothGroup.label = '🗳️ मतदान केंद्र / भाग संख्या (1-126)';
+    boothGroup.label = '🗳️ मतदान केंद्र / बूथ क्रमांक (1-116)';
     bloList.forEach(blo => {
       const opt = document.createElement('option');
       opt.value = `BOOTH_${blo.booth_no}`;
@@ -5902,7 +5904,7 @@ function renderContactCard(c) {
     switch(cat) {
       case 'PATWARI': return { bg: '#fef3c7', col: '#b45309', label: `🏛️ ${c.charge ? c.charge : 'मूल'} पटवारी` };
       case 'SUPERVISOR': return { bg: '#dbeafe', col: '#1e40af', label: '👮 सुपरवाइजर' };
-      case 'BLO': return { bg: '#dcfce7', col: '#15803d', label: `📍 भाग सं. ${c.booth_no || ''}` };
+      case 'BLO': return { bg: '#dcfce7', col: '#15803d', label: `📍 बूथ क्र. ${c.booth_no || ''}` };
       case 'PEEO': return { bg: '#f3e8ff', col: '#6b21a8', label: '🎓 पीईईओ / संस्था प्रधान' };
       case 'STAFF': return { bg: '#e0f2fe', col: '#0369a1', label: '👨‍🏫 पुरुष कार्मिक' };
       case 'CELL': return { bg: '#fee2e2', col: '#991b1b', label: '🏢 प्रकोष्ठ कार्मिक' };
@@ -5989,7 +5991,7 @@ function openEditPersonnelModal(id) {
   setVal('editPersRole', contact.designation || contact.role || '');
   setVal('editPersSchool', contact.school_office || contact.school || '');
   setVal('editPersPanchayat', contact.panchayat || contact.panchayat_str || '');
-  setVal('editPersBooth', contact.booth_no ? `भाग सं. ${contact.booth_no}` : (contact.patwar_mandal ? `मंडल ${contact.patwar_mandal}` : ''));
+  setVal('editPersBooth', contact.booth_no ? `बूथ क्र. ${contact.booth_no}` : (contact.patwar_mandal ? `मंडल ${contact.patwar_mandal}` : ''));
 
   const modal = document.getElementById('editPersonnelModal');
   if (modal) modal.style.display = 'flex';
@@ -6401,7 +6403,8 @@ async function handleGatekeeperLogin(event) {
     const bloMatch = (dir.blo_list || []).find(b => 
       b.id === username || 
       b.username === username || 
-      String(b.booth_no) === username.replace('blo_', '')
+      String(b.booth_no) === username.replace('blo_', '') ||
+      (b.old_part_no && String(b.old_part_no) === username.replace('blo_', ''))
     );
     if (bloMatch) {
       const bloUname = bloMatch.username || bloMatch.id || `blo_${bloMatch.booth_no}`;

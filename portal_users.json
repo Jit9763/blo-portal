@@ -2262,7 +2262,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि केरियाखुर्द",
     "mobile": "9829199893",
-    "booth_no": "329",
+    "booth_no": "1",
     "panchayat": "बड़गांव",
     "panchayat_code": "बड़गांव",
     "allowed_panchayats": "बड़गांव",
@@ -2279,7 +2279,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 329 | ग्रा.पं. बड़गांव | वार्ड: 1, 2"
+    "area_display": "बूथ सं. 1 | ग्रा.पं. बड़गांव | वार्ड: 1, 2",
+    "official_booth_no": 1,
+    "old_part_no": "329",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बडगांव"
   },
   {
     "id": "blo_330",
@@ -2293,7 +2296,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि केरियाखुर्द",
     "mobile": "9649678869",
-    "booth_no": "330",
+    "booth_no": "2",
     "panchayat": "बड़गांव",
     "panchayat_code": "बड़गांव",
     "allowed_panchayats": "बड़गांव",
@@ -2310,7 +2313,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 330 | ग्रा.पं. बड़गांव | वार्ड: 3, 4"
+    "area_display": "बूथ सं. 2 | ग्रा.पं. बड़गांव | वार्ड: 3, 4",
+    "official_booth_no": 2,
+    "old_part_no": "330",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-10 बडगांव"
   },
   {
     "id": "blo_332",
@@ -2324,7 +2330,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि बड़गांव",
     "mobile": "9460966310",
-    "booth_no": "332",
+    "booth_no": "3",
     "panchayat": "बड़गांव",
     "panchayat_code": "बड़गांव",
     "allowed_panchayats": "बड़गांव",
@@ -2341,7 +2347,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 332 | ग्रा.पं. बड़गांव | वार्ड: 6, 7, 8"
+    "area_display": "बूथ सं. 3 | ग्रा.पं. बड़गांव | वार्ड: 6, 7, 8",
+    "official_booth_no": 3,
+    "old_part_no": "332",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 बडगांव"
   },
   {
     "id": "blo_333",
@@ -2355,7 +2364,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि बड़गांव",
     "mobile": "9694969961",
-    "booth_no": "333",
+    "booth_no": "4",
     "panchayat": "बड़गांव",
     "panchayat_code": "बड़गांव",
     "allowed_panchayats": "बड़गांव",
@@ -2372,7 +2381,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 333 | ग्रा.पं. बड़गांव | वार्ड: 5, 9, 10"
+    "area_display": "बूथ सं. 4 | ग्रा.पं. बड़गांव | वार्ड: 5, 9, 10",
+    "official_booth_no": 4,
+    "old_part_no": "333",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 बडगांव"
   },
   {
     "id": "blo_331",
@@ -2386,7 +2398,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि रघुनाथपुरा",
     "mobile": "9694969961",
-    "booth_no": "331",
+    "booth_no": "5",
     "panchayat": "बड़गांव",
     "panchayat_code": "बड़गांव",
     "allowed_panchayats": "बड़गांव",
@@ -2403,7 +2415,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 331 | ग्रा.पं. बड़गांव | वार्ड: 11, 12, 13"
+    "area_display": "बूथ सं. 5 | ग्रा.पं. बड़गांव | वार्ड: 11, 12, 13",
+    "official_booth_no": 5,
+    "old_part_no": "331",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-15 बडगांव"
   },
   {
     "id": "blo_225",
@@ -2417,7 +2432,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि बड़ली",
     "mobile": "9610976472",
-    "booth_no": "225",
+    "booth_no": "7",
     "panchayat": "बड़ली",
     "panchayat_code": "बड़ली",
     "allowed_panchayats": "बड़ली",
@@ -2434,7 +2449,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 225 | ग्रा.पं. बड़ली | वार्ड: 3, 4, 5"
+    "area_display": "बूथ सं. 7 | ग्रा.पं. बड़ली | वार्ड: 3, 4, 5",
+    "official_booth_no": 7,
+    "old_part_no": "225",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 बड़ली"
   },
   {
     "id": "blo_new_7",
@@ -2448,7 +2466,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि बड़ली",
     "mobile": "8769007668",
-    "booth_no": "नया",
+    "booth_no": "6",
     "panchayat": "बड़ली",
     "panchayat_code": "बड़ली",
     "allowed_panchayats": "बड़ली",
@@ -2465,7 +2483,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. नया | ग्रा.पं. बड़ली | वार्ड: 1, 6"
+    "area_display": "बूथ सं. 6 | ग्रा.पं. बड़ली | वार्ड: 1, 6",
+    "official_booth_no": 6,
+    "old_part_no": "नया",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 बड़ली"
   },
   {
     "id": "blo_227",
@@ -2479,7 +2500,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि बड़ली",
     "mobile": "9950228331",
-    "booth_no": "227",
+    "booth_no": "8",
     "panchayat": "बड़ली",
     "panchayat_code": "बड़ली",
     "allowed_panchayats": "बड़ली",
@@ -2496,7 +2517,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 227 | ग्रा.पं. बड़ली | वार्ड: 2, 7, 8"
+    "area_display": "बूथ सं. 8 | ग्रा.पं. बड़ली | वार्ड: 2, 7, 8",
+    "official_booth_no": 8,
+    "old_part_no": "227",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 बड़ली"
   },
   {
     "id": "blo_226",
@@ -2510,7 +2534,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि बड़ली",
     "mobile": "9784195646",
-    "booth_no": "226",
+    "booth_no": "9",
     "panchayat": "बड़ली",
     "panchayat_code": "बड़ली",
     "allowed_panchayats": "बड़ली",
@@ -2527,7 +2551,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 226 | ग्रा.पं. बड़ली | वार्ड: 9, 10, 11"
+    "area_display": "बूथ सं. 9 | ग्रा.पं. बड़ली | वार्ड: 9, 10, 11",
+    "official_booth_no": 9,
+    "old_part_no": "226",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 बड़ली"
   },
   {
     "id": "blo_236",
@@ -2541,7 +2568,7 @@
     "designation": "शा.शि. प्रबोधक",
     "office": "राउप्रावि खेडी गुढाखुर्द",
     "mobile": "9799979051",
-    "booth_no": "236",
+    "booth_no": "10",
     "panchayat": "बगराई",
     "panchayat_code": "बगराई",
     "allowed_panchayats": "बगराई",
@@ -2558,7 +2585,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 236 | ग्रा.पं. बगराई | वार्ड: 1, 2, 3"
+    "area_display": "बूथ सं. 10 | ग्रा.पं. बगराई | वार्ड: 1, 2, 3",
+    "official_booth_no": 10,
+    "old_part_no": "236",
+    "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 बगराई"
   },
   {
     "id": "blo_237",
@@ -2572,7 +2602,7 @@
     "designation": "अध्यापक",
     "office": "पीएमश्री राउमावि बगराई",
     "mobile": "9672862304",
-    "booth_no": "237",
+    "booth_no": "11",
     "panchayat": "बगराई",
     "panchayat_code": "बगराई",
     "allowed_panchayats": "बगराई",
@@ -2589,7 +2619,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 237 | ग्रा.पं. बगराई | वार्ड: 4, 5, 6, 7"
+    "area_display": "बूथ सं. 11 | ग्रा.पं. बगराई | वार्ड: 4, 5, 6, 7",
+    "official_booth_no": 11,
+    "old_part_no": "237",
+    "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 बगराई"
   },
   {
     "id": "blo_281",
@@ -2603,7 +2636,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि बांदनवाड़ा",
     "mobile": "9269074489",
-    "booth_no": "281",
+    "booth_no": "13",
     "panchayat": "बांदनवाड़ा",
     "panchayat_code": "बांदनवाड़ा",
     "allowed_panchayats": "बांदनवाड़ा",
@@ -2620,7 +2653,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 281 | ग्रा.पं. बांदनवाड़ा | वार्ड: 1, 5, 6"
+    "area_display": "बूथ सं. 13 | ग्रा.पं. बांदनवाड़ा | वार्ड: 1, 5, 6",
+    "official_booth_no": 13,
+    "old_part_no": "281",
+    "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-15 बांदनवाड़ा"
   },
   {
     "id": "blo_280",
@@ -2634,7 +2670,7 @@
     "designation": "वरिष्ठ अध्यापक",
     "office": "राउमावि रेल्वे काॅलोनी, बांदनवाडा",
     "mobile": "8504884191",
-    "booth_no": "280",
+    "booth_no": "12",
     "panchayat": "बांदनवाड़ा",
     "panchayat_code": "बांदनवाड़ा",
     "allowed_panchayats": "बांदनवाड़ा",
@@ -2651,7 +2687,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 280 | ग्रा.पं. बांदनवाड़ा | वार्ड: 2, 3, 4"
+    "area_display": "बूथ सं. 12 | ग्रा.पं. बांदनवाड़ा | वार्ड: 2, 3, 4",
+    "official_booth_no": 12,
+    "old_part_no": "280",
+    "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-14 बांदनवाड़ा"
   },
   {
     "id": "blo_282",
@@ -2665,7 +2704,7 @@
     "designation": "अध्यापक",
     "office": "मगांरावि बांदनवाड़ा",
     "mobile": "7742356796",
-    "booth_no": "282",
+    "booth_no": "14",
     "panchayat": "बांदनवाड़ा",
     "panchayat_code": "बांदनवाड़ा",
     "allowed_panchayats": "बांदनवाड़ा",
@@ -2682,7 +2721,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 282 | ग्रा.पं. बांदनवाड़ा | वार्ड: 8, 9"
+    "area_display": "बूथ सं. 14 | ग्रा.पं. बांदनवाड़ा | वार्ड: 8, 9",
+    "official_booth_no": 14,
+    "old_part_no": "282",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बांदनवाड़ा़(प्राथमिक अनुभाग)"
   },
   {
     "id": "blo_279",
@@ -2696,7 +2738,7 @@
     "designation": "विद्यालय सहायक",
     "office": "राउमावि बांदनवाड़ा",
     "mobile": "9829649846",
-    "booth_no": "279",
+    "booth_no": "14",
     "panchayat": "बांदनवाड़ा",
     "panchayat_code": "बांदनवाड़ा",
     "allowed_panchayats": "बांदनवाड़ा",
@@ -2713,7 +2755,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 279 | ग्रा.पं. बांदनवाड़ा | वार्ड: 7, 10, 12"
+    "area_display": "बूथ सं. 14 | ग्रा.पं. बांदनवाड़ा | वार्ड: 7, 10, 12",
+    "official_booth_no": 14,
+    "old_part_no": "279",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बांदनवाड़ा़(प्राथमिक अनुभाग)"
   },
   {
     "id": "blo_278",
@@ -2727,7 +2772,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि बांदनवाड़ा",
     "mobile": "9636407387",
-    "booth_no": "278",
+    "booth_no": "15",
     "panchayat": "बांदनवाड़ा",
     "panchayat_code": "बांदनवाड़ा",
     "allowed_panchayats": "बांदनवाड़ा",
@@ -2744,7 +2789,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 278 | ग्रा.पं. बांदनवाड़ा | वार्ड: 11, 16, 17"
+    "area_display": "बूथ सं. 15 | ग्रा.पं. बांदनवाड़ा | वार्ड: 11, 16, 17",
+    "official_booth_no": 15,
+    "old_part_no": "278",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 बांदनवाड़ा़(प्राथमिक अनुभाग)"
   },
   {
     "id": "blo_277",
@@ -2758,7 +2806,7 @@
     "designation": "विद्यालय सहायक",
     "office": "राउमावि बांदनवाड़ा",
     "mobile": "9649173100",
-    "booth_no": "277",
+    "booth_no": "17",
     "panchayat": "बांदनवाड़ा",
     "panchayat_code": "बांदनवाड़ा",
     "allowed_panchayats": "बांदनवाड़ा",
@@ -2775,7 +2823,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 277 | ग्रा.पं. बांदनवाड़ा | वार्ड: 13, 14, 15"
+    "area_display": "बूथ सं. 17 | ग्रा.पं. बांदनवाड़ा | वार्ड: 13, 14, 15",
+    "official_booth_no": 17,
+    "old_part_no": "277",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-9 बांदनवाड़ा"
   },
   {
     "id": "blo_305",
@@ -2789,7 +2840,7 @@
     "designation": "कनिष्ठ सहायक",
     "office": "मगांरावि भिनाय",
     "mobile": "9571189634",
-    "booth_no": "305",
+    "booth_no": "18",
     "panchayat": "भिनाय",
     "panchayat_code": "भिनाय",
     "allowed_panchayats": "भिनाय",
@@ -2806,7 +2857,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 305 | ग्रा.पं. भिनाय | वार्ड: 3, 4, 8"
+    "area_display": "बूथ सं. 18 | ग्रा.पं. भिनाय | वार्ड: 3, 4, 8",
+    "official_booth_no": 18,
+    "old_part_no": "305",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-19 भिनाय"
   },
   {
     "id": "blo_306",
@@ -2820,7 +2874,7 @@
     "designation": "अध्यापक",
     "office": "मगांरावि भिनाय",
     "mobile": "9269313486",
-    "booth_no": "306",
+    "booth_no": "19",
     "panchayat": "भिनाय",
     "panchayat_code": "भिनाय",
     "allowed_panchayats": "भिनाय",
@@ -2837,7 +2891,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 306 | ग्रा.पं. भिनाय | वार्ड: 2, 5, 6"
+    "area_display": "बूथ सं. 19 | ग्रा.पं. भिनाय | वार्ड: 2, 5, 6",
+    "official_booth_no": 19,
+    "old_part_no": "306",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-33 भिनाय"
   },
   {
     "id": "blo_303",
@@ -2851,7 +2908,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि भिनाय",
     "mobile": "9079219657",
-    "booth_no": "303",
+    "booth_no": "20",
     "panchayat": "भिनाय",
     "panchayat_code": "भिनाय",
     "allowed_panchayats": "भिनाय",
@@ -2868,7 +2925,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 303 | ग्रा.पं. भिनाय | वार्ड: 7, 9, 10"
+    "area_display": "बूथ सं. 20 | ग्रा.पं. भिनाय | वार्ड: 7, 9, 10",
+    "official_booth_no": 20,
+    "old_part_no": "303",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-37 भिनाय"
   },
   {
     "id": "blo_304",
@@ -2882,7 +2942,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि भिनाय",
     "mobile": "8619276061",
-    "booth_no": "304",
+    "booth_no": "21",
     "panchayat": "भिनाय",
     "panchayat_code": "भिनाय",
     "allowed_panchayats": "भिनाय",
@@ -2899,7 +2959,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 304 | ग्रा.पं. भिनाय | वार्ड: 11, 12, 13"
+    "area_display": "बूथ सं. 21 | ग्रा.पं. भिनाय | वार्ड: 11, 12, 13",
+    "official_booth_no": 21,
+    "old_part_no": "304",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-39 भिनाय"
   },
   {
     "id": "blo_301",
@@ -2913,7 +2976,7 @@
     "designation": "अध्यापक",
     "office": "राजकीय वरिष्ठ उपाध्याय संस्कृत विद्यालय भिनाय",
     "mobile": "7073649458",
-    "booth_no": "301",
+    "booth_no": "22",
     "panchayat": "भिनाय",
     "panchayat_code": "भिनाय",
     "allowed_panchayats": "भिनाय",
@@ -2930,7 +2993,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 301 | ग्रा.पं. भिनाय | वार्ड: 14, 15"
+    "area_display": "बूथ सं. 22 | ग्रा.पं. भिनाय | वार्ड: 14, 15",
+    "official_booth_no": 22,
+    "old_part_no": "301",
+    "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-4 भिनाय"
   },
   {
     "id": "blo_300",
@@ -2944,7 +3010,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि भिनाय",
     "mobile": "7737537437",
-    "booth_no": "300",
+    "booth_no": "23",
     "panchayat": "भिनाय",
     "panchayat_code": "भिनाय",
     "allowed_panchayats": "भिनाय",
@@ -2961,7 +3027,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 300 | ग्रा.पं. भिनाय | वार्ड: 16, 17, 19"
+    "area_display": "बूथ सं. 23 | ग्रा.पं. भिनाय | वार्ड: 16, 17, 19",
+    "official_booth_no": 23,
+    "old_part_no": "300",
+    "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-5 भिनाय"
   },
   {
     "id": "blo_302",
@@ -2975,7 +3044,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि भिनाय",
     "mobile": "7976657633",
-    "booth_no": "302",
+    "booth_no": "24",
     "panchayat": "भिनाय",
     "panchayat_code": "भिनाय",
     "allowed_panchayats": "भिनाय",
@@ -2992,7 +3061,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 302 | ग्रा.पं. भिनाय | वार्ड: 18, 21"
+    "area_display": "बूथ सं. 24 | ग्रा.पं. भिनाय | वार्ड: 18, 21",
+    "official_booth_no": 24,
+    "old_part_no": "302",
+    "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-09 भिनाय"
   },
   {
     "id": "blo_299",
@@ -3006,7 +3078,7 @@
     "designation": "विद्यालय सहायक",
     "office": "राउमावि भिनाय",
     "mobile": "9414749131",
-    "booth_no": "299",
+    "booth_no": "18",
     "panchayat": "भिनाय",
     "panchayat_code": "भिनाय",
     "allowed_panchayats": "भिनाय",
@@ -3023,7 +3095,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 299 | ग्रा.पं. भिनाय | वार्ड: 1, 20"
+    "area_display": "बूथ सं. 18 | ग्रा.पं. भिनाय | वार्ड: 1, 20",
+    "official_booth_no": 18,
+    "old_part_no": "299",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-19 भिनाय"
   },
   {
     "id": "blo_310",
@@ -3037,7 +3112,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि हीरापुरा",
     "mobile": "9784206704",
-    "booth_no": "310",
+    "booth_no": "26",
     "panchayat": "बूबकिया",
     "panchayat_code": "बूबकिया",
     "allowed_panchayats": "बूबकिया",
@@ -3054,7 +3129,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 310 | ग्रा.पं. बूबकिया | वार्ड: 1, 2, 3, 4"
+    "area_display": "बूथ सं. 26 | ग्रा.पं. बूबकिया | वार्ड: 1, 2, 3, 4",
+    "official_booth_no": 26,
+    "old_part_no": "310",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-7 बूबकिया"
   },
   {
     "id": "blo_321",
@@ -3068,7 +3146,7 @@
     "designation": "अध्यापक",
     "office": "राप्रावि रेण",
     "mobile": "9660514516",
-    "booth_no": "321",
+    "booth_no": "27",
     "panchayat": "बूबकिया",
     "panchayat_code": "बूबकिया",
     "allowed_panchayats": "बूबकिया",
@@ -3085,7 +3163,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 321 | ग्रा.पं. बूबकिया | वार्ड: 5, 6"
+    "area_display": "बूथ सं. 27 | ग्रा.पं. बूबकिया | वार्ड: 5, 6",
+    "official_booth_no": 27,
+    "old_part_no": "321",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-10 बूबकिया"
   },
   {
     "id": "blo_317",
@@ -3099,7 +3180,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि बूबकिया",
     "mobile": "8890838204",
-    "booth_no": "317",
+    "booth_no": "28",
     "panchayat": "बूबकिया",
     "panchayat_code": "बूबकिया",
     "allowed_panchayats": "बूबकिया",
@@ -3116,7 +3197,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 317 | ग्रा.पं. बूबकिया | वार्ड: 7, 8, 9"
+    "area_display": "बूथ सं. 28 | ग्रा.पं. बूबकिया | वार्ड: 7, 8, 9",
+    "official_booth_no": 28,
+    "old_part_no": "317",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-11 बूबकिया"
   },
   {
     "id": "blo_314",
@@ -3130,7 +3214,7 @@
     "designation": "अध्यापक",
     "office": "राप्रावि पीलोदा",
     "mobile": "9414922890",
-    "booth_no": "314",
+    "booth_no": "29",
     "panchayat": "बूबकिया",
     "panchayat_code": "बूबकिया",
     "allowed_panchayats": "बूबकिया",
@@ -3147,7 +3231,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 314 | ग्रा.पं. बूबकिया | वार्ड: 9, 10, 11"
+    "area_display": "बूथ सं. 29 | ग्रा.पं. बूबकिया | वार्ड: 9, 10, 11",
+    "official_booth_no": 29,
+    "old_part_no": "314",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-12 बूबकिया"
   },
   {
     "id": "blo_248",
@@ -3161,7 +3248,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि चापानेरी",
     "mobile": "992932295",
-    "booth_no": "248",
+    "booth_no": "30",
     "panchayat": "चापानेरी",
     "panchayat_code": "चापानेरी",
     "allowed_panchayats": "चापानेरी",
@@ -3178,7 +3265,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 248 | ग्रा.पं. चापानेरी | वार्ड: 1, 6, 9"
+    "area_display": "बूथ सं. 30 | ग्रा.पं. चापानेरी | वार्ड: 1, 6, 9",
+    "official_booth_no": 30,
+    "old_part_no": "248",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 चापानेरी"
   },
   {
     "id": "blo_251",
@@ -3192,7 +3282,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि चापानेरी",
     "mobile": "8955274942",
-    "booth_no": "251",
+    "booth_no": "30",
     "panchayat": "चापानेरी",
     "panchayat_code": "चापानेरी",
     "allowed_panchayats": "चापानेरी",
@@ -3209,7 +3299,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 251 | ग्रा.पं. चापानेरी | वार्ड: 2, 4, 11"
+    "area_display": "बूथ सं. 30 | ग्रा.पं. चापानेरी | वार्ड: 2, 4, 11",
+    "official_booth_no": 30,
+    "old_part_no": "251",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 चापानेरी"
   },
   {
     "id": "blo_249",
@@ -3223,7 +3316,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि चापानेरी",
     "mobile": "9783038311",
-    "booth_no": "249",
+    "booth_no": "31",
     "panchayat": "चापानेरी",
     "panchayat_code": "चापानेरी",
     "allowed_panchayats": "चापानेरी",
@@ -3240,7 +3333,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 249 | ग्रा.पं. चापानेरी | वार्ड: 5, 8, 10"
+    "area_display": "बूथ सं. 31 | ग्रा.पं. चापानेरी | वार्ड: 5, 8, 10",
+    "official_booth_no": 31,
+    "old_part_no": "249",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 चापानेरी"
   },
   {
     "id": "blo_250",
@@ -3254,7 +3350,7 @@
     "designation": "विद्यालय सहायक",
     "office": "राउमावि चापानेरी",
     "mobile": "9001300873",
-    "booth_no": "250",
+    "booth_no": "31",
     "panchayat": "चापानेरी",
     "panchayat_code": "चापानेरी",
     "allowed_panchayats": "चापानेरी",
@@ -3271,7 +3367,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 250 | ग्रा.पं. चापानेरी | वार्ड: 3, 7"
+    "area_display": "बूथ सं. 31 | ग्रा.पं. चापानेरी | वार्ड: 3, 7",
+    "official_booth_no": 31,
+    "old_part_no": "250",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 चापानेरी"
   },
   {
     "id": "blo_new_34",
@@ -3285,7 +3384,7 @@
     "designation": "प्रबोधक",
     "office": "राउप्रावि दौलतपुरा",
     "mobile": "9829964771",
-    "booth_no": "नया",
+    "booth_no": "34",
     "panchayat": "छछून्दरा",
     "panchayat_code": "छछून्दरा",
     "allowed_panchayats": "छछून्दरा",
@@ -3302,7 +3401,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. नया | ग्रा.पं. छछून्दरा | वार्ड: 1"
+    "area_display": "बूथ सं. 34 | ग्रा.पं. छछून्दरा | वार्ड: 1",
+    "official_booth_no": 34,
+    "old_part_no": "नया",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 छछुन्दरा"
   },
   {
     "id": "blo_293",
@@ -3316,7 +3418,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि जोरावरपुरा",
     "mobile": "8107848825",
-    "booth_no": "293",
+    "booth_no": "34",
     "panchayat": "छछून्दरा",
     "panchayat_code": "छछून्दरा",
     "allowed_panchayats": "छछून्दरा",
@@ -3333,7 +3435,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 293 | ग्रा.पं. छछून्दरा | वार्ड: 2, 3, 6"
+    "area_display": "बूथ सं. 34 | ग्रा.पं. छछून्दरा | वार्ड: 2, 3, 6",
+    "official_booth_no": 34,
+    "old_part_no": "293",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 छछुन्दरा"
   },
   {
     "id": "blo_307",
@@ -3347,7 +3452,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि सरगांव",
     "mobile": "9252234740",
-    "booth_no": "307",
+    "booth_no": "35",
     "panchayat": "छछून्दरा",
     "panchayat_code": "छछून्दरा",
     "allowed_panchayats": "छछून्दरा",
@@ -3364,7 +3469,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 307 | ग्रा.पं. छछून्दरा | वार्ड: 4, 5"
+    "area_display": "बूथ सं. 35 | ग्रा.पं. छछून्दरा | वार्ड: 4, 5",
+    "official_booth_no": 35,
+    "old_part_no": "307",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 छछुन्दरा"
   },
   {
     "id": "blo_289",
@@ -3378,7 +3486,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि छछून्दरा",
     "mobile": "9414551356",
-    "booth_no": "289",
+    "booth_no": "36",
     "panchayat": "छछून्दरा",
     "panchayat_code": "छछून्दरा",
     "allowed_panchayats": "छछून्दरा",
@@ -3395,7 +3503,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 289 | ग्रा.पं. छछून्दरा | वार्ड: 7, 8"
+    "area_display": "बूथ सं. 36 | ग्रा.पं. छछून्दरा | वार्ड: 7, 8",
+    "official_booth_no": 36,
+    "old_part_no": "289",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 छछुन्दरा"
   },
   {
     "id": "blo_288",
@@ -3409,7 +3520,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि सेदरिया",
     "mobile": "9929947564",
-    "booth_no": "288",
+    "booth_no": "37",
     "panchayat": "छछून्दरा",
     "panchayat_code": "छछून्दरा",
     "allowed_panchayats": "छछून्दरा",
@@ -3426,7 +3537,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 288 | ग्रा.पं. छछून्दरा | वार्ड: 9, 10, 11"
+    "area_display": "बूथ सं. 37 | ग्रा.पं. छछून्दरा | वार्ड: 9, 10, 11",
+    "official_booth_no": 37,
+    "old_part_no": "288",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 छछुन्दरा"
   },
   {
     "id": "blo_235",
@@ -3440,7 +3554,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि माताजी का खेडा",
     "mobile": "9166986070",
-    "booth_no": "235",
+    "booth_no": "38",
     "panchayat": "देवलियाकलां",
     "panchayat_code": "देवलियाकलां",
     "allowed_panchayats": "देवलियाकलां",
@@ -3457,7 +3571,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 235 | ग्रा.पं. देवलियाकलां | वार्ड: 1, 2"
+    "area_display": "बूथ सं. 38 | ग्रा.पं. देवलियाकलां | वार्ड: 1, 2",
+    "official_booth_no": 38,
+    "old_part_no": "235",
+    "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 देवलियाकलां"
   },
   {
     "id": "blo_230",
@@ -3471,7 +3588,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "पीएमश्री राउमावि देवलिया कलां",
     "mobile": "9079245438",
-    "booth_no": "230",
+    "booth_no": "38",
     "panchayat": "देवलियाकलां",
     "panchayat_code": "देवलियाकलां",
     "allowed_panchayats": "देवलियाकलां",
@@ -3488,7 +3605,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 230 | ग्रा.पं. देवलियाकलां | वार्ड: 3, 4"
+    "area_display": "बूथ सं. 38 | ग्रा.पं. देवलियाकलां | वार्ड: 3, 4",
+    "official_booth_no": 38,
+    "old_part_no": "230",
+    "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 देवलियाकलां"
   },
   {
     "id": "blo_232",
@@ -3502,7 +3622,7 @@
     "designation": "अध्यापक",
     "office": "मगांरावि देवलिया कलां",
     "mobile": "8890036667",
-    "booth_no": "232",
+    "booth_no": "39",
     "panchayat": "देवलियाकलां",
     "panchayat_code": "देवलियाकलां",
     "allowed_panchayats": "देवलियाकलां",
@@ -3519,7 +3639,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 232 | ग्रा.पं. देवलियाकलां | वार्ड: 5, 6"
+    "area_display": "बूथ सं. 39 | ग्रा.पं. देवलियाकलां | वार्ड: 5, 6",
+    "official_booth_no": 39,
+    "old_part_no": "232",
+    "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 देवलियाकलां"
   },
   {
     "id": "blo_233",
@@ -3533,7 +3656,7 @@
     "designation": "अध्यापक",
     "office": "पीएमश्री राउमावि देवलिया कलां",
     "mobile": "9602444210",
-    "booth_no": "233",
+    "booth_no": "41",
     "panchayat": "देवलियाकलां",
     "panchayat_code": "देवलियाकलां",
     "allowed_panchayats": "देवलियाकलां",
@@ -3550,7 +3673,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 233 | ग्रा.पं. देवलियाकलां | वार्ड: 7, 8, 9"
+    "area_display": "बूथ सं. 41 | ग्रा.पं. देवलियाकलां | वार्ड: 7, 8, 9",
+    "official_booth_no": 41,
+    "old_part_no": "233",
+    "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-20 देवलियाकलां"
   },
   {
     "id": "blo_231",
@@ -3564,7 +3690,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "पीएमश्री राउमावि देवलिया कलां",
     "mobile": "9784970296",
-    "booth_no": "231",
+    "booth_no": "42",
     "panchayat": "देवलियाकलां",
     "panchayat_code": "देवलियाकलां",
     "allowed_panchayats": "देवलियाकलां",
@@ -3581,7 +3707,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 231 | ग्रा.पं. देवलियाकलां | वार्ड: 10, 11, 12"
+    "area_display": "बूथ सं. 42 | ग्रा.पं. देवलियाकलां | वार्ड: 10, 11, 12",
+    "official_booth_no": 42,
+    "old_part_no": "231",
+    "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-2 देवलियाकला"
   },
   {
     "id": "blo_234",
@@ -3595,7 +3724,7 @@
     "designation": "अध्यापक",
     "office": "पीएमश्री राउमावि देवलिया कलां",
     "mobile": "9929827714",
-    "booth_no": "234",
+    "booth_no": "43",
     "panchayat": "देवलियाकलां",
     "panchayat_code": "देवलियाकलां",
     "allowed_panchayats": "देवलियाकलां",
@@ -3612,7 +3741,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 234 | ग्रा.पं. देवलियाकलां | वार्ड: 13, 14, 15"
+    "area_display": "बूथ सं. 43 | ग्रा.पं. देवलियाकलां | वार्ड: 13, 14, 15",
+    "official_booth_no": 43,
+    "old_part_no": "234",
+    "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-3 देवलियाकला"
   },
   {
     "id": "blo_273",
@@ -3626,7 +3758,7 @@
     "designation": "वरिष्ठ अध्यापक",
     "office": "राउमावि देवरिया",
     "mobile": "9929183463",
-    "booth_no": "273",
+    "booth_no": "44",
     "panchayat": "देवपुरा",
     "panchayat_code": "देवपुरा",
     "allowed_panchayats": "देवपुरा",
@@ -3643,7 +3775,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 273 | ग्रा.पं. देवपुरा | वार्ड: 2, 3, 4"
+    "area_display": "बूथ सं. 44 | ग्रा.पं. देवपुरा | वार्ड: 2, 3, 4",
+    "official_booth_no": 44,
+    "old_part_no": "273",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 देवपुरा(देवपुरा)"
   },
   {
     "id": "blo_274",
@@ -3657,7 +3792,7 @@
     "designation": "अध्यापक",
     "office": "राप्रावि गज्जानाडी",
     "mobile": "9602372311",
-    "booth_no": "274",
+    "booth_no": "45",
     "panchayat": "देवपुरा",
     "panchayat_code": "देवपुरा",
     "allowed_panchayats": "देवपुरा",
@@ -3674,7 +3809,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 274 | ग्रा.पं. देवपुरा | वार्ड: 5, 6"
+    "area_display": "बूथ सं. 45 | ग्रा.पं. देवपुरा | वार्ड: 5, 6",
+    "official_booth_no": 45,
+    "old_part_no": "274",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 देवपुरा(देवपुरा)"
   },
   {
     "id": "blo_275",
@@ -3688,7 +3826,7 @@
     "designation": "अध्यापक",
     "office": "राप्रावि रामपुरा",
     "mobile": "9928668009",
-    "booth_no": "275",
+    "booth_no": "46",
     "panchayat": "देवपुरा",
     "panchayat_code": "देवपुरा",
     "allowed_panchayats": "देवपुरा",
@@ -3705,7 +3843,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 275 | ग्रा.पं. देवपुरा | वार्ड: 1, 7, 8"
+    "area_display": "बूथ सं. 46 | ग्रा.पं. देवपुरा | वार्ड: 1, 7, 8",
+    "official_booth_no": 46,
+    "old_part_no": "275",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 देवपुरा(देवपुरा)"
   },
   {
     "id": "blo_276",
@@ -3719,7 +3860,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि मोतीपुरा",
     "mobile": "8559910535",
-    "booth_no": "276",
+    "booth_no": "47",
     "panchayat": "देवपुरा",
     "panchayat_code": "देवपुरा",
     "allowed_panchayats": "देवपुरा",
@@ -3736,7 +3877,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 276 | ग्रा.पं. देवपुरा | वार्ड: 9, 10, 11"
+    "area_display": "बूथ सं. 47 | ग्रा.पं. देवपुरा | वार्ड: 9, 10, 11",
+    "official_booth_no": 47,
+    "old_part_no": "276",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 देवपुरा(देवपुरा)"
   },
   {
     "id": "blo_309",
@@ -3750,7 +3894,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि धांतोल",
     "mobile": "9928583202",
-    "booth_no": "309",
+    "booth_no": "48",
     "panchayat": "धांतोल",
     "panchayat_code": "धांतोल",
     "allowed_panchayats": "धांतोल",
@@ -3767,7 +3911,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 309 | ग्रा.पं. धांतोल | वार्ड: 1, 2, 3"
+    "area_display": "बूथ सं. 48 | ग्रा.पं. धांतोल | वार्ड: 1, 2, 3",
+    "official_booth_no": 48,
+    "old_part_no": "309",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 धांतोल"
   },
   {
     "id": "blo_308",
@@ -3781,7 +3928,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि उदयगढ खेडा",
     "mobile": "9571478807",
-    "booth_no": "308",
+    "booth_no": "49",
     "panchayat": "धांतोल",
     "panchayat_code": "धांतोल",
     "allowed_panchayats": "धांतोल",
@@ -3798,7 +3945,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 308 | ग्रा.पं. धांतोल | वार्ड: 4, 5, 6, 7"
+    "area_display": "बूथ सं. 49 | ग्रा.पं. धांतोल | वार्ड: 4, 5, 6, 7",
+    "official_booth_no": 49,
+    "old_part_no": "308",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 धांतोल"
   },
   {
     "id": "blo_311",
@@ -3812,7 +3962,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि गूजरवाडा",
     "mobile": "8003774404",
-    "booth_no": "311",
+    "booth_no": "50",
     "panchayat": "धांतोल",
     "panchayat_code": "धांतोल",
     "allowed_panchayats": "धांतोल",
@@ -3829,7 +3979,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 311 | ग्रा.पं. धांतोल | वार्ड: 8, 9"
+    "area_display": "बूथ सं. 50 | ग्रा.पं. धांतोल | वार्ड: 8, 9",
+    "official_booth_no": 50,
+    "old_part_no": "311",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 धांतोल"
   },
   {
     "id": "blo_255",
@@ -3843,7 +3996,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि एकलसिंहा",
     "mobile": "9829850973",
-    "booth_no": "255",
+    "booth_no": "51",
     "panchayat": "एकलसिंहा",
     "panchayat_code": "एकलसिंहा",
     "allowed_panchayats": "एकलसिंहा",
@@ -3860,7 +4013,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 255 | ग्रा.पं. एकलसिंहा | वार्ड: 1, 2, 3"
+    "area_display": "बूथ सं. 51 | ग्रा.पं. एकलसिंहा | वार्ड: 1, 2, 3",
+    "official_booth_no": 51,
+    "old_part_no": "255",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 एकलसिंहा़"
   },
   {
     "id": "blo_256",
@@ -3874,7 +4030,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि एकलसिंहा",
     "mobile": "7014346762",
-    "booth_no": "256",
+    "booth_no": "52",
     "panchayat": "एकलसिंहा",
     "panchayat_code": "एकलसिंहा",
     "allowed_panchayats": "एकलसिंहा",
@@ -3891,7 +4047,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 256 | ग्रा.पं. एकलसिंहा | वार्ड: 4, 5, 6"
+    "area_display": "बूथ सं. 52 | ग्रा.पं. एकलसिंहा | वार्ड: 4, 5, 6",
+    "official_booth_no": 52,
+    "old_part_no": "256",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 एकलसिंहा़"
   },
   {
     "id": "blo_261",
@@ -3905,7 +4064,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि चावण्डिया",
     "mobile": "9460357332",
-    "booth_no": "261",
+    "booth_no": "53",
     "panchayat": "एकलसिंहा",
     "panchayat_code": "एकलसिंहा",
     "allowed_panchayats": "एकलसिंहा",
@@ -3922,7 +4081,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 261 | ग्रा.पं. एकलसिंहा | वार्ड: 7, 8, 9"
+    "area_display": "बूथ सं. 53 | ग्रा.पं. एकलसिंहा | वार्ड: 7, 8, 9",
+    "official_booth_no": 53,
+    "old_part_no": "261",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 एकलसिंहा़"
   },
   {
     "id": "blo_254",
@@ -3936,7 +4098,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि झबरकिया",
     "mobile": "6376217543",
-    "booth_no": "254",
+    "booth_no": "54",
     "panchayat": "घणा",
     "panchayat_code": "घणा",
     "allowed_panchayats": "घणा",
@@ -3953,7 +4115,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 254 | ग्रा.पं. घणा | वार्ड: 1, 2"
+    "area_display": "बूथ सं. 54 | ग्रा.पं. घणा | वार्ड: 1, 2",
+    "official_booth_no": 54,
+    "old_part_no": "254",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 घणा"
   },
   {
     "id": "blo_252",
@@ -3967,7 +4132,7 @@
     "designation": "अध्यापक",
     "office": "राप्रावि गुर्जरों का झोंपड़ा(घणा)",
     "mobile": "6377819391",
-    "booth_no": "252",
+    "booth_no": "54",
     "panchayat": "घणा",
     "panchayat_code": "घणा",
     "allowed_panchayats": "घणा",
@@ -3984,7 +4149,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 252 | ग्रा.पं. घणा | वार्ड: 3, 4"
+    "area_display": "बूथ सं. 54 | ग्रा.पं. घणा | वार्ड: 3, 4",
+    "official_booth_no": 54,
+    "old_part_no": "252",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 घणा"
   },
   {
     "id": "blo_253",
@@ -3998,7 +4166,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि घणा",
     "mobile": "9929753094",
-    "booth_no": "253",
+    "booth_no": "55",
     "panchayat": "घणा",
     "panchayat_code": "घणा",
     "allowed_panchayats": "घणा",
@@ -4015,7 +4183,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 253 | ग्रा.पं. घणा | वार्ड: 5"
+    "area_display": "बूथ सं. 55 | ग्रा.पं. घणा | वार्ड: 5",
+    "official_booth_no": 55,
+    "old_part_no": "253",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 घणा"
   },
   {
     "id": "blo_246",
@@ -4029,7 +4200,7 @@
     "designation": "अध्यापक",
     "office": "राप्रावि भैरूखेड़ा",
     "mobile": "8003824561",
-    "booth_no": "246",
+    "booth_no": "14",
     "panchayat": "घणा",
     "panchayat_code": "घणा",
     "allowed_panchayats": "घणा",
@@ -4046,7 +4217,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 246 | ग्रा.पं. घणा | वार्ड: 6, 7"
+    "area_display": "बूथ सं. 14 | ग्रा.पं. बांदनवाड़ा | वार्ड: 8, 9",
+    "official_booth_no": 14,
+    "old_part_no": "282",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बांदनवाड़ा़(प्राथमिक अनुभाग)"
   },
   {
     "id": "blo_241",
@@ -4060,7 +4234,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि पाण्डोलाई",
     "mobile": "7878007541",
-    "booth_no": "241",
+    "booth_no": "57",
     "panchayat": "गुढाखुर्द",
     "panchayat_code": "गुढाखुर्द",
     "allowed_panchayats": "गुढाखुर्द",
@@ -4077,7 +4251,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 241 | ग्रा.पं. गुढाखुर्द | वार्ड: 1, 2"
+    "area_display": "बूथ सं. 57 | ग्रा.पं. गुढाखुर्द | वार्ड: 1, 2",
+    "official_booth_no": 57,
+    "old_part_no": "241",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 गुढाखुर्द"
   },
   {
     "id": "blo_239",
@@ -4091,7 +4268,7 @@
     "designation": "विद्यालय सहायक",
     "office": "राउमावि गुढाखुर्द",
     "mobile": "9799046258",
-    "booth_no": "239",
+    "booth_no": "58",
     "panchayat": "गुढाखुर्द",
     "panchayat_code": "गुढाखुर्द",
     "allowed_panchayats": "गुढाखुर्द",
@@ -4108,7 +4285,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 239 | ग्रा.पं. गुढाखुर्द | वार्ड: 3, 4, 5"
+    "area_display": "बूथ सं. 58 | ग्रा.पं. गुढाखुर्द | वार्ड: 3, 4, 5",
+    "official_booth_no": 58,
+    "old_part_no": "239",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 गुढाखुर्द"
   },
   {
     "id": "blo_238",
@@ -4122,7 +4302,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि गुढाखुर्द",
     "mobile": "9929073806",
-    "booth_no": "238",
+    "booth_no": "59",
     "panchayat": "गुढाखुर्द",
     "panchayat_code": "गुढाखुर्द",
     "allowed_panchayats": "गुढाखुर्द",
@@ -4139,7 +4319,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 238 | ग्रा.पं. गुढाखुर्द | वार्ड: 6, 7"
+    "area_display": "बूथ सं. 59 | ग्रा.पं. गुढाखुर्द | वार्ड: 6, 7",
+    "official_booth_no": 59,
+    "old_part_no": "238",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 गुढाखुर्द"
   },
   {
     "id": "blo_240",
@@ -4153,7 +4336,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि गुढाकला",
     "mobile": "9636224810",
-    "booth_no": "240",
+    "booth_no": "60",
     "panchayat": "गुढाखुर्द",
     "panchayat_code": "गुढाखुर्द",
     "allowed_panchayats": "गुढाखुर्द",
@@ -4170,7 +4353,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 240 | ग्रा.पं. गुढाखुर्द | वार्ड: 8, 9, 10, 11"
+    "area_display": "बूथ सं. 60 | ग्रा.पं. गुढाखुर्द | वार्ड: 8, 9, 10, 11",
+    "official_booth_no": 60,
+    "old_part_no": "240",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 गुढाखुर्द"
   },
   {
     "id": "blo_257",
@@ -4184,7 +4370,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि हियालिया",
     "mobile": "7976180461",
-    "booth_no": "257",
+    "booth_no": "61",
     "panchayat": "हियालिया",
     "panchayat_code": "हियालिया",
     "allowed_panchayats": "हियालिया",
@@ -4201,7 +4387,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 257 | ग्रा.पं. हियालिया | वार्ड: 1, 2, 3"
+    "area_display": "बूथ सं. 61 | ग्रा.पं. हियालिया | वार्ड: 1, 2, 3",
+    "official_booth_no": 61,
+    "old_part_no": "257",
+    "booth_name": "राजकीय उच्च पर्राथमिक विद्यालय कमरा नं.-3 हियालिया"
   },
   {
     "id": "blo_258",
@@ -4215,7 +4404,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि बनेडिया",
     "mobile": "8003754501",
-    "booth_no": "258",
+    "booth_no": "62",
     "panchayat": "हियालिया",
     "panchayat_code": "हियालिया",
     "allowed_panchayats": "हियालिया",
@@ -4232,7 +4421,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 258 | ग्रा.पं. हियालिया | वार्ड: 4, 5, 6, 7"
+    "area_display": "बूथ सं. 62 | ग्रा.पं. हियालिया | वार्ड: 4, 5, 6, 7",
+    "official_booth_no": 62,
+    "old_part_no": "258",
+    "booth_name": "राजकीय उच्च पर्राथमिक विद्यालय कमरा नं.-4 हियालिया"
   },
   {
     "id": "blo_337",
@@ -4246,7 +4438,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि कनईकला",
     "mobile": "9783203620",
-    "booth_no": "337",
+    "booth_no": "63",
     "panchayat": "कनईकला",
     "panchayat_code": "कनईकला",
     "allowed_panchayats": "कनईकला",
@@ -4263,7 +4455,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 337 | ग्रा.पं. कनईकला | वार्ड: 1, 2"
+    "area_display": "बूथ सं. 63 | ग्रा.पं. कनईकला | वार्ड: 1, 2",
+    "official_booth_no": 63,
+    "old_part_no": "337",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कनेईकलां"
   },
   {
     "id": "blo_338",
@@ -4277,7 +4472,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि लक्ष्मीपुरा",
     "mobile": "9549288805",
-    "booth_no": "338",
+    "booth_no": "63",
     "panchayat": "कनईकला",
     "panchayat_code": "कनईकला",
     "allowed_panchayats": "कनईकला",
@@ -4294,7 +4489,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 338 | ग्रा.पं. कनईकला | वार्ड: 3"
+    "area_display": "बूथ सं. 63 | ग्रा.पं. कनईकला | वार्ड: 3",
+    "official_booth_no": 63,
+    "old_part_no": "338",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कनेईकलां"
   },
   {
     "id": "blo_340",
@@ -4308,7 +4506,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि निमेडा",
     "mobile": "9799510830",
-    "booth_no": "340",
+    "booth_no": "64",
     "panchayat": "कनईकला",
     "panchayat_code": "कनईकला",
     "allowed_panchayats": "कनईकला",
@@ -4325,7 +4523,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 340 | ग्रा.पं. कनईकला | वार्ड: 4, 5, 6"
+    "area_display": "बूथ सं. 64 | ग्रा.पं. कनईकला | वार्ड: 4, 5, 6",
+    "official_booth_no": 64,
+    "old_part_no": "340",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 कनेईकलां"
   },
   {
     "id": "blo_339",
@@ -4339,7 +4540,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि कनेई खुर्द",
     "mobile": "9001754262",
-    "booth_no": "339",
+    "booth_no": "65",
     "panchayat": "कनईकला",
     "panchayat_code": "कनईकला",
     "allowed_panchayats": "कनईकला",
@@ -4356,7 +4557,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 339 | ग्रा.पं. कनईकला | वार्ड: 7, 8, 9"
+    "area_display": "बूथ सं. 65 | ग्रा.पं. कनईकला | वार्ड: 7, 8, 9",
+    "official_booth_no": 65,
+    "old_part_no": "339",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 कनेईकलां"
   },
   {
     "id": "blo_296",
@@ -4370,7 +4574,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि करांटी",
     "mobile": "9414550711",
-    "booth_no": "296",
+    "booth_no": "66",
     "panchayat": "करांटी",
     "panchayat_code": "करांटी",
     "allowed_panchayats": "करांटी",
@@ -4387,7 +4591,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 296 | ग्रा.पं. करांटी | वार्ड: 1, 2"
+    "area_display": "बूथ सं. 66 | ग्रा.पं. करांटी | वार्ड: 1, 2",
+    "official_booth_no": 66,
+    "old_part_no": "296",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 करांटी"
   },
   {
     "id": "blo_297",
@@ -4401,7 +4608,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि करांटी",
     "mobile": "9829121678",
-    "booth_no": "297",
+    "booth_no": "67",
     "panchayat": "करांटी",
     "panchayat_code": "करांटी",
     "allowed_panchayats": "करांटी",
@@ -4418,7 +4625,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 297 | ग्रा.पं. करांटी | वार्ड: 3, 4, 5"
+    "area_display": "बूथ सं. 67 | ग्रा.पं. करांटी | वार्ड: 3, 4, 5",
+    "official_booth_no": 67,
+    "old_part_no": "297",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 करांटी"
   },
   {
     "id": "blo_298",
@@ -4432,7 +4642,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि गोपालपुरा",
     "mobile": "9829663748",
-    "booth_no": "298",
+    "booth_no": "68",
     "panchayat": "करांटी",
     "panchayat_code": "करांटी",
     "allowed_panchayats": "करांटी",
@@ -4449,7 +4659,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 298 | ग्रा.पं. करांटी | वार्ड: 6, 7"
+    "area_display": "बूथ सं. 68 | ग्रा.पं. करांटी | वार्ड: 6, 7",
+    "official_booth_no": 68,
+    "old_part_no": "298",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 करांटी"
   },
   {
     "id": "blo_344",
@@ -4463,7 +4676,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि कैरोंट",
     "mobile": "9079825200",
-    "booth_no": "344",
+    "booth_no": "69",
     "panchayat": "कैरोंट",
     "panchayat_code": "कैरोंट",
     "allowed_panchayats": "कैरोंट",
@@ -4480,7 +4693,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 344 | ग्रा.पं. कैरोंट | वार्ड: 1, 2, 3"
+    "area_display": "बूथ सं. 69 | ग्रा.पं. कैरोंट | वार्ड: 1, 2, 3",
+    "official_booth_no": 69,
+    "old_part_no": "344",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-10 कैरोट"
   },
   {
     "id": "blo_345",
@@ -4494,7 +4710,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि केरोट",
     "mobile": "9928024787",
-    "booth_no": "345",
+    "booth_no": "70",
     "panchayat": "कैरोंट",
     "panchayat_code": "कैरोंट",
     "allowed_panchayats": "कैरोंट",
@@ -4511,7 +4727,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 345 | ग्रा.पं. कैरोंट | वार्ड: 4, 5, 6, 7"
+    "area_display": "बूथ सं. 70 | ग्रा.पं. कैरोंट | वार्ड: 4, 5, 6, 7",
+    "official_booth_no": 70,
+    "old_part_no": "345",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 कैरोट"
   },
   {
     "id": "blo_343",
@@ -4525,7 +4744,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि जेतपुरा",
     "mobile": "9929136369",
-    "booth_no": "343",
+    "booth_no": "71",
     "panchayat": "कैरोंट",
     "panchayat_code": "कैरोंट",
     "allowed_panchayats": "कैरोंट",
@@ -4542,7 +4761,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 343 | ग्रा.पं. कैरोंट | वार्ड: 8, 9"
+    "area_display": "बूथ सं. 71 | ग्रा.पं. कैरोंट | वार्ड: 8, 9",
+    "official_booth_no": 71,
+    "old_part_no": "343",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 कैरोट"
   },
   {
     "id": "blo_342",
@@ -4556,7 +4778,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि जेतपुरा",
     "mobile": "9829243359",
-    "booth_no": "342",
+    "booth_no": "72",
     "panchayat": "कैरोंट",
     "panchayat_code": "कैरोंट",
     "allowed_panchayats": "कैरोंट",
@@ -4573,7 +4795,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 342 | ग्रा.पं. कैरोंट | वार्ड: 10, 11"
+    "area_display": "बूथ सं. 72 | ग्रा.पं. कैरोंट | वार्ड: 10, 11",
+    "official_booth_no": 72,
+    "old_part_no": "342",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 कैरोट"
   },
   {
     "id": "blo_291",
@@ -4587,7 +4812,7 @@
     "designation": "अध्यापक",
     "office": "राप्रावि खेडी",
     "mobile": "8209227928",
-    "booth_no": "291",
+    "booth_no": "73",
     "panchayat": "खेडी",
     "panchayat_code": "खेडी",
     "allowed_panchayats": "खेडी",
@@ -4604,7 +4829,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 291 | ग्रा.पं. खेडी | वार्ड: 1, 2, 3"
+    "area_display": "बूथ सं. 73 | ग्रा.पं. खेडी | वार्ड: 1, 2, 3",
+    "official_booth_no": 73,
+    "old_part_no": "291",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 8- खेडी"
   },
   {
     "id": "blo_292",
@@ -4618,7 +4846,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि खेडी",
     "mobile": "7737880781",
-    "booth_no": "292",
+    "booth_no": "74",
     "panchayat": "खेडी",
     "panchayat_code": "खेडी",
     "allowed_panchayats": "खेडी",
@@ -4635,7 +4863,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 292 | ग्रा.पं. खेडी | वार्ड: 4, 5"
+    "area_display": "बूथ सं. 74 | ग्रा.पं. खेडी | वार्ड: 4, 5",
+    "official_booth_no": 74,
+    "old_part_no": "292",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 9- खेडी"
   },
   {
     "id": "blo_294",
@@ -4649,7 +4880,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि गोवलिया",
     "mobile": "8209143708",
-    "booth_no": "294",
+    "booth_no": "74",
     "panchayat": "खेडी",
     "panchayat_code": "खेडी",
     "allowed_panchayats": "खेडी",
@@ -4666,7 +4897,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 294 | ग्रा.पं. खेडी | वार्ड: 6, 7"
+    "area_display": "बूथ सं. 74 | ग्रा.पं. खेडी | वार्ड: 6, 7",
+    "official_booth_no": 74,
+    "old_part_no": "294",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 9- खेडी"
   },
   {
     "id": "blo_295",
@@ -4680,7 +4914,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि गोवलिया",
     "mobile": "9829014609",
-    "booth_no": "295",
+    "booth_no": "75",
     "panchayat": "खेडी",
     "panchayat_code": "खेडी",
     "allowed_panchayats": "खेडी",
@@ -4697,7 +4931,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 295 | ग्रा.पं. खेडी | वार्ड: 8, 9"
+    "area_display": "बूथ सं. 75 | ग्रा.पं. खेडी | वार्ड: 8, 9",
+    "official_booth_no": 75,
+    "old_part_no": "295",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 10- खेडी"
   },
   {
     "id": "blo_290",
@@ -4711,7 +4948,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि प्रतापपुरा",
     "mobile": "9+784344547",
-    "booth_no": "290",
+    "booth_no": "76",
     "panchayat": "खेडी",
     "panchayat_code": "खेडी",
     "allowed_panchayats": "खेडी",
@@ -4728,7 +4965,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 290 | ग्रा.पं. खेडी | वार्ड: 10, 11"
+    "area_display": "बूथ सं. 76 | ग्रा.पं. खेडी | वार्ड: 10, 11",
+    "official_booth_no": 76,
+    "old_part_no": "290",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 11- खेडी"
   },
   {
     "id": "blo_283",
@@ -4742,7 +4982,7 @@
     "designation": "अध्यापक",
     "office": "राप्रावि हाथीपुरा",
     "mobile": "9829981055",
-    "booth_no": "283",
+    "booth_no": "77",
     "panchayat": "कुम्हारिया",
     "panchayat_code": "कुम्हारिया",
     "allowed_panchayats": "कुम्हारिया",
@@ -4759,7 +4999,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 283 | ग्रा.पं. कुम्हारिया | वार्ड: 1, 2"
+    "area_display": "बूथ सं. 77 | ग्रा.पं. कुम्हारिया | वार्ड: 1, 2",
+    "official_booth_no": 77,
+    "old_part_no": "283",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कुम्हारिया"
   },
   {
     "id": "blo_287",
@@ -4773,7 +5016,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि किटाप",
     "mobile": "9602719043",
-    "booth_no": "287",
+    "booth_no": "77",
     "panchayat": "कुम्हारिया",
     "panchayat_code": "कुम्हारिया",
     "allowed_panchayats": "कुम्हारिया",
@@ -4790,7 +5033,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 287 | ग्रा.पं. कुम्हारिया | वार्ड: 3, 4"
+    "area_display": "बूथ सं. 77 | ग्रा.पं. कुम्हारिया | वार्ड: 3, 4",
+    "official_booth_no": 77,
+    "old_part_no": "287",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कुम्हारिया"
   },
   {
     "id": "blo_286",
@@ -4804,7 +5050,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि किटाप",
     "mobile": "9982638989",
-    "booth_no": "286",
+    "booth_no": "78",
     "panchayat": "कुम्हारिया",
     "panchayat_code": "कुम्हारिया",
     "allowed_panchayats": "कुम्हारिया",
@@ -4821,7 +5067,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 286 | ग्रा.पं. कुम्हारिया | वार्ड: 5, 6"
+    "area_display": "बूथ सं. 78 | ग्रा.पं. कुम्हारिया | वार्ड: 5, 6",
+    "official_booth_no": 78,
+    "old_part_no": "286",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 कुम्हारिया"
   },
   {
     "id": "blo_285",
@@ -4835,7 +5084,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि कुम्हारिया",
     "mobile": "8890774112",
-    "booth_no": "285",
+    "booth_no": "79",
     "panchayat": "कुम्हारिया",
     "panchayat_code": "कुम्हारिया",
     "allowed_panchayats": "कुम्हारिया",
@@ -4852,7 +5101,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 285 | ग्रा.पं. कुम्हारिया | वार्ड: 7, 8, 11"
+    "area_display": "बूथ सं. 79 | ग्रा.पं. कुम्हारिया | वार्ड: 7, 8, 11",
+    "official_booth_no": 79,
+    "old_part_no": "285",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 कुम्हारिया"
   },
   {
     "id": "blo_284",
@@ -4866,7 +5118,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि कुम्हारिया",
     "mobile": "9460546296",
-    "booth_no": "284",
+    "booth_no": "79",
     "panchayat": "कुम्हारिया",
     "panchayat_code": "कुम्हारिया",
     "allowed_panchayats": "कुम्हारिया",
@@ -4883,7 +5135,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 284 | ग्रा.पं. कुम्हारिया | वार्ड: 9, 10"
+    "area_display": "बूथ सं. 79 | ग्रा.पं. कुम्हारिया | वार्ड: 9, 10",
+    "official_booth_no": 79,
+    "old_part_no": "284",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 कुम्हारिया"
   },
   {
     "id": "blo_229",
@@ -4897,7 +5152,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि लामगरा",
     "mobile": "9950811061",
-    "booth_no": "229",
+    "booth_no": "81",
     "panchayat": "लामगरा",
     "panchayat_code": "लामगरा",
     "allowed_panchayats": "लामगरा",
@@ -4914,7 +5169,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 229 | ग्रा.पं. लामगरा | वार्ड: 1, 2, 3"
+    "area_display": "बूथ सं. 81 | ग्रा.पं. लामगरा | वार्ड: 1, 2, 3",
+    "official_booth_no": 81,
+    "old_part_no": "229",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 लामगरा"
   },
   {
     "id": "blo_new_87",
@@ -4928,7 +5186,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि बड़ला खेड़ा",
     "mobile": "9588033508",
-    "booth_no": "नया",
+    "booth_no": "82",
     "panchayat": "लामगरा",
     "panchayat_code": "लामगरा",
     "allowed_panchayats": "लामगरा",
@@ -4945,7 +5203,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. नया | ग्रा.पं. लामगरा | वार्ड: 4"
+    "area_display": "बूथ सं. 82 | ग्रा.पं. लामगरा | वार्ड: 4",
+    "official_booth_no": 82,
+    "old_part_no": "नया",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 लामगरा"
   },
   {
     "id": "blo_228",
@@ -4959,7 +5220,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि गनाहेडा",
     "mobile": "9001498640",
-    "booth_no": "228",
+    "booth_no": "83",
     "panchayat": "लामगरा",
     "panchayat_code": "लामगरा",
     "allowed_panchayats": "लामगरा",
@@ -4976,7 +5237,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 228 | ग्रा.पं. लामगरा | वार्ड: 5, 6, 7"
+    "area_display": "बूथ सं. 83 | ग्रा.पं. लामगरा | वार्ड: 5, 6, 7",
+    "official_booth_no": 83,
+    "old_part_no": "228",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-9 लामगरा"
   },
   {
     "id": "blo_247",
@@ -4990,7 +5254,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि निमेडा",
     "mobile": "6375260217",
-    "booth_no": "247",
+    "booth_no": "84",
     "panchayat": "लामगरा",
     "panchayat_code": "लामगरा",
     "allowed_panchayats": "लामगरा",
@@ -5007,7 +5271,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 247 | ग्रा.पं. लामगरा | वार्ड: 8, 9, 10, 11"
+    "area_display": "बूथ सं. 84 | ग्रा.पं. लामगरा | वार्ड: 8, 9, 10, 11",
+    "official_booth_no": 84,
+    "old_part_no": "247",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 लामगरा"
   },
   {
     "id": "blo_319",
@@ -5021,7 +5288,7 @@
     "designation": "अध्यापक",
     "office": "राप्रावि खारोलो का खेड़ा (बड़ला)",
     "mobile": "9610707972",
-    "booth_no": "319",
+    "booth_no": "85",
     "panchayat": "नागोला",
     "panchayat_code": "नागोला",
     "allowed_panchayats": "नागोला",
@@ -5038,7 +5305,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 319 | ग्रा.पं. नागोला | वार्ड: 1, 2"
+    "area_display": "बूथ सं. 85 | ग्रा.पं. नागोला | वार्ड: 1, 2",
+    "official_booth_no": 85,
+    "old_part_no": "319",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 नागोला"
   },
   {
     "id": "blo_318",
@@ -5052,7 +5322,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि बड़ला",
     "mobile": "9784080563",
-    "booth_no": "318",
+    "booth_no": "85",
     "panchayat": "नागोला",
     "panchayat_code": "नागोला",
     "allowed_panchayats": "नागोला",
@@ -5069,7 +5339,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 318 | ग्रा.पं. नागोला | वार्ड: 3, 4"
+    "area_display": "बूथ सं. 85 | ग्रा.पं. नागोला | वार्ड: 3, 4",
+    "official_booth_no": 85,
+    "old_part_no": "318",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 नागोला"
   },
   {
     "id": "blo_327",
@@ -5083,7 +5356,7 @@
     "designation": "विद्यालय सहायक",
     "office": "राउमावि नागोला",
     "mobile": "9602408532",
-    "booth_no": "327",
+    "booth_no": "86",
     "panchayat": "नागोला",
     "panchayat_code": "नागोला",
     "allowed_panchayats": "नागोला",
@@ -5100,7 +5373,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 327 | ग्रा.पं. नागोला | वार्ड: 5, 6, 7"
+    "area_display": "बूथ सं. 86 | ग्रा.पं. नागोला | वार्ड: 5, 6, 7",
+    "official_booth_no": 86,
+    "old_part_no": "327",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 नागोला"
   },
   {
     "id": "blo_325",
@@ -5114,7 +5390,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि नागोला",
     "mobile": "9784360584",
-    "booth_no": "325",
+    "booth_no": "87",
     "panchayat": "नागोला",
     "panchayat_code": "नागोला",
     "allowed_panchayats": "नागोला",
@@ -5131,7 +5407,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 325 | ग्रा.पं. नागोला | वार्ड: 8, 9, 10"
+    "area_display": "बूथ सं. 87 | ग्रा.पं. नागोला | वार्ड: 8, 9, 10",
+    "official_booth_no": 87,
+    "old_part_no": "325",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 नागोला"
   },
   {
     "id": "blo_328",
@@ -5145,7 +5424,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि बालापुरा",
     "mobile": "8690383076",
-    "booth_no": "328",
+    "booth_no": "88",
     "panchayat": "नागोला",
     "panchayat_code": "नागोला",
     "allowed_panchayats": "नागोला",
@@ -5162,7 +5441,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 328 | ग्रा.पं. नागोला | वार्ड: 11, 12"
+    "area_display": "बूथ सं. 88 | ग्रा.पं. नागोला | वार्ड: 11, 12",
+    "official_booth_no": 88,
+    "old_part_no": "328",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 नागोला"
   },
   {
     "id": "blo_326",
@@ -5176,7 +5458,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि सपनीखेडा",
     "mobile": "9828803505",
-    "booth_no": "326",
+    "booth_no": "88",
     "panchayat": "नागोला",
     "panchayat_code": "नागोला",
     "allowed_panchayats": "नागोला",
@@ -5193,7 +5475,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 326 | ग्रा.पं. नागोला | वार्ड: 13"
+    "area_display": "बूथ सं. 88 | ग्रा.पं. नागोला | वार्ड: 13",
+    "official_booth_no": 88,
+    "old_part_no": "326",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 नागोला"
   },
   {
     "id": "blo_244",
@@ -5207,7 +5492,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि नान्दसी",
     "mobile": "9928391527",
-    "booth_no": "244",
+    "booth_no": "89",
     "panchayat": "नान्दसी",
     "panchayat_code": "नान्दसी",
     "allowed_panchayats": "नान्दसी",
@@ -5224,7 +5509,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 244 | ग्रा.पं. नान्दसी | वार्ड: 1, 2"
+    "area_display": "बूथ सं. 89 | ग्रा.पं. नान्दसी | वार्ड: 1, 2",
+    "official_booth_no": 89,
+    "old_part_no": "244",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 नान्दसी"
   },
   {
     "id": "blo_245",
@@ -5238,7 +5526,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि नान्दसी",
     "mobile": "9929447843",
-    "booth_no": "245",
+    "booth_no": "90",
     "panchayat": "नान्दसी",
     "panchayat_code": "नान्दसी",
     "allowed_panchayats": "नान्दसी",
@@ -5255,7 +5543,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 245 | ग्रा.पं. नान्दसी | वार्ड: 3, 4"
+    "area_display": "बूथ सं. 90 | ग्रा.पं. नान्दसी | वार्ड: 3, 4",
+    "official_booth_no": 90,
+    "old_part_no": "245",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 नान्दसी"
   },
   {
     "id": "blo_242",
@@ -5269,7 +5560,7 @@
     "designation": "वरिष्ठ अध्यापक",
     "office": "राउमावि कुरथल",
     "mobile": "9828874347",
-    "booth_no": "242",
+    "booth_no": "91",
     "panchayat": "नान्दसी",
     "panchayat_code": "नान्दसी",
     "allowed_panchayats": "नान्दसी",
@@ -5286,7 +5577,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 242 | ग्रा.पं. नान्दसी | वार्ड: 5, 6"
+    "area_display": "बूथ सं. 91 | ग्रा.पं. नान्दसी | वार्ड: 5, 6",
+    "official_booth_no": 91,
+    "old_part_no": "242",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 नान्दसी"
   },
   {
     "id": "blo_243",
@@ -5300,7 +5594,7 @@
     "designation": "शारीरिक शिक्षक (PTI)",
     "office": "राउमावि कुरथल",
     "mobile": "8696157366",
-    "booth_no": "243",
+    "booth_no": "92",
     "panchayat": "नान्दसी",
     "panchayat_code": "नान्दसी",
     "allowed_panchayats": "नान्दसी",
@@ -5317,7 +5611,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 243 | ग्रा.पं. नान्दसी | वार्ड: 7, 8, 9"
+    "area_display": "बूथ सं. 92 | ग्रा.पं. नान्दसी | वार्ड: 7, 8, 9",
+    "official_booth_no": 92,
+    "old_part_no": "243",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 नान्दसी"
   },
   {
     "id": "blo_341",
@@ -5331,7 +5628,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि काचरिया",
     "mobile": "8094624988",
-    "booth_no": "341",
+    "booth_no": "93",
     "panchayat": "नान्दसी",
     "panchayat_code": "नान्दसी",
     "allowed_panchayats": "नान्दसी",
@@ -5348,7 +5645,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 341 | ग्रा.पं. नान्दसी | वार्ड: 10, 11"
+    "area_display": "बूथ सं. 93 | ग्रा.पं. नान्दसी | वार्ड: 10, 11",
+    "official_booth_no": 93,
+    "old_part_no": "341",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 नान्दसी"
   },
   {
     "id": "blo_272",
@@ -5362,7 +5662,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि अर्जुनपुरा",
     "mobile": "9001077090",
-    "booth_no": "272",
+    "booth_no": "94",
     "panchayat": "पड़ांगा",
     "panchayat_code": "पड़ांगा",
     "allowed_panchayats": "पड़ांगा",
@@ -5379,7 +5679,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 272 | ग्रा.पं. पड़ांगा | वार्ड: 1, 2"
+    "area_display": "बूथ सं. 94 | ग्रा.पं. पड़ांगा | वार्ड: 1, 2",
+    "official_booth_no": 94,
+    "old_part_no": "272",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 10 पड़ागा"
   },
   {
     "id": "blo_269",
@@ -5393,7 +5696,7 @@
     "designation": "विद्यालय सहायक",
     "office": "राउमावि पड़ांगा",
     "mobile": "8432781245",
-    "booth_no": "269",
+    "booth_no": "94",
     "panchayat": "पड़ांगा",
     "panchayat_code": "पड़ांगा",
     "allowed_panchayats": "पड़ांगा",
@@ -5410,7 +5713,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 269 | ग्रा.पं. पड़ांगा | वार्ड: 3, 4"
+    "area_display": "बूथ सं. 94 | ग्रा.पं. पड़ांगा | वार्ड: 3, 4",
+    "official_booth_no": 94,
+    "old_part_no": "269",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 10 पड़ागा"
   },
   {
     "id": "blo_270",
@@ -5424,7 +5730,7 @@
     "designation": "कम्प्यूटर अनुदेशक",
     "office": "राउमावि पड़ांगा",
     "mobile": "9649918501",
-    "booth_no": "270",
+    "booth_no": "95",
     "panchayat": "पड़ांगा",
     "panchayat_code": "पड़ांगा",
     "allowed_panchayats": "पड़ांगा",
@@ -5441,7 +5747,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 270 | ग्रा.पं. पड़ांगा | वार्ड: 5, 6"
+    "area_display": "बूथ सं. 95 | ग्रा.पं. पड़ांगा | वार्ड: 5, 6",
+    "official_booth_no": 95,
+    "old_part_no": "270",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 13 पड़ागा"
   },
   {
     "id": "blo_271",
@@ -5455,7 +5764,7 @@
     "designation": "अध्यापक",
     "office": "राप्रावि सवाईपुरा",
     "mobile": "9887322580",
-    "booth_no": "271",
+    "booth_no": "96",
     "panchayat": "पड़ांगा",
     "panchayat_code": "पड़ांगा",
     "allowed_panchayats": "पड़ांगा",
@@ -5472,7 +5781,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 271 | ग्रा.पं. पड़ांगा | वार्ड: 7"
+    "area_display": "बूथ सं. 96 | ग्रा.पं. पड़ांगा | वार्ड: 7",
+    "official_booth_no": 96,
+    "old_part_no": "271",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर-14 पड़ागा"
   },
   {
     "id": "blo_336",
@@ -5486,7 +5798,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि चावण्डिया",
     "mobile": "9785389333",
-    "booth_no": "336",
+    "booth_no": "97",
     "panchayat": "पाडलिया",
     "panchayat_code": "पाडलिया",
     "allowed_panchayats": "पाडलिया",
@@ -5503,7 +5815,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 336 | ग्रा.पं. पाडलिया | वार्ड: 1, 2, 3"
+    "area_display": "बूथ सं. 97 | ग्रा.पं. पाडलिया | वार्ड: 1, 2, 3",
+    "official_booth_no": 97,
+    "old_part_no": "336",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 पाडलिया"
   },
   {
     "id": "blo_334",
@@ -5517,7 +5832,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि पाडलिया",
     "mobile": "8107731088",
-    "booth_no": "334",
+    "booth_no": "98",
     "panchayat": "पाडलिया",
     "panchayat_code": "पाडलिया",
     "allowed_panchayats": "पाडलिया",
@@ -5534,7 +5849,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 334 | ग्रा.पं. पाडलिया | वार्ड: 4, 5"
+    "area_display": "बूथ सं. 98 | ग्रा.पं. पाडलिया | वार्ड: 4, 5",
+    "official_booth_no": 98,
+    "old_part_no": "334",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 पाडलिया"
   },
   {
     "id": "blo_335",
@@ -5548,7 +5866,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि पाडलिया",
     "mobile": "9829828478",
-    "booth_no": "335",
+    "booth_no": "98",
     "panchayat": "पाडलिया",
     "panchayat_code": "पाडलिया",
     "allowed_panchayats": "पाडलिया",
@@ -5565,7 +5883,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 335 | ग्रा.पं. पाडलिया | वार्ड: 6, 7"
+    "area_display": "बूथ सं. 98 | ग्रा.पं. पाडलिया | वार्ड: 6, 7",
+    "official_booth_no": 98,
+    "old_part_no": "335",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 पाडलिया"
   },
   {
     "id": "blo_new_108",
@@ -5579,7 +5900,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि गोरधनपुरा",
     "mobile": "9001986838",
-    "booth_no": "नया",
+    "booth_no": "99",
     "panchayat": "पाडलिया",
     "panchayat_code": "पाडलिया",
     "allowed_panchayats": "पाडलिया",
@@ -5596,7 +5917,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. नया | ग्रा.पं. पाडलिया | वार्ड: 8, 9"
+    "area_display": "बूथ सं. 99 | ग्रा.पं. पाडलिया | वार्ड: 8, 9",
+    "official_booth_no": 99,
+    "old_part_no": "नया",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 पाडलिया"
   },
   {
     "id": "blo_312",
@@ -5610,7 +5934,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि राममालिया",
     "mobile": "7597814008",
-    "booth_no": "312",
+    "booth_no": "100",
     "panchayat": "राममालिया",
     "panchayat_code": "राममालिया",
     "allowed_panchayats": "राममालिया",
@@ -5627,7 +5951,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 312 | ग्रा.पं. राममालिया | वार्ड: 1, 2"
+    "area_display": "बूथ सं. 100 | ग्रा.पं. राममालिया | वार्ड: 1, 2",
+    "official_booth_no": 100,
+    "old_part_no": "312",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 राममालिया"
   },
   {
     "id": "blo_313",
@@ -5641,7 +5968,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि राममालिया",
     "mobile": "9799295594",
-    "booth_no": "313",
+    "booth_no": "100",
     "panchayat": "राममालिया",
     "panchayat_code": "राममालिया",
     "allowed_panchayats": "राममालिया",
@@ -5658,7 +5985,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 313 | ग्रा.पं. राममालिया | वार्ड: 3, 4"
+    "area_display": "बूथ सं. 100 | ग्रा.पं. राममालिया | वार्ड: 3, 4",
+    "official_booth_no": 100,
+    "old_part_no": "313",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 राममालिया"
   },
   {
     "id": "blo_315",
@@ -5672,7 +6002,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि रघुनाथगढ़",
     "mobile": "8104466893",
-    "booth_no": "315",
+    "booth_no": "102",
     "panchayat": "राममालिया",
     "panchayat_code": "राममालिया",
     "allowed_panchayats": "राममालिया",
@@ -5689,7 +6019,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 315 | ग्रा.पं. राममालिया | वार्ड: 6, 7"
+    "area_display": "बूथ सं. 102 | ग्रा.पं. राममालिया | वार्ड: 6, 7",
+    "official_booth_no": 102,
+    "old_part_no": "315",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 राममालिया"
   },
   {
     "id": "blo_316",
@@ -5703,7 +6036,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि रघुनाथगढ़",
     "mobile": "7339841542",
-    "booth_no": "316",
+    "booth_no": "101",
     "panchayat": "राममालिया",
     "panchayat_code": "राममालिया",
     "allowed_panchayats": "राममालिया",
@@ -5720,7 +6053,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 316 | ग्रा.पं. राममालिया | वार्ड: 5"
+    "area_display": "बूथ सं. 101 | ग्रा.पं. राममालिया | वार्ड: 5",
+    "official_booth_no": 101,
+    "old_part_no": "316",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 राममालिया"
   },
   {
     "id": "blo_268",
@@ -5734,7 +6070,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि झींपिया",
     "mobile": "8769453569",
-    "booth_no": "268",
+    "booth_no": "103",
     "panchayat": "राताकोट",
     "panchayat_code": "राताकोट",
     "allowed_panchayats": "राताकोट",
@@ -5751,7 +6087,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 268 | ग्रा.पं. राताकोट | वार्ड: 1, 2, 3"
+    "area_display": "बूथ सं. 103 | ग्रा.पं. राताकोट | वार्ड: 1, 2, 3",
+    "official_booth_no": 103,
+    "old_part_no": "268",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 राताकोट"
   },
   {
     "id": "blo_266",
@@ -5765,7 +6104,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि राताकोट",
     "mobile": "9950323099",
-    "booth_no": "266",
+    "booth_no": "104",
     "panchayat": "राताकोट",
     "panchayat_code": "राताकोट",
     "allowed_panchayats": "राताकोट",
@@ -5782,7 +6121,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 266 | ग्रा.पं. राताकोट | वार्ड: 4, 5"
+    "area_display": "बूथ सं. 104 | ग्रा.पं. राताकोट | वार्ड: 4, 5",
+    "official_booth_no": 104,
+    "old_part_no": "266",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 राताकोट"
   },
   {
     "id": "blo_new_115",
@@ -5796,7 +6138,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि राताकोट",
     "mobile": "9799266968",
-    "booth_no": "नया",
+    "booth_no": "105",
     "panchayat": "राताकोट",
     "panchayat_code": "राताकोट",
     "allowed_panchayats": "राताकोट",
@@ -5813,7 +6155,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. नया | ग्रा.पं. राताकोट | वार्ड: 6, 7"
+    "area_display": "बूथ सं. 105 | ग्रा.पं. राताकोट | वार्ड: 6, 7",
+    "official_booth_no": 105,
+    "old_part_no": "नया",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-17 राताकोट"
   },
   {
     "id": "blo_267",
@@ -5827,7 +6172,7 @@
     "designation": "पंचायत शिक्षक",
     "office": "राउमावि राताकोट",
     "mobile": "9602067373",
-    "booth_no": "267",
+    "booth_no": "106",
     "panchayat": "राताकोट",
     "panchayat_code": "राताकोट",
     "allowed_panchayats": "राताकोट",
@@ -5844,7 +6189,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 267 | ग्रा.पं. राताकोट | वार्ड: 8, 9"
+    "area_display": "बूथ सं. 106 | ग्रा.पं. राताकोट | वार्ड: 8, 9",
+    "official_booth_no": 106,
+    "old_part_no": "267",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 राताकोट"
   },
   {
     "id": "blo_265",
@@ -5858,7 +6206,7 @@
     "designation": "प्रबोधक",
     "office": "राउप्रावि खटाणो का खेडा",
     "mobile": "9928168738",
-    "booth_no": "265",
+    "booth_no": "107",
     "panchayat": "सिंगावल",
     "panchayat_code": "सिंगावल",
     "allowed_panchayats": "सिंगावल",
@@ -5875,7 +6223,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 265 | ग्रा.पं. सिंगावल | वार्ड: 1, 2"
+    "area_display": "बूथ सं. 107 | ग्रा.पं. सिंगावल | वार्ड: 1, 2",
+    "official_booth_no": 107,
+    "old_part_no": "265",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 सिंगावल"
   },
   {
     "id": "blo_262",
@@ -5889,7 +6240,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि सिंगावल",
     "mobile": "9783966103",
-    "booth_no": "262",
+    "booth_no": "108",
     "panchayat": "सिंगावल",
     "panchayat_code": "सिंगावल",
     "allowed_panchayats": "सिंगावल",
@@ -5906,7 +6257,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 262 | ग्रा.पं. सिंगावल | वार्ड: 3, 4"
+    "area_display": "बूथ सं. 108 | ग्रा.पं. सिंगावल | वार्ड: 3, 4",
+    "official_booth_no": 108,
+    "old_part_no": "262",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 सिंगावल"
   },
   {
     "id": "blo_264",
@@ -5920,7 +6274,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि सिंगावल",
     "mobile": "8239249326",
-    "booth_no": "264",
+    "booth_no": "109",
     "panchayat": "सिंगावल",
     "panchayat_code": "सिंगावल",
     "allowed_panchayats": "सिंगावल",
@@ -5937,7 +6291,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 264 | ग्रा.पं. सिंगावल | वार्ड: 5, 6"
+    "area_display": "बूथ सं. 109 | ग्रा.पं. सिंगावल | वार्ड: 5, 6",
+    "official_booth_no": 109,
+    "old_part_no": "264",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 सिंगावल"
   },
   {
     "id": "blo_263",
@@ -5951,7 +6308,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि सिंगावल",
     "mobile": "9929599039",
-    "booth_no": "263",
+    "booth_no": "110",
     "panchayat": "सिंगावल",
     "panchayat_code": "सिंगावल",
     "allowed_panchayats": "सिंगावल",
@@ -5968,7 +6325,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 263 | ग्रा.पं. सिंगावल | वार्ड: 7, 8, 9"
+    "area_display": "बूथ सं. 110 | ग्रा.पं. सिंगावल | वार्ड: 7, 8, 9",
+    "official_booth_no": 110,
+    "old_part_no": "263",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 सिंगावल"
   },
   {
     "id": "blo_260",
@@ -5982,7 +6342,7 @@
     "designation": "अध्यापक",
     "office": "राप्रावि प्रतापपुरा",
     "mobile": "9680771546",
-    "booth_no": "260",
+    "booth_no": "111",
     "panchayat": "सोबडी",
     "panchayat_code": "सोबडी",
     "allowed_panchayats": "सोबडी",
@@ -5999,7 +6359,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 260 | ग्रा.पं. सोबडी | वार्ड: 1"
+    "area_display": "बूथ सं. 111 | ग्रा.पं. सोबडी | वार्ड: 1",
+    "official_booth_no": 111,
+    "old_part_no": "260",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 सोबडी"
   },
   {
     "id": "blo_259",
@@ -6013,7 +6376,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि तेलाडा",
     "mobile": "9571744755",
-    "booth_no": "259",
+    "booth_no": "112",
     "panchayat": "सोबडी",
     "panchayat_code": "सोबडी",
     "allowed_panchayats": "सोबडी",
@@ -6030,7 +6393,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 259 | ग्रा.पं. सोबडी | वार्ड: 2, 3"
+    "area_display": "बूथ सं. 112 | ग्रा.पं. सोबडी | वार्ड: 2, 3",
+    "official_booth_no": 112,
+    "old_part_no": "259",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 सोबडी"
   },
   {
     "id": "blo_322",
@@ -6044,7 +6410,7 @@
     "designation": "विद्यालय सहायक",
     "office": "राउमावि सोबडी",
     "mobile": "9784277921",
-    "booth_no": "322",
+    "booth_no": "95",
     "panchayat": "सोबडी",
     "panchayat_code": "सोबडी",
     "allowed_panchayats": "सोबडी",
@@ -6061,7 +6427,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 322 | ग्रा.पं. सोबडी | वार्ड: 4, 5, 6, 7"
+    "area_display": "बूथ सं. 95 | ग्रा.पं. पड़ांगा | वार्ड: 5, 6",
+    "official_booth_no": 95,
+    "old_part_no": "270",
+    "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 13 पड़ागा"
   },
   {
     "id": "blo_323",
@@ -6075,7 +6444,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि खायडा",
     "mobile": "9509776135",
-    "booth_no": "323",
+    "booth_no": "114",
     "panchayat": "सोलखुर्द",
     "panchayat_code": "सोलखुर्द",
     "allowed_panchayats": "सोलखुर्द",
@@ -6092,7 +6461,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 323 | ग्रा.पं. सोलखुर्द | वार्ड: 2, 3, 4"
+    "area_display": "बूथ सं. 114 | ग्रा.पं. सोलखुर्द | वार्ड: 2, 3, 4",
+    "official_booth_no": 114,
+    "old_part_no": "323",
+    "booth_name": "राजकीय प्राथमिक विद्यालय कमरा नं.-1 सोलखुर्द"
   },
   {
     "id": "blo_324",
@@ -6106,7 +6478,7 @@
     "designation": "अध्यापक",
     "office": "राउमावि पीपलिया",
     "mobile": "9828393814",
-    "booth_no": "324",
+    "booth_no": "115",
     "panchayat": "सोलखुर्द",
     "panchayat_code": "सोलखुर्द",
     "allowed_panchayats": "सोलखुर्द",
@@ -6123,7 +6495,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 324 | ग्रा.पं. सोलखुर्द | वार्ड: 1, 5, 6, 7"
+    "area_display": "बूथ सं. 115 | ग्रा.पं. सोलखुर्द | वार्ड: 1, 5, 6, 7",
+    "official_booth_no": 115,
+    "old_part_no": "324",
+    "booth_name": "राजकीय प्राथमिक विद्यालय कमरा नं.-2 सोलखुर्द"
   },
   {
     "id": "blo_320",
@@ -6137,7 +6512,7 @@
     "designation": "अध्यापक",
     "office": "राउप्रावि सोलकला",
     "mobile": "8107193130",
-    "booth_no": "320",
+    "booth_no": "116",
     "panchayat": "सोलखुर्द",
     "panchayat_code": "सोलखुर्द",
     "allowed_panchayats": "सोलखुर्द",
@@ -6154,7 +6529,10 @@
     "can_view": true,
     "can_print": false,
     "can_download": true,
-    "area_display": "भाग सं. 320 | ग्रा.पं. सोलखुर्द | वार्ड: 8, 9"
+    "area_display": "बूथ सं. 116 | ग्रा.पं. सोलखुर्द | वार्ड: 8, 9",
+    "official_booth_no": 116,
+    "old_part_no": "320",
+    "booth_name": "राजकीय प्राथमिक विद्यालय कमरा नं.-3 सोलखुर्द"
   },
   {
     "id": "cand_gp01",

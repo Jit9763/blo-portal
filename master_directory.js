@@ -1,4 +1,3 @@
-// Auto-generated Master Directory
 window.MASTER_DIRECTORY = {
   "version": "5.0.0",
   "last_updated": "2026-10-07",
@@ -3518,10 +3517,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि केरियाखुर्द",
       "school_office": "राउप्रावि केरियाखुर्द",
       "panchayat": "बड़गांव",
-      "booth_no": "329",
+      "booth_no": "1",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 329 | ग्रा.पं. बड़गांव | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 1 | ग्रा.पं. बड़गांव | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3534,7 +3533,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 1,
+      "old_part_no": "329",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बडगांव"
     },
     {
       "id": "blo_2",
@@ -3552,10 +3554,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि केरियाखुर्द",
       "school_office": "राउप्रावि केरियाखुर्द",
       "panchayat": "बड़गांव",
-      "booth_no": "330",
+      "booth_no": "2",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 330 | ग्रा.पं. बड़गांव | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 2 | ग्रा.पं. बड़गांव | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3568,7 +3570,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 2,
+      "old_part_no": "330",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-10 बडगांव"
     },
     {
       "id": "blo_3",
@@ -3586,10 +3591,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बड़गांव",
       "school_office": "राउमावि बड़गांव",
       "panchayat": "बड़गांव",
-      "booth_no": "332",
+      "booth_no": "3",
       "wards": "6, 7, 8",
       "assigned_wards": "6, 7, 8",
-      "area_display": "भाग सं. 332 | ग्रा.पं. बड़गांव | वार्ड: 6, 7, 8",
+      "area_display": "बूथ सं. 3 | ग्रा.पं. बड़गांव | वार्ड: 6, 7, 8",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3602,7 +3607,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 3,
+      "old_part_no": "332",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 बडगांव"
     },
     {
       "id": "blo_4",
@@ -3620,10 +3628,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बड़गांव",
       "school_office": "राउमावि बड़गांव",
       "panchayat": "बड़गांव",
-      "booth_no": "333",
+      "booth_no": "4",
       "wards": "5, 9, 10",
       "assigned_wards": "5, 9, 10",
-      "area_display": "भाग सं. 333 | ग्रा.पं. बड़गांव | वार्ड: 5, 9, 10",
+      "area_display": "बूथ सं. 4 | ग्रा.पं. बड़गांव | वार्ड: 5, 9, 10",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3636,7 +3644,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 4,
+      "old_part_no": "333",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 बडगांव"
     },
     {
       "id": "blo_5",
@@ -3654,10 +3665,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि रघुनाथपुरा",
       "school_office": "राउप्रावि रघुनाथपुरा",
       "panchayat": "बड़गांव",
-      "booth_no": "331",
+      "booth_no": "5",
       "wards": "11, 12, 13",
       "assigned_wards": "11, 12, 13",
-      "area_display": "भाग सं. 331 | ग्रा.पं. बड़गांव | वार्ड: 11, 12, 13",
+      "area_display": "बूथ सं. 5 | ग्रा.पं. बड़गांव | वार्ड: 11, 12, 13",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3670,7 +3681,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 5,
+      "old_part_no": "331",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-15 बडगांव"
     },
     {
       "id": "blo_6",
@@ -3688,10 +3702,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बड़ली",
       "school_office": "राउमावि बड़ली",
       "panchayat": "बड़ली",
-      "booth_no": "225",
+      "booth_no": "7",
       "wards": "3, 4, 5",
       "assigned_wards": "3, 4, 5",
-      "area_display": "भाग सं. 225 | ग्रा.पं. बड़ली | वार्ड: 3, 4, 5",
+      "area_display": "बूथ सं. 7 | ग्रा.पं. बड़ली | वार्ड: 3, 4, 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3704,7 +3718,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 7,
+      "old_part_no": "225",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 बड़ली"
     },
     {
       "id": "blo_7",
@@ -3722,10 +3739,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बड़ली",
       "school_office": "राउमावि बड़ली",
       "panchayat": "बड़ली",
-      "booth_no": "नया",
+      "booth_no": "6",
       "wards": "1, 6",
       "assigned_wards": "1, 6",
-      "area_display": "भाग सं. नया | ग्रा.पं. बड़ली | वार्ड: 1, 6",
+      "area_display": "बूथ सं. 6 | ग्रा.पं. बड़ली | वार्ड: 1, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3738,7 +3755,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 6,
+      "old_part_no": "नया",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 बड़ली"
     },
     {
       "id": "blo_8",
@@ -3756,10 +3776,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बड़ली",
       "school_office": "राउमावि बड़ली",
       "panchayat": "बड़ली",
-      "booth_no": "227",
+      "booth_no": "8",
       "wards": "2, 7, 8",
       "assigned_wards": "2, 7, 8",
-      "area_display": "भाग सं. 227 | ग्रा.पं. बड़ली | वार्ड: 2, 7, 8",
+      "area_display": "बूथ सं. 8 | ग्रा.पं. बड़ली | वार्ड: 2, 7, 8",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3772,7 +3792,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 8,
+      "old_part_no": "227",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 बड़ली"
     },
     {
       "id": "blo_9",
@@ -3790,10 +3813,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बड़ली",
       "school_office": "राउमावि बड़ली",
       "panchayat": "बड़ली",
-      "booth_no": "226",
+      "booth_no": "9",
       "wards": "9, 10, 11",
       "assigned_wards": "9, 10, 11",
-      "area_display": "भाग सं. 226 | ग्रा.पं. बड़ली | वार्ड: 9, 10, 11",
+      "area_display": "बूथ सं. 9 | ग्रा.पं. बड़ली | वार्ड: 9, 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3806,7 +3829,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 9,
+      "old_part_no": "226",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 बड़ली"
     },
     {
       "id": "blo_10",
@@ -3824,10 +3850,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि खेडी गुढाखुर्द",
       "school_office": "राउप्रावि खेडी गुढाखुर्द",
       "panchayat": "बगराई",
-      "booth_no": "236",
+      "booth_no": "10",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 236 | ग्रा.पं. बगराई | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 10 | ग्रा.पं. बगराई | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3840,7 +3866,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 10,
+      "old_part_no": "236",
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 बगराई"
     },
     {
       "id": "blo_11",
@@ -3858,10 +3887,10 @@ window.MASTER_DIRECTORY = {
       "school": "पीएमश्री राउमावि बगराई",
       "school_office": "पीएमश्री राउमावि बगराई",
       "panchayat": "बगराई",
-      "booth_no": "237",
+      "booth_no": "11",
       "wards": "4, 5, 6, 7",
       "assigned_wards": "4, 5, 6, 7",
-      "area_display": "भाग सं. 237 | ग्रा.पं. बगराई | वार्ड: 4, 5, 6, 7",
+      "area_display": "बूथ सं. 11 | ग्रा.पं. बगराई | वार्ड: 4, 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3874,7 +3903,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 11,
+      "old_part_no": "237",
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 बगराई"
     },
     {
       "id": "blo_12",
@@ -3892,10 +3924,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बांदनवाड़ा",
       "school_office": "राउमावि बांदनवाड़ा",
       "panchayat": "बांदनवाड़ा",
-      "booth_no": "281",
+      "booth_no": "13",
       "wards": "1, 5, 6",
       "assigned_wards": "1, 5, 6",
-      "area_display": "भाग सं. 281 | ग्रा.पं. बांदनवाड़ा | वार्ड: 1, 5, 6",
+      "area_display": "बूथ सं. 13 | ग्रा.पं. बांदनवाड़ा | वार्ड: 1, 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3908,7 +3940,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 13,
+      "old_part_no": "281",
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-15 बांदनवाड़ा"
     },
     {
       "id": "blo_13",
@@ -3926,10 +3961,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि रेल्वे काॅलोनी, बांदनवाडा",
       "school_office": "राउमावि रेल्वे काॅलोनी, बांदनवाडा",
       "panchayat": "बांदनवाड़ा",
-      "booth_no": "280",
+      "booth_no": "12",
       "wards": "2, 3, 4",
       "assigned_wards": "2, 3, 4",
-      "area_display": "भाग सं. 280 | ग्रा.पं. बांदनवाड़ा | वार्ड: 2, 3, 4",
+      "area_display": "बूथ सं. 12 | ग्रा.पं. बांदनवाड़ा | वार्ड: 2, 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3942,7 +3977,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 12,
+      "old_part_no": "280",
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-14 बांदनवाड़ा"
     },
     {
       "id": "blo_14",
@@ -3960,10 +3998,10 @@ window.MASTER_DIRECTORY = {
       "school": "मगांरावि बांदनवाड़ा",
       "school_office": "मगांरावि बांदनवाड़ा",
       "panchayat": "बांदनवाड़ा",
-      "booth_no": "282",
+      "booth_no": "14",
       "wards": "8, 9",
       "assigned_wards": "8, 9",
-      "area_display": "भाग सं. 282 | ग्रा.पं. बांदनवाड़ा | वार्ड: 8, 9",
+      "area_display": "बूथ सं. 14 | ग्रा.पं. बांदनवाड़ा | वार्ड: 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3976,7 +4014,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 14,
+      "old_part_no": "282",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बांदनवाड़ा़(प्राथमिक अनुभाग)"
     },
     {
       "id": "blo_15",
@@ -3994,10 +4035,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बांदनवाड़ा",
       "school_office": "राउमावि बांदनवाड़ा",
       "panchayat": "बांदनवाड़ा",
-      "booth_no": "279",
+      "booth_no": "14",
       "wards": "7, 10, 12",
       "assigned_wards": "7, 10, 12",
-      "area_display": "भाग सं. 279 | ग्रा.पं. बांदनवाड़ा | वार्ड: 7, 10, 12",
+      "area_display": "बूथ सं. 14 | ग्रा.पं. बांदनवाड़ा | वार्ड: 7, 10, 12",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4010,7 +4051,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 14,
+      "old_part_no": "279",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बांदनवाड़ा़(प्राथमिक अनुभाग)"
     },
     {
       "id": "blo_16",
@@ -4028,10 +4072,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बांदनवाड़ा",
       "school_office": "राउमावि बांदनवाड़ा",
       "panchayat": "बांदनवाड़ा",
-      "booth_no": "278",
+      "booth_no": "15",
       "wards": "11, 16, 17",
       "assigned_wards": "11, 16, 17",
-      "area_display": "भाग सं. 278 | ग्रा.पं. बांदनवाड़ा | वार्ड: 11, 16, 17",
+      "area_display": "बूथ सं. 15 | ग्रा.पं. बांदनवाड़ा | वार्ड: 11, 16, 17",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4044,7 +4088,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 15,
+      "old_part_no": "278",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 बांदनवाड़ा़(प्राथमिक अनुभाग)"
     },
     {
       "id": "blo_17",
@@ -4062,10 +4109,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बांदनवाड़ा",
       "school_office": "राउमावि बांदनवाड़ा",
       "panchayat": "बांदनवाड़ा",
-      "booth_no": "277",
+      "booth_no": "17",
       "wards": "13, 14, 15",
       "assigned_wards": "13, 14, 15",
-      "area_display": "भाग सं. 277 | ग्रा.पं. बांदनवाड़ा | वार्ड: 13, 14, 15",
+      "area_display": "बूथ सं. 17 | ग्रा.पं. बांदनवाड़ा | वार्ड: 13, 14, 15",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4078,7 +4125,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 17,
+      "old_part_no": "277",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-9 बांदनवाड़ा"
     },
     {
       "id": "blo_18",
@@ -4096,10 +4146,10 @@ window.MASTER_DIRECTORY = {
       "school": "मगांरावि भिनाय",
       "school_office": "मगांरावि भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "305",
+      "booth_no": "18",
       "wards": "3, 4, 8",
       "assigned_wards": "3, 4, 8",
-      "area_display": "भाग सं. 305 | ग्रा.पं. भिनाय | वार्ड: 3, 4, 8",
+      "area_display": "बूथ सं. 18 | ग्रा.पं. भिनाय | वार्ड: 3, 4, 8",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4112,7 +4162,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 18,
+      "old_part_no": "305",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-19 भिनाय"
     },
     {
       "id": "blo_19",
@@ -4130,10 +4183,10 @@ window.MASTER_DIRECTORY = {
       "school": "मगांरावि भिनाय",
       "school_office": "मगांरावि भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "306",
+      "booth_no": "19",
       "wards": "2, 5, 6",
       "assigned_wards": "2, 5, 6",
-      "area_display": "भाग सं. 306 | ग्रा.पं. भिनाय | वार्ड: 2, 5, 6",
+      "area_display": "बूथ सं. 19 | ग्रा.पं. भिनाय | वार्ड: 2, 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4146,7 +4199,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 19,
+      "old_part_no": "306",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-33 भिनाय"
     },
     {
       "id": "blo_20",
@@ -4164,10 +4220,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि भिनाय",
       "school_office": "राउमावि भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "303",
+      "booth_no": "20",
       "wards": "7, 9, 10",
       "assigned_wards": "7, 9, 10",
-      "area_display": "भाग सं. 303 | ग्रा.पं. भिनाय | वार्ड: 7, 9, 10",
+      "area_display": "बूथ सं. 20 | ग्रा.पं. भिनाय | वार्ड: 7, 9, 10",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4180,7 +4236,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 20,
+      "old_part_no": "303",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-37 भिनाय"
     },
     {
       "id": "blo_21",
@@ -4198,10 +4257,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि भिनाय",
       "school_office": "राउमावि भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "304",
+      "booth_no": "21",
       "wards": "11, 12, 13",
       "assigned_wards": "11, 12, 13",
-      "area_display": "भाग सं. 304 | ग्रा.पं. भिनाय | वार्ड: 11, 12, 13",
+      "area_display": "बूथ सं. 21 | ग्रा.पं. भिनाय | वार्ड: 11, 12, 13",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4214,7 +4273,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 21,
+      "old_part_no": "304",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-39 भिनाय"
     },
     {
       "id": "blo_22",
@@ -4232,10 +4294,10 @@ window.MASTER_DIRECTORY = {
       "school": "राजकीय वरिष्ठ उपाध्याय संस्कृत विद्यालय भिनाय",
       "school_office": "राजकीय वरिष्ठ उपाध्याय संस्कृत विद्यालय भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "301",
+      "booth_no": "22",
       "wards": "14, 15",
       "assigned_wards": "14, 15",
-      "area_display": "भाग सं. 301 | ग्रा.पं. भिनाय | वार्ड: 14, 15",
+      "area_display": "बूथ सं. 22 | ग्रा.पं. भिनाय | वार्ड: 14, 15",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4248,7 +4310,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 22,
+      "old_part_no": "301",
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-4 भिनाय"
     },
     {
       "id": "blo_23",
@@ -4266,10 +4331,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि भिनाय",
       "school_office": "राउमावि भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "300",
+      "booth_no": "23",
       "wards": "16, 17, 19",
       "assigned_wards": "16, 17, 19",
-      "area_display": "भाग सं. 300 | ग्रा.पं. भिनाय | वार्ड: 16, 17, 19",
+      "area_display": "बूथ सं. 23 | ग्रा.पं. भिनाय | वार्ड: 16, 17, 19",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4282,7 +4347,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 23,
+      "old_part_no": "300",
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-5 भिनाय"
     },
     {
       "id": "blo_24",
@@ -4300,10 +4368,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि भिनाय",
       "school_office": "राउमावि भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "302",
+      "booth_no": "24",
       "wards": "18, 21",
       "assigned_wards": "18, 21",
-      "area_display": "भाग सं. 302 | ग्रा.पं. भिनाय | वार्ड: 18, 21",
+      "area_display": "बूथ सं. 24 | ग्रा.पं. भिनाय | वार्ड: 18, 21",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4316,7 +4384,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 24,
+      "old_part_no": "302",
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-09 भिनाय"
     },
     {
       "id": "blo_25",
@@ -4334,10 +4405,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि भिनाय",
       "school_office": "राउमावि भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "299",
+      "booth_no": "18",
       "wards": "1, 20",
       "assigned_wards": "1, 20",
-      "area_display": "भाग सं. 299 | ग्रा.पं. भिनाय | वार्ड: 1, 20",
+      "area_display": "बूथ सं. 18 | ग्रा.पं. भिनाय | वार्ड: 1, 20",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4350,7 +4421,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 18,
+      "old_part_no": "299",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-19 भिनाय"
     },
     {
       "id": "blo_26",
@@ -4368,10 +4442,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि हीरापुरा",
       "school_office": "राउमावि हीरापुरा",
       "panchayat": "बूबकिया",
-      "booth_no": "310",
+      "booth_no": "26",
       "wards": "1, 2, 3, 4",
       "assigned_wards": "1, 2, 3, 4",
-      "area_display": "भाग सं. 310 | ग्रा.पं. बूबकिया | वार्ड: 1, 2, 3, 4",
+      "area_display": "बूथ सं. 26 | ग्रा.पं. बूबकिया | वार्ड: 1, 2, 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4384,7 +4458,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 26,
+      "old_part_no": "310",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-7 बूबकिया"
     },
     {
       "id": "blo_27",
@@ -4402,10 +4479,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि रेण",
       "school_office": "राप्रावि रेण",
       "panchayat": "बूबकिया",
-      "booth_no": "321",
+      "booth_no": "27",
       "wards": "5, 6",
       "assigned_wards": "5, 6",
-      "area_display": "भाग सं. 321 | ग्रा.पं. बूबकिया | वार्ड: 5, 6",
+      "area_display": "बूथ सं. 27 | ग्रा.पं. बूबकिया | वार्ड: 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4418,7 +4495,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 27,
+      "old_part_no": "321",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-10 बूबकिया"
     },
     {
       "id": "blo_28",
@@ -4436,10 +4516,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बूबकिया",
       "school_office": "राउमावि बूबकिया",
       "panchayat": "बूबकिया",
-      "booth_no": "317",
+      "booth_no": "28",
       "wards": "7, 8, 9",
       "assigned_wards": "7, 8, 9",
-      "area_display": "भाग सं. 317 | ग्रा.पं. बूबकिया | वार्ड: 7, 8, 9",
+      "area_display": "बूथ सं. 28 | ग्रा.पं. बूबकिया | वार्ड: 7, 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4452,7 +4532,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 28,
+      "old_part_no": "317",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-11 बूबकिया"
     },
     {
       "id": "blo_29",
@@ -4470,10 +4553,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि पीलोदा",
       "school_office": "राप्रावि पीलोदा",
       "panchayat": "बूबकिया",
-      "booth_no": "314",
+      "booth_no": "29",
       "wards": "9, 10, 11",
       "assigned_wards": "9, 10, 11",
-      "area_display": "भाग सं. 314 | ग्रा.पं. बूबकिया | वार्ड: 9, 10, 11",
+      "area_display": "बूथ सं. 29 | ग्रा.पं. बूबकिया | वार्ड: 9, 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4486,7 +4569,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 29,
+      "old_part_no": "314",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-12 बूबकिया"
     },
     {
       "id": "blo_30",
@@ -4504,10 +4590,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि चापानेरी",
       "school_office": "राउमावि चापानेरी",
       "panchayat": "चापानेरी",
-      "booth_no": "248",
+      "booth_no": "30",
       "wards": "1, 6, 9",
       "assigned_wards": "1, 6, 9",
-      "area_display": "भाग सं. 248 | ग्रा.पं. चापानेरी | वार्ड: 1, 6, 9",
+      "area_display": "बूथ सं. 30 | ग्रा.पं. चापानेरी | वार्ड: 1, 6, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4520,7 +4606,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 30,
+      "old_part_no": "248",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 चापानेरी"
     },
     {
       "id": "blo_31",
@@ -4538,10 +4627,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि चापानेरी",
       "school_office": "राउमावि चापानेरी",
       "panchayat": "चापानेरी",
-      "booth_no": "251",
+      "booth_no": "30",
       "wards": "2, 4, 11",
       "assigned_wards": "2, 4, 11",
-      "area_display": "भाग सं. 251 | ग्रा.पं. चापानेरी | वार्ड: 2, 4, 11",
+      "area_display": "बूथ सं. 30 | ग्रा.पं. चापानेरी | वार्ड: 2, 4, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4554,7 +4643,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 30,
+      "old_part_no": "251",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 चापानेरी"
     },
     {
       "id": "blo_32",
@@ -4572,10 +4664,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि चापानेरी",
       "school_office": "राउमावि चापानेरी",
       "panchayat": "चापानेरी",
-      "booth_no": "249",
+      "booth_no": "31",
       "wards": "5, 8, 10",
       "assigned_wards": "5, 8, 10",
-      "area_display": "भाग सं. 249 | ग्रा.पं. चापानेरी | वार्ड: 5, 8, 10",
+      "area_display": "बूथ सं. 31 | ग्रा.पं. चापानेरी | वार्ड: 5, 8, 10",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4588,7 +4680,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 31,
+      "old_part_no": "249",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 चापानेरी"
     },
     {
       "id": "blo_33",
@@ -4606,10 +4701,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि चापानेरी",
       "school_office": "राउमावि चापानेरी",
       "panchayat": "चापानेरी",
-      "booth_no": "250",
+      "booth_no": "31",
       "wards": "3, 7",
       "assigned_wards": "3, 7",
-      "area_display": "भाग सं. 250 | ग्रा.पं. चापानेरी | वार्ड: 3, 7",
+      "area_display": "बूथ सं. 31 | ग्रा.पं. चापानेरी | वार्ड: 3, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4622,7 +4717,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 31,
+      "old_part_no": "250",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 चापानेरी"
     },
     {
       "id": "blo_34",
@@ -4640,10 +4738,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि दौलतपुरा",
       "school_office": "राउप्रावि दौलतपुरा",
       "panchayat": "छछून्दरा",
-      "booth_no": "नया",
+      "booth_no": "34",
       "wards": "1",
       "assigned_wards": "1",
-      "area_display": "भाग सं. नया | ग्रा.पं. छछून्दरा | वार्ड: 1",
+      "area_display": "बूथ सं. 34 | ग्रा.पं. छछून्दरा | वार्ड: 1",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4656,7 +4754,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 34,
+      "old_part_no": "नया",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 छछुन्दरा"
     },
     {
       "id": "blo_35",
@@ -4674,10 +4775,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि जोरावरपुरा",
       "school_office": "राउप्रावि जोरावरपुरा",
       "panchayat": "छछून्दरा",
-      "booth_no": "293",
+      "booth_no": "34",
       "wards": "2, 3, 6",
       "assigned_wards": "2, 3, 6",
-      "area_display": "भाग सं. 293 | ग्रा.पं. छछून्दरा | वार्ड: 2, 3, 6",
+      "area_display": "बूथ सं. 34 | ग्रा.पं. छछून्दरा | वार्ड: 2, 3, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4690,7 +4791,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 34,
+      "old_part_no": "293",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 छछुन्दरा"
     },
     {
       "id": "blo_36",
@@ -4708,10 +4812,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि सरगांव",
       "school_office": "राउप्रावि सरगांव",
       "panchayat": "छछून्दरा",
-      "booth_no": "307",
+      "booth_no": "35",
       "wards": "4, 5",
       "assigned_wards": "4, 5",
-      "area_display": "भाग सं. 307 | ग्रा.पं. छछून्दरा | वार्ड: 4, 5",
+      "area_display": "बूथ सं. 35 | ग्रा.पं. छछून्दरा | वार्ड: 4, 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4724,7 +4828,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 35,
+      "old_part_no": "307",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 छछुन्दरा"
     },
     {
       "id": "blo_37",
@@ -4742,10 +4849,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि छछून्दरा",
       "school_office": "राउमावि छछून्दरा",
       "panchayat": "छछून्दरा",
-      "booth_no": "289",
+      "booth_no": "36",
       "wards": "7, 8",
       "assigned_wards": "7, 8",
-      "area_display": "भाग सं. 289 | ग्रा.पं. छछून्दरा | वार्ड: 7, 8",
+      "area_display": "बूथ सं. 36 | ग्रा.पं. छछून्दरा | वार्ड: 7, 8",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4758,7 +4865,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 36,
+      "old_part_no": "289",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 छछुन्दरा"
     },
     {
       "id": "blo_38",
@@ -4776,10 +4886,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि सेदरिया",
       "school_office": "राउमावि सेदरिया",
       "panchayat": "छछून्दरा",
-      "booth_no": "288",
+      "booth_no": "37",
       "wards": "9, 10, 11",
       "assigned_wards": "9, 10, 11",
-      "area_display": "भाग सं. 288 | ग्रा.पं. छछून्दरा | वार्ड: 9, 10, 11",
+      "area_display": "बूथ सं. 37 | ग्रा.पं. छछून्दरा | वार्ड: 9, 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4792,7 +4902,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 37,
+      "old_part_no": "288",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 छछुन्दरा"
     },
     {
       "id": "blo_39",
@@ -4810,10 +4923,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि माताजी का खेडा",
       "school_office": "राउप्रावि माताजी का खेडा",
       "panchayat": "देवलियाकलां",
-      "booth_no": "235",
+      "booth_no": "38",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 235 | ग्रा.पं. देवलियाकलां | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 38 | ग्रा.पं. देवलियाकलां | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4826,7 +4939,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 38,
+      "old_part_no": "235",
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 देवलियाकलां"
     },
     {
       "id": "blo_40",
@@ -4844,10 +4960,10 @@ window.MASTER_DIRECTORY = {
       "school": "पीएमश्री राउमावि देवलिया कलां",
       "school_office": "पीएमश्री राउमावि देवलिया कलां",
       "panchayat": "देवलियाकलां",
-      "booth_no": "230",
+      "booth_no": "38",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 230 | ग्रा.पं. देवलियाकलां | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 38 | ग्रा.पं. देवलियाकलां | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4860,7 +4976,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 38,
+      "old_part_no": "230",
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 देवलियाकलां"
     },
     {
       "id": "blo_41",
@@ -4878,10 +4997,10 @@ window.MASTER_DIRECTORY = {
       "school": "मगांरावि देवलिया कलां",
       "school_office": "मगांरावि देवलिया कलां",
       "panchayat": "देवलियाकलां",
-      "booth_no": "232",
+      "booth_no": "39",
       "wards": "5, 6",
       "assigned_wards": "5, 6",
-      "area_display": "भाग सं. 232 | ग्रा.पं. देवलियाकलां | वार्ड: 5, 6",
+      "area_display": "बूथ सं. 39 | ग्रा.पं. देवलियाकलां | वार्ड: 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4894,7 +5013,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 39,
+      "old_part_no": "232",
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 देवलियाकलां"
     },
     {
       "id": "blo_42",
@@ -4912,10 +5034,10 @@ window.MASTER_DIRECTORY = {
       "school": "पीएमश्री राउमावि देवलिया कलां",
       "school_office": "पीएमश्री राउमावि देवलिया कलां",
       "panchayat": "देवलियाकलां",
-      "booth_no": "233",
+      "booth_no": "41",
       "wards": "7, 8, 9",
       "assigned_wards": "7, 8, 9",
-      "area_display": "भाग सं. 233 | ग्रा.पं. देवलियाकलां | वार्ड: 7, 8, 9",
+      "area_display": "बूथ सं. 41 | ग्रा.पं. देवलियाकलां | वार्ड: 7, 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4928,7 +5050,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 41,
+      "old_part_no": "233",
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-20 देवलियाकलां"
     },
     {
       "id": "blo_43",
@@ -4946,10 +5071,10 @@ window.MASTER_DIRECTORY = {
       "school": "पीएमश्री राउमावि देवलिया कलां",
       "school_office": "पीएमश्री राउमावि देवलिया कलां",
       "panchayat": "देवलियाकलां",
-      "booth_no": "231",
+      "booth_no": "42",
       "wards": "10, 11, 12",
       "assigned_wards": "10, 11, 12",
-      "area_display": "भाग सं. 231 | ग्रा.पं. देवलियाकलां | वार्ड: 10, 11, 12",
+      "area_display": "बूथ सं. 42 | ग्रा.पं. देवलियाकलां | वार्ड: 10, 11, 12",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4962,7 +5087,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 42,
+      "old_part_no": "231",
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-2 देवलियाकला"
     },
     {
       "id": "blo_44",
@@ -4980,10 +5108,10 @@ window.MASTER_DIRECTORY = {
       "school": "पीएमश्री राउमावि देवलिया कलां",
       "school_office": "पीएमश्री राउमावि देवलिया कलां",
       "panchayat": "देवलियाकलां",
-      "booth_no": "234",
+      "booth_no": "43",
       "wards": "13, 14, 15",
       "assigned_wards": "13, 14, 15",
-      "area_display": "भाग सं. 234 | ग्रा.पं. देवलियाकलां | वार्ड: 13, 14, 15",
+      "area_display": "बूथ सं. 43 | ग्रा.पं. देवलियाकलां | वार्ड: 13, 14, 15",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4996,7 +5124,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 43,
+      "old_part_no": "234",
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-3 देवलियाकला"
     },
     {
       "id": "blo_45",
@@ -5014,10 +5145,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि देवरिया",
       "school_office": "राउमावि देवरिया",
       "panchayat": "देवपुरा",
-      "booth_no": "273",
+      "booth_no": "44",
       "wards": "2, 3, 4",
       "assigned_wards": "2, 3, 4",
-      "area_display": "भाग सं. 273 | ग्रा.पं. देवपुरा | वार्ड: 2, 3, 4",
+      "area_display": "बूथ सं. 44 | ग्रा.पं. देवपुरा | वार्ड: 2, 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5030,7 +5161,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 44,
+      "old_part_no": "273",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 देवपुरा(देवपुरा)"
     },
     {
       "id": "blo_46",
@@ -5048,10 +5182,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि गज्जानाडी",
       "school_office": "राप्रावि गज्जानाडी",
       "panchayat": "देवपुरा",
-      "booth_no": "274",
+      "booth_no": "45",
       "wards": "5, 6",
       "assigned_wards": "5, 6",
-      "area_display": "भाग सं. 274 | ग्रा.पं. देवपुरा | वार्ड: 5, 6",
+      "area_display": "बूथ सं. 45 | ग्रा.पं. देवपुरा | वार्ड: 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5064,7 +5198,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 45,
+      "old_part_no": "274",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 देवपुरा(देवपुरा)"
     },
     {
       "id": "blo_47",
@@ -5082,10 +5219,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि रामपुरा",
       "school_office": "राप्रावि रामपुरा",
       "panchayat": "देवपुरा",
-      "booth_no": "275",
+      "booth_no": "46",
       "wards": "1, 7, 8",
       "assigned_wards": "1, 7, 8",
-      "area_display": "भाग सं. 275 | ग्रा.पं. देवपुरा | वार्ड: 1, 7, 8",
+      "area_display": "बूथ सं. 46 | ग्रा.पं. देवपुरा | वार्ड: 1, 7, 8",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5098,7 +5235,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 46,
+      "old_part_no": "275",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 देवपुरा(देवपुरा)"
     },
     {
       "id": "blo_48",
@@ -5116,10 +5256,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि मोतीपुरा",
       "school_office": "राउप्रावि मोतीपुरा",
       "panchayat": "देवपुरा",
-      "booth_no": "276",
+      "booth_no": "47",
       "wards": "9, 10, 11",
       "assigned_wards": "9, 10, 11",
-      "area_display": "भाग सं. 276 | ग्रा.पं. देवपुरा | वार्ड: 9, 10, 11",
+      "area_display": "बूथ सं. 47 | ग्रा.पं. देवपुरा | वार्ड: 9, 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5132,7 +5272,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 47,
+      "old_part_no": "276",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 देवपुरा(देवपुरा)"
     },
     {
       "id": "blo_49",
@@ -5150,10 +5293,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि धांतोल",
       "school_office": "राउमावि धांतोल",
       "panchayat": "धांतोल",
-      "booth_no": "309",
+      "booth_no": "48",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 309 | ग्रा.पं. धांतोल | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 48 | ग्रा.पं. धांतोल | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5166,7 +5309,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 48,
+      "old_part_no": "309",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 धांतोल"
     },
     {
       "id": "blo_50",
@@ -5184,10 +5330,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि उदयगढ खेडा",
       "school_office": "राउप्रावि उदयगढ खेडा",
       "panchayat": "धांतोल",
-      "booth_no": "308",
+      "booth_no": "49",
       "wards": "4, 5, 6, 7",
       "assigned_wards": "4, 5, 6, 7",
-      "area_display": "भाग सं. 308 | ग्रा.पं. धांतोल | वार्ड: 4, 5, 6, 7",
+      "area_display": "बूथ सं. 49 | ग्रा.पं. धांतोल | वार्ड: 4, 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5200,7 +5346,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 49,
+      "old_part_no": "308",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 धांतोल"
     },
     {
       "id": "blo_51",
@@ -5218,10 +5367,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि गूजरवाडा",
       "school_office": "राउप्रावि गूजरवाडा",
       "panchayat": "धांतोल",
-      "booth_no": "311",
+      "booth_no": "50",
       "wards": "8, 9",
       "assigned_wards": "8, 9",
-      "area_display": "भाग सं. 311 | ग्रा.पं. धांतोल | वार्ड: 8, 9",
+      "area_display": "बूथ सं. 50 | ग्रा.पं. धांतोल | वार्ड: 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5234,7 +5383,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 50,
+      "old_part_no": "311",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 धांतोल"
     },
     {
       "id": "blo_52",
@@ -5252,10 +5404,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि एकलसिंहा",
       "school_office": "राउमावि एकलसिंहा",
       "panchayat": "एकलसिंहा",
-      "booth_no": "255",
+      "booth_no": "51",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 255 | ग्रा.पं. एकलसिंहा | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 51 | ग्रा.पं. एकलसिंहा | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5268,7 +5420,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 51,
+      "old_part_no": "255",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 एकलसिंहा़"
     },
     {
       "id": "blo_53",
@@ -5286,10 +5441,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि एकलसिंहा",
       "school_office": "राउमावि एकलसिंहा",
       "panchayat": "एकलसिंहा",
-      "booth_no": "256",
+      "booth_no": "52",
       "wards": "4, 5, 6",
       "assigned_wards": "4, 5, 6",
-      "area_display": "भाग सं. 256 | ग्रा.पं. एकलसिंहा | वार्ड: 4, 5, 6",
+      "area_display": "बूथ सं. 52 | ग्रा.पं. एकलसिंहा | वार्ड: 4, 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5302,7 +5457,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 52,
+      "old_part_no": "256",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 एकलसिंहा़"
     },
     {
       "id": "blo_54",
@@ -5320,10 +5478,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि चावण्डिया",
       "school_office": "राउप्रावि चावण्डिया",
       "panchayat": "एकलसिंहा",
-      "booth_no": "261",
+      "booth_no": "53",
       "wards": "7, 8, 9",
       "assigned_wards": "7, 8, 9",
-      "area_display": "भाग सं. 261 | ग्रा.पं. एकलसिंहा | वार्ड: 7, 8, 9",
+      "area_display": "बूथ सं. 53 | ग्रा.पं. एकलसिंहा | वार्ड: 7, 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5336,7 +5494,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 53,
+      "old_part_no": "261",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 एकलसिंहा़"
     },
     {
       "id": "blo_55",
@@ -5354,10 +5515,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि झबरकिया",
       "school_office": "राउप्रावि झबरकिया",
       "panchayat": "घणा",
-      "booth_no": "254",
+      "booth_no": "54",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 254 | ग्रा.पं. घणा | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 54 | ग्रा.पं. घणा | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5370,7 +5531,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 54,
+      "old_part_no": "254",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 घणा"
     },
     {
       "id": "blo_56",
@@ -5388,10 +5552,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि गुर्जरों का झोंपड़ा(घणा)",
       "school_office": "राप्रावि गुर्जरों का झोंपड़ा(घणा)",
       "panchayat": "घणा",
-      "booth_no": "252",
+      "booth_no": "54",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 252 | ग्रा.पं. घणा | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 54 | ग्रा.पं. घणा | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5404,7 +5568,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 54,
+      "old_part_no": "252",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 घणा"
     },
     {
       "id": "blo_57",
@@ -5422,10 +5589,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि घणा",
       "school_office": "राउमावि घणा",
       "panchayat": "घणा",
-      "booth_no": "253",
+      "booth_no": "55",
       "wards": "5",
       "assigned_wards": "5",
-      "area_display": "भाग सं. 253 | ग्रा.पं. घणा | वार्ड: 5",
+      "area_display": "बूथ सं. 55 | ग्रा.पं. घणा | वार्ड: 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5438,7 +5605,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 55,
+      "old_part_no": "253",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 घणा"
     },
     {
       "id": "blo_58",
@@ -5456,10 +5626,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि भैरूखेड़ा",
       "school_office": "राप्रावि भैरूखेड़ा",
       "panchayat": "घणा",
-      "booth_no": "246",
+      "booth_no": "56",
       "wards": "6, 7",
       "assigned_wards": "6, 7",
-      "area_display": "भाग सं. 246 | ग्रा.पं. घणा | वार्ड: 6, 7",
+      "area_display": "बूथ सं. 56 | ग्रा.पं. घणा | वार्ड: 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5472,7 +5642,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 56,
+      "old_part_no": "246",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 घणा"
     },
     {
       "id": "blo_59",
@@ -5490,10 +5663,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि पाण्डोलाई",
       "school_office": "राउप्रावि पाण्डोलाई",
       "panchayat": "गुढाखुर्द",
-      "booth_no": "241",
+      "booth_no": "57",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 241 | ग्रा.पं. गुढाखुर्द | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 57 | ग्रा.पं. गुढाखुर्द | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5506,7 +5679,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 57,
+      "old_part_no": "241",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 गुढाखुर्द"
     },
     {
       "id": "blo_60",
@@ -5524,10 +5700,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि गुढाखुर्द",
       "school_office": "राउमावि गुढाखुर्द",
       "panchayat": "गुढाखुर्द",
-      "booth_no": "239",
+      "booth_no": "58",
       "wards": "3, 4, 5",
       "assigned_wards": "3, 4, 5",
-      "area_display": "भाग सं. 239 | ग्रा.पं. गुढाखुर्द | वार्ड: 3, 4, 5",
+      "area_display": "बूथ सं. 58 | ग्रा.पं. गुढाखुर्द | वार्ड: 3, 4, 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5540,7 +5716,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 58,
+      "old_part_no": "239",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 गुढाखुर्द"
     },
     {
       "id": "blo_61",
@@ -5558,10 +5737,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि गुढाखुर्द",
       "school_office": "राउमावि गुढाखुर्द",
       "panchayat": "गुढाखुर्द",
-      "booth_no": "238",
+      "booth_no": "59",
       "wards": "6, 7",
       "assigned_wards": "6, 7",
-      "area_display": "भाग सं. 238 | ग्रा.पं. गुढाखुर्द | वार्ड: 6, 7",
+      "area_display": "बूथ सं. 59 | ग्रा.पं. गुढाखुर्द | वार्ड: 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5574,7 +5753,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 59,
+      "old_part_no": "238",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 गुढाखुर्द"
     },
     {
       "id": "blo_62",
@@ -5592,10 +5774,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि गुढाकला",
       "school_office": "राउप्रावि गुढाकला",
       "panchayat": "गुढाखुर्द",
-      "booth_no": "240",
+      "booth_no": "60",
       "wards": "8, 9, 10, 11",
       "assigned_wards": "8, 9, 10, 11",
-      "area_display": "भाग सं. 240 | ग्रा.पं. गुढाखुर्द | वार्ड: 8, 9, 10, 11",
+      "area_display": "बूथ सं. 60 | ग्रा.पं. गुढाखुर्द | वार्ड: 8, 9, 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5608,7 +5790,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 60,
+      "old_part_no": "240",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 गुढाखुर्द"
     },
     {
       "id": "blo_63",
@@ -5626,10 +5811,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि हियालिया",
       "school_office": "राउप्रावि हियालिया",
       "panchayat": "हियालिया",
-      "booth_no": "257",
+      "booth_no": "61",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 257 | ग्रा.पं. हियालिया | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 61 | ग्रा.पं. हियालिया | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5642,7 +5827,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 61,
+      "old_part_no": "257",
+      "booth_name": "राजकीय उच्च पर्राथमिक विद्यालय कमरा नं.-3 हियालिया"
     },
     {
       "id": "blo_64",
@@ -5660,10 +5848,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि बनेडिया",
       "school_office": "राउप्रावि बनेडिया",
       "panchayat": "हियालिया",
-      "booth_no": "258",
+      "booth_no": "62",
       "wards": "4, 5, 6, 7",
       "assigned_wards": "4, 5, 6, 7",
-      "area_display": "भाग सं. 258 | ग्रा.पं. हियालिया | वार्ड: 4, 5, 6, 7",
+      "area_display": "बूथ सं. 62 | ग्रा.पं. हियालिया | वार्ड: 4, 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5676,7 +5864,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 62,
+      "old_part_no": "258",
+      "booth_name": "राजकीय उच्च पर्राथमिक विद्यालय कमरा नं.-4 हियालिया"
     },
     {
       "id": "blo_65",
@@ -5694,10 +5885,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि कनईकला",
       "school_office": "राउमावि कनईकला",
       "panchayat": "कनईकला",
-      "booth_no": "337",
+      "booth_no": "63",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 337 | ग्रा.पं. कनईकला | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 63 | ग्रा.पं. कनईकला | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5710,7 +5901,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 63,
+      "old_part_no": "337",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कनेईकलां"
     },
     {
       "id": "blo_66",
@@ -5728,10 +5922,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि लक्ष्मीपुरा",
       "school_office": "राउप्रावि लक्ष्मीपुरा",
       "panchayat": "कनईकला",
-      "booth_no": "338",
+      "booth_no": "63",
       "wards": "3",
       "assigned_wards": "3",
-      "area_display": "भाग सं. 338 | ग्रा.पं. कनईकला | वार्ड: 3",
+      "area_display": "बूथ सं. 63 | ग्रा.पं. कनईकला | वार्ड: 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5744,7 +5938,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 63,
+      "old_part_no": "338",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कनेईकलां"
     },
     {
       "id": "blo_67",
@@ -5762,10 +5959,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि निमेडा",
       "school_office": "राउमावि निमेडा",
       "panchayat": "कनईकला",
-      "booth_no": "340",
+      "booth_no": "64",
       "wards": "4, 5, 6",
       "assigned_wards": "4, 5, 6",
-      "area_display": "भाग सं. 340 | ग्रा.पं. कनईकला | वार्ड: 4, 5, 6",
+      "area_display": "बूथ सं. 64 | ग्रा.पं. कनईकला | वार्ड: 4, 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5778,7 +5975,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 64,
+      "old_part_no": "340",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 कनेईकलां"
     },
     {
       "id": "blo_68",
@@ -5796,10 +5996,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि कनेई खुर्द",
       "school_office": "राउप्रावि कनेई खुर्द",
       "panchayat": "कनईकला",
-      "booth_no": "339",
+      "booth_no": "65",
       "wards": "7, 8, 9",
       "assigned_wards": "7, 8, 9",
-      "area_display": "भाग सं. 339 | ग्रा.पं. कनईकला | वार्ड: 7, 8, 9",
+      "area_display": "बूथ सं. 65 | ग्रा.पं. कनईकला | वार्ड: 7, 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5812,7 +6012,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 65,
+      "old_part_no": "339",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 कनेईकलां"
     },
     {
       "id": "blo_69",
@@ -5830,10 +6033,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि करांटी",
       "school_office": "राउमावि करांटी",
       "panchayat": "करांटी",
-      "booth_no": "296",
+      "booth_no": "66",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 296 | ग्रा.पं. करांटी | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 66 | ग्रा.पं. करांटी | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5846,7 +6049,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 66,
+      "old_part_no": "296",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 करांटी"
     },
     {
       "id": "blo_70",
@@ -5864,10 +6070,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि करांटी",
       "school_office": "राउमावि करांटी",
       "panchayat": "करांटी",
-      "booth_no": "297",
+      "booth_no": "67",
       "wards": "3, 4, 5",
       "assigned_wards": "3, 4, 5",
-      "area_display": "भाग सं. 297 | ग्रा.पं. करांटी | वार्ड: 3, 4, 5",
+      "area_display": "बूथ सं. 67 | ग्रा.पं. करांटी | वार्ड: 3, 4, 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5880,7 +6086,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 67,
+      "old_part_no": "297",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 करांटी"
     },
     {
       "id": "blo_71",
@@ -5898,10 +6107,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि गोपालपुरा",
       "school_office": "राउप्रावि गोपालपुरा",
       "panchayat": "करांटी",
-      "booth_no": "298",
+      "booth_no": "68",
       "wards": "6, 7",
       "assigned_wards": "6, 7",
-      "area_display": "भाग सं. 298 | ग्रा.पं. करांटी | वार्ड: 6, 7",
+      "area_display": "बूथ सं. 68 | ग्रा.पं. करांटी | वार्ड: 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5914,7 +6123,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 68,
+      "old_part_no": "298",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 करांटी"
     },
     {
       "id": "blo_72",
@@ -5932,10 +6144,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि कैरोंट",
       "school_office": "राउमावि कैरोंट",
       "panchayat": "कैरोंट",
-      "booth_no": "344",
+      "booth_no": "69",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 344 | ग्रा.पं. कैरोंट | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 69 | ग्रा.पं. कैरोंट | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5948,7 +6160,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 69,
+      "old_part_no": "344",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-10 कैरोट"
     },
     {
       "id": "blo_73",
@@ -5966,10 +6181,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि केरोट",
       "school_office": "राउमावि केरोट",
       "panchayat": "कैरोंट",
-      "booth_no": "345",
+      "booth_no": "70",
       "wards": "4, 5, 6, 7",
       "assigned_wards": "4, 5, 6, 7",
-      "area_display": "भाग सं. 345 | ग्रा.पं. कैरोंट | वार्ड: 4, 5, 6, 7",
+      "area_display": "बूथ सं. 70 | ग्रा.पं. कैरोंट | वार्ड: 4, 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5982,7 +6197,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 70,
+      "old_part_no": "345",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 कैरोट"
     },
     {
       "id": "blo_74",
@@ -6000,10 +6218,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि जेतपुरा",
       "school_office": "राउमावि जेतपुरा",
       "panchayat": "कैरोंट",
-      "booth_no": "343",
+      "booth_no": "71",
       "wards": "8, 9",
       "assigned_wards": "8, 9",
-      "area_display": "भाग सं. 343 | ग्रा.पं. कैरोंट | वार्ड: 8, 9",
+      "area_display": "बूथ सं. 71 | ग्रा.पं. कैरोंट | वार्ड: 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6016,7 +6234,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 71,
+      "old_part_no": "343",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 कैरोट"
     },
     {
       "id": "blo_75",
@@ -6034,10 +6255,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि जेतपुरा",
       "school_office": "राउमावि जेतपुरा",
       "panchayat": "कैरोंट",
-      "booth_no": "342",
+      "booth_no": "72",
       "wards": "10, 11",
       "assigned_wards": "10, 11",
-      "area_display": "भाग सं. 342 | ग्रा.पं. कैरोंट | वार्ड: 10, 11",
+      "area_display": "बूथ सं. 72 | ग्रा.पं. कैरोंट | वार्ड: 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6050,7 +6271,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 72,
+      "old_part_no": "342",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 कैरोट"
     },
     {
       "id": "blo_76",
@@ -6068,10 +6292,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि खेडी",
       "school_office": "राप्रावि खेडी",
       "panchayat": "खेडी",
-      "booth_no": "291",
+      "booth_no": "73",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 291 | ग्रा.पं. खेडी | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 73 | ग्रा.पं. खेडी | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6084,7 +6308,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 73,
+      "old_part_no": "291",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 8- खेडी"
     },
     {
       "id": "blo_77",
@@ -6102,10 +6329,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि खेडी",
       "school_office": "राउमावि खेडी",
       "panchayat": "खेडी",
-      "booth_no": "292",
+      "booth_no": "74",
       "wards": "4, 5",
       "assigned_wards": "4, 5",
-      "area_display": "भाग सं. 292 | ग्रा.पं. खेडी | वार्ड: 4, 5",
+      "area_display": "बूथ सं. 74 | ग्रा.पं. खेडी | वार्ड: 4, 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6118,7 +6345,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 74,
+      "old_part_no": "292",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 9- खेडी"
     },
     {
       "id": "blo_78",
@@ -6136,10 +6366,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि गोवलिया",
       "school_office": "राउप्रावि गोवलिया",
       "panchayat": "खेडी",
-      "booth_no": "294",
+      "booth_no": "74",
       "wards": "6, 7",
       "assigned_wards": "6, 7",
-      "area_display": "भाग सं. 294 | ग्रा.पं. खेडी | वार्ड: 6, 7",
+      "area_display": "बूथ सं. 74 | ग्रा.पं. खेडी | वार्ड: 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6152,7 +6382,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 74,
+      "old_part_no": "294",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 9- खेडी"
     },
     {
       "id": "blo_79",
@@ -6170,10 +6403,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि गोवलिया",
       "school_office": "राउप्रावि गोवलिया",
       "panchayat": "खेडी",
-      "booth_no": "295",
+      "booth_no": "75",
       "wards": "8, 9",
       "assigned_wards": "8, 9",
-      "area_display": "भाग सं. 295 | ग्रा.पं. खेडी | वार्ड: 8, 9",
+      "area_display": "बूथ सं. 75 | ग्रा.पं. खेडी | वार्ड: 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6186,7 +6419,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 75,
+      "old_part_no": "295",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 10- खेडी"
     },
     {
       "id": "blo_80",
@@ -6204,10 +6440,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि प्रतापपुरा",
       "school_office": "राउप्रावि प्रतापपुरा",
       "panchayat": "खेडी",
-      "booth_no": "290",
+      "booth_no": "76",
       "wards": "10, 11",
       "assigned_wards": "10, 11",
-      "area_display": "भाग सं. 290 | ग्रा.पं. खेडी | वार्ड: 10, 11",
+      "area_display": "बूथ सं. 76 | ग्रा.पं. खेडी | वार्ड: 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6220,7 +6456,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 76,
+      "old_part_no": "290",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 11- खेडी"
     },
     {
       "id": "blo_81",
@@ -6238,10 +6477,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि हाथीपुरा",
       "school_office": "राप्रावि हाथीपुरा",
       "panchayat": "कुम्हारिया",
-      "booth_no": "283",
+      "booth_no": "77",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 283 | ग्रा.पं. कुम्हारिया | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 77 | ग्रा.पं. कुम्हारिया | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6254,7 +6493,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 77,
+      "old_part_no": "283",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कुम्हारिया"
     },
     {
       "id": "blo_82",
@@ -6272,10 +6514,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि किटाप",
       "school_office": "राउप्रावि किटाप",
       "panchayat": "कुम्हारिया",
-      "booth_no": "287",
+      "booth_no": "77",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 287 | ग्रा.पं. कुम्हारिया | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 77 | ग्रा.पं. कुम्हारिया | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6288,7 +6530,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 77,
+      "old_part_no": "287",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कुम्हारिया"
     },
     {
       "id": "blo_83",
@@ -6306,10 +6551,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि किटाप",
       "school_office": "राउप्रावि किटाप",
       "panchayat": "कुम्हारिया",
-      "booth_no": "286",
+      "booth_no": "78",
       "wards": "5, 6",
       "assigned_wards": "5, 6",
-      "area_display": "भाग सं. 286 | ग्रा.पं. कुम्हारिया | वार्ड: 5, 6",
+      "area_display": "बूथ सं. 78 | ग्रा.पं. कुम्हारिया | वार्ड: 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6322,7 +6567,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 78,
+      "old_part_no": "286",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 कुम्हारिया"
     },
     {
       "id": "blo_84",
@@ -6340,10 +6588,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि कुम्हारिया",
       "school_office": "राउमावि कुम्हारिया",
       "panchayat": "कुम्हारिया",
-      "booth_no": "285",
+      "booth_no": "79",
       "wards": "7, 8, 11",
       "assigned_wards": "7, 8, 11",
-      "area_display": "भाग सं. 285 | ग्रा.पं. कुम्हारिया | वार्ड: 7, 8, 11",
+      "area_display": "बूथ सं. 79 | ग्रा.पं. कुम्हारिया | वार्ड: 7, 8, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6356,7 +6604,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 79,
+      "old_part_no": "285",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 कुम्हारिया"
     },
     {
       "id": "blo_85",
@@ -6374,10 +6625,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि कुम्हारिया",
       "school_office": "राउमावि कुम्हारिया",
       "panchayat": "कुम्हारिया",
-      "booth_no": "284",
+      "booth_no": "79",
       "wards": "9, 10",
       "assigned_wards": "9, 10",
-      "area_display": "भाग सं. 284 | ग्रा.पं. कुम्हारिया | वार्ड: 9, 10",
+      "area_display": "बूथ सं. 79 | ग्रा.पं. कुम्हारिया | वार्ड: 9, 10",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6390,7 +6641,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 79,
+      "old_part_no": "284",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 कुम्हारिया"
     },
     {
       "id": "blo_86",
@@ -6408,10 +6662,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि लामगरा",
       "school_office": "राउमावि लामगरा",
       "panchayat": "लामगरा",
-      "booth_no": "229",
+      "booth_no": "81",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 229 | ग्रा.पं. लामगरा | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 81 | ग्रा.पं. लामगरा | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6424,7 +6678,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 81,
+      "old_part_no": "229",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 लामगरा"
     },
     {
       "id": "blo_87",
@@ -6442,10 +6699,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि बड़ला खेड़ा",
       "school_office": "राउप्रावि बड़ला खेड़ा",
       "panchayat": "लामगरा",
-      "booth_no": "नया",
+      "booth_no": "82",
       "wards": "4",
       "assigned_wards": "4",
-      "area_display": "भाग सं. नया | ग्रा.पं. लामगरा | वार्ड: 4",
+      "area_display": "बूथ सं. 82 | ग्रा.पं. लामगरा | वार्ड: 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6458,7 +6715,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 82,
+      "old_part_no": "नया",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 लामगरा"
     },
     {
       "id": "blo_88",
@@ -6476,10 +6736,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि गनाहेडा",
       "school_office": "राउमावि गनाहेडा",
       "panchayat": "लामगरा",
-      "booth_no": "228",
+      "booth_no": "83",
       "wards": "5, 6, 7",
       "assigned_wards": "5, 6, 7",
-      "area_display": "भाग सं. 228 | ग्रा.पं. लामगरा | वार्ड: 5, 6, 7",
+      "area_display": "बूथ सं. 83 | ग्रा.पं. लामगरा | वार्ड: 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6492,7 +6752,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 83,
+      "old_part_no": "228",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-9 लामगरा"
     },
     {
       "id": "blo_89",
@@ -6510,10 +6773,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि निमेडा",
       "school_office": "राउमावि निमेडा",
       "panchayat": "लामगरा",
-      "booth_no": "247",
+      "booth_no": "84",
       "wards": "8, 9, 10, 11",
       "assigned_wards": "8, 9, 10, 11",
-      "area_display": "भाग सं. 247 | ग्रा.पं. लामगरा | वार्ड: 8, 9, 10, 11",
+      "area_display": "बूथ सं. 84 | ग्रा.पं. लामगरा | वार्ड: 8, 9, 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6526,7 +6789,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 84,
+      "old_part_no": "247",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 लामगरा"
     },
     {
       "id": "blo_90",
@@ -6544,10 +6810,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि खारोलो का खेड़ा (बड़ला)",
       "school_office": "राप्रावि खारोलो का खेड़ा (बड़ला)",
       "panchayat": "नागोला",
-      "booth_no": "319",
+      "booth_no": "85",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 319 | ग्रा.पं. नागोला | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 85 | ग्रा.पं. नागोला | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6560,7 +6826,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 85,
+      "old_part_no": "319",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 नागोला"
     },
     {
       "id": "blo_91",
@@ -6578,10 +6847,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बड़ला",
       "school_office": "राउमावि बड़ला",
       "panchayat": "नागोला",
-      "booth_no": "318",
+      "booth_no": "85",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 318 | ग्रा.पं. नागोला | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 85 | ग्रा.पं. नागोला | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6594,7 +6863,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 85,
+      "old_part_no": "318",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 नागोला"
     },
     {
       "id": "blo_92",
@@ -6612,10 +6884,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि नागोला",
       "school_office": "राउमावि नागोला",
       "panchayat": "नागोला",
-      "booth_no": "327",
+      "booth_no": "86",
       "wards": "5, 6, 7",
       "assigned_wards": "5, 6, 7",
-      "area_display": "भाग सं. 327 | ग्रा.पं. नागोला | वार्ड: 5, 6, 7",
+      "area_display": "बूथ सं. 86 | ग्रा.पं. नागोला | वार्ड: 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6628,7 +6900,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 86,
+      "old_part_no": "327",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 नागोला"
     },
     {
       "id": "blo_93",
@@ -6646,10 +6921,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि नागोला",
       "school_office": "राउमावि नागोला",
       "panchayat": "नागोला",
-      "booth_no": "325",
+      "booth_no": "87",
       "wards": "8, 9, 10",
       "assigned_wards": "8, 9, 10",
-      "area_display": "भाग सं. 325 | ग्रा.पं. नागोला | वार्ड: 8, 9, 10",
+      "area_display": "बूथ सं. 87 | ग्रा.पं. नागोला | वार्ड: 8, 9, 10",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6662,7 +6937,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 87,
+      "old_part_no": "325",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 नागोला"
     },
     {
       "id": "blo_94",
@@ -6680,10 +6958,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि बालापुरा",
       "school_office": "राउप्रावि बालापुरा",
       "panchayat": "नागोला",
-      "booth_no": "328",
+      "booth_no": "88",
       "wards": "11, 12",
       "assigned_wards": "11, 12",
-      "area_display": "भाग सं. 328 | ग्रा.पं. नागोला | वार्ड: 11, 12",
+      "area_display": "बूथ सं. 88 | ग्रा.पं. नागोला | वार्ड: 11, 12",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6696,7 +6974,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 88,
+      "old_part_no": "328",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 नागोला"
     },
     {
       "id": "blo_95",
@@ -6714,10 +6995,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि सपनीखेडा",
       "school_office": "राउप्रावि सपनीखेडा",
       "panchayat": "नागोला",
-      "booth_no": "326",
+      "booth_no": "88",
       "wards": "13",
       "assigned_wards": "13",
-      "area_display": "भाग सं. 326 | ग्रा.पं. नागोला | वार्ड: 13",
+      "area_display": "बूथ सं. 88 | ग्रा.पं. नागोला | वार्ड: 13",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6730,7 +7011,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 88,
+      "old_part_no": "326",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 नागोला"
     },
     {
       "id": "blo_96",
@@ -6748,10 +7032,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि नान्दसी",
       "school_office": "राउमावि नान्दसी",
       "panchayat": "नान्दसी",
-      "booth_no": "244",
+      "booth_no": "89",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 244 | ग्रा.पं. नान्दसी | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 89 | ग्रा.पं. नान्दसी | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6764,7 +7048,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 89,
+      "old_part_no": "244",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 नान्दसी"
     },
     {
       "id": "blo_97",
@@ -6782,10 +7069,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि नान्दसी",
       "school_office": "राउमावि नान्दसी",
       "panchayat": "नान्दसी",
-      "booth_no": "245",
+      "booth_no": "90",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 245 | ग्रा.पं. नान्दसी | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 90 | ग्रा.पं. नान्दसी | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6798,7 +7085,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 90,
+      "old_part_no": "245",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 नान्दसी"
     },
     {
       "id": "blo_98",
@@ -6816,10 +7106,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि कुरथल",
       "school_office": "राउमावि कुरथल",
       "panchayat": "नान्दसी",
-      "booth_no": "242",
+      "booth_no": "91",
       "wards": "5, 6",
       "assigned_wards": "5, 6",
-      "area_display": "भाग सं. 242 | ग्रा.पं. नान्दसी | वार्ड: 5, 6",
+      "area_display": "बूथ सं. 91 | ग्रा.पं. नान्दसी | वार्ड: 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6832,7 +7122,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 91,
+      "old_part_no": "242",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 नान्दसी"
     },
     {
       "id": "blo_99",
@@ -6850,10 +7143,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि कुरथल",
       "school_office": "राउमावि कुरथल",
       "panchayat": "नान्दसी",
-      "booth_no": "243",
+      "booth_no": "92",
       "wards": "7, 8, 9",
       "assigned_wards": "7, 8, 9",
-      "area_display": "भाग सं. 243 | ग्रा.पं. नान्दसी | वार्ड: 7, 8, 9",
+      "area_display": "बूथ सं. 92 | ग्रा.पं. नान्दसी | वार्ड: 7, 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6866,7 +7159,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 92,
+      "old_part_no": "243",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 नान्दसी"
     },
     {
       "id": "blo_100",
@@ -6884,10 +7180,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि काचरिया",
       "school_office": "राउप्रावि काचरिया",
       "panchayat": "नान्दसी",
-      "booth_no": "341",
+      "booth_no": "93",
       "wards": "10, 11",
       "assigned_wards": "10, 11",
-      "area_display": "भाग सं. 341 | ग्रा.पं. नान्दसी | वार्ड: 10, 11",
+      "area_display": "बूथ सं. 93 | ग्रा.पं. नान्दसी | वार्ड: 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6900,7 +7196,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 93,
+      "old_part_no": "341",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 नान्दसी"
     },
     {
       "id": "blo_101",
@@ -6918,10 +7217,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि अर्जुनपुरा",
       "school_office": "राउप्रावि अर्जुनपुरा",
       "panchayat": "पड़ांगा",
-      "booth_no": "272",
+      "booth_no": "94",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 272 | ग्रा.पं. पड़ांगा | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 94 | ग्रा.पं. पड़ांगा | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6934,7 +7233,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 94,
+      "old_part_no": "272",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 10 पड़ागा"
     },
     {
       "id": "blo_102",
@@ -6952,10 +7254,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि पड़ांगा",
       "school_office": "राउमावि पड़ांगा",
       "panchayat": "पड़ांगा",
-      "booth_no": "269",
+      "booth_no": "94",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 269 | ग्रा.पं. पड़ांगा | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 94 | ग्रा.पं. पड़ांगा | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6968,7 +7270,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 94,
+      "old_part_no": "269",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 10 पड़ागा"
     },
     {
       "id": "blo_103",
@@ -6986,10 +7291,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि पड़ांगा",
       "school_office": "राउमावि पड़ांगा",
       "panchayat": "पड़ांगा",
-      "booth_no": "270",
+      "booth_no": "95",
       "wards": "5, 6",
       "assigned_wards": "5, 6",
-      "area_display": "भाग सं. 270 | ग्रा.पं. पड़ांगा | वार्ड: 5, 6",
+      "area_display": "बूथ सं. 95 | ग्रा.पं. पड़ांगा | वार्ड: 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7002,7 +7307,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 95,
+      "old_part_no": "270",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 13 पड़ागा"
     },
     {
       "id": "blo_104",
@@ -7020,10 +7328,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि सवाईपुरा",
       "school_office": "राप्रावि सवाईपुरा",
       "panchayat": "पड़ांगा",
-      "booth_no": "271",
+      "booth_no": "96",
       "wards": "7",
       "assigned_wards": "7",
-      "area_display": "भाग सं. 271 | ग्रा.पं. पड़ांगा | वार्ड: 7",
+      "area_display": "बूथ सं. 96 | ग्रा.पं. पड़ांगा | वार्ड: 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7036,7 +7344,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 96,
+      "old_part_no": "271",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर-14 पड़ागा"
     },
     {
       "id": "blo_105",
@@ -7054,10 +7365,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि चावण्डिया",
       "school_office": "राउप्रावि चावण्डिया",
       "panchayat": "पाडलिया",
-      "booth_no": "336",
+      "booth_no": "97",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 336 | ग्रा.पं. पाडलिया | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 97 | ग्रा.पं. पाडलिया | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7070,7 +7381,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 97,
+      "old_part_no": "336",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 पाडलिया"
     },
     {
       "id": "blo_106",
@@ -7088,10 +7402,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि पाडलिया",
       "school_office": "राउमावि पाडलिया",
       "panchayat": "पाडलिया",
-      "booth_no": "334",
+      "booth_no": "98",
       "wards": "4, 5",
       "assigned_wards": "4, 5",
-      "area_display": "भाग सं. 334 | ग्रा.पं. पाडलिया | वार्ड: 4, 5",
+      "area_display": "बूथ सं. 98 | ग्रा.पं. पाडलिया | वार्ड: 4, 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7104,7 +7418,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 98,
+      "old_part_no": "334",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 पाडलिया"
     },
     {
       "id": "blo_107",
@@ -7122,10 +7439,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि पाडलिया",
       "school_office": "राउमावि पाडलिया",
       "panchayat": "पाडलिया",
-      "booth_no": "335",
+      "booth_no": "98",
       "wards": "6, 7",
       "assigned_wards": "6, 7",
-      "area_display": "भाग सं. 335 | ग्रा.पं. पाडलिया | वार्ड: 6, 7",
+      "area_display": "बूथ सं. 98 | ग्रा.पं. पाडलिया | वार्ड: 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7138,7 +7455,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 98,
+      "old_part_no": "335",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 पाडलिया"
     },
     {
       "id": "blo_108",
@@ -7156,10 +7476,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि गोरधनपुरा",
       "school_office": "राउप्रावि गोरधनपुरा",
       "panchayat": "पाडलिया",
-      "booth_no": "नया",
+      "booth_no": "99",
       "wards": "8, 9",
       "assigned_wards": "8, 9",
-      "area_display": "भाग सं. नया | ग्रा.पं. पाडलिया | वार्ड: 8, 9",
+      "area_display": "बूथ सं. 99 | ग्रा.पं. पाडलिया | वार्ड: 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7172,7 +7492,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 99,
+      "old_part_no": "नया",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 पाडलिया"
     },
     {
       "id": "blo_109",
@@ -7190,10 +7513,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि राममालिया",
       "school_office": "राउमावि राममालिया",
       "panchayat": "राममालिया",
-      "booth_no": "312",
+      "booth_no": "100",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 312 | ग्रा.पं. राममालिया | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 100 | ग्रा.पं. राममालिया | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7206,7 +7529,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 100,
+      "old_part_no": "312",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 राममालिया"
     },
     {
       "id": "blo_110",
@@ -7224,10 +7550,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि राममालिया",
       "school_office": "राउमावि राममालिया",
       "panchayat": "राममालिया",
-      "booth_no": "313",
+      "booth_no": "100",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 313 | ग्रा.पं. राममालिया | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 100 | ग्रा.पं. राममालिया | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7240,7 +7566,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 100,
+      "old_part_no": "313",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 राममालिया"
     },
     {
       "id": "blo_111",
@@ -7258,10 +7587,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि रघुनाथगढ़",
       "school_office": "राउप्रावि रघुनाथगढ़",
       "panchayat": "राममालिया",
-      "booth_no": "315",
+      "booth_no": "102",
       "wards": "6, 7",
       "assigned_wards": "6, 7",
-      "area_display": "भाग सं. 315 | ग्रा.पं. राममालिया | वार्ड: 6, 7",
+      "area_display": "बूथ सं. 102 | ग्रा.पं. राममालिया | वार्ड: 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7274,7 +7603,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 102,
+      "old_part_no": "315",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 राममालिया"
     },
     {
       "id": "blo_112",
@@ -7292,10 +7624,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि रघुनाथगढ़",
       "school_office": "राउप्रावि रघुनाथगढ़",
       "panchayat": "राममालिया",
-      "booth_no": "316",
+      "booth_no": "101",
       "wards": "5",
       "assigned_wards": "5",
-      "area_display": "भाग सं. 316 | ग्रा.पं. राममालिया | वार्ड: 5",
+      "area_display": "बूथ सं. 101 | ग्रा.पं. राममालिया | वार्ड: 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7308,7 +7640,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 101,
+      "old_part_no": "316",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 राममालिया"
     },
     {
       "id": "blo_113",
@@ -7326,10 +7661,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि झींपिया",
       "school_office": "राउमावि झींपिया",
       "panchayat": "राताकोट",
-      "booth_no": "268",
+      "booth_no": "103",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 268 | ग्रा.पं. राताकोट | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 103 | ग्रा.पं. राताकोट | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7342,7 +7677,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 103,
+      "old_part_no": "268",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 राताकोट"
     },
     {
       "id": "blo_114",
@@ -7360,10 +7698,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि राताकोट",
       "school_office": "राउमावि राताकोट",
       "panchayat": "राताकोट",
-      "booth_no": "266",
+      "booth_no": "104",
       "wards": "4, 5",
       "assigned_wards": "4, 5",
-      "area_display": "भाग सं. 266 | ग्रा.पं. राताकोट | वार्ड: 4, 5",
+      "area_display": "बूथ सं. 104 | ग्रा.पं. राताकोट | वार्ड: 4, 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7376,7 +7714,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 104,
+      "old_part_no": "266",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 राताकोट"
     },
     {
       "id": "blo_115",
@@ -7394,10 +7735,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि राताकोट",
       "school_office": "राउमावि राताकोट",
       "panchayat": "राताकोट",
-      "booth_no": "नया",
+      "booth_no": "105",
       "wards": "6, 7",
       "assigned_wards": "6, 7",
-      "area_display": "भाग सं. नया | ग्रा.पं. राताकोट | वार्ड: 6, 7",
+      "area_display": "बूथ सं. 105 | ग्रा.पं. राताकोट | वार्ड: 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7410,7 +7751,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 105,
+      "old_part_no": "नया",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-17 राताकोट"
     },
     {
       "id": "blo_116",
@@ -7428,10 +7772,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि राताकोट",
       "school_office": "राउमावि राताकोट",
       "panchayat": "राताकोट",
-      "booth_no": "267",
+      "booth_no": "106",
       "wards": "8, 9",
       "assigned_wards": "8, 9",
-      "area_display": "भाग सं. 267 | ग्रा.पं. राताकोट | वार्ड: 8, 9",
+      "area_display": "बूथ सं. 106 | ग्रा.पं. राताकोट | वार्ड: 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7444,7 +7788,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 106,
+      "old_part_no": "267",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 राताकोट"
     },
     {
       "id": "blo_117",
@@ -7462,10 +7809,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि खटाणो का खेडा",
       "school_office": "राउप्रावि खटाणो का खेडा",
       "panchayat": "सिंगावल",
-      "booth_no": "265",
+      "booth_no": "107",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 265 | ग्रा.पं. सिंगावल | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 107 | ग्रा.पं. सिंगावल | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7478,7 +7825,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 107,
+      "old_part_no": "265",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 सिंगावल"
     },
     {
       "id": "blo_118",
@@ -7496,10 +7846,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि सिंगावल",
       "school_office": "राउमावि सिंगावल",
       "panchayat": "सिंगावल",
-      "booth_no": "262",
+      "booth_no": "108",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 262 | ग्रा.पं. सिंगावल | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 108 | ग्रा.पं. सिंगावल | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7512,7 +7862,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 108,
+      "old_part_no": "262",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 सिंगावल"
     },
     {
       "id": "blo_119",
@@ -7530,10 +7883,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि सिंगावल",
       "school_office": "राउमावि सिंगावल",
       "panchayat": "सिंगावल",
-      "booth_no": "264",
+      "booth_no": "109",
       "wards": "5, 6",
       "assigned_wards": "5, 6",
-      "area_display": "भाग सं. 264 | ग्रा.पं. सिंगावल | वार्ड: 5, 6",
+      "area_display": "बूथ सं. 109 | ग्रा.पं. सिंगावल | वार्ड: 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7546,7 +7899,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 109,
+      "old_part_no": "264",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 सिंगावल"
     },
     {
       "id": "blo_120",
@@ -7564,10 +7920,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि सिंगावल",
       "school_office": "राउमावि सिंगावल",
       "panchayat": "सिंगावल",
-      "booth_no": "263",
+      "booth_no": "110",
       "wards": "7, 8, 9",
       "assigned_wards": "7, 8, 9",
-      "area_display": "भाग सं. 263 | ग्रा.पं. सिंगावल | वार्ड: 7, 8, 9",
+      "area_display": "बूथ सं. 110 | ग्रा.पं. सिंगावल | वार्ड: 7, 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7580,7 +7936,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 110,
+      "old_part_no": "263",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 सिंगावल"
     },
     {
       "id": "blo_121",
@@ -7598,10 +7957,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि प्रतापपुरा",
       "school_office": "राप्रावि प्रतापपुरा",
       "panchayat": "सोबडी",
-      "booth_no": "260",
+      "booth_no": "111",
       "wards": "1",
       "assigned_wards": "1",
-      "area_display": "भाग सं. 260 | ग्रा.पं. सोबडी | वार्ड: 1",
+      "area_display": "बूथ सं. 111 | ग्रा.पं. सोबडी | वार्ड: 1",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7614,7 +7973,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 111,
+      "old_part_no": "260",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 सोबडी"
     },
     {
       "id": "blo_122",
@@ -7632,10 +7994,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि तेलाडा",
       "school_office": "राउप्रावि तेलाडा",
       "panchayat": "सोबडी",
-      "booth_no": "259",
+      "booth_no": "112",
       "wards": "2, 3",
       "assigned_wards": "2, 3",
-      "area_display": "भाग सं. 259 | ग्रा.पं. सोबडी | वार्ड: 2, 3",
+      "area_display": "बूथ सं. 112 | ग्रा.पं. सोबडी | वार्ड: 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7648,7 +8010,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 112,
+      "old_part_no": "259",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 सोबडी"
     },
     {
       "id": "blo_123",
@@ -7666,10 +8031,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि सोबडी",
       "school_office": "राउमावि सोबडी",
       "panchayat": "सोबडी",
-      "booth_no": "322",
+      "booth_no": "113",
       "wards": "4, 5, 6, 7",
       "assigned_wards": "4, 5, 6, 7",
-      "area_display": "भाग सं. 322 | ग्रा.पं. सोबडी | वार्ड: 4, 5, 6, 7",
+      "area_display": "बूथ सं. 113 | ग्रा.पं. सोबडी | वार्ड: 4, 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7682,7 +8047,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 113,
+      "old_part_no": "322",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 सोबडी"
     },
     {
       "id": "blo_124",
@@ -7700,10 +8068,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि खायडा",
       "school_office": "राउप्रावि खायडा",
       "panchayat": "सोलखुर्द",
-      "booth_no": "323",
+      "booth_no": "114",
       "wards": "2, 3, 4",
       "assigned_wards": "2, 3, 4",
-      "area_display": "भाग सं. 323 | ग्रा.पं. सोलखुर्द | वार्ड: 2, 3, 4",
+      "area_display": "बूथ सं. 114 | ग्रा.पं. सोलखुर्द | वार्ड: 2, 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7716,7 +8084,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 114,
+      "old_part_no": "323",
+      "booth_name": "राजकीय प्राथमिक विद्यालय कमरा नं.-1 सोलखुर्द"
     },
     {
       "id": "blo_125",
@@ -7734,10 +8105,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि पीपलिया",
       "school_office": "राउमावि पीपलिया",
       "panchayat": "सोलखुर्द",
-      "booth_no": "324",
+      "booth_no": "115",
       "wards": "1, 5, 6, 7",
       "assigned_wards": "1, 5, 6, 7",
-      "area_display": "भाग सं. 324 | ग्रा.पं. सोलखुर्द | वार्ड: 1, 5, 6, 7",
+      "area_display": "बूथ सं. 115 | ग्रा.पं. सोलखुर्द | वार्ड: 1, 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7750,7 +8121,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 115,
+      "old_part_no": "324",
+      "booth_name": "राजकीय प्राथमिक विद्यालय कमरा नं.-2 सोलखुर्द"
     },
     {
       "id": "blo_126",
@@ -7768,10 +8142,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि सोलकला",
       "school_office": "राउप्रावि सोलकला",
       "panchayat": "सोलखुर्द",
-      "booth_no": "320",
+      "booth_no": "116",
       "wards": "8, 9",
       "assigned_wards": "8, 9",
-      "area_display": "भाग सं. 320 | ग्रा.पं. सोलखुर्द | वार्ड: 8, 9",
+      "area_display": "बूथ सं. 116 | ग्रा.पं. सोलखुर्द | वार्ड: 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7784,7 +8158,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 116,
+      "old_part_no": "320",
+      "booth_name": "राजकीय प्राथमिक विद्यालय कमरा नं.-3 सोलखुर्द"
     }
   ],
   "peeo_list": [
@@ -19891,10 +20268,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि केरियाखुर्द",
       "school_office": "राउप्रावि केरियाखुर्द",
       "panchayat": "बड़गांव",
-      "booth_no": "329",
+      "booth_no": "1",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 329 | ग्रा.पं. बड़गांव | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 1 | ग्रा.पं. बड़गांव | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -19907,7 +20284,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 1,
+      "old_part_no": "329",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बडगांव"
     },
     {
       "id": "blo_2",
@@ -19925,10 +20305,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि केरियाखुर्द",
       "school_office": "राउप्रावि केरियाखुर्द",
       "panchayat": "बड़गांव",
-      "booth_no": "330",
+      "booth_no": "2",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 330 | ग्रा.पं. बड़गांव | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 2 | ग्रा.पं. बड़गांव | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -19941,7 +20321,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 2,
+      "old_part_no": "330",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-10 बडगांव"
     },
     {
       "id": "blo_3",
@@ -19959,10 +20342,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बड़गांव",
       "school_office": "राउमावि बड़गांव",
       "panchayat": "बड़गांव",
-      "booth_no": "332",
+      "booth_no": "3",
       "wards": "6, 7, 8",
       "assigned_wards": "6, 7, 8",
-      "area_display": "भाग सं. 332 | ग्रा.पं. बड़गांव | वार्ड: 6, 7, 8",
+      "area_display": "बूथ सं. 3 | ग्रा.पं. बड़गांव | वार्ड: 6, 7, 8",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -19975,7 +20358,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 3,
+      "old_part_no": "332",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 बडगांव"
     },
     {
       "id": "blo_4",
@@ -19993,10 +20379,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बड़गांव",
       "school_office": "राउमावि बड़गांव",
       "panchayat": "बड़गांव",
-      "booth_no": "333",
+      "booth_no": "4",
       "wards": "5, 9, 10",
       "assigned_wards": "5, 9, 10",
-      "area_display": "भाग सं. 333 | ग्रा.पं. बड़गांव | वार्ड: 5, 9, 10",
+      "area_display": "बूथ सं. 4 | ग्रा.पं. बड़गांव | वार्ड: 5, 9, 10",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20009,7 +20395,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 4,
+      "old_part_no": "333",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 बडगांव"
     },
     {
       "id": "blo_5",
@@ -20027,10 +20416,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि रघुनाथपुरा",
       "school_office": "राउप्रावि रघुनाथपुरा",
       "panchayat": "बड़गांव",
-      "booth_no": "331",
+      "booth_no": "5",
       "wards": "11, 12, 13",
       "assigned_wards": "11, 12, 13",
-      "area_display": "भाग सं. 331 | ग्रा.पं. बड़गांव | वार्ड: 11, 12, 13",
+      "area_display": "बूथ सं. 5 | ग्रा.पं. बड़गांव | वार्ड: 11, 12, 13",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20043,7 +20432,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 5,
+      "old_part_no": "331",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-15 बडगांव"
     },
     {
       "id": "blo_6",
@@ -20061,10 +20453,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बड़ली",
       "school_office": "राउमावि बड़ली",
       "panchayat": "बड़ली",
-      "booth_no": "225",
+      "booth_no": "7",
       "wards": "3, 4, 5",
       "assigned_wards": "3, 4, 5",
-      "area_display": "भाग सं. 225 | ग्रा.पं. बड़ली | वार्ड: 3, 4, 5",
+      "area_display": "बूथ सं. 7 | ग्रा.पं. बड़ली | वार्ड: 3, 4, 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20077,7 +20469,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 7,
+      "old_part_no": "225",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 बड़ली"
     },
     {
       "id": "blo_7",
@@ -20095,10 +20490,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बड़ली",
       "school_office": "राउमावि बड़ली",
       "panchayat": "बड़ली",
-      "booth_no": "नया",
+      "booth_no": "6",
       "wards": "1, 6",
       "assigned_wards": "1, 6",
-      "area_display": "भाग सं. नया | ग्रा.पं. बड़ली | वार्ड: 1, 6",
+      "area_display": "बूथ सं. 6 | ग्रा.पं. बड़ली | वार्ड: 1, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20111,7 +20506,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 6,
+      "old_part_no": "नया",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 बड़ली"
     },
     {
       "id": "blo_8",
@@ -20129,10 +20527,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बड़ली",
       "school_office": "राउमावि बड़ली",
       "panchayat": "बड़ली",
-      "booth_no": "227",
+      "booth_no": "8",
       "wards": "2, 7, 8",
       "assigned_wards": "2, 7, 8",
-      "area_display": "भाग सं. 227 | ग्रा.पं. बड़ली | वार्ड: 2, 7, 8",
+      "area_display": "बूथ सं. 8 | ग्रा.पं. बड़ली | वार्ड: 2, 7, 8",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20145,7 +20543,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 8,
+      "old_part_no": "227",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 बड़ली"
     },
     {
       "id": "blo_9",
@@ -20163,10 +20564,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बड़ली",
       "school_office": "राउमावि बड़ली",
       "panchayat": "बड़ली",
-      "booth_no": "226",
+      "booth_no": "9",
       "wards": "9, 10, 11",
       "assigned_wards": "9, 10, 11",
-      "area_display": "भाग सं. 226 | ग्रा.पं. बड़ली | वार्ड: 9, 10, 11",
+      "area_display": "बूथ सं. 9 | ग्रा.पं. बड़ली | वार्ड: 9, 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20179,7 +20580,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 9,
+      "old_part_no": "226",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 बड़ली"
     },
     {
       "id": "blo_10",
@@ -20197,10 +20601,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि खेडी गुढाखुर्द",
       "school_office": "राउप्रावि खेडी गुढाखुर्द",
       "panchayat": "बगराई",
-      "booth_no": "236",
+      "booth_no": "10",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 236 | ग्रा.पं. बगराई | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 10 | ग्रा.पं. बगराई | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20213,7 +20617,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 10,
+      "old_part_no": "236",
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 बगराई"
     },
     {
       "id": "blo_11",
@@ -20231,10 +20638,10 @@ window.MASTER_DIRECTORY = {
       "school": "पीएमश्री राउमावि बगराई",
       "school_office": "पीएमश्री राउमावि बगराई",
       "panchayat": "बगराई",
-      "booth_no": "237",
+      "booth_no": "11",
       "wards": "4, 5, 6, 7",
       "assigned_wards": "4, 5, 6, 7",
-      "area_display": "भाग सं. 237 | ग्रा.पं. बगराई | वार्ड: 4, 5, 6, 7",
+      "area_display": "बूथ सं. 11 | ग्रा.पं. बगराई | वार्ड: 4, 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20247,7 +20654,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 11,
+      "old_part_no": "237",
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 बगराई"
     },
     {
       "id": "blo_12",
@@ -20265,10 +20675,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बांदनवाड़ा",
       "school_office": "राउमावि बांदनवाड़ा",
       "panchayat": "बांदनवाड़ा",
-      "booth_no": "281",
+      "booth_no": "13",
       "wards": "1, 5, 6",
       "assigned_wards": "1, 5, 6",
-      "area_display": "भाग सं. 281 | ग्रा.पं. बांदनवाड़ा | वार्ड: 1, 5, 6",
+      "area_display": "बूथ सं. 13 | ग्रा.पं. बांदनवाड़ा | वार्ड: 1, 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20281,7 +20691,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 13,
+      "old_part_no": "281",
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-15 बांदनवाड़ा"
     },
     {
       "id": "blo_13",
@@ -20299,10 +20712,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि रेल्वे काॅलोनी, बांदनवाडा",
       "school_office": "राउमावि रेल्वे काॅलोनी, बांदनवाडा",
       "panchayat": "बांदनवाड़ा",
-      "booth_no": "280",
+      "booth_no": "12",
       "wards": "2, 3, 4",
       "assigned_wards": "2, 3, 4",
-      "area_display": "भाग सं. 280 | ग्रा.पं. बांदनवाड़ा | वार्ड: 2, 3, 4",
+      "area_display": "बूथ सं. 12 | ग्रा.पं. बांदनवाड़ा | वार्ड: 2, 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20315,7 +20728,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 12,
+      "old_part_no": "280",
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-14 बांदनवाड़ा"
     },
     {
       "id": "blo_14",
@@ -20333,10 +20749,10 @@ window.MASTER_DIRECTORY = {
       "school": "मगांरावि बांदनवाड़ा",
       "school_office": "मगांरावि बांदनवाड़ा",
       "panchayat": "बांदनवाड़ा",
-      "booth_no": "282",
+      "booth_no": "14",
       "wards": "8, 9",
       "assigned_wards": "8, 9",
-      "area_display": "भाग सं. 282 | ग्रा.पं. बांदनवाड़ा | वार्ड: 8, 9",
+      "area_display": "बूथ सं. 14 | ग्रा.पं. बांदनवाड़ा | वार्ड: 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20349,7 +20765,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 14,
+      "old_part_no": "282",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बांदनवाड़ा़(प्राथमिक अनुभाग)"
     },
     {
       "id": "blo_15",
@@ -20367,10 +20786,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बांदनवाड़ा",
       "school_office": "राउमावि बांदनवाड़ा",
       "panchayat": "बांदनवाड़ा",
-      "booth_no": "279",
+      "booth_no": "14",
       "wards": "7, 10, 12",
       "assigned_wards": "7, 10, 12",
-      "area_display": "भाग सं. 279 | ग्रा.पं. बांदनवाड़ा | वार्ड: 7, 10, 12",
+      "area_display": "बूथ सं. 14 | ग्रा.पं. बांदनवाड़ा | वार्ड: 7, 10, 12",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20383,7 +20802,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 14,
+      "old_part_no": "279",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बांदनवाड़ा़(प्राथमिक अनुभाग)"
     },
     {
       "id": "blo_16",
@@ -20401,10 +20823,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बांदनवाड़ा",
       "school_office": "राउमावि बांदनवाड़ा",
       "panchayat": "बांदनवाड़ा",
-      "booth_no": "278",
+      "booth_no": "15",
       "wards": "11, 16, 17",
       "assigned_wards": "11, 16, 17",
-      "area_display": "भाग सं. 278 | ग्रा.पं. बांदनवाड़ा | वार्ड: 11, 16, 17",
+      "area_display": "बूथ सं. 15 | ग्रा.पं. बांदनवाड़ा | वार्ड: 11, 16, 17",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20417,7 +20839,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 15,
+      "old_part_no": "278",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 बांदनवाड़ा़(प्राथमिक अनुभाग)"
     },
     {
       "id": "blo_17",
@@ -20435,10 +20860,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बांदनवाड़ा",
       "school_office": "राउमावि बांदनवाड़ा",
       "panchayat": "बांदनवाड़ा",
-      "booth_no": "277",
+      "booth_no": "17",
       "wards": "13, 14, 15",
       "assigned_wards": "13, 14, 15",
-      "area_display": "भाग सं. 277 | ग्रा.पं. बांदनवाड़ा | वार्ड: 13, 14, 15",
+      "area_display": "बूथ सं. 17 | ग्रा.पं. बांदनवाड़ा | वार्ड: 13, 14, 15",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20451,7 +20876,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 17,
+      "old_part_no": "277",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-9 बांदनवाड़ा"
     },
     {
       "id": "blo_18",
@@ -20469,10 +20897,10 @@ window.MASTER_DIRECTORY = {
       "school": "मगांरावि भिनाय",
       "school_office": "मगांरावि भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "305",
+      "booth_no": "18",
       "wards": "3, 4, 8",
       "assigned_wards": "3, 4, 8",
-      "area_display": "भाग सं. 305 | ग्रा.पं. भिनाय | वार्ड: 3, 4, 8",
+      "area_display": "बूथ सं. 18 | ग्रा.पं. भिनाय | वार्ड: 3, 4, 8",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20485,7 +20913,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 18,
+      "old_part_no": "305",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-19 भिनाय"
     },
     {
       "id": "blo_19",
@@ -20503,10 +20934,10 @@ window.MASTER_DIRECTORY = {
       "school": "मगांरावि भिनाय",
       "school_office": "मगांरावि भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "306",
+      "booth_no": "19",
       "wards": "2, 5, 6",
       "assigned_wards": "2, 5, 6",
-      "area_display": "भाग सं. 306 | ग्रा.पं. भिनाय | वार्ड: 2, 5, 6",
+      "area_display": "बूथ सं. 19 | ग्रा.पं. भिनाय | वार्ड: 2, 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20519,7 +20950,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 19,
+      "old_part_no": "306",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-33 भिनाय"
     },
     {
       "id": "blo_20",
@@ -20537,10 +20971,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि भिनाय",
       "school_office": "राउमावि भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "303",
+      "booth_no": "20",
       "wards": "7, 9, 10",
       "assigned_wards": "7, 9, 10",
-      "area_display": "भाग सं. 303 | ग्रा.पं. भिनाय | वार्ड: 7, 9, 10",
+      "area_display": "बूथ सं. 20 | ग्रा.पं. भिनाय | वार्ड: 7, 9, 10",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20553,7 +20987,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 20,
+      "old_part_no": "303",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-37 भिनाय"
     },
     {
       "id": "blo_21",
@@ -20571,10 +21008,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि भिनाय",
       "school_office": "राउमावि भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "304",
+      "booth_no": "21",
       "wards": "11, 12, 13",
       "assigned_wards": "11, 12, 13",
-      "area_display": "भाग सं. 304 | ग्रा.पं. भिनाय | वार्ड: 11, 12, 13",
+      "area_display": "बूथ सं. 21 | ग्रा.पं. भिनाय | वार्ड: 11, 12, 13",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20587,7 +21024,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 21,
+      "old_part_no": "304",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-39 भिनाय"
     },
     {
       "id": "blo_22",
@@ -20605,10 +21045,10 @@ window.MASTER_DIRECTORY = {
       "school": "राजकीय वरिष्ठ उपाध्याय संस्कृत विद्यालय भिनाय",
       "school_office": "राजकीय वरिष्ठ उपाध्याय संस्कृत विद्यालय भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "301",
+      "booth_no": "22",
       "wards": "14, 15",
       "assigned_wards": "14, 15",
-      "area_display": "भाग सं. 301 | ग्रा.पं. भिनाय | वार्ड: 14, 15",
+      "area_display": "बूथ सं. 22 | ग्रा.पं. भिनाय | वार्ड: 14, 15",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20621,7 +21061,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 22,
+      "old_part_no": "301",
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-4 भिनाय"
     },
     {
       "id": "blo_23",
@@ -20639,10 +21082,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि भिनाय",
       "school_office": "राउमावि भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "300",
+      "booth_no": "23",
       "wards": "16, 17, 19",
       "assigned_wards": "16, 17, 19",
-      "area_display": "भाग सं. 300 | ग्रा.पं. भिनाय | वार्ड: 16, 17, 19",
+      "area_display": "बूथ सं. 23 | ग्रा.पं. भिनाय | वार्ड: 16, 17, 19",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20655,7 +21098,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 23,
+      "old_part_no": "300",
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-5 भिनाय"
     },
     {
       "id": "blo_24",
@@ -20673,10 +21119,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि भिनाय",
       "school_office": "राउमावि भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "302",
+      "booth_no": "24",
       "wards": "18, 21",
       "assigned_wards": "18, 21",
-      "area_display": "भाग सं. 302 | ग्रा.पं. भिनाय | वार्ड: 18, 21",
+      "area_display": "बूथ सं. 24 | ग्रा.पं. भिनाय | वार्ड: 18, 21",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20689,7 +21135,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 24,
+      "old_part_no": "302",
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-09 भिनाय"
     },
     {
       "id": "blo_25",
@@ -20707,10 +21156,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि भिनाय",
       "school_office": "राउमावि भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "299",
+      "booth_no": "18",
       "wards": "1, 20",
       "assigned_wards": "1, 20",
-      "area_display": "भाग सं. 299 | ग्रा.पं. भिनाय | वार्ड: 1, 20",
+      "area_display": "बूथ सं. 18 | ग्रा.पं. भिनाय | वार्ड: 1, 20",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20723,7 +21172,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 18,
+      "old_part_no": "299",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-19 भिनाय"
     },
     {
       "id": "blo_26",
@@ -20741,10 +21193,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि हीरापुरा",
       "school_office": "राउमावि हीरापुरा",
       "panchayat": "बूबकिया",
-      "booth_no": "310",
+      "booth_no": "26",
       "wards": "1, 2, 3, 4",
       "assigned_wards": "1, 2, 3, 4",
-      "area_display": "भाग सं. 310 | ग्रा.पं. बूबकिया | वार्ड: 1, 2, 3, 4",
+      "area_display": "बूथ सं. 26 | ग्रा.पं. बूबकिया | वार्ड: 1, 2, 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20757,7 +21209,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 26,
+      "old_part_no": "310",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-7 बूबकिया"
     },
     {
       "id": "blo_27",
@@ -20775,10 +21230,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि रेण",
       "school_office": "राप्रावि रेण",
       "panchayat": "बूबकिया",
-      "booth_no": "321",
+      "booth_no": "27",
       "wards": "5, 6",
       "assigned_wards": "5, 6",
-      "area_display": "भाग सं. 321 | ग्रा.पं. बूबकिया | वार्ड: 5, 6",
+      "area_display": "बूथ सं. 27 | ग्रा.पं. बूबकिया | वार्ड: 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20791,7 +21246,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 27,
+      "old_part_no": "321",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-10 बूबकिया"
     },
     {
       "id": "blo_28",
@@ -20809,10 +21267,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बूबकिया",
       "school_office": "राउमावि बूबकिया",
       "panchayat": "बूबकिया",
-      "booth_no": "317",
+      "booth_no": "28",
       "wards": "7, 8, 9",
       "assigned_wards": "7, 8, 9",
-      "area_display": "भाग सं. 317 | ग्रा.पं. बूबकिया | वार्ड: 7, 8, 9",
+      "area_display": "बूथ सं. 28 | ग्रा.पं. बूबकिया | वार्ड: 7, 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20825,7 +21283,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 28,
+      "old_part_no": "317",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-11 बूबकिया"
     },
     {
       "id": "blo_29",
@@ -20843,10 +21304,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि पीलोदा",
       "school_office": "राप्रावि पीलोदा",
       "panchayat": "बूबकिया",
-      "booth_no": "314",
+      "booth_no": "29",
       "wards": "9, 10, 11",
       "assigned_wards": "9, 10, 11",
-      "area_display": "भाग सं. 314 | ग्रा.पं. बूबकिया | वार्ड: 9, 10, 11",
+      "area_display": "बूथ सं. 29 | ग्रा.पं. बूबकिया | वार्ड: 9, 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20859,7 +21320,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 29,
+      "old_part_no": "314",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर:-12 बूबकिया"
     },
     {
       "id": "blo_30",
@@ -20877,10 +21341,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि चापानेरी",
       "school_office": "राउमावि चापानेरी",
       "panchayat": "चापानेरी",
-      "booth_no": "248",
+      "booth_no": "30",
       "wards": "1, 6, 9",
       "assigned_wards": "1, 6, 9",
-      "area_display": "भाग सं. 248 | ग्रा.पं. चापानेरी | वार्ड: 1, 6, 9",
+      "area_display": "बूथ सं. 30 | ग्रा.पं. चापानेरी | वार्ड: 1, 6, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20893,7 +21357,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 30,
+      "old_part_no": "248",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 चापानेरी"
     },
     {
       "id": "blo_31",
@@ -20911,10 +21378,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि चापानेरी",
       "school_office": "राउमावि चापानेरी",
       "panchayat": "चापानेरी",
-      "booth_no": "251",
+      "booth_no": "30",
       "wards": "2, 4, 11",
       "assigned_wards": "2, 4, 11",
-      "area_display": "भाग सं. 251 | ग्रा.पं. चापानेरी | वार्ड: 2, 4, 11",
+      "area_display": "बूथ सं. 30 | ग्रा.पं. चापानेरी | वार्ड: 2, 4, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20927,7 +21394,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 30,
+      "old_part_no": "251",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 चापानेरी"
     },
     {
       "id": "blo_32",
@@ -20945,10 +21415,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि चापानेरी",
       "school_office": "राउमावि चापानेरी",
       "panchayat": "चापानेरी",
-      "booth_no": "249",
+      "booth_no": "31",
       "wards": "5, 8, 10",
       "assigned_wards": "5, 8, 10",
-      "area_display": "भाग सं. 249 | ग्रा.पं. चापानेरी | वार्ड: 5, 8, 10",
+      "area_display": "बूथ सं. 31 | ग्रा.पं. चापानेरी | वार्ड: 5, 8, 10",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20961,7 +21431,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 31,
+      "old_part_no": "249",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 चापानेरी"
     },
     {
       "id": "blo_33",
@@ -20979,10 +21452,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि चापानेरी",
       "school_office": "राउमावि चापानेरी",
       "panchayat": "चापानेरी",
-      "booth_no": "250",
+      "booth_no": "31",
       "wards": "3, 7",
       "assigned_wards": "3, 7",
-      "area_display": "भाग सं. 250 | ग्रा.पं. चापानेरी | वार्ड: 3, 7",
+      "area_display": "बूथ सं. 31 | ग्रा.पं. चापानेरी | वार्ड: 3, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -20995,7 +21468,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 31,
+      "old_part_no": "250",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 चापानेरी"
     },
     {
       "id": "blo_34",
@@ -21013,10 +21489,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि दौलतपुरा",
       "school_office": "राउप्रावि दौलतपुरा",
       "panchayat": "छछून्दरा",
-      "booth_no": "नया",
+      "booth_no": "34",
       "wards": "1",
       "assigned_wards": "1",
-      "area_display": "भाग सं. नया | ग्रा.पं. छछून्दरा | वार्ड: 1",
+      "area_display": "बूथ सं. 34 | ग्रा.पं. छछून्दरा | वार्ड: 1",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21029,7 +21505,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 34,
+      "old_part_no": "नया",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 छछुन्दरा"
     },
     {
       "id": "blo_35",
@@ -21047,10 +21526,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि जोरावरपुरा",
       "school_office": "राउप्रावि जोरावरपुरा",
       "panchayat": "छछून्दरा",
-      "booth_no": "293",
+      "booth_no": "34",
       "wards": "2, 3, 6",
       "assigned_wards": "2, 3, 6",
-      "area_display": "भाग सं. 293 | ग्रा.पं. छछून्दरा | वार्ड: 2, 3, 6",
+      "area_display": "बूथ सं. 34 | ग्रा.पं. छछून्दरा | वार्ड: 2, 3, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21063,7 +21542,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 34,
+      "old_part_no": "293",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 छछुन्दरा"
     },
     {
       "id": "blo_36",
@@ -21081,10 +21563,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि सरगांव",
       "school_office": "राउप्रावि सरगांव",
       "panchayat": "छछून्दरा",
-      "booth_no": "307",
+      "booth_no": "35",
       "wards": "4, 5",
       "assigned_wards": "4, 5",
-      "area_display": "भाग सं. 307 | ग्रा.पं. छछून्दरा | वार्ड: 4, 5",
+      "area_display": "बूथ सं. 35 | ग्रा.पं. छछून्दरा | वार्ड: 4, 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21097,7 +21579,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 35,
+      "old_part_no": "307",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 छछुन्दरा"
     },
     {
       "id": "blo_37",
@@ -21115,10 +21600,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि छछून्दरा",
       "school_office": "राउमावि छछून्दरा",
       "panchayat": "छछून्दरा",
-      "booth_no": "289",
+      "booth_no": "36",
       "wards": "7, 8",
       "assigned_wards": "7, 8",
-      "area_display": "भाग सं. 289 | ग्रा.पं. छछून्दरा | वार्ड: 7, 8",
+      "area_display": "बूथ सं. 36 | ग्रा.पं. छछून्दरा | वार्ड: 7, 8",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21131,7 +21616,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 36,
+      "old_part_no": "289",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 छछुन्दरा"
     },
     {
       "id": "blo_38",
@@ -21149,10 +21637,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि सेदरिया",
       "school_office": "राउमावि सेदरिया",
       "panchayat": "छछून्दरा",
-      "booth_no": "288",
+      "booth_no": "37",
       "wards": "9, 10, 11",
       "assigned_wards": "9, 10, 11",
-      "area_display": "भाग सं. 288 | ग्रा.पं. छछून्दरा | वार्ड: 9, 10, 11",
+      "area_display": "बूथ सं. 37 | ग्रा.पं. छछून्दरा | वार्ड: 9, 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21165,7 +21653,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 37,
+      "old_part_no": "288",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 छछुन्दरा"
     },
     {
       "id": "blo_39",
@@ -21183,10 +21674,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि माताजी का खेडा",
       "school_office": "राउप्रावि माताजी का खेडा",
       "panchayat": "देवलियाकलां",
-      "booth_no": "235",
+      "booth_no": "38",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 235 | ग्रा.पं. देवलियाकलां | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 38 | ग्रा.पं. देवलियाकलां | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21199,7 +21690,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 38,
+      "old_part_no": "235",
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 देवलियाकलां"
     },
     {
       "id": "blo_40",
@@ -21217,10 +21711,10 @@ window.MASTER_DIRECTORY = {
       "school": "पीएमश्री राउमावि देवलिया कलां",
       "school_office": "पीएमश्री राउमावि देवलिया कलां",
       "panchayat": "देवलियाकलां",
-      "booth_no": "230",
+      "booth_no": "38",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 230 | ग्रा.पं. देवलियाकलां | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 38 | ग्रा.पं. देवलियाकलां | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21233,7 +21727,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 38,
+      "old_part_no": "230",
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 देवलियाकलां"
     },
     {
       "id": "blo_41",
@@ -21251,10 +21748,10 @@ window.MASTER_DIRECTORY = {
       "school": "मगांरावि देवलिया कलां",
       "school_office": "मगांरावि देवलिया कलां",
       "panchayat": "देवलियाकलां",
-      "booth_no": "232",
+      "booth_no": "39",
       "wards": "5, 6",
       "assigned_wards": "5, 6",
-      "area_display": "भाग सं. 232 | ग्रा.पं. देवलियाकलां | वार्ड: 5, 6",
+      "area_display": "बूथ सं. 39 | ग्रा.पं. देवलियाकलां | वार्ड: 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21267,7 +21764,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 39,
+      "old_part_no": "232",
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 देवलियाकलां"
     },
     {
       "id": "blo_42",
@@ -21285,10 +21785,10 @@ window.MASTER_DIRECTORY = {
       "school": "पीएमश्री राउमावि देवलिया कलां",
       "school_office": "पीएमश्री राउमावि देवलिया कलां",
       "panchayat": "देवलियाकलां",
-      "booth_no": "233",
+      "booth_no": "41",
       "wards": "7, 8, 9",
       "assigned_wards": "7, 8, 9",
-      "area_display": "भाग सं. 233 | ग्रा.पं. देवलियाकलां | वार्ड: 7, 8, 9",
+      "area_display": "बूथ सं. 41 | ग्रा.पं. देवलियाकलां | वार्ड: 7, 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21301,7 +21801,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 41,
+      "old_part_no": "233",
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-20 देवलियाकलां"
     },
     {
       "id": "blo_43",
@@ -21319,10 +21822,10 @@ window.MASTER_DIRECTORY = {
       "school": "पीएमश्री राउमावि देवलिया कलां",
       "school_office": "पीएमश्री राउमावि देवलिया कलां",
       "panchayat": "देवलियाकलां",
-      "booth_no": "231",
+      "booth_no": "42",
       "wards": "10, 11, 12",
       "assigned_wards": "10, 11, 12",
-      "area_display": "भाग सं. 231 | ग्रा.पं. देवलियाकलां | वार्ड: 10, 11, 12",
+      "area_display": "बूथ सं. 42 | ग्रा.पं. देवलियाकलां | वार्ड: 10, 11, 12",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21335,7 +21838,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 42,
+      "old_part_no": "231",
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-2 देवलियाकला"
     },
     {
       "id": "blo_44",
@@ -21353,10 +21859,10 @@ window.MASTER_DIRECTORY = {
       "school": "पीएमश्री राउमावि देवलिया कलां",
       "school_office": "पीएमश्री राउमावि देवलिया कलां",
       "panchayat": "देवलियाकलां",
-      "booth_no": "234",
+      "booth_no": "43",
       "wards": "13, 14, 15",
       "assigned_wards": "13, 14, 15",
-      "area_display": "भाग सं. 234 | ग्रा.पं. देवलियाकलां | वार्ड: 13, 14, 15",
+      "area_display": "बूथ सं. 43 | ग्रा.पं. देवलियाकलां | वार्ड: 13, 14, 15",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21369,7 +21875,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 43,
+      "old_part_no": "234",
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-3 देवलियाकला"
     },
     {
       "id": "blo_45",
@@ -21387,10 +21896,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि देवरिया",
       "school_office": "राउमावि देवरिया",
       "panchayat": "देवपुरा",
-      "booth_no": "273",
+      "booth_no": "44",
       "wards": "2, 3, 4",
       "assigned_wards": "2, 3, 4",
-      "area_display": "भाग सं. 273 | ग्रा.पं. देवपुरा | वार्ड: 2, 3, 4",
+      "area_display": "बूथ सं. 44 | ग्रा.पं. देवपुरा | वार्ड: 2, 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21403,7 +21912,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 44,
+      "old_part_no": "273",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 देवपुरा(देवपुरा)"
     },
     {
       "id": "blo_46",
@@ -21421,10 +21933,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि गज्जानाडी",
       "school_office": "राप्रावि गज्जानाडी",
       "panchayat": "देवपुरा",
-      "booth_no": "274",
+      "booth_no": "45",
       "wards": "5, 6",
       "assigned_wards": "5, 6",
-      "area_display": "भाग सं. 274 | ग्रा.पं. देवपुरा | वार्ड: 5, 6",
+      "area_display": "बूथ सं. 45 | ग्रा.पं. देवपुरा | वार्ड: 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21437,7 +21949,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 45,
+      "old_part_no": "274",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 देवपुरा(देवपुरा)"
     },
     {
       "id": "blo_47",
@@ -21455,10 +21970,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि रामपुरा",
       "school_office": "राप्रावि रामपुरा",
       "panchayat": "देवपुरा",
-      "booth_no": "275",
+      "booth_no": "46",
       "wards": "1, 7, 8",
       "assigned_wards": "1, 7, 8",
-      "area_display": "भाग सं. 275 | ग्रा.पं. देवपुरा | वार्ड: 1, 7, 8",
+      "area_display": "बूथ सं. 46 | ग्रा.पं. देवपुरा | वार्ड: 1, 7, 8",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21471,7 +21986,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 46,
+      "old_part_no": "275",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 देवपुरा(देवपुरा)"
     },
     {
       "id": "blo_48",
@@ -21489,10 +22007,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि मोतीपुरा",
       "school_office": "राउप्रावि मोतीपुरा",
       "panchayat": "देवपुरा",
-      "booth_no": "276",
+      "booth_no": "47",
       "wards": "9, 10, 11",
       "assigned_wards": "9, 10, 11",
-      "area_display": "भाग सं. 276 | ग्रा.पं. देवपुरा | वार्ड: 9, 10, 11",
+      "area_display": "बूथ सं. 47 | ग्रा.पं. देवपुरा | वार्ड: 9, 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21505,7 +22023,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 47,
+      "old_part_no": "276",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 देवपुरा(देवपुरा)"
     },
     {
       "id": "blo_49",
@@ -21523,10 +22044,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि धांतोल",
       "school_office": "राउमावि धांतोल",
       "panchayat": "धांतोल",
-      "booth_no": "309",
+      "booth_no": "48",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 309 | ग्रा.पं. धांतोल | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 48 | ग्रा.पं. धांतोल | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21539,7 +22060,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 48,
+      "old_part_no": "309",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 धांतोल"
     },
     {
       "id": "blo_50",
@@ -21557,10 +22081,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि उदयगढ खेडा",
       "school_office": "राउप्रावि उदयगढ खेडा",
       "panchayat": "धांतोल",
-      "booth_no": "308",
+      "booth_no": "49",
       "wards": "4, 5, 6, 7",
       "assigned_wards": "4, 5, 6, 7",
-      "area_display": "भाग सं. 308 | ग्रा.पं. धांतोल | वार्ड: 4, 5, 6, 7",
+      "area_display": "बूथ सं. 49 | ग्रा.पं. धांतोल | वार्ड: 4, 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21573,7 +22097,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 49,
+      "old_part_no": "308",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 धांतोल"
     },
     {
       "id": "blo_51",
@@ -21591,10 +22118,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि गूजरवाडा",
       "school_office": "राउप्रावि गूजरवाडा",
       "panchayat": "धांतोल",
-      "booth_no": "311",
+      "booth_no": "50",
       "wards": "8, 9",
       "assigned_wards": "8, 9",
-      "area_display": "भाग सं. 311 | ग्रा.पं. धांतोल | वार्ड: 8, 9",
+      "area_display": "बूथ सं. 50 | ग्रा.पं. धांतोल | वार्ड: 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21607,7 +22134,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 50,
+      "old_part_no": "311",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 धांतोल"
     },
     {
       "id": "blo_52",
@@ -21625,10 +22155,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि एकलसिंहा",
       "school_office": "राउमावि एकलसिंहा",
       "panchayat": "एकलसिंहा",
-      "booth_no": "255",
+      "booth_no": "51",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 255 | ग्रा.पं. एकलसिंहा | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 51 | ग्रा.पं. एकलसिंहा | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21641,7 +22171,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 51,
+      "old_part_no": "255",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 एकलसिंहा़"
     },
     {
       "id": "blo_53",
@@ -21659,10 +22192,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि एकलसिंहा",
       "school_office": "राउमावि एकलसिंहा",
       "panchayat": "एकलसिंहा",
-      "booth_no": "256",
+      "booth_no": "52",
       "wards": "4, 5, 6",
       "assigned_wards": "4, 5, 6",
-      "area_display": "भाग सं. 256 | ग्रा.पं. एकलसिंहा | वार्ड: 4, 5, 6",
+      "area_display": "बूथ सं. 52 | ग्रा.पं. एकलसिंहा | वार्ड: 4, 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21675,7 +22208,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 52,
+      "old_part_no": "256",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 एकलसिंहा़"
     },
     {
       "id": "blo_54",
@@ -21693,10 +22229,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि चावण्डिया",
       "school_office": "राउप्रावि चावण्डिया",
       "panchayat": "एकलसिंहा",
-      "booth_no": "261",
+      "booth_no": "53",
       "wards": "7, 8, 9",
       "assigned_wards": "7, 8, 9",
-      "area_display": "भाग सं. 261 | ग्रा.पं. एकलसिंहा | वार्ड: 7, 8, 9",
+      "area_display": "बूथ सं. 53 | ग्रा.पं. एकलसिंहा | वार्ड: 7, 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21709,7 +22245,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 53,
+      "old_part_no": "261",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 एकलसिंहा़"
     },
     {
       "id": "blo_55",
@@ -21727,10 +22266,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि झबरकिया",
       "school_office": "राउप्रावि झबरकिया",
       "panchayat": "घणा",
-      "booth_no": "254",
+      "booth_no": "54",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 254 | ग्रा.पं. घणा | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 54 | ग्रा.पं. घणा | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21743,7 +22282,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 54,
+      "old_part_no": "254",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 घणा"
     },
     {
       "id": "blo_56",
@@ -21761,10 +22303,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि गुर्जरों का झोंपड़ा(घणा)",
       "school_office": "राप्रावि गुर्जरों का झोंपड़ा(घणा)",
       "panchayat": "घणा",
-      "booth_no": "252",
+      "booth_no": "54",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 252 | ग्रा.पं. घणा | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 54 | ग्रा.पं. घणा | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21777,7 +22319,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 54,
+      "old_part_no": "252",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 घणा"
     },
     {
       "id": "blo_57",
@@ -21795,10 +22340,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि घणा",
       "school_office": "राउमावि घणा",
       "panchayat": "घणा",
-      "booth_no": "253",
+      "booth_no": "55",
       "wards": "5",
       "assigned_wards": "5",
-      "area_display": "भाग सं. 253 | ग्रा.पं. घणा | वार्ड: 5",
+      "area_display": "बूथ सं. 55 | ग्रा.पं. घणा | वार्ड: 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21811,7 +22356,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 55,
+      "old_part_no": "253",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 घणा"
     },
     {
       "id": "blo_58",
@@ -21829,10 +22377,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि भैरूखेड़ा",
       "school_office": "राप्रावि भैरूखेड़ा",
       "panchayat": "घणा",
-      "booth_no": "246",
+      "booth_no": "56",
       "wards": "6, 7",
       "assigned_wards": "6, 7",
-      "area_display": "भाग सं. 246 | ग्रा.पं. घणा | वार्ड: 6, 7",
+      "area_display": "बूथ सं. 56 | ग्रा.पं. घणा | वार्ड: 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21845,7 +22393,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 56,
+      "old_part_no": "246",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 घणा"
     },
     {
       "id": "blo_59",
@@ -21863,10 +22414,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि पाण्डोलाई",
       "school_office": "राउप्रावि पाण्डोलाई",
       "panchayat": "गुढाखुर्द",
-      "booth_no": "241",
+      "booth_no": "57",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 241 | ग्रा.पं. गुढाखुर्द | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 57 | ग्रा.पं. गुढाखुर्द | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21879,7 +22430,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 57,
+      "old_part_no": "241",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 गुढाखुर्द"
     },
     {
       "id": "blo_60",
@@ -21897,10 +22451,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि गुढाखुर्द",
       "school_office": "राउमावि गुढाखुर्द",
       "panchayat": "गुढाखुर्द",
-      "booth_no": "239",
+      "booth_no": "58",
       "wards": "3, 4, 5",
       "assigned_wards": "3, 4, 5",
-      "area_display": "भाग सं. 239 | ग्रा.पं. गुढाखुर्द | वार्ड: 3, 4, 5",
+      "area_display": "बूथ सं. 58 | ग्रा.पं. गुढाखुर्द | वार्ड: 3, 4, 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21913,7 +22467,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 58,
+      "old_part_no": "239",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 गुढाखुर्द"
     },
     {
       "id": "blo_61",
@@ -21931,10 +22488,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि गुढाखुर्द",
       "school_office": "राउमावि गुढाखुर्द",
       "panchayat": "गुढाखुर्द",
-      "booth_no": "238",
+      "booth_no": "59",
       "wards": "6, 7",
       "assigned_wards": "6, 7",
-      "area_display": "भाग सं. 238 | ग्रा.पं. गुढाखुर्द | वार्ड: 6, 7",
+      "area_display": "बूथ सं. 59 | ग्रा.पं. गुढाखुर्द | वार्ड: 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21947,7 +22504,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 59,
+      "old_part_no": "238",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 गुढाखुर्द"
     },
     {
       "id": "blo_62",
@@ -21965,10 +22525,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि गुढाकला",
       "school_office": "राउप्रावि गुढाकला",
       "panchayat": "गुढाखुर्द",
-      "booth_no": "240",
+      "booth_no": "60",
       "wards": "8, 9, 10, 11",
       "assigned_wards": "8, 9, 10, 11",
-      "area_display": "भाग सं. 240 | ग्रा.पं. गुढाखुर्द | वार्ड: 8, 9, 10, 11",
+      "area_display": "बूथ सं. 60 | ग्रा.पं. गुढाखुर्द | वार्ड: 8, 9, 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -21981,7 +22541,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 60,
+      "old_part_no": "240",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 गुढाखुर्द"
     },
     {
       "id": "blo_63",
@@ -21999,10 +22562,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि हियालिया",
       "school_office": "राउप्रावि हियालिया",
       "panchayat": "हियालिया",
-      "booth_no": "257",
+      "booth_no": "61",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 257 | ग्रा.पं. हियालिया | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 61 | ग्रा.पं. हियालिया | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22015,7 +22578,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 61,
+      "old_part_no": "257",
+      "booth_name": "राजकीय उच्च पर्राथमिक विद्यालय कमरा नं.-3 हियालिया"
     },
     {
       "id": "blo_64",
@@ -22033,10 +22599,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि बनेडिया",
       "school_office": "राउप्रावि बनेडिया",
       "panchayat": "हियालिया",
-      "booth_no": "258",
+      "booth_no": "62",
       "wards": "4, 5, 6, 7",
       "assigned_wards": "4, 5, 6, 7",
-      "area_display": "भाग सं. 258 | ग्रा.पं. हियालिया | वार्ड: 4, 5, 6, 7",
+      "area_display": "बूथ सं. 62 | ग्रा.पं. हियालिया | वार्ड: 4, 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22049,7 +22615,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 62,
+      "old_part_no": "258",
+      "booth_name": "राजकीय उच्च पर्राथमिक विद्यालय कमरा नं.-4 हियालिया"
     },
     {
       "id": "blo_65",
@@ -22067,10 +22636,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि कनईकला",
       "school_office": "राउमावि कनईकला",
       "panchayat": "कनईकला",
-      "booth_no": "337",
+      "booth_no": "63",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 337 | ग्रा.पं. कनईकला | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 63 | ग्रा.पं. कनईकला | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22083,7 +22652,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 63,
+      "old_part_no": "337",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कनेईकलां"
     },
     {
       "id": "blo_66",
@@ -22101,10 +22673,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि लक्ष्मीपुरा",
       "school_office": "राउप्रावि लक्ष्मीपुरा",
       "panchayat": "कनईकला",
-      "booth_no": "338",
+      "booth_no": "63",
       "wards": "3",
       "assigned_wards": "3",
-      "area_display": "भाग सं. 338 | ग्रा.पं. कनईकला | वार्ड: 3",
+      "area_display": "बूथ सं. 63 | ग्रा.पं. कनईकला | वार्ड: 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22117,7 +22689,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 63,
+      "old_part_no": "338",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कनेईकलां"
     },
     {
       "id": "blo_67",
@@ -22135,10 +22710,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि निमेडा",
       "school_office": "राउमावि निमेडा",
       "panchayat": "कनईकला",
-      "booth_no": "340",
+      "booth_no": "64",
       "wards": "4, 5, 6",
       "assigned_wards": "4, 5, 6",
-      "area_display": "भाग सं. 340 | ग्रा.पं. कनईकला | वार्ड: 4, 5, 6",
+      "area_display": "बूथ सं. 64 | ग्रा.पं. कनईकला | वार्ड: 4, 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22151,7 +22726,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 64,
+      "old_part_no": "340",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 कनेईकलां"
     },
     {
       "id": "blo_68",
@@ -22169,10 +22747,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि कनेई खुर्द",
       "school_office": "राउप्रावि कनेई खुर्द",
       "panchayat": "कनईकला",
-      "booth_no": "339",
+      "booth_no": "65",
       "wards": "7, 8, 9",
       "assigned_wards": "7, 8, 9",
-      "area_display": "भाग सं. 339 | ग्रा.पं. कनईकला | वार्ड: 7, 8, 9",
+      "area_display": "बूथ सं. 65 | ग्रा.पं. कनईकला | वार्ड: 7, 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22185,7 +22763,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 65,
+      "old_part_no": "339",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 कनेईकलां"
     },
     {
       "id": "blo_69",
@@ -22203,10 +22784,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि करांटी",
       "school_office": "राउमावि करांटी",
       "panchayat": "करांटी",
-      "booth_no": "296",
+      "booth_no": "66",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 296 | ग्रा.पं. करांटी | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 66 | ग्रा.पं. करांटी | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22219,7 +22800,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 66,
+      "old_part_no": "296",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 करांटी"
     },
     {
       "id": "blo_70",
@@ -22237,10 +22821,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि करांटी",
       "school_office": "राउमावि करांटी",
       "panchayat": "करांटी",
-      "booth_no": "297",
+      "booth_no": "67",
       "wards": "3, 4, 5",
       "assigned_wards": "3, 4, 5",
-      "area_display": "भाग सं. 297 | ग्रा.पं. करांटी | वार्ड: 3, 4, 5",
+      "area_display": "बूथ सं. 67 | ग्रा.पं. करांटी | वार्ड: 3, 4, 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22253,7 +22837,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 67,
+      "old_part_no": "297",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 करांटी"
     },
     {
       "id": "blo_71",
@@ -22271,10 +22858,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि गोपालपुरा",
       "school_office": "राउप्रावि गोपालपुरा",
       "panchayat": "करांटी",
-      "booth_no": "298",
+      "booth_no": "68",
       "wards": "6, 7",
       "assigned_wards": "6, 7",
-      "area_display": "भाग सं. 298 | ग्रा.पं. करांटी | वार्ड: 6, 7",
+      "area_display": "बूथ सं. 68 | ग्रा.पं. करांटी | वार्ड: 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22287,7 +22874,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 68,
+      "old_part_no": "298",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 करांटी"
     },
     {
       "id": "blo_72",
@@ -22305,10 +22895,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि कैरोंट",
       "school_office": "राउमावि कैरोंट",
       "panchayat": "कैरोंट",
-      "booth_no": "344",
+      "booth_no": "69",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 344 | ग्रा.पं. कैरोंट | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 69 | ग्रा.पं. कैरोंट | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22321,7 +22911,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 69,
+      "old_part_no": "344",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-10 कैरोट"
     },
     {
       "id": "blo_73",
@@ -22339,10 +22932,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि केरोट",
       "school_office": "राउमावि केरोट",
       "panchayat": "कैरोंट",
-      "booth_no": "345",
+      "booth_no": "70",
       "wards": "4, 5, 6, 7",
       "assigned_wards": "4, 5, 6, 7",
-      "area_display": "भाग सं. 345 | ग्रा.पं. कैरोंट | वार्ड: 4, 5, 6, 7",
+      "area_display": "बूथ सं. 70 | ग्रा.पं. कैरोंट | वार्ड: 4, 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22355,7 +22948,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 70,
+      "old_part_no": "345",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 कैरोट"
     },
     {
       "id": "blo_74",
@@ -22373,10 +22969,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि जेतपुरा",
       "school_office": "राउमावि जेतपुरा",
       "panchayat": "कैरोंट",
-      "booth_no": "343",
+      "booth_no": "71",
       "wards": "8, 9",
       "assigned_wards": "8, 9",
-      "area_display": "भाग सं. 343 | ग्रा.पं. कैरोंट | वार्ड: 8, 9",
+      "area_display": "बूथ सं. 71 | ग्रा.पं. कैरोंट | वार्ड: 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22389,7 +22985,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 71,
+      "old_part_no": "343",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 कैरोट"
     },
     {
       "id": "blo_75",
@@ -22407,10 +23006,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि जेतपुरा",
       "school_office": "राउमावि जेतपुरा",
       "panchayat": "कैरोंट",
-      "booth_no": "342",
+      "booth_no": "72",
       "wards": "10, 11",
       "assigned_wards": "10, 11",
-      "area_display": "भाग सं. 342 | ग्रा.पं. कैरोंट | वार्ड: 10, 11",
+      "area_display": "बूथ सं. 72 | ग्रा.पं. कैरोंट | वार्ड: 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22423,7 +23022,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 72,
+      "old_part_no": "342",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 कैरोट"
     },
     {
       "id": "blo_76",
@@ -22441,10 +23043,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि खेडी",
       "school_office": "राप्रावि खेडी",
       "panchayat": "खेडी",
-      "booth_no": "291",
+      "booth_no": "73",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 291 | ग्रा.पं. खेडी | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 73 | ग्रा.पं. खेडी | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22457,7 +23059,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 73,
+      "old_part_no": "291",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 8- खेडी"
     },
     {
       "id": "blo_77",
@@ -22475,10 +23080,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि खेडी",
       "school_office": "राउमावि खेडी",
       "panchayat": "खेडी",
-      "booth_no": "292",
+      "booth_no": "74",
       "wards": "4, 5",
       "assigned_wards": "4, 5",
-      "area_display": "भाग सं. 292 | ग्रा.पं. खेडी | वार्ड: 4, 5",
+      "area_display": "बूथ सं. 74 | ग्रा.पं. खेडी | वार्ड: 4, 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22491,7 +23096,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 74,
+      "old_part_no": "292",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 9- खेडी"
     },
     {
       "id": "blo_78",
@@ -22509,10 +23117,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि गोवलिया",
       "school_office": "राउप्रावि गोवलिया",
       "panchayat": "खेडी",
-      "booth_no": "294",
+      "booth_no": "74",
       "wards": "6, 7",
       "assigned_wards": "6, 7",
-      "area_display": "भाग सं. 294 | ग्रा.पं. खेडी | वार्ड: 6, 7",
+      "area_display": "बूथ सं. 74 | ग्रा.पं. खेडी | वार्ड: 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22525,7 +23133,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 74,
+      "old_part_no": "294",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 9- खेडी"
     },
     {
       "id": "blo_79",
@@ -22543,10 +23154,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि गोवलिया",
       "school_office": "राउप्रावि गोवलिया",
       "panchayat": "खेडी",
-      "booth_no": "295",
+      "booth_no": "75",
       "wards": "8, 9",
       "assigned_wards": "8, 9",
-      "area_display": "भाग सं. 295 | ग्रा.पं. खेडी | वार्ड: 8, 9",
+      "area_display": "बूथ सं. 75 | ग्रा.पं. खेडी | वार्ड: 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22559,7 +23170,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 75,
+      "old_part_no": "295",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 10- खेडी"
     },
     {
       "id": "blo_80",
@@ -22577,10 +23191,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि प्रतापपुरा",
       "school_office": "राउप्रावि प्रतापपुरा",
       "panchayat": "खेडी",
-      "booth_no": "290",
+      "booth_no": "76",
       "wards": "10, 11",
       "assigned_wards": "10, 11",
-      "area_display": "भाग सं. 290 | ग्रा.पं. खेडी | वार्ड: 10, 11",
+      "area_display": "बूथ सं. 76 | ग्रा.पं. खेडी | वार्ड: 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22593,7 +23207,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 76,
+      "old_part_no": "290",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 11- खेडी"
     },
     {
       "id": "blo_81",
@@ -22611,10 +23228,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि हाथीपुरा",
       "school_office": "राप्रावि हाथीपुरा",
       "panchayat": "कुम्हारिया",
-      "booth_no": "283",
+      "booth_no": "77",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 283 | ग्रा.पं. कुम्हारिया | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 77 | ग्रा.पं. कुम्हारिया | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22627,7 +23244,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 77,
+      "old_part_no": "283",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कुम्हारिया"
     },
     {
       "id": "blo_82",
@@ -22645,10 +23265,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि किटाप",
       "school_office": "राउप्रावि किटाप",
       "panchayat": "कुम्हारिया",
-      "booth_no": "287",
+      "booth_no": "77",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 287 | ग्रा.पं. कुम्हारिया | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 77 | ग्रा.पं. कुम्हारिया | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22661,7 +23281,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 77,
+      "old_part_no": "287",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कुम्हारिया"
     },
     {
       "id": "blo_83",
@@ -22679,10 +23302,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि किटाप",
       "school_office": "राउप्रावि किटाप",
       "panchayat": "कुम्हारिया",
-      "booth_no": "286",
+      "booth_no": "78",
       "wards": "5, 6",
       "assigned_wards": "5, 6",
-      "area_display": "भाग सं. 286 | ग्रा.पं. कुम्हारिया | वार्ड: 5, 6",
+      "area_display": "बूथ सं. 78 | ग्रा.पं. कुम्हारिया | वार्ड: 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22695,7 +23318,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 78,
+      "old_part_no": "286",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 कुम्हारिया"
     },
     {
       "id": "blo_84",
@@ -22713,10 +23339,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि कुम्हारिया",
       "school_office": "राउमावि कुम्हारिया",
       "panchayat": "कुम्हारिया",
-      "booth_no": "285",
+      "booth_no": "79",
       "wards": "7, 8, 11",
       "assigned_wards": "7, 8, 11",
-      "area_display": "भाग सं. 285 | ग्रा.पं. कुम्हारिया | वार्ड: 7, 8, 11",
+      "area_display": "बूथ सं. 79 | ग्रा.पं. कुम्हारिया | वार्ड: 7, 8, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22729,7 +23355,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 79,
+      "old_part_no": "285",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 कुम्हारिया"
     },
     {
       "id": "blo_85",
@@ -22747,10 +23376,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि कुम्हारिया",
       "school_office": "राउमावि कुम्हारिया",
       "panchayat": "कुम्हारिया",
-      "booth_no": "284",
+      "booth_no": "79",
       "wards": "9, 10",
       "assigned_wards": "9, 10",
-      "area_display": "भाग सं. 284 | ग्रा.पं. कुम्हारिया | वार्ड: 9, 10",
+      "area_display": "बूथ सं. 79 | ग्रा.पं. कुम्हारिया | वार्ड: 9, 10",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22763,7 +23392,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 79,
+      "old_part_no": "284",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 कुम्हारिया"
     },
     {
       "id": "blo_86",
@@ -22781,10 +23413,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि लामगरा",
       "school_office": "राउमावि लामगरा",
       "panchayat": "लामगरा",
-      "booth_no": "229",
+      "booth_no": "81",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 229 | ग्रा.पं. लामगरा | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 81 | ग्रा.पं. लामगरा | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22797,7 +23429,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 81,
+      "old_part_no": "229",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 लामगरा"
     },
     {
       "id": "blo_87",
@@ -22815,10 +23450,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि बड़ला खेड़ा",
       "school_office": "राउप्रावि बड़ला खेड़ा",
       "panchayat": "लामगरा",
-      "booth_no": "नया",
+      "booth_no": "82",
       "wards": "4",
       "assigned_wards": "4",
-      "area_display": "भाग सं. नया | ग्रा.पं. लामगरा | वार्ड: 4",
+      "area_display": "बूथ सं. 82 | ग्रा.पं. लामगरा | वार्ड: 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22831,7 +23466,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 82,
+      "old_part_no": "नया",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 लामगरा"
     },
     {
       "id": "blo_88",
@@ -22849,10 +23487,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि गनाहेडा",
       "school_office": "राउमावि गनाहेडा",
       "panchayat": "लामगरा",
-      "booth_no": "228",
+      "booth_no": "83",
       "wards": "5, 6, 7",
       "assigned_wards": "5, 6, 7",
-      "area_display": "भाग सं. 228 | ग्रा.पं. लामगरा | वार्ड: 5, 6, 7",
+      "area_display": "बूथ सं. 83 | ग्रा.पं. लामगरा | वार्ड: 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22865,7 +23503,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 83,
+      "old_part_no": "228",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-9 लामगरा"
     },
     {
       "id": "blo_89",
@@ -22883,10 +23524,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि निमेडा",
       "school_office": "राउमावि निमेडा",
       "panchayat": "लामगरा",
-      "booth_no": "247",
+      "booth_no": "84",
       "wards": "8, 9, 10, 11",
       "assigned_wards": "8, 9, 10, 11",
-      "area_display": "भाग सं. 247 | ग्रा.पं. लामगरा | वार्ड: 8, 9, 10, 11",
+      "area_display": "बूथ सं. 84 | ग्रा.पं. लामगरा | वार्ड: 8, 9, 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22899,7 +23540,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 84,
+      "old_part_no": "247",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 लामगरा"
     },
     {
       "id": "blo_90",
@@ -22917,10 +23561,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि खारोलो का खेड़ा (बड़ला)",
       "school_office": "राप्रावि खारोलो का खेड़ा (बड़ला)",
       "panchayat": "नागोला",
-      "booth_no": "319",
+      "booth_no": "85",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 319 | ग्रा.पं. नागोला | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 85 | ग्रा.पं. नागोला | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22933,7 +23577,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 85,
+      "old_part_no": "319",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 नागोला"
     },
     {
       "id": "blo_91",
@@ -22951,10 +23598,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि बड़ला",
       "school_office": "राउमावि बड़ला",
       "panchayat": "नागोला",
-      "booth_no": "318",
+      "booth_no": "85",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 318 | ग्रा.पं. नागोला | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 85 | ग्रा.पं. नागोला | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -22967,7 +23614,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 85,
+      "old_part_no": "318",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 नागोला"
     },
     {
       "id": "blo_92",
@@ -22985,10 +23635,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि नागोला",
       "school_office": "राउमावि नागोला",
       "panchayat": "नागोला",
-      "booth_no": "327",
+      "booth_no": "86",
       "wards": "5, 6, 7",
       "assigned_wards": "5, 6, 7",
-      "area_display": "भाग सं. 327 | ग्रा.पं. नागोला | वार्ड: 5, 6, 7",
+      "area_display": "बूथ सं. 86 | ग्रा.पं. नागोला | वार्ड: 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23001,7 +23651,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 86,
+      "old_part_no": "327",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 नागोला"
     },
     {
       "id": "blo_93",
@@ -23019,10 +23672,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि नागोला",
       "school_office": "राउमावि नागोला",
       "panchayat": "नागोला",
-      "booth_no": "325",
+      "booth_no": "87",
       "wards": "8, 9, 10",
       "assigned_wards": "8, 9, 10",
-      "area_display": "भाग सं. 325 | ग्रा.पं. नागोला | वार्ड: 8, 9, 10",
+      "area_display": "बूथ सं. 87 | ग्रा.पं. नागोला | वार्ड: 8, 9, 10",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23035,7 +23688,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 87,
+      "old_part_no": "325",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 नागोला"
     },
     {
       "id": "blo_94",
@@ -23053,10 +23709,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि बालापुरा",
       "school_office": "राउप्रावि बालापुरा",
       "panchayat": "नागोला",
-      "booth_no": "328",
+      "booth_no": "88",
       "wards": "11, 12",
       "assigned_wards": "11, 12",
-      "area_display": "भाग सं. 328 | ग्रा.पं. नागोला | वार्ड: 11, 12",
+      "area_display": "बूथ सं. 88 | ग्रा.पं. नागोला | वार्ड: 11, 12",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23069,7 +23725,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 88,
+      "old_part_no": "328",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 नागोला"
     },
     {
       "id": "blo_95",
@@ -23087,10 +23746,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि सपनीखेडा",
       "school_office": "राउप्रावि सपनीखेडा",
       "panchayat": "नागोला",
-      "booth_no": "326",
+      "booth_no": "88",
       "wards": "13",
       "assigned_wards": "13",
-      "area_display": "भाग सं. 326 | ग्रा.पं. नागोला | वार्ड: 13",
+      "area_display": "बूथ सं. 88 | ग्रा.पं. नागोला | वार्ड: 13",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23103,7 +23762,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 88,
+      "old_part_no": "326",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 नागोला"
     },
     {
       "id": "blo_96",
@@ -23121,10 +23783,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि नान्दसी",
       "school_office": "राउमावि नान्दसी",
       "panchayat": "नान्दसी",
-      "booth_no": "244",
+      "booth_no": "89",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 244 | ग्रा.पं. नान्दसी | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 89 | ग्रा.पं. नान्दसी | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23137,7 +23799,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 89,
+      "old_part_no": "244",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 नान्दसी"
     },
     {
       "id": "blo_97",
@@ -23155,10 +23820,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि नान्दसी",
       "school_office": "राउमावि नान्दसी",
       "panchayat": "नान्दसी",
-      "booth_no": "245",
+      "booth_no": "90",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 245 | ग्रा.पं. नान्दसी | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 90 | ग्रा.पं. नान्दसी | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23171,7 +23836,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 90,
+      "old_part_no": "245",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 नान्दसी"
     },
     {
       "id": "blo_98",
@@ -23189,10 +23857,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि कुरथल",
       "school_office": "राउमावि कुरथल",
       "panchayat": "नान्दसी",
-      "booth_no": "242",
+      "booth_no": "91",
       "wards": "5, 6",
       "assigned_wards": "5, 6",
-      "area_display": "भाग सं. 242 | ग्रा.पं. नान्दसी | वार्ड: 5, 6",
+      "area_display": "बूथ सं. 91 | ग्रा.पं. नान्दसी | वार्ड: 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23205,7 +23873,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 91,
+      "old_part_no": "242",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 नान्दसी"
     },
     {
       "id": "blo_99",
@@ -23223,10 +23894,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि कुरथल",
       "school_office": "राउमावि कुरथल",
       "panchayat": "नान्दसी",
-      "booth_no": "243",
+      "booth_no": "92",
       "wards": "7, 8, 9",
       "assigned_wards": "7, 8, 9",
-      "area_display": "भाग सं. 243 | ग्रा.पं. नान्दसी | वार्ड: 7, 8, 9",
+      "area_display": "बूथ सं. 92 | ग्रा.पं. नान्दसी | वार्ड: 7, 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23239,7 +23910,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 92,
+      "old_part_no": "243",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 नान्दसी"
     },
     {
       "id": "blo_100",
@@ -23257,10 +23931,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि काचरिया",
       "school_office": "राउप्रावि काचरिया",
       "panchayat": "नान्दसी",
-      "booth_no": "341",
+      "booth_no": "93",
       "wards": "10, 11",
       "assigned_wards": "10, 11",
-      "area_display": "भाग सं. 341 | ग्रा.पं. नान्दसी | वार्ड: 10, 11",
+      "area_display": "बूथ सं. 93 | ग्रा.पं. नान्दसी | वार्ड: 10, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23273,7 +23947,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 93,
+      "old_part_no": "341",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 नान्दसी"
     },
     {
       "id": "blo_101",
@@ -23291,10 +23968,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि अर्जुनपुरा",
       "school_office": "राउप्रावि अर्जुनपुरा",
       "panchayat": "पड़ांगा",
-      "booth_no": "272",
+      "booth_no": "94",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 272 | ग्रा.पं. पड़ांगा | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 94 | ग्रा.पं. पड़ांगा | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23307,7 +23984,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 94,
+      "old_part_no": "272",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 10 पड़ागा"
     },
     {
       "id": "blo_102",
@@ -23325,10 +24005,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि पड़ांगा",
       "school_office": "राउमावि पड़ांगा",
       "panchayat": "पड़ांगा",
-      "booth_no": "269",
+      "booth_no": "94",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 269 | ग्रा.पं. पड़ांगा | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 94 | ग्रा.पं. पड़ांगा | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23341,7 +24021,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 94,
+      "old_part_no": "269",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 10 पड़ागा"
     },
     {
       "id": "blo_103",
@@ -23359,10 +24042,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि पड़ांगा",
       "school_office": "राउमावि पड़ांगा",
       "panchayat": "पड़ांगा",
-      "booth_no": "270",
+      "booth_no": "95",
       "wards": "5, 6",
       "assigned_wards": "5, 6",
-      "area_display": "भाग सं. 270 | ग्रा.पं. पड़ांगा | वार्ड: 5, 6",
+      "area_display": "बूथ सं. 95 | ग्रा.पं. पड़ांगा | वार्ड: 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23375,7 +24058,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 95,
+      "old_part_no": "270",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 13 पड़ागा"
     },
     {
       "id": "blo_104",
@@ -23393,10 +24079,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि सवाईपुरा",
       "school_office": "राप्रावि सवाईपुरा",
       "panchayat": "पड़ांगा",
-      "booth_no": "271",
+      "booth_no": "96",
       "wards": "7",
       "assigned_wards": "7",
-      "area_display": "भाग सं. 271 | ग्रा.पं. पड़ांगा | वार्ड: 7",
+      "area_display": "बूथ सं. 96 | ग्रा.पं. पड़ांगा | वार्ड: 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23409,7 +24095,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 96,
+      "old_part_no": "271",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर-14 पड़ागा"
     },
     {
       "id": "blo_105",
@@ -23427,10 +24116,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि चावण्डिया",
       "school_office": "राउप्रावि चावण्डिया",
       "panchayat": "पाडलिया",
-      "booth_no": "336",
+      "booth_no": "97",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 336 | ग्रा.पं. पाडलिया | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 97 | ग्रा.पं. पाडलिया | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23443,7 +24132,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 97,
+      "old_part_no": "336",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 पाडलिया"
     },
     {
       "id": "blo_106",
@@ -23461,10 +24153,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि पाडलिया",
       "school_office": "राउमावि पाडलिया",
       "panchayat": "पाडलिया",
-      "booth_no": "334",
+      "booth_no": "98",
       "wards": "4, 5",
       "assigned_wards": "4, 5",
-      "area_display": "भाग सं. 334 | ग्रा.पं. पाडलिया | वार्ड: 4, 5",
+      "area_display": "बूथ सं. 98 | ग्रा.पं. पाडलिया | वार्ड: 4, 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23477,7 +24169,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 98,
+      "old_part_no": "334",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 पाडलिया"
     },
     {
       "id": "blo_107",
@@ -23495,10 +24190,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि पाडलिया",
       "school_office": "राउमावि पाडलिया",
       "panchayat": "पाडलिया",
-      "booth_no": "335",
+      "booth_no": "98",
       "wards": "6, 7",
       "assigned_wards": "6, 7",
-      "area_display": "भाग सं. 335 | ग्रा.पं. पाडलिया | वार्ड: 6, 7",
+      "area_display": "बूथ सं. 98 | ग्रा.पं. पाडलिया | वार्ड: 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23511,7 +24206,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 98,
+      "old_part_no": "335",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 पाडलिया"
     },
     {
       "id": "blo_108",
@@ -23529,10 +24227,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि गोरधनपुरा",
       "school_office": "राउप्रावि गोरधनपुरा",
       "panchayat": "पाडलिया",
-      "booth_no": "नया",
+      "booth_no": "99",
       "wards": "8, 9",
       "assigned_wards": "8, 9",
-      "area_display": "भाग सं. नया | ग्रा.पं. पाडलिया | वार्ड: 8, 9",
+      "area_display": "बूथ सं. 99 | ग्रा.पं. पाडलिया | वार्ड: 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23545,7 +24243,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 99,
+      "old_part_no": "नया",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 पाडलिया"
     },
     {
       "id": "blo_109",
@@ -23563,10 +24264,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि राममालिया",
       "school_office": "राउमावि राममालिया",
       "panchayat": "राममालिया",
-      "booth_no": "312",
+      "booth_no": "100",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 312 | ग्रा.पं. राममालिया | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 100 | ग्रा.पं. राममालिया | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23579,7 +24280,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 100,
+      "old_part_no": "312",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 राममालिया"
     },
     {
       "id": "blo_110",
@@ -23597,10 +24301,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि राममालिया",
       "school_office": "राउमावि राममालिया",
       "panchayat": "राममालिया",
-      "booth_no": "313",
+      "booth_no": "100",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 313 | ग्रा.पं. राममालिया | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 100 | ग्रा.पं. राममालिया | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23613,7 +24317,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 100,
+      "old_part_no": "313",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 राममालिया"
     },
     {
       "id": "blo_111",
@@ -23631,10 +24338,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि रघुनाथगढ़",
       "school_office": "राउप्रावि रघुनाथगढ़",
       "panchayat": "राममालिया",
-      "booth_no": "315",
+      "booth_no": "102",
       "wards": "6, 7",
       "assigned_wards": "6, 7",
-      "area_display": "भाग सं. 315 | ग्रा.पं. राममालिया | वार्ड: 6, 7",
+      "area_display": "बूथ सं. 102 | ग्रा.पं. राममालिया | वार्ड: 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23647,7 +24354,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 102,
+      "old_part_no": "315",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 राममालिया"
     },
     {
       "id": "blo_112",
@@ -23665,10 +24375,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि रघुनाथगढ़",
       "school_office": "राउप्रावि रघुनाथगढ़",
       "panchayat": "राममालिया",
-      "booth_no": "316",
+      "booth_no": "101",
       "wards": "5",
       "assigned_wards": "5",
-      "area_display": "भाग सं. 316 | ग्रा.पं. राममालिया | वार्ड: 5",
+      "area_display": "बूथ सं. 101 | ग्रा.पं. राममालिया | वार्ड: 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23681,7 +24391,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 101,
+      "old_part_no": "316",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 राममालिया"
     },
     {
       "id": "blo_113",
@@ -23699,10 +24412,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि झींपिया",
       "school_office": "राउमावि झींपिया",
       "panchayat": "राताकोट",
-      "booth_no": "268",
+      "booth_no": "103",
       "wards": "1, 2, 3",
       "assigned_wards": "1, 2, 3",
-      "area_display": "भाग सं. 268 | ग्रा.पं. राताकोट | वार्ड: 1, 2, 3",
+      "area_display": "बूथ सं. 103 | ग्रा.पं. राताकोट | वार्ड: 1, 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23715,7 +24428,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 103,
+      "old_part_no": "268",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 राताकोट"
     },
     {
       "id": "blo_114",
@@ -23733,10 +24449,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि राताकोट",
       "school_office": "राउमावि राताकोट",
       "panchayat": "राताकोट",
-      "booth_no": "266",
+      "booth_no": "104",
       "wards": "4, 5",
       "assigned_wards": "4, 5",
-      "area_display": "भाग सं. 266 | ग्रा.पं. राताकोट | वार्ड: 4, 5",
+      "area_display": "बूथ सं. 104 | ग्रा.पं. राताकोट | वार्ड: 4, 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23749,7 +24465,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 104,
+      "old_part_no": "266",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 राताकोट"
     },
     {
       "id": "blo_115",
@@ -23767,10 +24486,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि राताकोट",
       "school_office": "राउमावि राताकोट",
       "panchayat": "राताकोट",
-      "booth_no": "नया",
+      "booth_no": "105",
       "wards": "6, 7",
       "assigned_wards": "6, 7",
-      "area_display": "भाग सं. नया | ग्रा.पं. राताकोट | वार्ड: 6, 7",
+      "area_display": "बूथ सं. 105 | ग्रा.पं. राताकोट | वार्ड: 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23783,7 +24502,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 105,
+      "old_part_no": "नया",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-17 राताकोट"
     },
     {
       "id": "blo_116",
@@ -23801,10 +24523,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि राताकोट",
       "school_office": "राउमावि राताकोट",
       "panchayat": "राताकोट",
-      "booth_no": "267",
+      "booth_no": "106",
       "wards": "8, 9",
       "assigned_wards": "8, 9",
-      "area_display": "भाग सं. 267 | ग्रा.पं. राताकोट | वार्ड: 8, 9",
+      "area_display": "बूथ सं. 106 | ग्रा.पं. राताकोट | वार्ड: 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23817,7 +24539,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 106,
+      "old_part_no": "267",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 राताकोट"
     },
     {
       "id": "blo_117",
@@ -23835,10 +24560,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि खटाणो का खेडा",
       "school_office": "राउप्रावि खटाणो का खेडा",
       "panchayat": "सिंगावल",
-      "booth_no": "265",
+      "booth_no": "107",
       "wards": "1, 2",
       "assigned_wards": "1, 2",
-      "area_display": "भाग सं. 265 | ग्रा.पं. सिंगावल | वार्ड: 1, 2",
+      "area_display": "बूथ सं. 107 | ग्रा.पं. सिंगावल | वार्ड: 1, 2",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23851,7 +24576,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 107,
+      "old_part_no": "265",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 सिंगावल"
     },
     {
       "id": "blo_118",
@@ -23869,10 +24597,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि सिंगावल",
       "school_office": "राउमावि सिंगावल",
       "panchayat": "सिंगावल",
-      "booth_no": "262",
+      "booth_no": "108",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "भाग सं. 262 | ग्रा.पं. सिंगावल | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 108 | ग्रा.पं. सिंगावल | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23885,7 +24613,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 108,
+      "old_part_no": "262",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 सिंगावल"
     },
     {
       "id": "blo_119",
@@ -23903,10 +24634,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि सिंगावल",
       "school_office": "राउमावि सिंगावल",
       "panchayat": "सिंगावल",
-      "booth_no": "264",
+      "booth_no": "109",
       "wards": "5, 6",
       "assigned_wards": "5, 6",
-      "area_display": "भाग सं. 264 | ग्रा.पं. सिंगावल | वार्ड: 5, 6",
+      "area_display": "बूथ सं. 109 | ग्रा.पं. सिंगावल | वार्ड: 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23919,7 +24650,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 109,
+      "old_part_no": "264",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 सिंगावल"
     },
     {
       "id": "blo_120",
@@ -23937,10 +24671,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि सिंगावल",
       "school_office": "राउमावि सिंगावल",
       "panchayat": "सिंगावल",
-      "booth_no": "263",
+      "booth_no": "110",
       "wards": "7, 8, 9",
       "assigned_wards": "7, 8, 9",
-      "area_display": "भाग सं. 263 | ग्रा.पं. सिंगावल | वार्ड: 7, 8, 9",
+      "area_display": "बूथ सं. 110 | ग्रा.पं. सिंगावल | वार्ड: 7, 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23953,7 +24687,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 110,
+      "old_part_no": "263",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 सिंगावल"
     },
     {
       "id": "blo_121",
@@ -23971,10 +24708,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि प्रतापपुरा",
       "school_office": "राप्रावि प्रतापपुरा",
       "panchayat": "सोबडी",
-      "booth_no": "260",
+      "booth_no": "111",
       "wards": "1",
       "assigned_wards": "1",
-      "area_display": "भाग सं. 260 | ग्रा.पं. सोबडी | वार्ड: 1",
+      "area_display": "बूथ सं. 111 | ग्रा.पं. सोबडी | वार्ड: 1",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -23987,7 +24724,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 111,
+      "old_part_no": "260",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 सोबडी"
     },
     {
       "id": "blo_122",
@@ -24005,10 +24745,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि तेलाडा",
       "school_office": "राउप्रावि तेलाडा",
       "panchayat": "सोबडी",
-      "booth_no": "259",
+      "booth_no": "112",
       "wards": "2, 3",
       "assigned_wards": "2, 3",
-      "area_display": "भाग सं. 259 | ग्रा.पं. सोबडी | वार्ड: 2, 3",
+      "area_display": "बूथ सं. 112 | ग्रा.पं. सोबडी | वार्ड: 2, 3",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -24021,7 +24761,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 112,
+      "old_part_no": "259",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 सोबडी"
     },
     {
       "id": "blo_123",
@@ -24039,10 +24782,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि सोबडी",
       "school_office": "राउमावि सोबडी",
       "panchayat": "सोबडी",
-      "booth_no": "322",
+      "booth_no": "113",
       "wards": "4, 5, 6, 7",
       "assigned_wards": "4, 5, 6, 7",
-      "area_display": "भाग सं. 322 | ग्रा.पं. सोबडी | वार्ड: 4, 5, 6, 7",
+      "area_display": "बूथ सं. 113 | ग्रा.पं. सोबडी | वार्ड: 4, 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -24055,7 +24798,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 113,
+      "old_part_no": "322",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 सोबडी"
     },
     {
       "id": "blo_124",
@@ -24073,10 +24819,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि खायडा",
       "school_office": "राउप्रावि खायडा",
       "panchayat": "सोलखुर्द",
-      "booth_no": "323",
+      "booth_no": "114",
       "wards": "2, 3, 4",
       "assigned_wards": "2, 3, 4",
-      "area_display": "भाग सं. 323 | ग्रा.पं. सोलखुर्द | वार्ड: 2, 3, 4",
+      "area_display": "बूथ सं. 114 | ग्रा.पं. सोलखुर्द | वार्ड: 2, 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -24089,7 +24835,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 114,
+      "old_part_no": "323",
+      "booth_name": "राजकीय प्राथमिक विद्यालय कमरा नं.-1 सोलखुर्द"
     },
     {
       "id": "blo_125",
@@ -24107,10 +24856,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि पीपलिया",
       "school_office": "राउमावि पीपलिया",
       "panchayat": "सोलखुर्द",
-      "booth_no": "324",
+      "booth_no": "115",
       "wards": "1, 5, 6, 7",
       "assigned_wards": "1, 5, 6, 7",
-      "area_display": "भाग सं. 324 | ग्रा.पं. सोलखुर्द | वार्ड: 1, 5, 6, 7",
+      "area_display": "बूथ सं. 115 | ग्रा.पं. सोलखुर्द | वार्ड: 1, 5, 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -24123,7 +24872,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 115,
+      "old_part_no": "324",
+      "booth_name": "राजकीय प्राथमिक विद्यालय कमरा नं.-2 सोलखुर्द"
     },
     {
       "id": "blo_126",
@@ -24141,10 +24893,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि सोलकला",
       "school_office": "राउप्रावि सोलकला",
       "panchayat": "सोलखुर्द",
-      "booth_no": "320",
+      "booth_no": "116",
       "wards": "8, 9",
       "assigned_wards": "8, 9",
-      "area_display": "भाग सं. 320 | ग्रा.पं. सोलखुर्द | वार्ड: 8, 9",
+      "area_display": "बूथ सं. 116 | ग्रा.पं. सोलखुर्द | वार्ड: 8, 9",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -24157,7 +24909,10 @@ window.MASTER_DIRECTORY = {
       "can_search": true,
       "can_view": true,
       "can_print": false,
-      "can_download": true
+      "can_download": true,
+      "official_booth_no": 116,
+      "old_part_no": "320",
+      "booth_name": "राजकीय प्राथमिक विद्यालय कमरा नं.-3 सोलखुर्द"
     },
     {
       "id": "peeo_221764",
