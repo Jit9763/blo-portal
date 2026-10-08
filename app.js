@@ -1408,9 +1408,9 @@ function getBoothForVoter(voter) {
     (p.name_en && (p.name_en.toLowerCase() === gpEn || p.name_en.toLowerCase() === gpCode))
   );
 
-  const targetEn = (pObj && pObj.name_en) ? String(pObj.name_en).toLowerCase() : gpEn;
-  const targetHi = (pObj && pObj.name_hi) ? String(pObj.name_hi) : gpHindi;
-  const targetCode = (pObj && pObj.code) ? String(pObj.code).toLowerCase() : gpCode;
+  const targetEn = pObj ? pObj.name_en.toLowerCase() : gpEn;
+  const targetHi = pObj ? pObj.name_hi : gpHindi;
+  const targetCode = pObj ? pObj.code.toLowerCase() : gpCode;
 
   const matchWithWard = booths.find(b => {
     const bGp = (b.gp || '').toLowerCase().trim();
@@ -1464,6 +1464,79 @@ function getVoterPhotoUrl(voter) {
   }
 
   return voter.photo_url || voter.photo || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(voter.epic_no || voter.epic || serialNo || '1')}`;
+}
+
+function getVoterSlipCutUrl(voter) {
+  if (!voter) return null;
+
+  let pEn = voter.panchayat_en || voter.panchayatEn || voter.p_en;
+  if (!pEn) {
+    const code = voter.panchayat_code || voter.panchayatCode || voter.gram_panchayat || voter.p_hi;
+    if (code) {
+      const gp = State.panchayats.find(p => 
+        p.code.toLowerCase() === String(code).toLowerCase() ||
+        p.name_en.toLowerCase() === String(code).toLowerCase() ||
+        p.name_hi === String(code)
+      );
+      if (gp) pEn = gp.name_en;
+    }
+  }
+
+  const FOLDER_MAP = {
+    'badgaon': 'Badgaon', 'badli': 'Badli', 'bagrai': 'Bagrai', 'bandanwara': 'Bandanwara',
+    'bhinay': 'Bhinay', 'boobkiya': 'Boobkiya', 'chapaneri': 'Chapaneri', 'chhachhundra': 'Chhachhundra',
+    'devpura': 'DEVPURA', 'devliyakalan': 'Devliyakalan', 'dhantol': 'Dhantol', 'ekalsingha': 'Ekalsingha',
+    'ghana': 'Ghana', 'gudhakhurd': 'GudhaKhurd', 'hiyaliya': 'Hiyaliya', 'kanaikalan': 'Kanaikalan',
+    'karanti': 'Karanti', 'kerot': 'Kerot', 'khedi': 'Khedi', 'kumhariya': 'Kumhariya',
+    'lamgra': 'Lamgra', 'nagola': 'Nagola', 'nandsi': 'Nandsi', 'padanga': 'Padanga',
+    'padliya': 'Padliya', 'rammaliya': 'Rammaliya', 'ratakot': 'Ratakot', 'singawal': 'Singawal',
+    'sobdi': 'Sobdi', 'solkhurd': 'Solkhurd'
+  };
+
+  const rawWard = String(voter.ward_no || voter.ward || voter.w || '1').replace(/\D/g, '');
+  const wardNo = parseInt(rawWard, 10) || 1;
+  const rawSerial = String(voter.serial_no || voter.serial || voter.serialNo || voter.s || '1').replace(/\D/g, '');
+  const serialNo = parseInt(rawSerial, 10) || 1;
+
+  if (pEn) {
+    const folder = FOLDER_MAP[pEn.toLowerCase()] || pEn;
+    const wNum = String(wardNo).padStart(2, '0');
+    return `https://raw.githubusercontent.com/Jit9763/voter-photos/main/voter_slips/${folder}/W${wNum}/${serialNo}.webp`;
+  }
+  return null;
+}
+
+function viewSlipCutModal(imgUrl, voterName, serialNo) {
+  let modal = document.getElementById('slipCutViewerModal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'slipCutViewerModal';
+    modal.className = 'modal-overlay';
+    modal.style.zIndex = '99999';
+    modal.innerHTML = `
+      <div class="modal-container" style="max-width: 540px; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.35);">
+        <div class="modal-header" style="background:#1e3a8a; color:#ffffff; padding:12px 18px; display:flex; justify-content:space-between; align-items:center;">
+          <h3 style="margin:0; font-size:1.05rem; font-weight:700;" id="slipCutViewerTitle">📄 मूल मतदाता पर्ची कटिंग</h3>
+          <button onclick="document.getElementById('slipCutViewerModal').style.display='none'" style="background:transparent; border:none; color:#ffffff; font-size:1.5rem; cursor:pointer; line-height:1;">&times;</button>
+        </div>
+        <div class="modal-body" style="padding:16px; text-align:center; background:#f8fafc;">
+          <img id="slipCutViewerImg" src="" alt="Voter Slip Cut" style="max-width:100%; height:auto; border-radius:6px; border:2px solid #cbd5e1; box-shadow:0 4px 6px -1px rgba(0,0,0,0.1);" />
+        </div>
+        <div class="modal-footer" style="padding:10px 16px; background:#ffffff; border-top:1px solid #e2e8f0; display:flex; justify-content:flex-end;">
+          <button class="btn btn-secondary btn-sm" onclick="document.getElementById('slipCutViewerModal').style.display='none'">बंद करें</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    modal.onclick = (e) => {
+      if (e.target === modal) modal.style.display = 'none';
+    };
+  }
+  const titleEl = document.getElementById('slipCutViewerTitle');
+  if (titleEl) titleEl.textContent = `📄 मूल पर्ची कटिंग: ${voterName || ''} (सरल क्र. ${serialNo || ''})`;
+  const imgEl = document.getElementById('slipCutViewerImg');
+  if (imgEl) imgEl.src = imgUrl;
+  modal.style.display = 'flex';
 }
 
 /**
@@ -2951,6 +3024,7 @@ function renderAlphabeticalList() {
       const isFemale = voter.gender === 'F';
       const isSupplement = (voter.serial_no % 17 === 0);
       const photoUrl = getVoterPhotoUrl(voter);
+      const slipCutUrl = getVoterSlipCutUrl(voter);
       const bInfo = getBoothForVoter(voter);
       const boothNoVal = bInfo ? bInfo.booth_no : (voter.polling_station_no || '01');
       const boothNameVal = bInfo ? bInfo.name : (voter.polling_station_name || 'राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-01');
@@ -2982,7 +3056,13 @@ function renderAlphabeticalList() {
           </div>
         </div>
 
-        <div style="display:flex; align-items:center; gap:0.65rem; flex-shrink:0;">
+        <div class="alpha-voter-right-actions" style="display:flex; align-items:center; gap:0.65rem; flex-shrink:0;">
+          ${slipCutUrl ? `
+          <div class="alpha-slip-cut-box" onclick="viewSlipCutModal('${slipCutUrl}', '${(voter.voter_name||'').replace(/'/g, "\\'")}', '${voter.serial_no||''}')" title="मूल मतदाता पर्ची कटिंग (बड़ा देखने हेतु क्लिक करें)">
+            <img src="${slipCutUrl}" alt="पर्ची कटिंग" class="alpha-slip-cut-img" loading="lazy" onerror="this.parentElement.style.display='none';" />
+            <span class="slip-cut-zoom-badge">🔍 पर्ची कटिंग</span>
+          </div>
+          ` : ''}
           <button class="delivery-toggle-btn ${isDelivered ? 'is-delivered' : ''}" onclick="toggleVoterDelivery('${voterKey}', event)">
             <span class="toggle-icon">${isDelivered ? '✅' : '⬜'}</span>
             <span>${isDelivered ? 'पर्ची दी गई' : 'पर्ची बाकी'}</span>
@@ -4268,8 +4348,8 @@ function executeVoterListPrint(sortMode, scope, context) {
   if (!printBox) return;
   printBox.innerHTML = '';
 
-  // Fit 42 voters per A4 page strictly (No photos printed to save ink and paper)
-  const rowsPerPage = 42;
+  // Fit 48 voters per A4 page strictly to fill page height without bottom empty space
+  const rowsPerPage = 48;
   const totalPages = Math.ceil(list.length / rowsPerPage);
 
   for (let p = 0; p < totalPages; p++) {
@@ -4283,22 +4363,18 @@ function executeVoterListPrint(sortMode, scope, context) {
       const isFemale = v.gender === 'F';
       const enVoter = v.voter_name_en ? `<span class="en-sub">(${v.voter_name_en})</span>` : '';
       const enRel = v.relative_name_en ? `<span class="en-sub">(${v.relative_name_en})</span>` : '';
-      const bInfo = getBoothForVoter(v);
-      const boothFull = bInfo ? (bInfo.name || bInfo.name_hi) : (v.polling_station_name || '-');
 
       tableRows += `
         <tr>
           <td class="col-sn">${overallIdx}</td>
           <td class="col-ward">${v.ward_no}</td>
-          <td class="col-serial">${v.serial_no}</td>
+          <td class="col-serial"><strong>${v.serial_no}</strong></td>
           <td class="col-name">${v.voter_name} ${enVoter}</td>
           <td class="col-rel">${v.relative_name || '-'} ${enRel}</td>
           <td class="col-house">${v.house_no || '-'}</td>
           <td class="col-age">${v.age}</td>
           <td class="col-gender">${isFemale ? 'स्त्री' : 'पुरुष'}</td>
           <td class="col-epic">${v.epic_no || '-'}</td>
-          <td class="col-booth">${boothFull}</td>
-          <td class="col-sign"></td>
         </tr>
       `;
     });
@@ -4319,17 +4395,15 @@ function executeVoterListPrint(sortMode, scope, context) {
       <table class="voter-list-print-table">
         <thead>
           <tr>
-            <th class="col-sn">क्र.</th>
+            <th class="col-sn">क्र.सं.</th>
             <th class="col-ward">वार्ड</th>
-            <th class="col-serial">म.क्र.</th>
+            <th class="col-serial">मतदाता क्र.</th>
             <th class="col-name">मतदाता का नाम</th>
             <th class="col-rel">पिता / पति का नाम</th>
             <th class="col-house">म.सं.</th>
             <th class="col-age">आयु</th>
             <th class="col-gender">लिंग</th>
             <th class="col-epic">पहचान पत्र (EPIC)</th>
-            <th class="col-booth">मतदान केंद्र (कमरा नं.)</th>
-            <th class="col-sign">हस्ताक्षर / रिमार्क</th>
           </tr>
         </thead>
         <tbody>

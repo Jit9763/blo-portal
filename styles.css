@@ -3133,8 +3133,8 @@ html, body {
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
-    font-size: 7.2pt;
-    line-height: 1.15;
+    font-size: 8.5pt;
+    line-height: 1.25;
     color: #000000;
   }
 
@@ -3142,8 +3142,8 @@ html, body {
     background: #e2e8f0 !important;
     color: #000000 !important;
     border: 1px solid #1e293b !important;
-    padding: 2px 3px;
-    font-size: 7.2pt;
+    padding: 2.5px 3px;
+    font-size: 8.2pt;
     font-weight: 700;
     text-align: left;
     -webkit-print-color-adjust: exact;
@@ -3152,11 +3152,12 @@ html, body {
 
   .voter-list-print-table td {
     border: 1px solid #475569 !important;
-    padding: 1.5px 3px;
+    padding: 2px 3px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     vertical-align: middle;
+    font-size: 8.5pt;
   }
 
   .voter-list-print-table tr:nth-child(even) td {
@@ -3165,23 +3166,71 @@ html, body {
     print-color-adjust: exact;
   }
 
-  .voter-list-print-table .col-sn { width: 3%; text-align: center; }
-  .voter-list-print-table .col-ward { width: 4%; text-align: center; }
-  .voter-list-print-table .col-serial { width: 5%; text-align: center; font-weight: 700; }
-  .voter-list-print-table .col-name { width: 17%; font-weight: 700; }
-  .voter-list-print-table .col-rel { width: 16%; }
-  .voter-list-print-table .col-house { width: 5%; text-align: center; }
-  .voter-list-print-table .col-age { width: 4%; text-align: center; }
-  .voter-list-print-table .col-gender { width: 4%; text-align: center; }
-  .voter-list-print-table .col-epic { width: 13%; text-align: center; font-family: monospace; font-size: 6.2pt; }
-  .voter-list-print-table .col-booth { width: 20%; text-align: left; font-size: 5.8pt; line-height: 1.15; }
-  .voter-list-print-table .col-sign { width: 9%; }
+  .voter-list-print-table .col-sn { width: 5%; text-align: center; font-size: 8.5pt; }
+  .voter-list-print-table .col-ward { width: 6%; text-align: center; font-size: 8.5pt; }
+  .voter-list-print-table .col-serial { width: 9%; text-align: center; font-weight: 800; font-size: 9.5pt; color: #000000; background: #f1f5f9; }
+  .voter-list-print-table .col-name { width: 26%; font-weight: 700; font-size: 8.8pt; }
+  .voter-list-print-table .col-rel { width: 25%; font-size: 8.5pt; }
+  .voter-list-print-table .col-house { width: 7%; text-align: center; font-size: 8.5pt; font-weight: 600; }
+  .voter-list-print-table .col-age { width: 5%; text-align: center; font-size: 8.5pt; }
+  .voter-list-print-table .col-gender { width: 5%; text-align: center; font-size: 8.5pt; }
+  .voter-list-print-table .col-epic { width: 12%; text-align: center; font-family: monospace; font-size: 7.5pt; font-weight: 600; }
 
   .voter-list-print-table .en-sub {
-    font-size: 6.5pt;
-    color: #1e293b;
+    font-size: 7.2pt;
+    color: #334155;
     font-weight: normal;
   }
+}
+
+/* Alpha Voter Slip Cutting Styles */
+.alpha-voter-right-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+
+.alpha-slip-cut-box {
+  position: relative;
+  width: 120px;
+  height: 48px;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alpha-slip-cut-box:hover {
+  border-color: #1e3a8a;
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(30,58,138,0.2);
+}
+
+.alpha-slip-cut-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.slip-cut-zoom-badge {
+  position: absolute;
+  bottom: 1px;
+  right: 2px;
+  background: rgba(15, 23, 42, 0.8);
+  color: #ffffff;
+  font-size: 0.58rem;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-weight: 700;
+  pointer-events: none;
 }
 
 
@@ -4375,10 +4424,6 @@ input::placeholder {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.voter-list-print-table .col-booth {
-  font-size: 7.5pt;
-  max-width: 130px;
-  line-height: 1.2;
-}
+
 
 
