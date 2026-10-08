@@ -2270,6 +2270,13 @@ body {
   gap: 8px;
 }
 
+/* 10 Slips (PAN Card Size 2 cols x 5 rows) */
+.a4-grid-10 {
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 7px;
+}
+
 /* 12 Slips (3 cols x 4 rows) */
 .a4-grid-12 {
   grid-template-columns: repeat(3, 1fr);
@@ -4554,3 +4561,202 @@ input::placeholder {
 
 
 
+
+
+/* ==========================================================================
+   EXACT IMAGE 2 VOTER SLIP PATTERN (User Specification)
+   ========================================================================== */
+.official-mini-slip {
+  background: #ffffff !important;
+  border: 1.8px solid #000000 !important;
+  border-radius: 3px !important;
+  padding: 5px 8px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  position: relative !important;
+  font-family: 'Tiro Devanagari Hindi', 'Inter', sans-serif !important;
+  color: #000000 !important;
+  margin-bottom: 4px !important;
+}
+
+.official-mini-slip::after {
+  content: '✂ - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -' !important;
+  position: absolute !important;
+  bottom: -2px !important;
+  left: 0 !important;
+  right: 0 !important;
+  text-align: center !important;
+  font-size: 5.5px !important;
+  color: #000000 !important;
+  letter-spacing: 0.8px !important;
+  line-height: 1 !important;
+}
+
+.mini-slip-inner {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  justify-content: space-between !important;
+}
+
+.mini-slip-header {
+  text-align: center !important;
+  border-bottom: 1px dashed #000000 !important;
+  padding-bottom: 2px !important;
+  margin-bottom: 2px !important;
+}
+
+.mini-slip-gov-title {
+  font-size: 8.5pt !important;
+  font-weight: 800 !important;
+  color: #000000 !important;
+  line-height: 1.15 !important;
+  letter-spacing: 0.3px !important;
+}
+
+.mini-slip-sub-gov {
+  font-size: 6.2pt !important;
+  font-weight: 600 !important;
+  color: #000000 !important;
+  line-height: 1.15 !important;
+}
+
+.mini-slip-subbar {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  border-bottom: 1px dashed #000000 !important;
+  padding-bottom: 2px !important;
+  margin-bottom: 2px !important;
+  font-size: 7.2pt !important;
+  font-weight: 700 !important;
+  color: #000000 !important;
+}
+
+.mini-serial-box {
+  border: 1.8px solid #000000 !important;
+  padding: 0 6px !important;
+  font-size: 8pt !important;
+  font-weight: 900 !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  line-height: 1.2 !important;
+}
+
+.mini-details-table {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.5px !important;
+  font-size: 7.2pt !important;
+  line-height: 1.25 !important;
+  color: #000000 !important;
+  margin: 1px 0 !important;
+}
+
+.mini-detail-row {
+  display: flex !important;
+  align-items: baseline !important;
+}
+
+.mini-lbl {
+  width: 54px !important;
+  font-weight: 600 !important;
+  color: #000000 !important;
+  flex-shrink: 0 !important;
+}
+
+.mini-val {
+  font-weight: 500 !important;
+  color: #000000 !important;
+  flex: 1 !important;
+  word-break: break-word !important;
+}
+
+.mini-val strong {
+  font-weight: 800 !important;
+  color: #000000 !important;
+}
+
+.mini-booth-box {
+  border: 1px solid #000000 !important;
+  padding: 2.5px 5px !important;
+  font-size: 6.8pt !important;
+  line-height: 1.2 !important;
+  font-weight: 600 !important;
+  color: #000000 !important;
+  background: #ffffff !important;
+  margin: 3px 0 !important;
+  border-radius: 1px !important;
+  white-space: normal !important;
+  word-break: break-word !important;
+}
+
+.mini-slip-footer {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  border-top: 1px dashed #000000 !important;
+  padding-top: 2px !important;
+  margin-top: 2px !important;
+  font-size: 5.8pt !important;
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+.mini-foot-left {
+  font-family: monospace, sans-serif !important;
+  font-weight: 800 !important;
+}
+
+.mini-foot-right {
+  font-weight: 600 !important;
+}
+
+/* ==========================================================================
+   PAN CARD SIZE (10 Slips per A4 Page • 2 cols x 5 rows • 85.6mm x 54mm)
+   ========================================================================== */
+.a4-grid-10,
+.printing-bulk.layout-10 .print-page-sheet,
+body.layout-10 .print-page-sheet {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  grid-template-rows: repeat(5, 1fr) !important;
+  gap: 3mm !important;
+  width: 100% !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.a4-grid-10 .official-mini-slip,
+body.layout-10 .official-mini-slip {
+  padding: 5px 8px !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+}
+.a4-grid-10 .mini-slip-gov-title,
+body.layout-10 .mini-slip-gov-title {
+  font-size: 8.8pt !important;
+}
+.a4-grid-10 .mini-details-table,
+body.layout-10 .mini-details-table {
+  font-size: 7.8pt !important;
+  line-height: 1.35 !important;
+}
+.a4-grid-10 .mini-booth-box,
+body.layout-10 .mini-booth-box {
+  font-size: 7.2pt !important;
+  padding: 3px 6px !important;
+}
+
+/* Print page sheet support for layout-10 */
+@media print {
+  body.layout-10 .print-page-sheet {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: repeat(5, 1fr) !important;
+    gap: 3mm !important;
+  }
+}

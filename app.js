@@ -2926,41 +2926,10 @@ function renderModalCandidateSlip(voter) {
       symbol_svg: symObj ? symObj.svg : ''
     });
   } else {
-    // 100% Standard Official Voter Slip (Candidate-Free SDM Format)
-    const isFemale = voter.gender === 'F' || voter.gender === 'महिला';
-    const relLabel = voter.relative_relation || 'पिता/पति';
-    const bInfo = getBoothForVoter(voter);
-    const boothNameVal = bInfo ? bInfo.name : (voter.polling_station_name || `राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-01 ${voter.gram_panchayat}`);
-    const boothNoVal = bInfo ? bInfo.booth_no : (voter.polling_station_no || '01');
-
+    // Exact Image 2 official format for modal preview as well
     container.innerHTML = `
-      <div class="official-bottom-bw-slip" style="padding:12px; border:2px solid #000; border-radius:6px; background:#fff;">
-        <div class="bw-header">
-          <div>
-            <div class="bw-gov-title" style="font-size:10.5pt; font-weight:800; color:#000;">मतदाता सूचना पर्ची (VOTER INFORMATION SLIP)</div>
-            <div style="font-size:7pt; color:#111; font-weight:600;">उपखण्ड निर्वाचन कार्यालय भिनाय | पंचायती राज आम चुनाव - 2026</div>
-          </div>
-          <div class="bw-serial-badge" style="font-size:10pt; padding:2px 8px; font-weight:800; border:1.5px solid #000;">सरल क्र. ${voter.serial_no || '1'}</div>
-        </div>
-
-        <div class="bw-grid" style="font-size:8.5pt; gap:4px 10px; margin-top:8px;">
-          <div><strong>ग्राम पंचायत:</strong> ${voter.gram_panchayat} (${voter.panchayat_code})</div>
-          <div><strong>वार्ड संख्या:</strong> ${voter.ward_no}</div>
-          <div class="bw-row-full"><strong>मतदाता का नाम:</strong> ${voter.voter_name} ${voter.voter_name_en ? `(${voter.voter_name_en})` : ''}</div>
-          <div class="bw-row-full"><strong>${relLabel} का नाम:</strong> ${voter.relative_name || '-'}</div>
-          <div><strong>आयु/लिंग:</strong> ${voter.age} वर्ष, ${isFemale ? 'महिला' : 'पुरुष'}</div>
-          <div><strong>मकान संख्या:</strong> ${voter.house_no || '-'}</div>
-          <div class="bw-row-full"><strong>पहचान पत्र क्र. (EPIC):</strong> <strong>${voter.epic_no || 'RJ/12/098/...'}</strong></div>
-        </div>
-
-        <div class="bw-booth-box" style="margin-top:8px; padding:6px 8px; font-size:8pt; border:1.5px solid #000; background:#f8fafc;">
-          <strong>🏫 मतदान केंद्र संख्या ${boothNoVal}:</strong> ${boothNameVal}
-        </div>
-
-        <div class="bw-footer" style="margin-top:8px; font-size:7pt; display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #555; padding-top:4px;">
-          <span>*मतदान केंद्र पर अधिकृत मूल पहचान पत्र अनिवार्य है</span>
-          <span>समय: प्रातः 7:00 से सायं 5:00 बजे तक</span>
-        </div>
+      <div style="max-width: 440px; margin: 0 auto; box-shadow: 0 4px 14px rgba(0,0,0,0.12); border-radius: 4px;">
+        ${buildExactOfficialSlipInnerHtml(voter)}
       </div>
     `;
   }
@@ -3294,15 +3263,24 @@ async function onBulkGpChanged() {
 
 function selectBulkLayout(layout) {
   State.bulkLayout = layout;
-  ['layoutCard9', 'layoutCard12', 'layoutCard15', 'layoutCardThermal'].forEach(id => {
+  ['layoutCard9', 'layoutCard10', 'layoutCard12', 'layoutCard15', 'layoutCard18', 'layoutCard20', 'layoutCardThermal'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.classList.remove('active');
   });
 
-  if (layout === 9) document.getElementById('layoutCard9').classList.add('active');
-  if (layout === 12) document.getElementById('layoutCard12').classList.add('active');
-  if (layout === 15) document.getElementById('layoutCard15').classList.add('active');
-  if (layout === 'thermal') document.getElementById('layoutCardThermal').classList.add('active');
+  const cardMap = {
+    9: 'layoutCard9',
+    10: 'layoutCard10',
+    12: 'layoutCard12',
+    15: 'layoutCard15',
+    18: 'layoutCard18',
+    20: 'layoutCard20',
+    'thermal': 'layoutCardThermal'
+  };
+  const activeCardId = cardMap[layout];
+  if (activeCardId && document.getElementById(activeCardId)) {
+    document.getElementById(activeCardId).classList.add('active');
+  }
 
   const sheet = document.getElementById('bulkPreviewSheet');
   if (sheet) {
@@ -3388,62 +3366,13 @@ function changeBulkPage(delta) {
  * 100% CANDIDATE-FREE OFFICIAL SDM OFFICE VOTER INFORMATION SLIP (STRICT B&W)
  */
 function buildOfficialSlipHtml(voter, layout, theme) {
-  const isFemale = voter.gender === 'F';
-  const relLabel = voter.relative_relation || 'पिता/पति';
-
-  return `
-    <div class="official-mini-slip">
-      <div>
-        <!-- Slip Header -->
-        <div class="mini-slip-header">
-          <div class="mini-slip-gov-title" style="font-size: 7.5pt; font-weight: 800; color: #000000; letter-spacing: 0.5px;">मतदाता सूचना पर्ची (VOTER SLIP)</div>
-          <div style="font-size: 5.8pt; font-weight: 600; color: #333333;">पंचायती राज आम चुनाव - 2026 | भिनाय (अजमेर)</div>
-        </div>
-
-        <!-- GP, Ward & Serial Bar -->
-        <div class="mini-slip-subbar">
-          <span><strong>पं.:</strong> ${voter.gram_panchayat}</span>
-          <span><strong>वार्ड:</strong> ${voter.ward_no}</span>
-          <span class="mini-serial-box">क्र. ${voter.serial_no || '1'}</span>
-        </div>
-
-        <!-- Main Details -->
-        <div class="mini-details-table">
-          <div class="mini-detail-row">
-            <span class="mini-lbl">नाम:</span>
-            <span class="mini-val"><strong>${voter.voter_name}</strong> ${voter.voter_name_en ? `(${voter.voter_name_en})` : ''}</span>
-          </div>
-          <div class="mini-detail-row">
-            <span class="mini-lbl">${relLabel}:</span>
-            <span class="mini-val">${voter.relative_name || '-'}</span>
-          </div>
-          <div class="mini-detail-row">
-            <span class="mini-lbl">आयु/लिंग:</span>
-            <span class="mini-val">${voter.age} वर्ष, ${isFemale ? 'स्त्री' : 'पुरुष'}</span>
-          </div>
-          <div class="mini-detail-row">
-            <span class="mini-lbl">मकान:</span>
-            <span class="mini-val">${voter.house_no || '-'} (${voter.revenue_village || voter.gram_panchayat})</span>
-          </div>
-          <div class="mini-detail-row">
-            <span class="mini-lbl">पहचान क्र.:</span>
-            <span class="mini-val"><strong>${voter.epic_no || 'RJ/12/098/...'}</strong></span>
-          </div>
-        </div>
-
-        <!-- Polling Station Box -->
-        <div class="mini-booth-box">
-          <strong>मतदान केंद्र ${voter.polling_station_no || '1'}:</strong> ${voter.polling_station_name || 'राजकीय विद्यालय'}
-        </div>
-      </div>
-
-      <!-- Slip Footer -->
-      <div class="mini-slip-footer" style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #777; padding-top:2px;">
-        <span style="font-family:monospace; font-size:5.5pt; color:#222; font-weight:700;">वार्ड: ${voter.ward_no} • सरल क्र.: ${voter.serial_no}</span>
-        <span style="font-size:5.2pt; color:#444; font-weight:600;">*मतदान हेतु मूल पहचान पत्र अनिवार्य</span>
-      </div>
-    </div>
-  `;
+  if (typeof window.buildOfficialSlipHtml === 'function' && window.buildOfficialSlipHtml !== buildOfficialSlipHtml) {
+    return window.buildOfficialSlipHtml(voter, layout, theme);
+  }
+  if (typeof buildExactOfficialSlipInnerHtml === 'function') {
+    return buildExactOfficialSlipInnerHtml(voter);
+  }
+  return ``;
 }
 
 function renderBulkPreview() {
@@ -5084,9 +5013,73 @@ function buildDetachableCandidateSlipHtml(voter, candidateData) {
 
 // Modify buildOfficialSlipHtml to dynamically support candidate detachable slip
 const originalBuildOfficialSlipHtml = window.buildOfficialSlipHtml;
-window.buildOfficialSlipHtml = function(voter, layout, theme) {
-  const currentLayout = layout || State.bulkLayout || 12;
+/**
+ * EXACT OFFICIAL VOTER SLIP PATTERN (100% MATCHING USER SPECIFICATION IMAGE 2)
+ * Pure B&W, crisp dashed lines, centered subbar, polling booth box, and footer.
+ */
+function buildExactOfficialSlipInnerHtml(voter) {
+  const isFemale = voter.gender === 'F' || voter.gender === 'महिला' || voter.gender === 'स्त्री';
+  const relLabel = voter.relative_relation || 'पति';
+  const bInfo = getBoothForVoter(voter);
+  const boothName = (bInfo && (bInfo.name || bInfo.name_hi)) || voter.polling_station_name || 'राजकीय उच्च माध्यमिक विद्यालय';
+  const boothNo = (bInfo && bInfo.booth_no) || voter.polling_station_no || '1';
 
+  return `
+    <div class="official-mini-slip">
+      <div class="mini-slip-inner">
+        <!-- Header -->
+        <div class="mini-slip-header">
+          <div class="mini-slip-gov-title">मतदाता सूचना पर्ची (VOTER SLIP)</div>
+          <div class="mini-slip-sub-gov">पंचायती राज आम चुनाव - 2026 | पं.स. भिनाय (अजमेर)</div>
+        </div>
+
+        <!-- Subbar: GP, Ward, Serial -->
+        <div class="mini-slip-subbar">
+          <span class="mini-sub-gp">पं.: ${voter.gram_panchayat}</span>
+          <span class="mini-sub-ward">वार्ड: ${voter.ward_no}</span>
+          <span class="mini-serial-box">क्र. ${voter.serial_no || '1'}</span>
+        </div>
+
+        <!-- Details -->
+        <div class="mini-details-table">
+          <div class="mini-detail-row">
+            <span class="mini-lbl">नाम:</span>
+            <span class="mini-val"><strong>${voter.voter_name}</strong> ${voter.voter_name_en ? `(${voter.voter_name_en})` : ''}</span>
+          </div>
+          <div class="mini-detail-row">
+            <span class="mini-lbl">${relLabel}:</span>
+            <span class="mini-val">${voter.relative_name || '-'}</span>
+          </div>
+          <div class="mini-detail-row">
+            <span class="mini-lbl">आयु/लिंग:</span>
+            <span class="mini-val">${voter.age} वर्ष, ${isFemale ? 'स्त्री' : 'पुरुष'}</span>
+          </div>
+          <div class="mini-detail-row">
+            <span class="mini-lbl">मकान:</span>
+            <span class="mini-val">${voter.house_no || '-'} (${voter.revenue_village || voter.gram_panchayat})</span>
+          </div>
+          <div class="mini-detail-row">
+            <span class="mini-lbl">पहचान क्र.:</span>
+            <span class="mini-val"><strong>${voter.epic_no || 'RJ/12/098/...'}</strong></span>
+          </div>
+        </div>
+
+        <!-- Polling Station Box -->
+        <div class="mini-booth-box">
+          मतदान केंद्र ${boothNo}: ${boothName}
+        </div>
+
+        <!-- Footer -->
+        <div class="mini-slip-footer">
+          <span class="mini-foot-left">वार्ड: ${voter.ward_no} • सरल क्र.: ${voter.serial_no}</span>
+          <span class="mini-foot-right">*मतदान हेतु मूल पहचान पत्र अनिवार्य</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+window.buildOfficialSlipHtml = function(voter, layout, theme) {
   // Candidate photo slip ONLY permitted when logged in as candidate for their allotted panchayat
   if (isCandidateSlipAllowedForVoter(voter)) {
     const cand = State.currentCandidate;
@@ -5100,56 +5093,9 @@ window.buildOfficialSlipHtml = function(voter, layout, theme) {
     }
   }
 
-  const bInfo = getBoothForVoter(voter);
-  const boothName = (bInfo && (bInfo.name || bInfo.name_hi)) || voter.polling_station_name || 'राजकीय उच्च माध्यमिक विद्यालय भिनाय';
-  const boothNo = (bInfo && bInfo.booth_no) || voter.polling_station_no || '1';
-  const is9Layout = (currentLayout === 9 || currentLayout === '9');
-
-  // Fallback to 100% standard administrative B&W slip without candidate photo
-  // If layout is 9, include official instructions, valid photo IDs and officer signature line so ZERO space is wasted!
-  return `
-    <div class="official-mini-slip ${is9Layout ? 'is-layout-9' : ''}">
-      <div>
-        <div class="mini-slip-header">
-          <div class="mini-slip-gov-title" style="font-size: 8pt; font-weight: 800; color: #000000; letter-spacing: 0.5px;">मतदाता सूचना पर्ची (VOTER SLIP)</div>
-          <div style="font-size: 6pt; font-weight: 600; color: #333333;">पंचायती राज आम चुनाव - 2026 | पं.स. भिनाय (अजमेर)</div>
-        </div>
-        <div class="mini-slip-subbar">
-          <span><strong>पं.:</strong> ${voter.gram_panchayat}</span>
-          <span><strong>वार्ड:</strong> ${voter.ward_no}</span>
-          <span class="mini-serial-box">क्र. ${voter.serial_no || '1'}</span>
-        </div>
-        <div class="mini-details-table">
-          <div class="mini-detail-row"><span class="mini-lbl">नाम:</span><span class="mini-val"><strong>${voter.voter_name}</strong> ${voter.voter_name_en ? `(${voter.voter_name_en})` : ''}</span></div>
-          <div class="mini-detail-row"><span class="mini-lbl">${voter.relative_relation || 'पिता/पति'}:</span><span class="mini-val">${voter.relative_name || '-'}</span></div>
-          <div class="mini-detail-row"><span class="mini-lbl">आयु/लिंग:</span><span class="mini-val">${voter.age} वर्ष, ${voter.gender === 'F' ? 'स्त्री' : 'पुरुष'}</span></div>
-          <div class="mini-detail-row"><span class="mini-lbl">मकान:</span><span class="mini-val">${voter.house_no || '-'} (${voter.revenue_village || voter.gram_panchayat})</span></div>
-          <div class="mini-detail-row"><span class="mini-lbl">पहचान क्र.:</span><span class="mini-val"><strong>${voter.epic_no || 'RJ/12/098/...'}</strong></span></div>
-        </div>
-        <div class="mini-booth-box" style="white-space:normal !important;">
-          <strong>मतदान केंद्र ${boothNo}:</strong> ${boothName}
-        </div>
-
-        ${is9Layout ? `
-        <!-- Official Voter Guidelines & Attestation for 9-slip layout (ZERO WASTED SPACE) -->
-        <div class="mini-instructions-box" style="margin-top:4px; padding:3px 4px; border:1px solid #777; background:#fafafa; font-size:5.8pt; line-height:1.2; color:#111;">
-          <div style="font-weight:700; margin-bottom:1px;">⏰ मतदान समय: प्रातः 7:00 बजे से सायं 5:00 बजे तक</div>
-          <div><strong>पहचान हेतु मान्य दस्तावेज:</strong> EPIC वोटर आईडी, आधार कार्ड, ड्राइविंग लाइसेंस, पैन कार्ड, बैंक/डाकघर फोटो पासबुक, मनरेगा जॉब कार्ड।</div>
-        </div>
-        <div class="mini-sig-box" style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:4px; font-size:5.6pt; color:#222;">
-          <span>*यह पर्ची केवल सूचना हेतु है।</span>
-          <span style="font-weight:700; border-top:1px dotted #000; padding-top:1px;">हस्ताक्षर बी.एल.ओ. / मतदान अधिकारी</span>
-        </div>
-        ` : ''}
-      </div>
-      <div class="mini-slip-footer" style="display:flex; justify-content:space-between; align-items:center; border-top:1px dashed #777; padding-top:2px; margin-top:3px;">
-        <span style="font-family:monospace; font-size:5.8pt; color:#222; font-weight:700;">वार्ड: ${voter.ward_no} • सरल क्र.: ${voter.serial_no}</span>
-        <span style="font-size:5.4pt; color:#444; font-weight:600;">*मतदान हेतु मूल पहचान पत्र अनिवार्य</span>
-      </div>
-    </div>
-  `;
+  // All other logins (Super Admin, BLO, public, vyavasthapak) get the exact Image 2 pattern
+  return buildExactOfficialSlipInnerHtml(voter);
 };
-
 
 // ==========================================================================
 // MASTER ADMIN USER & PORTAL CONTROL TAB ENGINE (⚡)
