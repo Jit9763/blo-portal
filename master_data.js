@@ -28,79 +28,131 @@ window.MASTER_DATA = {
           "ward_no": 1,
           "no": 1,
           "village": "बड़गांव",
-          "voters": 250
+          "voters": 274,
+          "active": 257,
+          "deleted": 17,
+          "male": 139,
+          "female": 118
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "केरियाखुर्द",
-          "voters": 250
+          "village": "बड़गांव",
+          "voters": 447,
+          "active": 422,
+          "deleted": 25,
+          "male": 215,
+          "female": 207
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "बडगांव",
-          "voters": 250
+          "village": "बड़गांव",
+          "voters": 365,
+          "active": 348,
+          "deleted": 17,
+          "male": 180,
+          "female": 168
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "रघुनाथपुरा",
-          "voters": 250
+          "village": "बड़गांव",
+          "voters": 330,
+          "active": 310,
+          "deleted": 20,
+          "male": 163,
+          "female": 147
         },
         {
           "ward_no": 5,
           "no": 5,
           "village": "बड़गांव",
-          "voters": 250
+          "voters": 295,
+          "active": 292,
+          "deleted": 3,
+          "male": 141,
+          "female": 151
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "केरियाखुर्द",
-          "voters": 250
+          "village": "बड़गांव",
+          "voters": 366,
+          "active": 354,
+          "deleted": 12,
+          "male": 183,
+          "female": 171
         },
         {
           "ward_no": 7,
           "no": 7,
-          "village": "बडगांव",
-          "voters": 250
+          "village": "बड़गांव",
+          "voters": 298,
+          "active": 287,
+          "deleted": 11,
+          "male": 150,
+          "female": 137
         },
         {
           "ward_no": 8,
           "no": 8,
-          "village": "रघुनाथपुरा",
-          "voters": 250
+          "village": "बड़गांव",
+          "voters": 293,
+          "active": 289,
+          "deleted": 4,
+          "male": 147,
+          "female": 142
         },
         {
           "ward_no": 9,
           "no": 9,
           "village": "बड़गांव",
-          "voters": 250
+          "voters": 321,
+          "active": 319,
+          "deleted": 2,
+          "male": 162,
+          "female": 157
         },
         {
           "ward_no": 10,
           "no": 10,
-          "village": "केरियाखुर्द",
-          "voters": 250
+          "village": "बड़गांव",
+          "voters": 312,
+          "active": 302,
+          "deleted": 10,
+          "male": 149,
+          "female": 153
         },
         {
           "ward_no": 11,
           "no": 11,
-          "village": "बडगांव",
-          "voters": 250
+          "village": "बड़गांव",
+          "voters": 299,
+          "active": 296,
+          "deleted": 3,
+          "male": 152,
+          "female": 144
         },
         {
           "ward_no": 12,
           "no": 12,
-          "village": "रघुनाथपुरा",
-          "voters": 250
+          "village": "बड़गांव",
+          "voters": 297,
+          "active": 292,
+          "deleted": 5,
+          "male": 139,
+          "female": 153
         },
         {
           "ward_no": 13,
           "no": 13,
           "village": "बड़गांव",
-          "voters": 250
+          "voters": 313,
+          "active": 308,
+          "deleted": 5,
+          "male": 153,
+          "female": 155
         }
       ],
       "villages": [
@@ -109,9 +161,11 @@ window.MASTER_DATA = {
         "बडगांव",
         "रघुनाथपुरा"
       ],
-      "total_voters": 3250,
-      "active_voters": 3250,
-      "deleted_voters": 0
+      "total_voters": 4210,
+      "active_voters": 4076,
+      "deleted_voters": 134,
+      "male_voters": 2121,
+      "female_voters": 2089
     },
     {
       "code": "GP02",
@@ -139,76 +193,122 @@ window.MASTER_DATA = {
           "ward_no": 1,
           "no": 1,
           "village": "बड़ली",
-          "voters": 250
+          "voters": 426,
+          "active": 407,
+          "deleted": 19,
+          "male": 212,
+          "female": 195
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "बडली",
-          "voters": 250
+          "village": "बड़ली",
+          "voters": 433,
+          "active": 423,
+          "deleted": 10,
+          "male": 218,
+          "female": 205
         },
         {
           "ward_no": 3,
           "no": 3,
           "village": "बड़ली",
-          "voters": 250
+          "voters": 254,
+          "active": 247,
+          "deleted": 7,
+          "male": 128,
+          "female": 119
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "बडली",
-          "voters": 250
+          "village": "बड़ली",
+          "voters": 262,
+          "active": 262,
+          "deleted": 0,
+          "male": 128,
+          "female": 134
         },
         {
           "ward_no": 5,
           "no": 5,
           "village": "बड़ली",
-          "voters": 250
+          "voters": 278,
+          "active": 271,
+          "deleted": 7,
+          "male": 139,
+          "female": 132
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "बडली",
-          "voters": 250
+          "village": "बड़ली",
+          "voters": 291,
+          "active": 287,
+          "deleted": 4,
+          "male": 146,
+          "female": 141
         },
         {
           "ward_no": 7,
           "no": 7,
           "village": "बड़ली",
-          "voters": 250
+          "voters": 459,
+          "active": 448,
+          "deleted": 11,
+          "male": 228,
+          "female": 220
         },
         {
           "ward_no": 8,
           "no": 8,
-          "village": "बडली",
-          "voters": 250
+          "village": "बड़ली",
+          "voters": 342,
+          "active": 328,
+          "deleted": 14,
+          "male": 167,
+          "female": 161
         },
         {
           "ward_no": 9,
           "no": 9,
           "village": "बड़ली",
-          "voters": 250
+          "voters": 286,
+          "active": 280,
+          "deleted": 6,
+          "male": 148,
+          "female": 132
         },
         {
           "ward_no": 10,
           "no": 10,
-          "village": "बडली",
-          "voters": 250
+          "village": "बड़ली",
+          "voters": 259,
+          "active": 248,
+          "deleted": 11,
+          "male": 132,
+          "female": 116
         },
         {
           "ward_no": 11,
           "no": 11,
           "village": "बड़ली",
-          "voters": 250
+          "voters": 330,
+          "active": 310,
+          "deleted": 20,
+          "male": 156,
+          "female": 154
         }
       ],
       "villages": [
         "बड़ली",
         "बडली"
       ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
+      "total_voters": 3620,
+      "active_voters": 3511,
+      "deleted_voters": 109,
+      "male_voters": 1861,
+      "female_voters": 1759
     },
     {
       "code": "GP03",
@@ -232,51 +332,81 @@ window.MASTER_DATA = {
           "ward_no": 1,
           "no": 1,
           "village": "बगराई",
-          "voters": 250
+          "voters": 295,
+          "active": 282,
+          "deleted": 13,
+          "male": 139,
+          "female": 143
         },
         {
           "ward_no": 2,
           "no": 2,
           "village": "बगराई",
-          "voters": 250
+          "voters": 336,
+          "active": 310,
+          "deleted": 26,
+          "male": 155,
+          "female": 155
         },
         {
           "ward_no": 3,
           "no": 3,
           "village": "बगराई",
-          "voters": 250
+          "voters": 266,
+          "active": 246,
+          "deleted": 20,
+          "male": 122,
+          "female": 124
         },
         {
           "ward_no": 4,
           "no": 4,
           "village": "बगराई",
-          "voters": 250
+          "voters": 292,
+          "active": 283,
+          "deleted": 9,
+          "male": 143,
+          "female": 140
         },
         {
           "ward_no": 5,
           "no": 5,
           "village": "बगराई",
-          "voters": 250
+          "voters": 332,
+          "active": 315,
+          "deleted": 17,
+          "male": 156,
+          "female": 159
         },
         {
           "ward_no": 6,
           "no": 6,
           "village": "बगराई",
-          "voters": 250
+          "voters": 367,
+          "active": 354,
+          "deleted": 13,
+          "male": 172,
+          "female": 182
         },
         {
           "ward_no": 7,
           "no": 7,
           "village": "बगराई",
-          "voters": 250
+          "voters": 289,
+          "active": 283,
+          "deleted": 6,
+          "male": 141,
+          "female": 142
         }
       ],
       "villages": [
         "बगराई"
       ],
-      "total_voters": 1750,
-      "active_voters": 1750,
-      "deleted_voters": 0
+      "total_voters": 2177,
+      "active_voters": 2073,
+      "deleted_voters": 104,
+      "male_voters": 1072,
+      "female_voters": 1105
     },
     {
       "code": "GP04",
@@ -310,112 +440,182 @@ window.MASTER_DATA = {
           "ward_no": 1,
           "no": 1,
           "village": "बांदनवाड़ा",
-          "voters": 250
+          "voters": 344,
+          "active": 327,
+          "deleted": 17,
+          "male": 169,
+          "female": 158
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "बान्दनवाडा",
-          "voters": 250
+          "village": "बांदनवाड़ा",
+          "voters": 398,
+          "active": 376,
+          "deleted": 22,
+          "male": 196,
+          "female": 180
         },
         {
           "ward_no": 3,
           "no": 3,
           "village": "बांदनवाड़ा",
-          "voters": 250
+          "voters": 368,
+          "active": 350,
+          "deleted": 18,
+          "male": 172,
+          "female": 178
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "बान्दनवाडा",
-          "voters": 250
+          "village": "बांदनवाड़ा",
+          "voters": 354,
+          "active": 337,
+          "deleted": 17,
+          "male": 168,
+          "female": 169
         },
         {
           "ward_no": 5,
           "no": 5,
           "village": "बांदनवाड़ा",
-          "voters": 250
+          "voters": 431,
+          "active": 403,
+          "deleted": 28,
+          "male": 200,
+          "female": 203
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "बान्दनवाडा",
-          "voters": 250
+          "village": "बांदनवाड़ा",
+          "voters": 330,
+          "active": 294,
+          "deleted": 36,
+          "male": 145,
+          "female": 149
         },
         {
           "ward_no": 7,
           "no": 7,
           "village": "बांदनवाड़ा",
-          "voters": 250
+          "voters": 450,
+          "active": 362,
+          "deleted": 88,
+          "male": 189,
+          "female": 173
         },
         {
           "ward_no": 8,
           "no": 8,
-          "village": "बान्दनवाडा",
-          "voters": 250
+          "village": "बांदनवाड़ा",
+          "voters": 411,
+          "active": 357,
+          "deleted": 54,
+          "male": 178,
+          "female": 179
         },
         {
           "ward_no": 9,
           "no": 9,
           "village": "बांदनवाड़ा",
-          "voters": 250
+          "voters": 418,
+          "active": 373,
+          "deleted": 45,
+          "male": 193,
+          "female": 180
         },
         {
           "ward_no": 10,
           "no": 10,
-          "village": "बान्दनवाडा",
-          "voters": 250
+          "village": "बांदनवाड़ा",
+          "voters": 331,
+          "active": 306,
+          "deleted": 25,
+          "male": 152,
+          "female": 154
         },
         {
           "ward_no": 11,
           "no": 11,
           "village": "बांदनवाड़ा",
-          "voters": 250
+          "voters": 339,
+          "active": 328,
+          "deleted": 11,
+          "male": 164,
+          "female": 164
         },
         {
           "ward_no": 12,
           "no": 12,
-          "village": "बान्दनवाडा",
-          "voters": 250
+          "village": "बांदनवाड़ा",
+          "voters": 426,
+          "active": 396,
+          "deleted": 30,
+          "male": 204,
+          "female": 192
         },
         {
           "ward_no": 13,
           "no": 13,
           "village": "बांदनवाड़ा",
-          "voters": 250
+          "voters": 385,
+          "active": 365,
+          "deleted": 20,
+          "male": 176,
+          "female": 189
         },
         {
           "ward_no": 14,
           "no": 14,
-          "village": "बान्दनवाडा",
-          "voters": 250
+          "village": "बांदनवाड़ा",
+          "voters": 415,
+          "active": 376,
+          "deleted": 39,
+          "male": 191,
+          "female": 185
         },
         {
           "ward_no": 15,
           "no": 15,
           "village": "बांदनवाड़ा",
-          "voters": 250
+          "voters": 320,
+          "active": 291,
+          "deleted": 29,
+          "male": 140,
+          "female": 151
         },
         {
           "ward_no": 16,
           "no": 16,
-          "village": "बान्दनवाडा",
-          "voters": 250
+          "village": "बांदनवाड़ा",
+          "voters": 312,
+          "active": 298,
+          "deleted": 14,
+          "male": 146,
+          "female": 152
         },
         {
           "ward_no": 17,
           "no": 17,
           "village": "बांदनवाड़ा",
-          "voters": 250
+          "voters": 342,
+          "active": 322,
+          "deleted": 20,
+          "male": 156,
+          "female": 166
         }
       ],
       "villages": [
         "बांदनवाड़ा",
         "बान्दनवाडा"
       ],
-      "total_voters": 4250,
-      "active_voters": 4250,
-      "deleted_voters": 0
+      "total_voters": 6374,
+      "active_voters": 5861,
+      "deleted_voters": 513,
+      "male_voters": 3175,
+      "female_voters": 3199
     },
     {
       "code": "GP05",
@@ -453,135 +653,221 @@ window.MASTER_DATA = {
           "ward_no": 1,
           "no": 1,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 468,
+          "active": 417,
+          "deleted": 51,
+          "male": 220,
+          "female": 197
         },
         {
           "ward_no": 2,
           "no": 2,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 321,
+          "active": 311,
+          "deleted": 10,
+          "male": 163,
+          "female": 148
         },
         {
           "ward_no": 3,
           "no": 3,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 481,
+          "active": 417,
+          "deleted": 64,
+          "male": 221,
+          "female": 196
         },
         {
           "ward_no": 4,
           "no": 4,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 451,
+          "active": 373,
+          "deleted": 78,
+          "male": 183,
+          "female": 190
         },
         {
           "ward_no": 5,
           "no": 5,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 401,
+          "active": 342,
+          "deleted": 59,
+          "male": 181,
+          "female": 161
         },
         {
           "ward_no": 6,
           "no": 6,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 248,
+          "active": 218,
+          "deleted": 30,
+          "male": 109,
+          "female": 109
         },
         {
           "ward_no": 7,
           "no": 7,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 542,
+          "active": 516,
+          "deleted": 26,
+          "male": 269,
+          "female": 247
         },
         {
           "ward_no": 8,
           "no": 8,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 290,
+          "active": 242,
+          "deleted": 48,
+          "male": 114,
+          "female": 128
         },
         {
           "ward_no": 9,
           "no": 9,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 336,
+          "active": 319,
+          "deleted": 17,
+          "male": 162,
+          "female": 157
         },
         {
           "ward_no": 10,
           "no": 10,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 214,
+          "active": 207,
+          "deleted": 7,
+          "male": 95,
+          "female": 112
         },
         {
           "ward_no": 11,
           "no": 11,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 283,
+          "active": 263,
+          "deleted": 20,
+          "male": 144,
+          "female": 119
         },
         {
           "ward_no": 12,
           "no": 12,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 386,
+          "active": 349,
+          "deleted": 37,
+          "male": 173,
+          "female": 176
         },
         {
           "ward_no": 13,
           "no": 13,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 312,
+          "active": 286,
+          "deleted": 26,
+          "male": 142,
+          "female": 144
         },
         {
           "ward_no": 14,
           "no": 14,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 431,
+          "active": 396,
+          "deleted": 35,
+          "male": 205,
+          "female": 191
         },
         {
           "ward_no": 15,
           "no": 15,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 372,
+          "active": 351,
+          "deleted": 21,
+          "male": 171,
+          "female": 180
         },
         {
           "ward_no": 16,
           "no": 16,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 369,
+          "active": 360,
+          "deleted": 9,
+          "male": 164,
+          "female": 196
         },
         {
           "ward_no": 17,
           "no": 17,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 440,
+          "active": 438,
+          "deleted": 2,
+          "male": 207,
+          "female": 231
         },
         {
           "ward_no": 18,
           "no": 18,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 458,
+          "active": 370,
+          "deleted": 88,
+          "male": 193,
+          "female": 177
         },
         {
           "ward_no": 19,
           "no": 19,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 314,
+          "active": 313,
+          "deleted": 1,
+          "male": 155,
+          "female": 158
         },
         {
           "ward_no": 20,
           "no": 20,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 462,
+          "active": 413,
+          "deleted": 49,
+          "male": 212,
+          "female": 201
         },
         {
           "ward_no": 21,
           "no": 21,
           "village": "भिनाय",
-          "voters": 250
+          "voters": 541,
+          "active": 494,
+          "deleted": 47,
+          "male": 241,
+          "female": 253
         }
       ],
       "villages": [
         "भिनाय"
       ],
-      "total_voters": 5250,
-      "active_voters": 5250,
-      "deleted_voters": 0
+      "total_voters": 8120,
+      "active_voters": 7395,
+      "deleted_voters": 725,
+      "male_voters": 4043,
+      "female_voters": 4077
     },
     {
       "code": "GP06",
@@ -609,67 +895,111 @@ window.MASTER_DATA = {
           "ward_no": 1,
           "no": 1,
           "village": "बूबकिया",
-          "voters": 250
+          "voters": 292,
+          "active": 273,
+          "deleted": 19,
+          "male": 149,
+          "female": 124
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "रेण",
-          "voters": 250
+          "village": "बूबकिया",
+          "voters": 269,
+          "active": 253,
+          "deleted": 16,
+          "male": 136,
+          "female": 117
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "खायडा",
-          "voters": 250
+          "village": "बूबकिया",
+          "voters": 261,
+          "active": 244,
+          "deleted": 17,
+          "male": 125,
+          "female": 119
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "सोलखुर्द",
-          "voters": 250
+          "village": "बूबकिया",
+          "voters": 262,
+          "active": 253,
+          "deleted": 9,
+          "male": 137,
+          "female": 116
         },
         {
           "ward_no": 5,
           "no": 5,
-          "village": "सोलकला",
-          "voters": 250
+          "village": "बूबकिया",
+          "voters": 360,
+          "active": 352,
+          "deleted": 8,
+          "male": 176,
+          "female": 176
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "पीपलिया",
-          "voters": 250
+          "village": "बूबकिया",
+          "voters": 325,
+          "active": 319,
+          "deleted": 6,
+          "male": 167,
+          "female": 152
         },
         {
           "ward_no": 7,
           "no": 7,
           "village": "बूबकिया",
-          "voters": 250
+          "voters": 381,
+          "active": 366,
+          "deleted": 15,
+          "male": 197,
+          "female": 169
         },
         {
           "ward_no": 8,
           "no": 8,
-          "village": "रेण",
-          "voters": 250
+          "village": "बूबकिया",
+          "voters": 387,
+          "active": 374,
+          "deleted": 13,
+          "male": 191,
+          "female": 183
         },
         {
           "ward_no": 9,
           "no": 9,
-          "village": "खायडा",
-          "voters": 250
+          "village": "बूबकिया",
+          "voters": 375,
+          "active": 368,
+          "deleted": 7,
+          "male": 186,
+          "female": 182
         },
         {
           "ward_no": 10,
           "no": 10,
-          "village": "सोलखुर्द",
-          "voters": 250
+          "village": "बूबकिया",
+          "voters": 340,
+          "active": 324,
+          "deleted": 16,
+          "male": 170,
+          "female": 154
         },
         {
           "ward_no": 11,
           "no": 11,
-          "village": "सोलकला",
-          "voters": 250
+          "village": "बूबकिया",
+          "voters": 309,
+          "active": 303,
+          "deleted": 6,
+          "male": 163,
+          "female": 140
         }
       ],
       "villages": [
@@ -680,9 +1010,11 @@ window.MASTER_DATA = {
         "सोलकला",
         "पीपलिया"
       ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
+      "total_voters": 3561,
+      "active_voters": 3429,
+      "deleted_voters": 132,
+      "male_voters": 1857,
+      "female_voters": 1704
     },
     {
       "code": "GP07",
@@ -710,75 +1042,121 @@ window.MASTER_DATA = {
           "ward_no": 1,
           "no": 1,
           "village": "चापानेरी",
-          "voters": 250
+          "voters": 456,
+          "active": 407,
+          "deleted": 49,
+          "male": 218,
+          "female": 189
         },
         {
           "ward_no": 2,
           "no": 2,
           "village": "चापानेरी",
-          "voters": 250
+          "voters": 407,
+          "active": 358,
+          "deleted": 49,
+          "male": 186,
+          "female": 172
         },
         {
           "ward_no": 3,
           "no": 3,
           "village": "चापानेरी",
-          "voters": 250
+          "voters": 272,
+          "active": 246,
+          "deleted": 26,
+          "male": 130,
+          "female": 116
         },
         {
           "ward_no": 4,
           "no": 4,
           "village": "चापानेरी",
-          "voters": 250
+          "voters": 455,
+          "active": 408,
+          "deleted": 47,
+          "male": 222,
+          "female": 186
         },
         {
           "ward_no": 5,
           "no": 5,
           "village": "चापानेरी",
-          "voters": 250
+          "voters": 299,
+          "active": 265,
+          "deleted": 34,
+          "male": 147,
+          "female": 118
         },
         {
           "ward_no": 6,
           "no": 6,
           "village": "चापानेरी",
-          "voters": 250
+          "voters": 256,
+          "active": 216,
+          "deleted": 40,
+          "male": 119,
+          "female": 97
         },
         {
           "ward_no": 7,
           "no": 7,
           "village": "चापानेरी",
-          "voters": 250
+          "voters": 291,
+          "active": 262,
+          "deleted": 29,
+          "male": 145,
+          "female": 117
         },
         {
           "ward_no": 8,
           "no": 8,
           "village": "चापानेरी",
-          "voters": 250
+          "voters": 245,
+          "active": 219,
+          "deleted": 26,
+          "male": 122,
+          "female": 97
         },
         {
           "ward_no": 9,
           "no": 9,
           "village": "चापानेरी",
-          "voters": 250
+          "voters": 322,
+          "active": 277,
+          "deleted": 45,
+          "male": 138,
+          "female": 139
         },
         {
           "ward_no": 10,
           "no": 10,
           "village": "चापानेरी",
-          "voters": 250
+          "voters": 279,
+          "active": 238,
+          "deleted": 41,
+          "male": 124,
+          "female": 114
         },
         {
           "ward_no": 11,
           "no": 11,
           "village": "चापानेरी",
-          "voters": 250
+          "voters": 460,
+          "active": 437,
+          "deleted": 23,
+          "male": 234,
+          "female": 203
         }
       ],
       "villages": [
         "चापानेरी"
       ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
+      "total_voters": 3742,
+      "active_voters": 3333,
+      "deleted_voters": 409,
+      "male_voters": 2044,
+      "female_voters": 1698
     },
     {
       "code": "GP08",
@@ -805,68 +1183,112 @@ window.MASTER_DATA = {
         {
           "ward_no": 1,
           "no": 1,
-          "village": "सेदरिया",
-          "voters": 250
+          "village": "छछून्दरा",
+          "voters": 402,
+          "active": 398,
+          "deleted": 4,
+          "male": 189,
+          "female": 209
         },
         {
           "ward_no": 2,
           "no": 2,
           "village": "छछून्दरा",
-          "voters": 250
+          "voters": 228,
+          "active": 220,
+          "deleted": 8,
+          "male": 107,
+          "female": 113
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "सरगांव",
-          "voters": 250
+          "village": "छछून्दरा",
+          "voters": 453,
+          "active": 414,
+          "deleted": 39,
+          "male": 205,
+          "female": 209
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "जोरावरपुरा",
-          "voters": 250
+          "village": "छछून्दरा",
+          "voters": 273,
+          "active": 260,
+          "deleted": 13,
+          "male": 137,
+          "female": 123
         },
         {
           "ward_no": 5,
           "no": 5,
-          "village": "रतनपुरा",
-          "voters": 250
+          "village": "छछून्दरा",
+          "voters": 297,
+          "active": 290,
+          "deleted": 7,
+          "male": 152,
+          "female": 138
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "सेदरिया",
-          "voters": 250
+          "village": "छछून्दरा",
+          "voters": 312,
+          "active": 296,
+          "deleted": 16,
+          "male": 147,
+          "female": 149
         },
         {
           "ward_no": 7,
           "no": 7,
           "village": "छछून्दरा",
-          "voters": 250
+          "voters": 398,
+          "active": 385,
+          "deleted": 13,
+          "male": 195,
+          "female": 190
         },
         {
           "ward_no": 8,
           "no": 8,
-          "village": "सरगांव",
-          "voters": 250
+          "village": "छछून्दरा",
+          "voters": 458,
+          "active": 444,
+          "deleted": 14,
+          "male": 227,
+          "female": 217
         },
         {
           "ward_no": 9,
           "no": 9,
-          "village": "जोरावरपुरा",
-          "voters": 250
+          "village": "छछून्दरा",
+          "voters": 412,
+          "active": 369,
+          "deleted": 43,
+          "male": 195,
+          "female": 174
         },
         {
           "ward_no": 10,
           "no": 10,
-          "village": "रतनपुरा",
-          "voters": 250
+          "village": "छछून्दरा",
+          "voters": 392,
+          "active": 321,
+          "deleted": 71,
+          "male": 166,
+          "female": 155
         },
         {
           "ward_no": 11,
           "no": 11,
-          "village": "सेदरिया",
-          "voters": 250
+          "village": "छछून्दरा",
+          "voters": 354,
+          "active": 290,
+          "deleted": 64,
+          "male": 153,
+          "female": 137
         }
       ],
       "villages": [
@@ -876,9 +1298,11 @@ window.MASTER_DATA = {
         "जोरावरपुरा",
         "रतनपुरा"
       ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
+      "total_voters": 3979,
+      "active_voters": 3687,
+      "deleted_voters": 292,
+      "male_voters": 1995,
+      "female_voters": 1984
     },
     {
       "code": "GP09",
@@ -905,68 +1329,112 @@ window.MASTER_DATA = {
         {
           "ward_no": 1,
           "no": 1,
-          "village": "अमरगढ",
-          "voters": 250
+          "village": "देवपुरा",
+          "voters": 221,
+          "active": 213,
+          "deleted": 8,
+          "male": 111,
+          "female": 102
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "मोतीपुरा",
-          "voters": 250
+          "village": "देवपुरा",
+          "voters": 371,
+          "active": 340,
+          "deleted": 31,
+          "male": 171,
+          "female": 169
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "रूपपुरा",
-          "voters": 250
+          "village": "देवपुरा",
+          "voters": 267,
+          "active": 241,
+          "deleted": 26,
+          "male": 120,
+          "female": 121
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "रामपुरा",
-          "voters": 250
+          "village": "देवपुरा",
+          "voters": 337,
+          "active": 304,
+          "deleted": 33,
+          "male": 146,
+          "female": 158
         },
         {
           "ward_no": 5,
           "no": 5,
           "village": "देवपुरा",
-          "voters": 250
+          "voters": 280,
+          "active": 266,
+          "deleted": 14,
+          "male": 137,
+          "female": 129
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "गज्जनाड़ी",
-          "voters": 250
+          "village": "देवपुरा",
+          "voters": 359,
+          "active": 337,
+          "deleted": 22,
+          "male": 170,
+          "female": 167
         },
         {
           "ward_no": 7,
           "no": 7,
-          "village": "अमरगढ",
-          "voters": 250
+          "village": "देवपुरा",
+          "voters": 375,
+          "active": 343,
+          "deleted": 32,
+          "male": 169,
+          "female": 174
         },
         {
           "ward_no": 8,
           "no": 8,
-          "village": "मोतीपुरा",
-          "voters": 250
+          "village": "देवपुरा",
+          "voters": 384,
+          "active": 363,
+          "deleted": 21,
+          "male": 188,
+          "female": 175
         },
         {
           "ward_no": 9,
           "no": 9,
-          "village": "रूपपुरा",
-          "voters": 250
+          "village": "देवपुरा",
+          "voters": 310,
+          "active": 301,
+          "deleted": 9,
+          "male": 157,
+          "female": 144
         },
         {
           "ward_no": 10,
           "no": 10,
-          "village": "रामपुरा",
-          "voters": 250
+          "village": "देवपुरा",
+          "voters": 262,
+          "active": 243,
+          "deleted": 19,
+          "male": 125,
+          "female": 118
         },
         {
           "ward_no": 11,
           "no": 11,
           "village": "देवपुरा",
-          "voters": 250
+          "voters": 252,
+          "active": 229,
+          "deleted": 23,
+          "male": 123,
+          "female": 106
         }
       ],
       "villages": [
@@ -977,9 +1445,11 @@ window.MASTER_DATA = {
         "देवपुरा",
         "गज्जनाड़ी"
       ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
+      "total_voters": 3418,
+      "active_voters": 3180,
+      "deleted_voters": 238,
+      "male_voters": 1731,
+      "female_voters": 1687
     },
     {
       "code": "GP10",
@@ -987,8 +1457,8 @@ window.MASTER_DATA = {
       "name_en": "Devliyakalan",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 13,
-      "ward_range": "1-13",
+      "total_wards": 15,
+      "ward_range": "1-15",
       "ward_list": [
         1,
         2,
@@ -1002,86 +1472,160 @@ window.MASTER_DATA = {
         10,
         11,
         12,
-        13
+        13,
+        14,
+        15
       ],
       "wards": [
         {
           "ward_no": 1,
           "no": 1,
           "village": "देवलियाकलां",
-          "voters": 250
+          "voters": 267,
+          "active": 252,
+          "deleted": 15,
+          "male": 124,
+          "female": 128
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "माताजी का खेडा",
-          "voters": 250
+          "village": "देवलियाकलां",
+          "voters": 234,
+          "active": 221,
+          "deleted": 13,
+          "male": 105,
+          "female": 116
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "देवलियाकला",
-          "voters": 250
+          "village": "देवलियाकलां",
+          "voters": 408,
+          "active": 380,
+          "deleted": 28,
+          "male": 202,
+          "female": 178
         },
         {
           "ward_no": 4,
           "no": 4,
           "village": "देवलियाकलां",
-          "voters": 250
+          "voters": 470,
+          "active": 425,
+          "deleted": 45,
+          "male": 209,
+          "female": 216
         },
         {
           "ward_no": 5,
           "no": 5,
-          "village": "माताजी का खेडा",
-          "voters": 250
+          "village": "देवलियाकलां",
+          "voters": 406,
+          "active": 395,
+          "deleted": 11,
+          "male": 202,
+          "female": 193
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "देवलियाकला",
-          "voters": 250
+          "village": "देवलियाकलां",
+          "voters": 415,
+          "active": 392,
+          "deleted": 23,
+          "male": 204,
+          "female": 188
         },
         {
           "ward_no": 7,
           "no": 7,
           "village": "देवलियाकलां",
-          "voters": 250
+          "voters": 378,
+          "active": 364,
+          "deleted": 14,
+          "male": 176,
+          "female": 188
         },
         {
           "ward_no": 8,
           "no": 8,
-          "village": "माताजी का खेडा",
-          "voters": 250
+          "village": "देवलियाकलां",
+          "voters": 394,
+          "active": 386,
+          "deleted": 8,
+          "male": 198,
+          "female": 188
         },
         {
           "ward_no": 9,
           "no": 9,
-          "village": "देवलियाकला",
-          "voters": 250
+          "village": "देवलियाकलां",
+          "voters": 364,
+          "active": 352,
+          "deleted": 12,
+          "male": 181,
+          "female": 171
         },
         {
           "ward_no": 10,
           "no": 10,
           "village": "देवलियाकलां",
-          "voters": 250
+          "voters": 384,
+          "active": 368,
+          "deleted": 16,
+          "male": 184,
+          "female": 184
         },
         {
           "ward_no": 11,
           "no": 11,
-          "village": "माताजी का खेडा",
-          "voters": 250
+          "village": "देवलियाकलां",
+          "voters": 328,
+          "active": 317,
+          "deleted": 11,
+          "male": 163,
+          "female": 154
         },
         {
           "ward_no": 12,
           "no": 12,
-          "village": "देवलियाकला",
-          "voters": 250
+          "village": "देवलियाकलां",
+          "voters": 326,
+          "active": 301,
+          "deleted": 25,
+          "male": 157,
+          "female": 144
         },
         {
           "ward_no": 13,
           "no": 13,
           "village": "देवलियाकलां",
-          "voters": 250
+          "voters": 293,
+          "active": 280,
+          "deleted": 13,
+          "male": 140,
+          "female": 140
+        },
+        {
+          "ward_no": 14,
+          "no": 14,
+          "village": "देवलियाकलां",
+          "voters": 362,
+          "active": 327,
+          "deleted": 35,
+          "male": 156,
+          "female": 171
+        },
+        {
+          "ward_no": 15,
+          "no": 15,
+          "village": "देवलियाकलां",
+          "voters": 335,
+          "active": 329,
+          "deleted": 6,
+          "male": 165,
+          "female": 164
         }
       ],
       "villages": [
@@ -1089,228 +1633,16 @@ window.MASTER_DATA = {
         "माताजी का खेडा",
         "देवलियाकला"
       ],
-      "total_voters": 3250,
-      "active_voters": 3250,
-      "deleted_voters": 0
+      "total_voters": 5364,
+      "active_voters": 5089,
+      "deleted_voters": 275,
+      "male_voters": 2714,
+      "female_voters": 2650
     },
     {
       "code": "GP11",
       "name_hi": "धांतोल",
       "name_en": "Dhantol",
-      "samiti": "भिनाय",
-      "district": "अजमेर",
-      "total_wards": 11,
-      "ward_range": "1-11",
-      "ward_list": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "wards": [
-        {
-          "ward_no": 1,
-          "no": 1,
-          "village": "उदयगढ़खेडा",
-          "voters": 250
-        },
-        {
-          "ward_no": 2,
-          "no": 2,
-          "village": "गुजरवाडा",
-          "voters": 250
-        },
-        {
-          "ward_no": 3,
-          "no": 3,
-          "village": "धांतोल",
-          "voters": 250
-        },
-        {
-          "ward_no": 4,
-          "no": 4,
-          "village": "उदयगढ़खेडा",
-          "voters": 250
-        },
-        {
-          "ward_no": 5,
-          "no": 5,
-          "village": "गुजरवाडा",
-          "voters": 250
-        },
-        {
-          "ward_no": 6,
-          "no": 6,
-          "village": "धांतोल",
-          "voters": 250
-        },
-        {
-          "ward_no": 7,
-          "no": 7,
-          "village": "उदयगढ़खेडा",
-          "voters": 250
-        },
-        {
-          "ward_no": 8,
-          "no": 8,
-          "village": "गुजरवाडा",
-          "voters": 250
-        },
-        {
-          "ward_no": 9,
-          "no": 9,
-          "village": "धांतोल",
-          "voters": 250
-        },
-        {
-          "ward_no": 10,
-          "no": 10,
-          "village": "उदयगढ़खेडा",
-          "voters": 250
-        },
-        {
-          "ward_no": 11,
-          "no": 11,
-          "village": "गुजरवाडा",
-          "voters": 250
-        }
-      ],
-      "villages": [
-        "उदयगढ़खेडा",
-        "गुजरवाडा",
-        "धांतोल"
-      ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
-    },
-    {
-      "code": "GP12",
-      "name_hi": "एकलसिंहा",
-      "name_en": "Ekalsingha",
-      "samiti": "भिनाय",
-      "district": "अजमेर",
-      "total_wards": 13,
-      "ward_range": "1-13",
-      "ward_list": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13
-      ],
-      "wards": [
-        {
-          "ward_no": 1,
-          "no": 1,
-          "village": "एकलसिंहा",
-          "voters": 250
-        },
-        {
-          "ward_no": 2,
-          "no": 2,
-          "village": "हियालिया",
-          "voters": 250
-        },
-        {
-          "ward_no": 3,
-          "no": 3,
-          "village": "बनेडिया",
-          "voters": 250
-        },
-        {
-          "ward_no": 4,
-          "no": 4,
-          "village": "बालापुरा",
-          "voters": 250
-        },
-        {
-          "ward_no": 5,
-          "no": 5,
-          "village": "एकलसिंगा",
-          "voters": 250
-        },
-        {
-          "ward_no": 6,
-          "no": 6,
-          "village": "ढाणी",
-          "voters": 250
-        },
-        {
-          "ward_no": 7,
-          "no": 7,
-          "village": "झबरकिया",
-          "voters": 250
-        },
-        {
-          "ward_no": 8,
-          "no": 8,
-          "village": "एकलसिंहा",
-          "voters": 250
-        },
-        {
-          "ward_no": 9,
-          "no": 9,
-          "village": "हियालिया",
-          "voters": 250
-        },
-        {
-          "ward_no": 10,
-          "no": 10,
-          "village": "बनेडिया",
-          "voters": 250
-        },
-        {
-          "ward_no": 11,
-          "no": 11,
-          "village": "बालापुरा",
-          "voters": 250
-        },
-        {
-          "ward_no": 12,
-          "no": 12,
-          "village": "एकलसिंगा",
-          "voters": 250
-        },
-        {
-          "ward_no": 13,
-          "no": 13,
-          "village": "ढाणी",
-          "voters": 250
-        }
-      ],
-      "villages": [
-        "एकलसिंहा",
-        "हियालिया",
-        "बनेडिया",
-        "बालापुरा",
-        "एकलसिंगा",
-        "ढाणी",
-        "झबरकिया"
-      ],
-      "total_voters": 3250,
-      "active_voters": 3250,
-      "deleted_voters": 0
-    },
-    {
-      "code": "GP13",
-      "name_hi": "घणा",
-      "name_en": "Ghana",
       "samiti": "भिनाय",
       "district": "अजमेर",
       "total_wards": 9,
@@ -1330,64 +1662,328 @@ window.MASTER_DATA = {
         {
           "ward_no": 1,
           "no": 1,
+          "village": "धांतोल",
+          "voters": 352,
+          "active": 342,
+          "deleted": 10,
+          "male": 170,
+          "female": 172
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "धांतोल",
+          "voters": 431,
+          "active": 422,
+          "deleted": 9,
+          "male": 217,
+          "female": 205
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "धांतोल",
+          "voters": 366,
+          "active": 356,
+          "deleted": 10,
+          "male": 188,
+          "female": 168
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "धांतोल",
+          "voters": 235,
+          "active": 223,
+          "deleted": 12,
+          "male": 117,
+          "female": 106
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "धांतोल",
+          "voters": 272,
+          "active": 260,
+          "deleted": 12,
+          "male": 136,
+          "female": 124
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "धांतोल",
+          "voters": 338,
+          "active": 318,
+          "deleted": 20,
+          "male": 168,
+          "female": 150
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "धांतोल",
+          "voters": 321,
+          "active": 313,
+          "deleted": 8,
+          "male": 170,
+          "female": 143
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "धांतोल",
+          "voters": 259,
+          "active": 236,
+          "deleted": 23,
+          "male": 117,
+          "female": 119
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "धांतोल",
+          "voters": 363,
+          "active": 328,
+          "deleted": 35,
+          "male": 161,
+          "female": 167
+        }
+      ],
+      "villages": [
+        "उदयगढ़खेडा",
+        "गुजरवाडा",
+        "धांतोल"
+      ],
+      "total_voters": 2937,
+      "active_voters": 2798,
+      "deleted_voters": 139,
+      "male_voters": 1507,
+      "female_voters": 1430
+    },
+    {
+      "code": "GP12",
+      "name_hi": "एकलसिंहा",
+      "name_en": "Ekalsingha",
+      "samiti": "भिनाय",
+      "district": "अजमेर",
+      "total_wards": 9,
+      "ward_range": "1-9",
+      "ward_list": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "एकलसिंहा",
+          "voters": 344,
+          "active": 336,
+          "deleted": 8,
+          "male": 177,
+          "female": 159
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "एकलसिंहा",
+          "voters": 320,
+          "active": 319,
+          "deleted": 1,
+          "male": 168,
+          "female": 151
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "एकलसिंहा",
+          "voters": 283,
+          "active": 274,
+          "deleted": 9,
+          "male": 150,
+          "female": 124
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "एकलसिंहा",
+          "voters": 347,
+          "active": 314,
+          "deleted": 33,
+          "male": 170,
+          "female": 144
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "एकलसिंहा",
+          "voters": 362,
+          "active": 334,
+          "deleted": 28,
+          "male": 172,
+          "female": 162
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "एकलसिंहा",
+          "voters": 281,
+          "active": 259,
+          "deleted": 22,
+          "male": 141,
+          "female": 118
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "एकलसिंहा",
+          "voters": 301,
+          "active": 288,
+          "deleted": 13,
+          "male": 153,
+          "female": 135
+        },
+        {
+          "ward_no": 8,
+          "no": 8,
+          "village": "एकलसिंहा",
+          "voters": 315,
+          "active": 303,
+          "deleted": 12,
+          "male": 159,
+          "female": 144
+        },
+        {
+          "ward_no": 9,
+          "no": 9,
+          "village": "एकलसिंहा",
+          "voters": 254,
+          "active": 246,
+          "deleted": 8,
+          "male": 136,
+          "female": 110
+        }
+      ],
+      "villages": [
+        "एकलसिंहा",
+        "हियालिया",
+        "बनेडिया",
+        "बालापुरा",
+        "एकलसिंगा",
+        "ढाणी",
+        "झबरकिया"
+      ],
+      "total_voters": 2807,
+      "active_voters": 2673,
+      "deleted_voters": 134,
+      "male_voters": 1490,
+      "female_voters": 1317
+    },
+    {
+      "code": "GP13",
+      "name_hi": "घणा",
+      "name_en": "Ghana",
+      "samiti": "भिनाय",
+      "district": "अजमेर",
+      "total_wards": 7,
+      "ward_range": "1-7",
+      "ward_list": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
           "village": "घणा",
-          "voters": 250
+          "voters": 250,
+          "active": 236,
+          "deleted": 14,
+          "male": 115,
+          "female": 121
         },
         {
           "ward_no": 2,
           "no": 2,
           "village": "घणा",
-          "voters": 250
+          "voters": 301,
+          "active": 277,
+          "deleted": 24,
+          "male": 148,
+          "female": 129
         },
         {
           "ward_no": 3,
           "no": 3,
           "village": "घणा",
-          "voters": 250
+          "voters": 398,
+          "active": 373,
+          "deleted": 25,
+          "male": 196,
+          "female": 177
         },
         {
           "ward_no": 4,
           "no": 4,
           "village": "घणा",
-          "voters": 250
+          "voters": 451,
+          "active": 421,
+          "deleted": 30,
+          "male": 213,
+          "female": 208
         },
         {
           "ward_no": 5,
           "no": 5,
           "village": "घणा",
-          "voters": 250
+          "voters": 409,
+          "active": 394,
+          "deleted": 15,
+          "male": 211,
+          "female": 183
         },
         {
           "ward_no": 6,
           "no": 6,
           "village": "घणा",
-          "voters": 250
+          "voters": 331,
+          "active": 312,
+          "deleted": 19,
+          "male": 155,
+          "female": 157
         },
         {
           "ward_no": 7,
           "no": 7,
           "village": "घणा",
-          "voters": 250
-        },
-        {
-          "ward_no": 8,
-          "no": 8,
-          "village": "घणा",
-          "voters": 250
-        },
-        {
-          "ward_no": 9,
-          "no": 9,
-          "village": "घणा",
-          "voters": 250
+          "voters": 405,
+          "active": 387,
+          "deleted": 18,
+          "male": 213,
+          "female": 174
         }
       ],
       "villages": [
         "घणा"
       ],
-      "total_voters": 2250,
-      "active_voters": 2250,
-      "deleted_voters": 0
+      "total_voters": 2545,
+      "active_voters": 2400,
+      "deleted_voters": 145,
+      "male_voters": 1307,
+      "female_voters": 1238
     },
     {
       "code": "GP14",
@@ -1414,68 +2010,112 @@ window.MASTER_DATA = {
         {
           "ward_no": 1,
           "no": 1,
-          "village": "बगराई",
-          "voters": 250
+          "village": "गुढाखुर्द",
+          "voters": 235,
+          "active": 225,
+          "deleted": 10,
+          "male": 103,
+          "female": 122
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "खेडी",
-          "voters": 250
+          "village": "गुढाखुर्द",
+          "voters": 261,
+          "active": 258,
+          "deleted": 3,
+          "male": 133,
+          "female": 125
         },
         {
           "ward_no": 3,
           "no": 3,
           "village": "गुढाखुर्द",
-          "voters": 250
+          "voters": 325,
+          "active": 308,
+          "deleted": 17,
+          "male": 163,
+          "female": 145
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "गुढाकला",
-          "voters": 250
+          "village": "गुढाखुर्द",
+          "voters": 471,
+          "active": 448,
+          "deleted": 23,
+          "male": 209,
+          "female": 239
         },
         {
           "ward_no": 5,
           "no": 5,
-          "village": "पाण्डोलाई",
-          "voters": 250
+          "village": "गुढाखुर्द",
+          "voters": 217,
+          "active": 205,
+          "deleted": 12,
+          "male": 107,
+          "female": 98
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "इन्द्रपुरा",
-          "voters": 250
+          "village": "गुढाखुर्द",
+          "voters": 431,
+          "active": 420,
+          "deleted": 11,
+          "male": 211,
+          "female": 209
         },
         {
           "ward_no": 7,
           "no": 7,
-          "village": "बगराई",
-          "voters": 250
+          "village": "गुढाखुर्द",
+          "voters": 257,
+          "active": 249,
+          "deleted": 8,
+          "male": 132,
+          "female": 117
         },
         {
           "ward_no": 8,
           "no": 8,
-          "village": "खेडी",
-          "voters": 250
+          "village": "गुढाखुर्द",
+          "voters": 307,
+          "active": 287,
+          "deleted": 20,
+          "male": 160,
+          "female": 127
         },
         {
           "ward_no": 9,
           "no": 9,
           "village": "गुढाखुर्द",
-          "voters": 250
+          "voters": 249,
+          "active": 234,
+          "deleted": 15,
+          "male": 120,
+          "female": 114
         },
         {
           "ward_no": 10,
           "no": 10,
-          "village": "गुढाकला",
-          "voters": 250
+          "village": "गुढाखुर्द",
+          "voters": 282,
+          "active": 265,
+          "deleted": 17,
+          "male": 133,
+          "female": 132
         },
         {
           "ward_no": 11,
           "no": 11,
-          "village": "पाण्डोलाई",
-          "voters": 250
+          "village": "गुढाखुर्द",
+          "voters": 353,
+          "active": 335,
+          "deleted": 18,
+          "male": 167,
+          "female": 168
         }
       ],
       "villages": [
@@ -1486,14 +2126,114 @@ window.MASTER_DATA = {
         "पाण्डोलाई",
         "इन्द्रपुरा"
       ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
+      "total_voters": 3388,
+      "active_voters": 3234,
+      "deleted_voters": 154,
+      "male_voters": 1699,
+      "female_voters": 1689
     },
     {
       "code": "GP15",
       "name_hi": "हियालिया",
       "name_en": "Hiyaliya",
+      "samiti": "भिनाय",
+      "district": "अजमेर",
+      "total_wards": 7,
+      "ward_range": "1-7",
+      "ward_list": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "wards": [
+        {
+          "ward_no": 1,
+          "no": 1,
+          "village": "हियालिया",
+          "voters": 348,
+          "active": 340,
+          "deleted": 8,
+          "male": 173,
+          "female": 167
+        },
+        {
+          "ward_no": 2,
+          "no": 2,
+          "village": "हियालिया",
+          "voters": 333,
+          "active": 331,
+          "deleted": 2,
+          "male": 164,
+          "female": 167
+        },
+        {
+          "ward_no": 3,
+          "no": 3,
+          "village": "हियालिया",
+          "voters": 319,
+          "active": 310,
+          "deleted": 9,
+          "male": 161,
+          "female": 149
+        },
+        {
+          "ward_no": 4,
+          "no": 4,
+          "village": "हियालिया",
+          "voters": 250,
+          "active": 244,
+          "deleted": 6,
+          "male": 126,
+          "female": 118
+        },
+        {
+          "ward_no": 5,
+          "no": 5,
+          "village": "हियालिया",
+          "voters": 308,
+          "active": 297,
+          "deleted": 11,
+          "male": 155,
+          "female": 142
+        },
+        {
+          "ward_no": 6,
+          "no": 6,
+          "village": "हियालिया",
+          "voters": 276,
+          "active": 271,
+          "deleted": 5,
+          "male": 136,
+          "female": 135
+        },
+        {
+          "ward_no": 7,
+          "no": 7,
+          "village": "हियालिया",
+          "voters": 295,
+          "active": 286,
+          "deleted": 9,
+          "male": 150,
+          "female": 136
+        }
+      ],
+      "villages": [
+        "हियालिया"
+      ],
+      "total_voters": 2129,
+      "active_voters": 2079,
+      "deleted_voters": 50,
+      "male_voters": 1086,
+      "female_voters": 1043
+    },
+    {
+      "code": "GP16",
+      "name_hi": "कनईकला",
+      "name_en": "Kanaikalan",
       "samiti": "भिनाय",
       "district": "अजमेर",
       "total_wards": 9,
@@ -1513,152 +2253,92 @@ window.MASTER_DATA = {
         {
           "ward_no": 1,
           "no": 1,
-          "village": "हियालिया",
-          "voters": 250
-        },
-        {
-          "ward_no": 2,
-          "no": 2,
-          "village": "हियालिया",
-          "voters": 250
-        },
-        {
-          "ward_no": 3,
-          "no": 3,
-          "village": "हियालिया",
-          "voters": 250
-        },
-        {
-          "ward_no": 4,
-          "no": 4,
-          "village": "हियालिया",
-          "voters": 250
-        },
-        {
-          "ward_no": 5,
-          "no": 5,
-          "village": "हियालिया",
-          "voters": 250
-        },
-        {
-          "ward_no": 6,
-          "no": 6,
-          "village": "हियालिया",
-          "voters": 250
-        },
-        {
-          "ward_no": 7,
-          "no": 7,
-          "village": "हियालिया",
-          "voters": 250
-        },
-        {
-          "ward_no": 8,
-          "no": 8,
-          "village": "हियालिया",
-          "voters": 250
-        },
-        {
-          "ward_no": 9,
-          "no": 9,
-          "village": "हियालिया",
-          "voters": 250
-        }
-      ],
-      "villages": [
-        "हियालिया"
-      ],
-      "total_voters": 2250,
-      "active_voters": 2250,
-      "deleted_voters": 0
-    },
-    {
-      "code": "GP16",
-      "name_hi": "कनईकला",
-      "name_en": "Kanaikalan",
-      "samiti": "भिनाय",
-      "district": "अजमेर",
-      "total_wards": 11,
-      "ward_range": "1-11",
-      "ward_list": [
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10,
-        11
-      ],
-      "wards": [
-        {
-          "ward_no": 1,
-          "no": 1,
           "village": "कनईकला",
-          "voters": 250
+          "voters": 337,
+          "active": 318,
+          "deleted": 19,
+          "male": 160,
+          "female": 158
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "कनईखुर्द",
-          "voters": 250
+          "village": "कनईकला",
+          "voters": 340,
+          "active": 320,
+          "deleted": 20,
+          "male": 164,
+          "female": 156
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "धान्धो का खेडा",
-          "voters": 250
+          "village": "कनईकला",
+          "voters": 381,
+          "active": 344,
+          "deleted": 37,
+          "male": 163,
+          "female": 181
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "निमेडा",
-          "voters": 250
+          "village": "कनईकला",
+          "voters": 387,
+          "active": 377,
+          "deleted": 10,
+          "male": 195,
+          "female": 182
         },
         {
           "ward_no": 5,
           "no": 5,
-          "village": "लक्ष्मीपुरा",
-          "voters": 250
+          "village": "कनईकला",
+          "voters": 355,
+          "active": 341,
+          "deleted": 14,
+          "male": 179,
+          "female": 162
         },
         {
           "ward_no": 6,
           "no": 6,
           "village": "कनईकला",
-          "voters": 250
+          "voters": 421,
+          "active": 410,
+          "deleted": 11,
+          "male": 212,
+          "female": 198
         },
         {
           "ward_no": 7,
           "no": 7,
-          "village": "कनईखुर्द",
-          "voters": 250
+          "village": "कनईकला",
+          "voters": 403,
+          "active": 391,
+          "deleted": 12,
+          "male": 203,
+          "female": 188
         },
         {
           "ward_no": 8,
           "no": 8,
-          "village": "धान्धो का खेडा",
-          "voters": 250
+          "village": "कनईकला",
+          "voters": 405,
+          "active": 402,
+          "deleted": 3,
+          "male": 209,
+          "female": 193
         },
         {
           "ward_no": 9,
           "no": 9,
-          "village": "निमेडा",
-          "voters": 250
-        },
-        {
-          "ward_no": 10,
-          "no": 10,
-          "village": "लक्ष्मीपुरा",
-          "voters": 250
-        },
-        {
-          "ward_no": 11,
-          "no": 11,
           "village": "कनईकला",
-          "voters": 250
+          "voters": 191,
+          "active": 181,
+          "deleted": 10,
+          "male": 92,
+          "female": 89
         }
       ],
       "villages": [
@@ -1668,9 +2348,11 @@ window.MASTER_DATA = {
         "निमेडा",
         "लक्ष्मीपुरा"
       ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
+      "total_voters": 3220,
+      "active_voters": 3084,
+      "deleted_voters": 136,
+      "male_voters": 1649,
+      "female_voters": 1571
     },
     {
       "code": "GP17",
@@ -1678,8 +2360,8 @@ window.MASTER_DATA = {
       "name_en": "Karanti",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 11,
-      "ward_range": "1-11",
+      "total_wards": 7,
+      "ward_range": "1-7",
       "ward_list": [
         1,
         2,
@@ -1687,78 +2369,78 @@ window.MASTER_DATA = {
         4,
         5,
         6,
-        7,
-        8,
-        9,
-        10,
-        11
+        7
       ],
       "wards": [
         {
           "ward_no": 1,
           "no": 1,
-          "village": "दौलतपुरा",
-          "voters": 250
+          "village": "करांटी",
+          "voters": 333,
+          "active": 283,
+          "deleted": 50,
+          "male": 148,
+          "female": 135
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "प्रतापपुरा",
-          "voters": 250
+          "village": "करांटी",
+          "voters": 328,
+          "active": 303,
+          "deleted": 25,
+          "male": 159,
+          "female": 144
         },
         {
           "ward_no": 3,
           "no": 3,
           "village": "करांटी",
-          "voters": 250
+          "voters": 278,
+          "active": 249,
+          "deleted": 29,
+          "male": 118,
+          "female": 131
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "गोवलिया",
-          "voters": 250
+          "village": "करांटी",
+          "voters": 334,
+          "active": 317,
+          "deleted": 17,
+          "male": 169,
+          "female": 148
         },
         {
           "ward_no": 5,
           "no": 5,
-          "village": "खेडी",
-          "voters": 250
+          "village": "करांटी",
+          "voters": 321,
+          "active": 299,
+          "deleted": 22,
+          "male": 163,
+          "female": 136
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "गोपालपुरा",
-          "voters": 250
+          "village": "करांटी",
+          "voters": 308,
+          "active": 290,
+          "deleted": 18,
+          "male": 144,
+          "female": 146
         },
         {
           "ward_no": 7,
           "no": 7,
-          "village": "गोरधनपुरा",
-          "voters": 250
-        },
-        {
-          "ward_no": 8,
-          "no": 8,
-          "village": "दौलतपुरा",
-          "voters": 250
-        },
-        {
-          "ward_no": 9,
-          "no": 9,
-          "village": "प्रतापपुरा",
-          "voters": 250
-        },
-        {
-          "ward_no": 10,
-          "no": 10,
           "village": "करांटी",
-          "voters": 250
-        },
-        {
-          "ward_no": 11,
-          "no": 11,
-          "village": "गोवलिया",
-          "voters": 250
+          "voters": 316,
+          "active": 306,
+          "deleted": 10,
+          "male": 162,
+          "female": 144
         }
       ],
       "villages": [
@@ -1770,9 +2452,11 @@ window.MASTER_DATA = {
         "गोपालपुरा",
         "गोरधनपुरा"
       ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
+      "total_voters": 2218,
+      "active_voters": 2047,
+      "deleted_voters": 171,
+      "male_voters": 1158,
+      "female_voters": 1060
     },
     {
       "code": "GP18",
@@ -1780,8 +2464,8 @@ window.MASTER_DATA = {
       "name_en": "Kerot",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 9,
-      "ward_range": "1-9",
+      "total_wards": 11,
+      "ward_range": "1-11",
       "ward_list": [
         1,
         2,
@@ -1791,62 +2475,120 @@ window.MASTER_DATA = {
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11
       ],
       "wards": [
         {
           "ward_no": 1,
           "no": 1,
           "village": "कैरोंट",
-          "voters": 250
+          "voters": 436,
+          "active": 402,
+          "deleted": 34,
+          "male": 202,
+          "female": 200
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "जैतपुरा",
-          "voters": 250
+          "village": "कैरोंट",
+          "voters": 388,
+          "active": 364,
+          "deleted": 24,
+          "male": 184,
+          "female": 180
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "कैरोट",
-          "voters": 250
+          "village": "कैरोंट",
+          "voters": 360,
+          "active": 299,
+          "deleted": 61,
+          "male": 150,
+          "female": 149
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "कादोलाई",
-          "voters": 250
+          "village": "कैरोंट",
+          "voters": 375,
+          "active": 359,
+          "deleted": 16,
+          "male": 185,
+          "female": 174
         },
         {
           "ward_no": 5,
           "no": 5,
           "village": "कैरोंट",
-          "voters": 250
+          "voters": 264,
+          "active": 257,
+          "deleted": 7,
+          "male": 134,
+          "female": 123
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "जैतपुरा",
-          "voters": 250
+          "village": "कैरोंट",
+          "voters": 260,
+          "active": 241,
+          "deleted": 19,
+          "male": 120,
+          "female": 121
         },
         {
           "ward_no": 7,
           "no": 7,
-          "village": "कैरोट",
-          "voters": 250
+          "village": "कैरोंट",
+          "voters": 288,
+          "active": 278,
+          "deleted": 10,
+          "male": 151,
+          "female": 127
         },
         {
           "ward_no": 8,
           "no": 8,
-          "village": "कादोलाई",
-          "voters": 250
+          "village": "कैरोंट",
+          "voters": 391,
+          "active": 382,
+          "deleted": 9,
+          "male": 196,
+          "female": 186
         },
         {
           "ward_no": 9,
           "no": 9,
           "village": "कैरोंट",
-          "voters": 250
+          "voters": 315,
+          "active": 308,
+          "deleted": 7,
+          "male": 167,
+          "female": 141
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "कैरोंट",
+          "voters": 273,
+          "active": 268,
+          "deleted": 5,
+          "male": 138,
+          "female": 130
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "कैरोंट",
+          "voters": 314,
+          "active": 307,
+          "deleted": 7,
+          "male": 162,
+          "female": 145
         }
       ],
       "villages": [
@@ -1855,9 +2597,11 @@ window.MASTER_DATA = {
         "कैरोट",
         "कादोलाई"
       ],
-      "total_voters": 2250,
-      "active_voters": 2250,
-      "deleted_voters": 0
+      "total_voters": 3664,
+      "active_voters": 3465,
+      "deleted_voters": 199,
+      "male_voters": 1891,
+      "female_voters": 1773
     },
     {
       "code": "GP19",
@@ -1865,8 +2609,8 @@ window.MASTER_DATA = {
       "name_en": "Khedi",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 9,
-      "ward_range": "1-9",
+      "total_wards": 11,
+      "ward_range": "1-11",
       "ward_list": [
         1,
         2,
@@ -1876,70 +2620,130 @@ window.MASTER_DATA = {
         6,
         7,
         8,
-        9
+        9,
+        10,
+        11
       ],
       "wards": [
         {
           "ward_no": 1,
           "no": 1,
           "village": "खेडी",
-          "voters": 250
+          "voters": 317,
+          "active": 294,
+          "deleted": 23,
+          "male": 153,
+          "female": 141
         },
         {
           "ward_no": 2,
           "no": 2,
           "village": "खेडी",
-          "voters": 250
+          "voters": 322,
+          "active": 307,
+          "deleted": 15,
+          "male": 167,
+          "female": 140
         },
         {
           "ward_no": 3,
           "no": 3,
           "village": "खेडी",
-          "voters": 250
+          "voters": 308,
+          "active": 292,
+          "deleted": 16,
+          "male": 169,
+          "female": 123
         },
         {
           "ward_no": 4,
           "no": 4,
           "village": "खेडी",
-          "voters": 250
+          "voters": 281,
+          "active": 265,
+          "deleted": 16,
+          "male": 148,
+          "female": 117
         },
         {
           "ward_no": 5,
           "no": 5,
           "village": "खेडी",
-          "voters": 250
+          "voters": 262,
+          "active": 246,
+          "deleted": 16,
+          "male": 138,
+          "female": 108
         },
         {
           "ward_no": 6,
           "no": 6,
           "village": "खेडी",
-          "voters": 250
+          "voters": 325,
+          "active": 296,
+          "deleted": 29,
+          "male": 159,
+          "female": 137
         },
         {
           "ward_no": 7,
           "no": 7,
           "village": "खेडी",
-          "voters": 250
+          "voters": 356,
+          "active": 329,
+          "deleted": 27,
+          "male": 183,
+          "female": 146
         },
         {
           "ward_no": 8,
           "no": 8,
           "village": "खेडी",
-          "voters": 250
+          "voters": 312,
+          "active": 301,
+          "deleted": 11,
+          "male": 158,
+          "female": 143
         },
         {
           "ward_no": 9,
           "no": 9,
           "village": "खेडी",
-          "voters": 250
+          "voters": 298,
+          "active": 282,
+          "deleted": 16,
+          "male": 150,
+          "female": 132
+        },
+        {
+          "ward_no": 10,
+          "no": 10,
+          "village": "खेडी",
+          "voters": 252,
+          "active": 245,
+          "deleted": 7,
+          "male": 114,
+          "female": 131
+        },
+        {
+          "ward_no": 11,
+          "no": 11,
+          "village": "खेडी",
+          "voters": 267,
+          "active": 260,
+          "deleted": 7,
+          "male": 117,
+          "female": 143
         }
       ],
       "villages": [
         "खेडी"
       ],
-      "total_voters": 2250,
-      "active_voters": 2250,
-      "deleted_voters": 0
+      "total_voters": 3300,
+      "active_voters": 3117,
+      "deleted_voters": 183,
+      "male_voters": 1754,
+      "female_voters": 1546
     },
     {
       "code": "GP20",
@@ -1966,68 +2770,112 @@ window.MASTER_DATA = {
         {
           "ward_no": 1,
           "no": 1,
-          "village": "सूरजपुरा",
-          "voters": 250
+          "village": "कुम्हारिया",
+          "voters": 302,
+          "active": 293,
+          "deleted": 9,
+          "male": 151,
+          "female": 142
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "बगराई",
-          "voters": 250
+          "village": "कुम्हारिया",
+          "voters": 574,
+          "active": 550,
+          "deleted": 24,
+          "male": 273,
+          "female": 277
         },
         {
           "ward_no": 3,
           "no": 3,
           "village": "कुम्हारिया",
-          "voters": 250
+          "voters": 347,
+          "active": 314,
+          "deleted": 33,
+          "male": 163,
+          "female": 151
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "कीटाप",
-          "voters": 250
+          "village": "कुम्हारिया",
+          "voters": 353,
+          "active": 281,
+          "deleted": 72,
+          "male": 147,
+          "female": 134
         },
         {
           "ward_no": 5,
           "no": 5,
-          "village": "सूरजपुरा",
-          "voters": 250
+          "village": "कुम्हारिया",
+          "voters": 347,
+          "active": 260,
+          "deleted": 87,
+          "male": 118,
+          "female": 142
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "बगराई",
-          "voters": 250
+          "village": "कुम्हारिया",
+          "voters": 421,
+          "active": 393,
+          "deleted": 28,
+          "male": 210,
+          "female": 183
         },
         {
           "ward_no": 7,
           "no": 7,
           "village": "कुम्हारिया",
-          "voters": 250
+          "voters": 399,
+          "active": 355,
+          "deleted": 44,
+          "male": 174,
+          "female": 181
         },
         {
           "ward_no": 8,
           "no": 8,
-          "village": "कीटाप",
-          "voters": 250
+          "village": "कुम्हारिया",
+          "voters": 338,
+          "active": 322,
+          "deleted": 16,
+          "male": 166,
+          "female": 156
         },
         {
           "ward_no": 9,
           "no": 9,
-          "village": "सूरजपुरा",
-          "voters": 250
+          "village": "कुम्हारिया",
+          "voters": 411,
+          "active": 354,
+          "deleted": 57,
+          "male": 180,
+          "female": 174
         },
         {
           "ward_no": 10,
           "no": 10,
-          "village": "बगराई",
-          "voters": 250
+          "village": "कुम्हारिया",
+          "voters": 416,
+          "active": 357,
+          "deleted": 59,
+          "male": 188,
+          "female": 169
         },
         {
           "ward_no": 11,
           "no": 11,
           "village": "कुम्हारिया",
-          "voters": 250
+          "voters": 405,
+          "active": 366,
+          "deleted": 39,
+          "male": 180,
+          "female": 186
         }
       ],
       "villages": [
@@ -2036,9 +2884,11 @@ window.MASTER_DATA = {
         "कुम्हारिया",
         "कीटाप"
       ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
+      "total_voters": 4313,
+      "active_voters": 3845,
+      "deleted_voters": 468,
+      "male_voters": 2156,
+      "female_voters": 2157
     },
     {
       "code": "GP21",
@@ -2046,8 +2896,8 @@ window.MASTER_DATA = {
       "name_en": "Lamgra",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 13,
-      "ward_range": "1-13",
+      "total_wards": 11,
+      "ward_range": "1-11",
       "ward_list": [
         1,
         2,
@@ -2059,88 +2909,118 @@ window.MASTER_DATA = {
         8,
         9,
         10,
-        11,
-        12,
-        13
+        11
       ],
       "wards": [
         {
           "ward_no": 1,
           "no": 1,
-          "village": "बडलाखेडा",
-          "voters": 250
+          "village": "लामगरा",
+          "voters": 295,
+          "active": 286,
+          "deleted": 9,
+          "male": 148,
+          "female": 138
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "उदयपुरखेडा",
-          "voters": 250
+          "village": "लामगरा",
+          "voters": 297,
+          "active": 288,
+          "deleted": 9,
+          "male": 149,
+          "female": 139
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "भेरुखेड़ा",
-          "voters": 250
+          "village": "लामगरा",
+          "voters": 301,
+          "active": 299,
+          "deleted": 2,
+          "male": 155,
+          "female": 144
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "नीमेडा",
-          "voters": 250
+          "village": "लामगरा",
+          "voters": 353,
+          "active": 326,
+          "deleted": 27,
+          "male": 164,
+          "female": 162
         },
         {
           "ward_no": 5,
           "no": 5,
-          "village": "गनाहेड़ा",
-          "voters": 250
+          "village": "लामगरा",
+          "voters": 469,
+          "active": 450,
+          "deleted": 19,
+          "male": 236,
+          "female": 214
         },
         {
           "ward_no": 6,
           "no": 6,
           "village": "लामगरा",
-          "voters": 250
+          "voters": 356,
+          "active": 336,
+          "deleted": 20,
+          "male": 164,
+          "female": 172
         },
         {
           "ward_no": 7,
           "no": 7,
-          "village": "बडलाखेडा",
-          "voters": 250
+          "village": "लामगरा",
+          "voters": 334,
+          "active": 327,
+          "deleted": 7,
+          "male": 168,
+          "female": 159
         },
         {
           "ward_no": 8,
           "no": 8,
-          "village": "उदयपुरखेडा",
-          "voters": 250
+          "village": "लामगरा",
+          "voters": 288,
+          "active": 264,
+          "deleted": 24,
+          "male": 132,
+          "female": 132
         },
         {
           "ward_no": 9,
           "no": 9,
-          "village": "भेरुखेड़ा",
-          "voters": 250
+          "village": "लामगरा",
+          "voters": 317,
+          "active": 294,
+          "deleted": 23,
+          "male": 147,
+          "female": 147
         },
         {
           "ward_no": 10,
           "no": 10,
-          "village": "नीमेडा",
-          "voters": 250
+          "village": "लामगरा",
+          "voters": 274,
+          "active": 249,
+          "deleted": 25,
+          "male": 128,
+          "female": 121
         },
         {
           "ward_no": 11,
           "no": 11,
-          "village": "गनाहेड़ा",
-          "voters": 250
-        },
-        {
-          "ward_no": 12,
-          "no": 12,
           "village": "लामगरा",
-          "voters": 250
-        },
-        {
-          "ward_no": 13,
-          "no": 13,
-          "village": "बडलाखेडा",
-          "voters": 250
+          "voters": 301,
+          "active": 266,
+          "deleted": 35,
+          "male": 136,
+          "female": 130
         }
       ],
       "villages": [
@@ -2151,9 +3031,11 @@ window.MASTER_DATA = {
         "गनाहेड़ा",
         "लामगरा"
       ],
-      "total_voters": 3250,
-      "active_voters": 3250,
-      "deleted_voters": 0
+      "total_voters": 3585,
+      "active_voters": 3385,
+      "deleted_voters": 200,
+      "male_voters": 1797,
+      "female_voters": 1788
     },
     {
       "code": "GP22",
@@ -2182,80 +3064,132 @@ window.MASTER_DATA = {
         {
           "ward_no": 1,
           "no": 1,
-          "village": "बडला उर्फ़ काला तालाब",
-          "voters": 250
+          "village": "नागोला",
+          "voters": 368,
+          "active": 360,
+          "deleted": 8,
+          "male": 197,
+          "female": 163
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "सपनीखेडा",
-          "voters": 250
+          "village": "नागोला",
+          "voters": 426,
+          "active": 404,
+          "deleted": 22,
+          "male": 224,
+          "female": 180
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "बालापुरा",
-          "voters": 250
+          "village": "नागोला",
+          "voters": 335,
+          "active": 323,
+          "deleted": 12,
+          "male": 168,
+          "female": 155
         },
         {
           "ward_no": 4,
           "no": 4,
           "village": "नागोला",
-          "voters": 250
+          "voters": 311,
+          "active": 291,
+          "deleted": 20,
+          "male": 157,
+          "female": 134
         },
         {
           "ward_no": 5,
           "no": 5,
-          "village": "बडला उर्फ़ काला तालाब",
-          "voters": 250
+          "village": "नागोला",
+          "voters": 368,
+          "active": 355,
+          "deleted": 13,
+          "male": 179,
+          "female": 176
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "सपनीखेडा",
-          "voters": 250
+          "village": "नागोला",
+          "voters": 342,
+          "active": 328,
+          "deleted": 14,
+          "male": 167,
+          "female": 161
         },
         {
           "ward_no": 7,
           "no": 7,
-          "village": "बालापुरा",
-          "voters": 250
+          "village": "नागोला",
+          "voters": 383,
+          "active": 368,
+          "deleted": 15,
+          "male": 188,
+          "female": 180
         },
         {
           "ward_no": 8,
           "no": 8,
           "village": "नागोला",
-          "voters": 250
+          "voters": 293,
+          "active": 279,
+          "deleted": 14,
+          "male": 133,
+          "female": 146
         },
         {
           "ward_no": 9,
           "no": 9,
-          "village": "बडला उर्फ़ काला तालाब",
-          "voters": 250
+          "village": "नागोला",
+          "voters": 270,
+          "active": 260,
+          "deleted": 10,
+          "male": 144,
+          "female": 116
         },
         {
           "ward_no": 10,
           "no": 10,
-          "village": "सपनीखेडा",
-          "voters": 250
+          "village": "नागोला",
+          "voters": 322,
+          "active": 314,
+          "deleted": 8,
+          "male": 161,
+          "female": 153
         },
         {
           "ward_no": 11,
           "no": 11,
-          "village": "बालापुरा",
-          "voters": 250
+          "village": "नागोला",
+          "voters": 222,
+          "active": 214,
+          "deleted": 8,
+          "male": 101,
+          "female": 113
         },
         {
           "ward_no": 12,
           "no": 12,
           "village": "नागोला",
-          "voters": 250
+          "voters": 239,
+          "active": 233,
+          "deleted": 6,
+          "male": 115,
+          "female": 118
         },
         {
           "ward_no": 13,
           "no": 13,
-          "village": "बडला उर्फ़ काला तालाब",
-          "voters": 250
+          "village": "नागोला",
+          "voters": 363,
+          "active": 339,
+          "deleted": 24,
+          "male": 168,
+          "female": 171
         }
       ],
       "villages": [
@@ -2264,9 +3198,11 @@ window.MASTER_DATA = {
         "बालापुरा",
         "नागोला"
       ],
-      "total_voters": 3250,
-      "active_voters": 3250,
-      "deleted_voters": 0
+      "total_voters": 4242,
+      "active_voters": 4068,
+      "deleted_voters": 174,
+      "male_voters": 2200,
+      "female_voters": 2042
     },
     {
       "code": "GP23",
@@ -2293,68 +3229,112 @@ window.MASTER_DATA = {
         {
           "ward_no": 1,
           "no": 1,
-          "village": "काचरिया",
-          "voters": 250
+          "village": "नान्दसी",
+          "voters": 327,
+          "active": 304,
+          "deleted": 23,
+          "male": 161,
+          "female": 143
         },
         {
           "ward_no": 2,
           "no": 2,
           "village": "नान्दसी",
-          "voters": 250
+          "voters": 409,
+          "active": 347,
+          "deleted": 62,
+          "male": 169,
+          "female": 178
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "कुरथल",
-          "voters": 250
+          "village": "नान्दसी",
+          "voters": 464,
+          "active": 376,
+          "deleted": 88,
+          "male": 199,
+          "female": 177
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "काचरिया",
-          "voters": 250
+          "village": "नान्दसी",
+          "voters": 385,
+          "active": 355,
+          "deleted": 30,
+          "male": 185,
+          "female": 170
         },
         {
           "ward_no": 5,
           "no": 5,
           "village": "नान्दसी",
-          "voters": 250
+          "voters": 304,
+          "active": 289,
+          "deleted": 15,
+          "male": 155,
+          "female": 134
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "कुरथल",
-          "voters": 250
+          "village": "नान्दसी",
+          "voters": 392,
+          "active": 380,
+          "deleted": 12,
+          "male": 195,
+          "female": 185
         },
         {
           "ward_no": 7,
           "no": 7,
-          "village": "काचरिया",
-          "voters": 250
+          "village": "नान्दसी",
+          "voters": 262,
+          "active": 241,
+          "deleted": 21,
+          "male": 126,
+          "female": 115
         },
         {
           "ward_no": 8,
           "no": 8,
           "village": "नान्दसी",
-          "voters": 250
+          "voters": 319,
+          "active": 287,
+          "deleted": 32,
+          "male": 147,
+          "female": 140
         },
         {
           "ward_no": 9,
           "no": 9,
-          "village": "कुरथल",
-          "voters": 250
+          "village": "नान्दसी",
+          "voters": 368,
+          "active": 353,
+          "deleted": 15,
+          "male": 180,
+          "female": 173
         },
         {
           "ward_no": 10,
           "no": 10,
-          "village": "काचरिया",
-          "voters": 250
+          "village": "नान्दसी",
+          "voters": 471,
+          "active": 437,
+          "deleted": 34,
+          "male": 238,
+          "female": 199
         },
         {
           "ward_no": 11,
           "no": 11,
           "village": "नान्दसी",
-          "voters": 250
+          "voters": 440,
+          "active": 430,
+          "deleted": 10,
+          "male": 240,
+          "female": 190
         }
       ],
       "villages": [
@@ -2362,9 +3342,11 @@ window.MASTER_DATA = {
         "नान्दसी",
         "कुरथल"
       ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
+      "total_voters": 4141,
+      "active_voters": 3799,
+      "deleted_voters": 342,
+      "male_voters": 2198,
+      "female_voters": 1943
     },
     {
       "code": "GP24",
@@ -2372,8 +3354,8 @@ window.MASTER_DATA = {
       "name_en": "Padanga",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 11,
-      "ward_range": "1-11",
+      "total_wards": 7,
+      "ward_range": "1-7",
       "ward_list": [
         1,
         2,
@@ -2381,78 +3363,78 @@ window.MASTER_DATA = {
         4,
         5,
         6,
-        7,
-        8,
-        9,
-        10,
-        11
+        7
       ],
       "wards": [
         {
           "ward_no": 1,
           "no": 1,
           "village": "पड़ांगा",
-          "voters": 250
+          "voters": 284,
+          "active": 271,
+          "deleted": 13,
+          "male": 139,
+          "female": 132
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "पड़ागा",
-          "voters": 250
+          "village": "पड़ांगा",
+          "voters": 263,
+          "active": 248,
+          "deleted": 15,
+          "male": 130,
+          "female": 118
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "सवाईपुरा",
-          "voters": 250
+          "village": "पड़ांगा",
+          "voters": 374,
+          "active": 333,
+          "deleted": 41,
+          "male": 171,
+          "female": 162
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "अर्जुनपुरा 92202",
-          "voters": 250
+          "village": "पड़ांगा",
+          "voters": 437,
+          "active": 387,
+          "deleted": 50,
+          "male": 190,
+          "female": 197
         },
         {
           "ward_no": 5,
           "no": 5,
           "village": "पड़ांगा",
-          "voters": 250
+          "voters": 363,
+          "active": 307,
+          "deleted": 56,
+          "male": 150,
+          "female": 157
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "पड़ागा",
-          "voters": 250
+          "village": "पड़ांगा",
+          "voters": 379,
+          "active": 359,
+          "deleted": 20,
+          "male": 184,
+          "female": 175
         },
         {
           "ward_no": 7,
           "no": 7,
-          "village": "सवाईपुरा",
-          "voters": 250
-        },
-        {
-          "ward_no": 8,
-          "no": 8,
-          "village": "अर्जुनपुरा 92202",
-          "voters": 250
-        },
-        {
-          "ward_no": 9,
-          "no": 9,
           "village": "पड़ांगा",
-          "voters": 250
-        },
-        {
-          "ward_no": 10,
-          "no": 10,
-          "village": "पड़ागा",
-          "voters": 250
-        },
-        {
-          "ward_no": 11,
-          "no": 11,
-          "village": "सवाईपुरा",
-          "voters": 250
+          "voters": 512,
+          "active": 437,
+          "deleted": 75,
+          "male": 219,
+          "female": 218
         }
       ],
       "villages": [
@@ -2461,9 +3443,11 @@ window.MASTER_DATA = {
         "सवाईपुरा",
         "अर्जुनपुरा 92202"
       ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
+      "total_voters": 2612,
+      "active_voters": 2342,
+      "deleted_voters": 270,
+      "male_voters": 1295,
+      "female_voters": 1317
     },
     {
       "code": "GP25",
@@ -2471,8 +3455,8 @@ window.MASTER_DATA = {
       "name_en": "Padliya",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 11,
-      "ward_range": "1-11",
+      "total_wards": 9,
+      "ward_range": "1-9",
       "ward_list": [
         1,
         2,
@@ -2482,76 +3466,98 @@ window.MASTER_DATA = {
         6,
         7,
         8,
-        9,
-        10,
-        11
+        9
       ],
       "wards": [
         {
           "ward_no": 1,
           "no": 1,
-          "village": "चावण्डिया",
-          "voters": 250
+          "village": "पाडलिया",
+          "voters": 291,
+          "active": 275,
+          "deleted": 16,
+          "male": 152,
+          "female": 123
         },
         {
           "ward_no": 2,
           "no": 2,
           "village": "पाडलिया",
-          "voters": 250
+          "voters": 299,
+          "active": 288,
+          "deleted": 11,
+          "male": 149,
+          "female": 139
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "बीलिया",
-          "voters": 250
+          "village": "पाडलिया",
+          "voters": 245,
+          "active": 237,
+          "deleted": 8,
+          "male": 122,
+          "female": 115
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "मूण्डिया खेडा",
-          "voters": 250
+          "village": "पाडलिया",
+          "voters": 277,
+          "active": 269,
+          "deleted": 8,
+          "male": 133,
+          "female": 136
         },
         {
           "ward_no": 5,
           "no": 5,
-          "village": "गोरधनपुरा",
-          "voters": 250
+          "village": "पाडलिया",
+          "voters": 393,
+          "active": 375,
+          "deleted": 18,
+          "male": 185,
+          "female": 190
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "चावण्डिया",
-          "voters": 250
+          "village": "पाडलिया",
+          "voters": 413,
+          "active": 392,
+          "deleted": 21,
+          "male": 196,
+          "female": 196
         },
         {
           "ward_no": 7,
           "no": 7,
           "village": "पाडलिया",
-          "voters": 250
+          "voters": 414,
+          "active": 395,
+          "deleted": 19,
+          "male": 200,
+          "female": 195
         },
         {
           "ward_no": 8,
           "no": 8,
-          "village": "बीलिया",
-          "voters": 250
+          "village": "पाडलिया",
+          "voters": 325,
+          "active": 317,
+          "deleted": 8,
+          "male": 168,
+          "female": 149
         },
         {
           "ward_no": 9,
           "no": 9,
-          "village": "मूण्डिया खेडा",
-          "voters": 250
-        },
-        {
-          "ward_no": 10,
-          "no": 10,
-          "village": "गोरधनपुरा",
-          "voters": 250
-        },
-        {
-          "ward_no": 11,
-          "no": 11,
-          "village": "चावण्डिया",
-          "voters": 250
+          "village": "पाडलिया",
+          "voters": 408,
+          "active": 381,
+          "deleted": 27,
+          "male": 195,
+          "female": 186
         }
       ],
       "villages": [
@@ -2561,9 +3567,11 @@ window.MASTER_DATA = {
         "मूण्डिया खेडा",
         "गोरधनपुरा"
       ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
+      "total_voters": 3065,
+      "active_voters": 2929,
+      "deleted_voters": 136,
+      "male_voters": 1562,
+      "female_voters": 1503
     },
     {
       "code": "GP26",
@@ -2571,8 +3579,8 @@ window.MASTER_DATA = {
       "name_en": "Rammaliya",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 11,
-      "ward_range": "1-11",
+      "total_wards": 7,
+      "ward_range": "1-7",
       "ward_list": [
         1,
         2,
@@ -2580,78 +3588,78 @@ window.MASTER_DATA = {
         4,
         5,
         6,
-        7,
-        8,
-        9,
-        10,
-        11
+        7
       ],
       "wards": [
         {
           "ward_no": 1,
           "no": 1,
-          "village": "हीरापुरा",
-          "voters": 250
+          "village": "राममालिया",
+          "voters": 365,
+          "active": 360,
+          "deleted": 5,
+          "male": 173,
+          "female": 187
         },
         {
           "ward_no": 2,
           "no": 2,
           "village": "राममालिया",
-          "voters": 250
+          "voters": 348,
+          "active": 343,
+          "deleted": 5,
+          "male": 180,
+          "female": 163
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "रघुनाथगढ़",
-          "voters": 250
+          "village": "राममालिया",
+          "voters": 350,
+          "active": 337,
+          "deleted": 13,
+          "male": 179,
+          "female": 158
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "पीलोदा",
-          "voters": 250
+          "village": "राममालिया",
+          "voters": 366,
+          "active": 364,
+          "deleted": 2,
+          "male": 188,
+          "female": 176
         },
         {
           "ward_no": 5,
           "no": 5,
-          "village": "हीरापुरा",
-          "voters": 250
+          "village": "राममालिया",
+          "voters": 496,
+          "active": 477,
+          "deleted": 19,
+          "male": 249,
+          "female": 228
         },
         {
           "ward_no": 6,
           "no": 6,
           "village": "राममालिया",
-          "voters": 250
+          "voters": 435,
+          "active": 418,
+          "deleted": 17,
+          "male": 217,
+          "female": 201
         },
         {
           "ward_no": 7,
           "no": 7,
-          "village": "रघुनाथगढ़",
-          "voters": 250
-        },
-        {
-          "ward_no": 8,
-          "no": 8,
-          "village": "पीलोदा",
-          "voters": 250
-        },
-        {
-          "ward_no": 9,
-          "no": 9,
-          "village": "हीरापुरा",
-          "voters": 250
-        },
-        {
-          "ward_no": 10,
-          "no": 10,
           "village": "राममालिया",
-          "voters": 250
-        },
-        {
-          "ward_no": 11,
-          "no": 11,
-          "village": "रघुनाथगढ़",
-          "voters": 250
+          "voters": 379,
+          "active": 362,
+          "deleted": 17,
+          "male": 177,
+          "female": 185
         }
       ],
       "villages": [
@@ -2660,9 +3668,11 @@ window.MASTER_DATA = {
         "रघुनाथगढ़",
         "पीलोदा"
       ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
+      "total_voters": 2739,
+      "active_voters": 2661,
+      "deleted_voters": 78,
+      "male_voters": 1399,
+      "female_voters": 1340
     },
     {
       "code": "GP27",
@@ -2670,8 +3680,8 @@ window.MASTER_DATA = {
       "name_en": "Ratakot",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 11,
-      "ward_range": "1-11",
+      "total_wards": 9,
+      "ward_range": "1-9",
       "ward_list": [
         1,
         2,
@@ -2681,85 +3691,109 @@ window.MASTER_DATA = {
         6,
         7,
         8,
-        9,
-        10,
-        11
+        9
       ],
       "wards": [
         {
           "ward_no": 1,
           "no": 1,
-          "village": "झीपिया",
-          "voters": 250
+          "village": "राताकोट",
+          "voters": 384,
+          "active": 327,
+          "deleted": 57,
+          "male": 166,
+          "female": 161
         },
         {
           "ward_no": 2,
           "no": 2,
           "village": "राताकोट",
-          "voters": 250
+          "voters": 387,
+          "active": 327,
+          "deleted": 60,
+          "male": 161,
+          "female": 166
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "झीपिया",
-          "voters": 250
+          "village": "राताकोट",
+          "voters": 412,
+          "active": 380,
+          "deleted": 32,
+          "male": 177,
+          "female": 203
         },
         {
           "ward_no": 4,
           "no": 4,
           "village": "राताकोट",
-          "voters": 250
+          "voters": 358,
+          "active": 341,
+          "deleted": 17,
+          "male": 169,
+          "female": 172
         },
         {
           "ward_no": 5,
           "no": 5,
-          "village": "झीपिया",
-          "voters": 250
+          "village": "राताकोट",
+          "voters": 346,
+          "active": 328,
+          "deleted": 18,
+          "male": 158,
+          "female": 170
         },
         {
           "ward_no": 6,
           "no": 6,
           "village": "राताकोट",
-          "voters": 250
+          "voters": 383,
+          "active": 364,
+          "deleted": 19,
+          "male": 179,
+          "female": 185
         },
         {
           "ward_no": 7,
           "no": 7,
-          "village": "झीपिया",
-          "voters": 250
+          "village": "राताकोट",
+          "voters": 380,
+          "active": 368,
+          "deleted": 12,
+          "male": 173,
+          "female": 195
         },
         {
           "ward_no": 8,
           "no": 8,
           "village": "राताकोट",
-          "voters": 250
+          "voters": 347,
+          "active": 340,
+          "deleted": 7,
+          "male": 172,
+          "female": 168
         },
         {
           "ward_no": 9,
           "no": 9,
-          "village": "झीपिया",
-          "voters": 250
-        },
-        {
-          "ward_no": 10,
-          "no": 10,
           "village": "राताकोट",
-          "voters": 250
-        },
-        {
-          "ward_no": 11,
-          "no": 11,
-          "village": "झीपिया",
-          "voters": 250
+          "voters": 331,
+          "active": 322,
+          "deleted": 9,
+          "male": 166,
+          "female": 156
         }
       ],
       "villages": [
         "झीपिया",
         "राताकोट"
       ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
+      "total_voters": 3328,
+      "active_voters": 3097,
+      "deleted_voters": 231,
+      "male_voters": 1613,
+      "female_voters": 1715
     },
     {
       "code": "GP28",
@@ -2767,8 +3801,8 @@ window.MASTER_DATA = {
       "name_en": "Singawal",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 11,
-      "ward_range": "1-11",
+      "total_wards": 9,
+      "ward_range": "1-9",
       "ward_list": [
         1,
         2,
@@ -2778,76 +3812,98 @@ window.MASTER_DATA = {
         6,
         7,
         8,
-        9,
-        10,
-        11
+        9
       ],
       "wards": [
         {
           "ward_no": 1,
           "no": 1,
           "village": "सिंगावल",
-          "voters": 250
+          "voters": 463,
+          "active": 438,
+          "deleted": 25,
+          "male": 250,
+          "female": 188
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "मथानिया 92205",
-          "voters": 250
+          "village": "सिंगावल",
+          "voters": 443,
+          "active": 426,
+          "deleted": 17,
+          "male": 228,
+          "female": 198
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "खटानो का खेडा",
-          "voters": 250
+          "village": "सिंगावल",
+          "voters": 384,
+          "active": 350,
+          "deleted": 34,
+          "male": 191,
+          "female": 159
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "सिगावल",
-          "voters": 250
+          "village": "सिंगावल",
+          "voters": 398,
+          "active": 360,
+          "deleted": 38,
+          "male": 201,
+          "female": 159
         },
         {
           "ward_no": 5,
           "no": 5,
           "village": "सिंगावल",
-          "voters": 250
+          "voters": 409,
+          "active": 382,
+          "deleted": 27,
+          "male": 213,
+          "female": 169
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "मथानिया 92205",
-          "voters": 250
+          "village": "सिंगावल",
+          "voters": 355,
+          "active": 344,
+          "deleted": 11,
+          "male": 175,
+          "female": 169
         },
         {
           "ward_no": 7,
           "no": 7,
-          "village": "खटानो का खेडा",
-          "voters": 250
+          "village": "सिंगावल",
+          "voters": 286,
+          "active": 272,
+          "deleted": 14,
+          "male": 144,
+          "female": 128
         },
         {
           "ward_no": 8,
           "no": 8,
-          "village": "सिगावल",
-          "voters": 250
+          "village": "सिंगावल",
+          "voters": 299,
+          "active": 287,
+          "deleted": 12,
+          "male": 151,
+          "female": 136
         },
         {
           "ward_no": 9,
           "no": 9,
           "village": "सिंगावल",
-          "voters": 250
-        },
-        {
-          "ward_no": 10,
-          "no": 10,
-          "village": "मथानिया 92205",
-          "voters": 250
-        },
-        {
-          "ward_no": 11,
-          "no": 11,
-          "village": "खटानो का खेडा",
-          "voters": 250
+          "voters": 300,
+          "active": 284,
+          "deleted": 16,
+          "male": 136,
+          "female": 148
         }
       ],
       "villages": [
@@ -2856,9 +3912,11 @@ window.MASTER_DATA = {
         "खटानो का खेडा",
         "सिगावल"
       ],
-      "total_voters": 2750,
-      "active_voters": 2750,
-      "deleted_voters": 0
+      "total_voters": 3337,
+      "active_voters": 3143,
+      "deleted_voters": 194,
+      "male_voters": 1758,
+      "female_voters": 1579
     },
     {
       "code": "GP29",
@@ -2866,8 +3924,8 @@ window.MASTER_DATA = {
       "name_en": "Sobdi",
       "samiti": "भिनाय",
       "district": "अजमेर",
-      "total_wards": 13,
-      "ward_range": "1-13",
+      "total_wards": 7,
+      "ward_range": "1-7",
       "ward_list": [
         1,
         2,
@@ -2875,92 +3933,78 @@ window.MASTER_DATA = {
         4,
         5,
         6,
-        7,
-        8,
-        9,
-        10,
-        11,
-        12,
-        13
+        7
       ],
       "wards": [
         {
           "ward_no": 1,
           "no": 1,
           "village": "सोबडी",
-          "voters": 250
+          "voters": 429,
+          "active": 409,
+          "deleted": 20,
+          "male": 226,
+          "female": 183
         },
         {
           "ward_no": 2,
           "no": 2,
-          "village": "कुम्हारियाखेडा",
-          "voters": 250
+          "village": "सोबडी",
+          "voters": 390,
+          "active": 355,
+          "deleted": 35,
+          "male": 191,
+          "female": 164
         },
         {
           "ward_no": 3,
           "no": 3,
-          "village": "तेलाडा",
-          "voters": 250
+          "village": "सोबडी",
+          "voters": 425,
+          "active": 403,
+          "deleted": 22,
+          "male": 208,
+          "female": 195
         },
         {
           "ward_no": 4,
           "no": 4,
-          "village": "प्रतापपुरा",
-          "voters": 250
+          "village": "सोबडी",
+          "voters": 244,
+          "active": 235,
+          "deleted": 9,
+          "male": 120,
+          "female": 115
         },
         {
           "ward_no": 5,
           "no": 5,
-          "village": "रूपपुरा",
-          "voters": 250
+          "village": "सोबडी",
+          "voters": 272,
+          "active": 264,
+          "deleted": 8,
+          "male": 149,
+          "female": 115
         },
         {
           "ward_no": 6,
           "no": 6,
-          "village": "चावण्डिया",
-          "voters": 250
+          "village": "सोबडी",
+          "voters": 310,
+          "active": 299,
+          "deleted": 11,
+          "male": 158,
+          "female": 141
         },
         {
           "ward_no": 7,
           "no": 7,
-          "village": "घणा",
-          "voters": 250
-        },
-        {
-          "ward_no": 8,
-          "no": 8,
           "village": "सोबडी",
-          "voters": 250
-        },
-        {
-          "ward_no": 9,
-          "no": 9,
-          "village": "कुम्हारियाखेडा",
-          "voters": 250
-        },
-        {
-          "ward_no": 10,
-          "no": 10,
-          "village": "तेलाडा",
-          "voters": 250
-        },
-        {
-          "ward_no": 11,
-          "no": 11,
-          "village": "प्रतापपुरा",
-          "voters": 250
-        },
-        {
-          "ward_no": 12,
-          "no": 12,
-          "village": "रूपपुरा",
-          "voters": 250
-        },
-        {
-          "ward_no": 13,
-          "no": 13,
-          "village": "चावण्डिया",
-          "voters": 250
+          "voters": 222,
+          "active": 216,
+          "deleted": 6,
+          "male": 117,
+          "female": 99
         }
       ],
       "villages": [
@@ -2972,9 +4016,11 @@ window.MASTER_DATA = {
         "चावण्डिया",
         "घणा"
       ],
-      "total_voters": 3250,
-      "active_voters": 3250,
-      "deleted_voters": 0
+      "total_voters": 2292,
+      "active_voters": 2181,
+      "deleted_voters": 111,
+      "male_voters": 1222,
+      "female_voters": 1070
     },
     {
       "code": "GP30",
@@ -3000,63 +4046,101 @@ window.MASTER_DATA = {
           "ward_no": 1,
           "no": 1,
           "village": "सोलखुर्द",
-          "voters": 250
+          "voters": 417,
+          "active": 397,
+          "deleted": 20,
+          "male": 203,
+          "female": 194
         },
         {
           "ward_no": 2,
           "no": 2,
           "village": "सोलखुर्द",
-          "voters": 250
+          "voters": 294,
+          "active": 289,
+          "deleted": 5,
+          "male": 154,
+          "female": 135
         },
         {
           "ward_no": 3,
           "no": 3,
           "village": "सोलखुर्द",
-          "voters": 250
+          "voters": 321,
+          "active": 314,
+          "deleted": 7,
+          "male": 167,
+          "female": 147
         },
         {
           "ward_no": 4,
           "no": 4,
           "village": "सोलखुर्द",
-          "voters": 250
+          "voters": 296,
+          "active": 290,
+          "deleted": 6,
+          "male": 149,
+          "female": 141
         },
         {
           "ward_no": 5,
           "no": 5,
           "village": "सोलखुर्द",
-          "voters": 250
+          "voters": 236,
+          "active": 231,
+          "deleted": 5,
+          "male": 112,
+          "female": 119
         },
         {
           "ward_no": 6,
           "no": 6,
           "village": "सोलखुर्द",
-          "voters": 250
+          "voters": 226,
+          "active": 219,
+          "deleted": 7,
+          "male": 117,
+          "female": 102
         },
         {
           "ward_no": 7,
           "no": 7,
           "village": "सोलखुर्द",
-          "voters": 250
+          "voters": 231,
+          "active": 226,
+          "deleted": 5,
+          "male": 114,
+          "female": 112
         },
         {
           "ward_no": 8,
           "no": 8,
           "village": "सोलखुर्द",
-          "voters": 250
+          "voters": 208,
+          "active": 202,
+          "deleted": 6,
+          "male": 104,
+          "female": 98
         },
         {
           "ward_no": 9,
           "no": 9,
           "village": "सोलखुर्द",
-          "voters": 250
+          "voters": 258,
+          "active": 252,
+          "deleted": 6,
+          "male": 131,
+          "female": 121
         }
       ],
       "villages": [
         "सोलखुर्द"
       ],
-      "total_voters": 2250,
-      "active_voters": 2250,
-      "deleted_voters": 0
+      "total_voters": 2487,
+      "active_voters": 2420,
+      "deleted_voters": 67,
+      "male_voters": 1287,
+      "female_voters": 1200
     }
   ],
   "admin_users": [
@@ -36572,5 +37656,337 @@ window.MASTER_DATA = {
       "zp_ward": 10,
       "total_voters": 681
     }
-  ]
+  ],
+  "official_summary_stats": {
+    "GP01": {
+      "code": "GP01",
+      "name_hi": "बड़गांव",
+      "name_en": "Badgaon",
+      "total": 4210,
+      "active": 4076,
+      "deleted": 134,
+      "male": 2121,
+      "female": 2089,
+      "wards_count": 13
+    },
+    "GP02": {
+      "code": "GP02",
+      "name_hi": "बड़ली",
+      "name_en": "Badli",
+      "total": 3620,
+      "active": 3511,
+      "deleted": 109,
+      "male": 1861,
+      "female": 1759,
+      "wards_count": 11
+    },
+    "GP03": {
+      "code": "GP03",
+      "name_hi": "बगराई",
+      "name_en": "Bagrai",
+      "total": 2177,
+      "active": 2073,
+      "deleted": 104,
+      "male": 1072,
+      "female": 1105,
+      "wards_count": 7
+    },
+    "GP04": {
+      "code": "GP04",
+      "name_hi": "बांदनवाड़ा",
+      "name_en": "Bandanwara",
+      "total": 6374,
+      "active": 5861,
+      "deleted": 513,
+      "male": 3175,
+      "female": 3199,
+      "wards_count": 17
+    },
+    "GP05": {
+      "code": "GP05",
+      "name_hi": "भिनाय",
+      "name_en": "Bhinay",
+      "total": 8120,
+      "active": 7395,
+      "deleted": 725,
+      "male": 4043,
+      "female": 4077,
+      "wards_count": 21
+    },
+    "GP06": {
+      "code": "GP06",
+      "name_hi": "बूबकिया",
+      "name_en": "Boobkiya",
+      "total": 3561,
+      "active": 3429,
+      "deleted": 132,
+      "male": 1857,
+      "female": 1704,
+      "wards_count": 11
+    },
+    "GP07": {
+      "code": "GP07",
+      "name_hi": "चापानेरी",
+      "name_en": "Chapaneri",
+      "total": 3742,
+      "active": 3333,
+      "deleted": 409,
+      "male": 2044,
+      "female": 1698,
+      "wards_count": 11
+    },
+    "GP08": {
+      "code": "GP08",
+      "name_hi": "छछून्दरा",
+      "name_en": "Chhachhundra",
+      "total": 3979,
+      "active": 3687,
+      "deleted": 292,
+      "male": 1995,
+      "female": 1984,
+      "wards_count": 11
+    },
+    "GP09": {
+      "code": "GP09",
+      "name_hi": "देवपुरा",
+      "name_en": "Devpura",
+      "total": 3418,
+      "active": 3180,
+      "deleted": 238,
+      "male": 1731,
+      "female": 1687,
+      "wards_count": 11
+    },
+    "GP10": {
+      "code": "GP10",
+      "name_hi": "देवलियाकलां",
+      "name_en": "Devliyakalan",
+      "total": 5364,
+      "active": 5089,
+      "deleted": 275,
+      "male": 2714,
+      "female": 2650,
+      "wards_count": 15
+    },
+    "GP11": {
+      "code": "GP11",
+      "name_hi": "धांतोल",
+      "name_en": "Dhantol",
+      "total": 2937,
+      "active": 2798,
+      "deleted": 139,
+      "male": 1507,
+      "female": 1430,
+      "wards_count": 9
+    },
+    "GP12": {
+      "code": "GP12",
+      "name_hi": "एकलसिंहा",
+      "name_en": "Ekalsingha",
+      "total": 2807,
+      "active": 2673,
+      "deleted": 134,
+      "male": 1490,
+      "female": 1317,
+      "wards_count": 9
+    },
+    "GP13": {
+      "code": "GP13",
+      "name_hi": "घणा",
+      "name_en": "Ghana",
+      "total": 2545,
+      "active": 2400,
+      "deleted": 145,
+      "male": 1307,
+      "female": 1238,
+      "wards_count": 7
+    },
+    "GP14": {
+      "code": "GP14",
+      "name_hi": "गुढाखुर्द",
+      "name_en": "GudhaKhurd",
+      "total": 3388,
+      "active": 3234,
+      "deleted": 154,
+      "male": 1699,
+      "female": 1689,
+      "wards_count": 11
+    },
+    "GP15": {
+      "code": "GP15",
+      "name_hi": "हियालिया",
+      "name_en": "Hiyaliya",
+      "total": 2129,
+      "active": 2079,
+      "deleted": 50,
+      "male": 1086,
+      "female": 1043,
+      "wards_count": 7
+    },
+    "GP16": {
+      "code": "GP16",
+      "name_hi": "कनईकला",
+      "name_en": "Kanaikalan",
+      "total": 3220,
+      "active": 3084,
+      "deleted": 136,
+      "male": 1649,
+      "female": 1571,
+      "wards_count": 9
+    },
+    "GP17": {
+      "code": "GP17",
+      "name_hi": "करांटी",
+      "name_en": "Karanti",
+      "total": 2218,
+      "active": 2047,
+      "deleted": 171,
+      "male": 1158,
+      "female": 1060,
+      "wards_count": 7
+    },
+    "GP18": {
+      "code": "GP18",
+      "name_hi": "कैरोंट",
+      "name_en": "Kerot",
+      "total": 3664,
+      "active": 3465,
+      "deleted": 199,
+      "male": 1891,
+      "female": 1773,
+      "wards_count": 11
+    },
+    "GP19": {
+      "code": "GP19",
+      "name_hi": "खेडी",
+      "name_en": "Khedi",
+      "total": 3300,
+      "active": 3117,
+      "deleted": 183,
+      "male": 1754,
+      "female": 1546,
+      "wards_count": 11
+    },
+    "GP20": {
+      "code": "GP20",
+      "name_hi": "कुम्हारिया",
+      "name_en": "Kumhariya",
+      "total": 4313,
+      "active": 3845,
+      "deleted": 468,
+      "male": 2156,
+      "female": 2157,
+      "wards_count": 11
+    },
+    "GP21": {
+      "code": "GP21",
+      "name_hi": "लामगरा",
+      "name_en": "Lamgra",
+      "total": 3585,
+      "active": 3385,
+      "deleted": 200,
+      "male": 1797,
+      "female": 1788,
+      "wards_count": 11
+    },
+    "GP22": {
+      "code": "GP22",
+      "name_hi": "नागोला",
+      "name_en": "Nagola",
+      "total": 4242,
+      "active": 4068,
+      "deleted": 174,
+      "male": 2200,
+      "female": 2042,
+      "wards_count": 13
+    },
+    "GP23": {
+      "code": "GP23",
+      "name_hi": "नान्दसी",
+      "name_en": "Nandsi",
+      "total": 4141,
+      "active": 3799,
+      "deleted": 342,
+      "male": 2198,
+      "female": 1943,
+      "wards_count": 11
+    },
+    "GP24": {
+      "code": "GP24",
+      "name_hi": "पड़ांगा",
+      "name_en": "Padanga",
+      "total": 2612,
+      "active": 2342,
+      "deleted": 270,
+      "male": 1295,
+      "female": 1317,
+      "wards_count": 7
+    },
+    "GP25": {
+      "code": "GP25",
+      "name_hi": "पाडलिया",
+      "name_en": "Padliya",
+      "total": 3065,
+      "active": 2929,
+      "deleted": 136,
+      "male": 1562,
+      "female": 1503,
+      "wards_count": 9
+    },
+    "GP26": {
+      "code": "GP26",
+      "name_hi": "राममालिया",
+      "name_en": "Rammaliya",
+      "total": 2739,
+      "active": 2661,
+      "deleted": 78,
+      "male": 1399,
+      "female": 1340,
+      "wards_count": 7
+    },
+    "GP27": {
+      "code": "GP27",
+      "name_hi": "राताकोट",
+      "name_en": "Ratakot",
+      "total": 3328,
+      "active": 3097,
+      "deleted": 231,
+      "male": 1613,
+      "female": 1715,
+      "wards_count": 9
+    },
+    "GP28": {
+      "code": "GP28",
+      "name_hi": "सिंगावल",
+      "name_en": "Singawal",
+      "total": 3337,
+      "active": 3143,
+      "deleted": 194,
+      "male": 1758,
+      "female": 1579,
+      "wards_count": 9
+    },
+    "GP29": {
+      "code": "GP29",
+      "name_hi": "सोबडी",
+      "name_en": "Sobdi",
+      "total": 2292,
+      "active": 2181,
+      "deleted": 111,
+      "male": 1222,
+      "female": 1070,
+      "wards_count": 7
+    },
+    "GP30": {
+      "code": "GP30",
+      "name_hi": "सोलखुर्द",
+      "name_en": "Solkhurd",
+      "total": 2487,
+      "active": 2420,
+      "deleted": 67,
+      "male": 1287,
+      "female": 1200,
+      "wards_count": 9
+    }
+  }
 };

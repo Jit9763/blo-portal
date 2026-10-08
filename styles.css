@@ -2332,10 +2332,11 @@ body {
   background: #ffffff !important;
   border: 1.5px solid #000000 !important;
   border-radius: 2px;
-  padding: 4px 6px;
+  padding: 5px 7px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 3px;
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
@@ -2468,19 +2469,40 @@ body {
 }
 
 /* Scaling variations for 9 vs 12 vs 15 slips */
-.a4-grid-9 .official-mini-slip {
-  padding: 7px 9px;
+.a4-grid-9 .official-mini-slip,
+body.layout-9 .official-mini-slip {
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
 }
-.a4-grid-9 .mini-slip-gov-title {
-  font-size: 8.5pt;
+.a4-grid-9 .mini-slip-gov-title,
+body.layout-9 .mini-slip-gov-title {
+  font-size: 8.8pt;
 }
-.a4-grid-9 .mini-details-table {
-  font-size: 8pt;
-  line-height: 1.35;
+.a4-grid-9 .mini-details-table,
+body.layout-9 .mini-details-table {
+  font-size: 8.2pt;
+  line-height: 1.38;
 }
-.a4-grid-9 .mini-booth-box {
-  font-size: 7.5pt;
-  padding: 3px 5px;
+.a4-grid-9 .mini-booth-box,
+body.layout-9 .mini-booth-box {
+  font-size: 7.8pt;
+  padding: 4px 6px;
+  margin-top: 3px;
+}
+.a4-grid-9 .mini-instructions-box,
+body.layout-9 .mini-instructions-box {
+  font-size: 6.6pt !important;
+  line-height: 1.25 !important;
+  padding: 4px 6px !important;
+  margin-top: 4px !important;
+}
+.a4-grid-9 .mini-sig-box,
+body.layout-9 .mini-sig-box {
+  font-size: 6.6pt !important;
+  margin-top: 5px !important;
 }
 .a4-grid-9 .mini-qr-code {
   width: 32px;
@@ -4515,6 +4537,18 @@ input::placeholder {
   border-color: #3b82f6;
   background: #f8fafc;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.search-slip-cut-row {
+  margin-top: 0.65rem;
+  padding: 0.45rem 0.65rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
 }
 
 
