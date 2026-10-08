@@ -1408,9 +1408,9 @@ function getBoothForVoter(voter) {
     (p.name_en && (p.name_en.toLowerCase() === gpEn || p.name_en.toLowerCase() === gpCode))
   );
 
-  const targetEn = pObj ? pObj.name_en.toLowerCase() : gpEn;
-  const targetHi = pObj ? pObj.name_hi : gpHindi;
-  const targetCode = pObj ? pObj.code.toLowerCase() : gpCode;
+  const targetEn = (pObj && pObj.name_en) ? String(pObj.name_en).toLowerCase() : gpEn;
+  const targetHi = (pObj && pObj.name_hi) ? String(pObj.name_hi) : gpHindi;
+  const targetCode = (pObj && pObj.code) ? String(pObj.code).toLowerCase() : gpCode;
 
   const matchWithWard = booths.find(b => {
     const bGp = (b.gp || '').toLowerCase().trim();
