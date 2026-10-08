@@ -3062,7 +3062,7 @@ function renderAlphabeticalList() {
           ${slipCutUrl ? `
           <div class="alpha-slip-cut-box" onclick="viewSlipCutModal('${slipCutUrl}', '${(voter.voter_name||'').replace(/'/g, "\\'")}', '${voter.serial_no||''}')" title="मूल मतदाता पर्ची कटिंग (बड़ा देखने हेतु क्लिक करें)">
             <img src="${slipCutUrl}" alt="पर्ची कटिंग" class="alpha-slip-cut-img" loading="lazy" onerror="this.parentElement.style.display='none';" />
-            <span class="slip-cut-zoom-badge">🔍 पर्ची कटिंग</span>
+            <span class="slip-cut-zoom-badge">🔍 बड़ा देखें</span>
           </div>
           ` : ''}
           <button class="delivery-toggle-btn ${isDelivered ? 'is-delivered' : ''}" onclick="toggleVoterDelivery('${voterKey}', event)">
