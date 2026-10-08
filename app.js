@@ -2004,6 +2004,7 @@ function enforceGatekeeperState() {
 
   updateUserScopeDisplay();
   populateGpFilterDropdowns();
+  renderDashboard();
 }
 
 function updateUserScopeDisplay() {
