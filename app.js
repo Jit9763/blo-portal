@@ -917,6 +917,40 @@ function populateGpFilterDropdowns() {
   // 2. Candidate Tab
   const candGp = document.getElementById('candidateGpSelect');
   fillSelect(candGp, false);
+
+  // Strict locking if user is assigned only 1 Gram Panchayat
+  if (!isSuper && allowedGps.length === 1) {
+    const singleGp = allowedGps[0];
+    const filterGpEl = document.getElementById('filterGp');
+    if (filterGpEl) {
+      filterGpEl.value = singleGp.code;
+      filterGpEl.disabled = true;
+    }
+    if (alphaSel) {
+      alphaSel.value = singleGp.code;
+      alphaSel.disabled = true;
+    }
+    const bulkGpEl = document.getElementById('bulkGpSelect');
+    if (bulkGpEl) {
+      bulkGpEl.value = singleGp.code;
+      bulkGpEl.disabled = true;
+    }
+    if (candGp) {
+      candGp.value = singleGp.name_hi;
+      candGp.disabled = true;
+    }
+    const dirGpEl = document.getElementById('dirGpSelect');
+    if (dirGpEl) {
+      dirGpEl.value = singleGp.code;
+      dirGpEl.disabled = true;
+    }
+  } else {
+    ['filterGp', 'alphaGpSelect', 'bulkGpSelect', 'candidateGpSelect', 'dirGpSelect'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.disabled = false;
+    });
+  }
+
   if (candGp && typeof onCandidateGpChanged === 'function') {
     onCandidateGpChanged(candGp.value);
   }
@@ -1926,10 +1960,13 @@ function enforceGatekeeperState() {
     settingsNavTab.style.display = isSuperAdmin ? 'flex' : 'none';
   }
 
+  // Candidate Detection
+  const isCandidateUser = (u.role === 'CANDIDATE' || u.role === 'प्रत्याशी' || u.type === 'CANDIDATE' || u.category === 'CANDIDATE' || (u.id && String(u.id).startsWith('cand_')) || u.candidate_mode === 'user_edit' || u.candidate_mode === 'active' || u.candidate_mode === true);
+
   // Candidate Profile Nav Tab
   const candidateNavTab = document.getElementById('candidateNavTab');
   if (candidateNavTab) {
-    candidateNavTab.style.display = (isSuperAdmin || u.candidate_mode === 'active') ? 'flex' : 'none';
+    candidateNavTab.style.display = (isSuperAdmin || isCandidateUser) ? 'flex' : 'none';
   }
 
   // Enforce Allowed Tabs
@@ -1942,6 +1979,10 @@ function enforceGatekeeperState() {
   } else if (isVyavasthapak) {
     // Vyavasthapak has view, download & bulk/single slip print rights for all 30 GPs
     allowedTabs = ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab'];
+  } else if (isCandidateUser) {
+    allowedTabs = ['searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab'];
+  } else if (u.role === 'BLO') {
+    allowedTabs = ['searchTab', 'alphaTab', 'directoryTab'];
   } else if (Array.isArray(u.allowed_tabs)) {
     allowedTabs = u.allowed_tabs;
   }
@@ -1969,22 +2010,12 @@ function enforceGatekeeperState() {
     switchTab(firstAllowed);
   }
 
-  // Set Jurisdiction & GP Locking
-  const assignedGp = u.allowed_panchayats || u.assigned_panchayats || u.gram_panchayat || 'ALL';
-  const assignedWard = u.allowed_wards || u.assigned_wards || 'ALL';
-
-  if (assignedGp && assignedGp !== 'ALL') {
-    // Lock Search, Alpha, Bulk Slip & Directory GP selects
-    ['gpSelect', 'alphaGpSelect', 'bulkGpSelect', 'dirGpSelect', 'candidateGpSelect'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) {
-        el.value = assignedGp;
-        if (id === 'gpSelect') onGpChanged();
-        if (id === 'alphaGpSelect') onAlphaGpChanged();
-        if (id === 'bulkGpSelect') onBulkGpChanged();
-        if (id === 'dirGpSelect') onDirGpChanged();
-      }
-    });
+  // Load candidate profile if not loaded
+  if (!State.currentCandidate) {
+    const cached = localStorage.getItem('candidate_profile_' + (u.id || u.username));
+    if (cached) {
+      try { State.currentCandidate = JSON.parse(cached); } catch(e) {}
+    }
   }
 
   // Incharge edit protection: All candidate and personnel edit buttons hidden
@@ -1994,16 +2025,18 @@ function enforceGatekeeperState() {
     });
   }
 
-  // Load candidate profile if not loaded
-  if (!State.currentCandidate) {
-    const cached = localStorage.getItem('candidate_profile_' + (u.id || u.username));
-    if (cached) {
-      try { State.currentCandidate = JSON.parse(cached); } catch(e) {}
-    }
-  }
-
   updateUserScopeDisplay();
   populateGpFilterDropdowns();
+
+  // If user is restricted to a single GP, automatically load and lock that GP
+  const allowedGps = getAllowedGps();
+  if (!isSuperAdmin && allowedGps.length === 1) {
+    const singleGp = allowedGps[0];
+    onGpFilterChanged();
+    onAlphaGpChanged();
+    onBulkGpChanged();
+  }
+
   renderDashboard();
 }
 
@@ -2092,14 +2125,14 @@ function switchTab(tabId) {
 function getAllowedGps() {
   if (!State.currentUser) return State.panchayats || [];
   const u = State.currentUser;
-  const ov = (typeof getUserOverrides === 'function') ? (getUserOverrides()[u.id || u.username] || {}) : {};
-  const effectiveScope = ov.allowed_panchayats || u.allowed_panchayats;
+  const isPrivileged = (u.role === 'SUPER_ADMIN' || u.role === 'INCHARGE' || u.role === 'VYAVASTHAPAK' || u.role === 'BLOCK_PRABHARI');
+  if (isPrivileged) return State.panchayats || [];
 
-  if (u.role === 'SUPER_ADMIN' || u.role === 'INCHARGE' || u.role === 'VYAVASTHAPAK' || u.role === 'BLOCK_PRABHARI' || effectiveScope === 'ALL' || u.panchayat_code === 'ALL' || u.assigned_panchayats === 'ALL') {
+  const ov = (typeof getUserOverrides === 'function') ? (getUserOverrides()[u.id || u.username] || {}) : {};
+  let assigned = ov.allowed_panchayats || u.allowed_panchayats || u.panchayat || u.assigned_panchayats || u.panchayat_code;
+  if (!assigned || assigned === 'ALL' || assigned === 'समस्त 30 पंचायतें' || assigned === 'समस्त (ALL)') {
     return State.panchayats || [];
   }
-  let assigned = effectiveScope || u.panchayat_code || u.panchayat || u.assigned_panchayats;
-  if (!assigned) return State.panchayats || [];
 
   let assignedList = [];
   if (Array.isArray(assigned)) {
@@ -2113,33 +2146,68 @@ function getAllowedGps() {
   }
 
   const filtered = (State.panchayats || []).filter(p => {
-    return assignedList.includes(p.code) || assignedList.includes(p.name_hi) || assignedList.includes(p.name_en) || assignedList.some(a => a && (a.toLowerCase() === (p.name_en || '').toLowerCase() || a === p.name_hi || a === p.code));
+    return assignedList.some(a => {
+      if (!a) return false;
+      const s = String(a).trim().toLowerCase();
+      return s === p.code.toLowerCase() || 
+             s === p.name_hi.trim().toLowerCase() || 
+             s === (p.name_en || '').trim().toLowerCase() ||
+             (p.name_en && s.includes(p.name_en.toLowerCase())) ||
+             (p.name_hi && s.includes(p.name_hi));
+    });
   });
+
   return (filtered.length > 0) ? filtered : (State.panchayats || []);
 }
 
 function getAllowedWardsList(gpCode) {
-  if (!State.currentUser || State.currentUser.role === 'SUPER_ADMIN') {
+  if (!State.currentUser) return 'ALL';
+  const u = State.currentUser;
+  const isPrivileged = (u.role === 'SUPER_ADMIN' || u.role === 'INCHARGE' || u.role === 'VYAVASTHAPAK' || u.role === 'BLOCK_PRABHARI');
+  if (isPrivileged) return 'ALL';
+
+  const ov = (typeof getUserOverrides === 'function') ? (getUserOverrides()[u.id || u.username] || {}) : {};
+  const effWards = ov.allowed_wards || u.allowed_wards || u.assigned_wards || u.wards || u.ward || 'ALL';
+
+  if (!effWards || effWards === 'ALL' || effWards === 'समस्त' || effWards === 'समस्त वार्ड') {
     return 'ALL';
   }
-  if (State.currentUser.panchayat_code === gpCode) {
-    if (State.currentUser.allowed_wards === 'ALL') return 'ALL';
-    return State.currentUser.allowed_wards.split(',').map(s => s.trim());
+
+  let wardList = [];
+  if (Array.isArray(effWards)) {
+    wardList = effWards.map(String);
+  } else if (typeof effWards === 'string') {
+    try {
+      const parsed = JSON.parse(effWards);
+      if (Array.isArray(parsed)) wardList = parsed.map(String);
+      else wardList = effWards.split(',').map(s => s.trim());
+    } catch(e) {
+      wardList = effWards.split(',').map(s => s.trim());
+    }
+  }
+
+  // Check GP match
+  const allowedGps = getAllowedGps();
+  const matchesGp = !gpCode || gpCode === 'ALL' || allowedGps.some(p => p.code === gpCode || p.name_hi === gpCode || p.name_en === gpCode);
+
+  if (matchesGp) {
+    return wardList.length > 0 ? wardList : 'ALL';
   }
   return [];
 }
 
 async function onGpFilterChanged() {
-  const gpCode = document.getElementById('filterGp').value;
+  const gpSelect = document.getElementById('filterGp');
+  const gpCode = gpSelect ? gpSelect.value : 'ALL';
   const wardSelect = document.getElementById('filterWard');
   if (wardSelect) {
     wardSelect.innerHTML = '<option value="ALL">-- सभी वार्ड --</option>';
 
     if (gpCode !== 'ALL') {
-      const gp = State.panchayats.find(p => p.code === gpCode);
+      const gp = (State.panchayats || []).find(p => p.code === gpCode || p.name_hi === gpCode || p.name_en === gpCode);
       if (gp) {
         const wards = (gp.wards && gp.wards.length > 0) ? gp.wards : getGpWards(gp);
-        const allowedWards = getAllowedWardsList(gpCode);
+        const allowedWards = getAllowedWardsList(gp.code);
         wards.forEach(w => {
           if (allowedWards === 'ALL' || allowedWards.includes(String(w.ward_no))) {
             const opt = document.createElement('option');
@@ -2148,6 +2216,14 @@ async function onGpFilterChanged() {
             wardSelect.appendChild(opt);
           }
         });
+
+        // If user is restricted to a single ward, auto-select it and lock
+        if (allowedWards !== 'ALL' && allowedWards.length === 1) {
+          wardSelect.value = allowedWards[0];
+          wardSelect.disabled = true;
+        } else {
+          wardSelect.disabled = false;
+        }
       }
     }
   }
@@ -2603,19 +2679,17 @@ async function performSearch() {
     await ensurePanchayatVotersLoaded(selectedGp);
   }
 
-  const allowedGps = getAllowedGps().map(p => p.code);
+  const allowedGps = getAllowedGps();
+  const allowedGpCodes = allowedGps.map(p => p.code);
 
   let results = State.voters.filter(voter => {
-                    // 1. Strict Jurisdiction
+    // 1. Strict Jurisdiction
     const u = State.currentUser;
     const isPrivileged = (!u || u.role === 'SUPER_ADMIN' || u.role === 'INCHARGE' || u.role === 'VYAVASTHAPAK' || u.role === 'BLOCK_PRABHARI' || u.allowed_panchayats === 'ALL');
     if (!isPrivileged) {
-      const assigned = (u.assigned_panchayats || u.panchayat_code || u.panchayat || '').toLowerCase();
-      if (assigned && assigned !== 'all') {
-        const pCode = (voter.panchayat_code || '').toLowerCase();
-        const pEn = (voter.panchayat_en || '').toLowerCase();
-        if (pCode !== assigned && pEn !== assigned) return false;
-      }
+      const isAllowedGp = allowedGps.some(p => p.code === voter.panchayat_code || p.name_hi === voter.gram_panchayat || p.name_en === voter.panchayat_en);
+      if (!isAllowedGp) return false;
+
       const allowedWards = getAllowedWardsList(voter.panchayat_code);
       if (allowedWards !== 'ALL' && !allowedWards.includes(String(voter.ward_no))) return false;
     }
@@ -2839,21 +2913,36 @@ function shareVoterSlipWhatsAppByIndex(index) {
 function isCandidateSlipAllowedForVoter(voter) {
   if (!State.currentUser || !voter) return false;
   const u = State.currentUser;
-  const isCandidateRole = (u.role === 'CANDIDATE' || u.type === 'CANDIDATE' || (u.id && u.id.startsWith('cand_')));
+  const isCandidateRole = (u.role === 'CANDIDATE' || u.type === 'CANDIDATE' || (u.id && String(u.id).startsWith('cand_')) || u.candidate_mode === 'user_edit' || u.candidate_mode === 'active');
   if (!isCandidateRole) return false;
 
-  const cand = State.currentCandidate || u.candidate;
-  if (!cand || !cand.candidate_name) return false;
+  let cand = State.currentCandidate || u.candidate;
+  if (!cand) {
+    try {
+      cand = JSON.parse(localStorage.getItem('candidate_profile_' + (u.id || u.username)) || 'null');
+      if (cand) State.currentCandidate = cand;
+    } catch(e) {}
+  }
+  if (!cand) return false;
 
-  // Candidate photo slip ONLY permitted for their assigned panchayat
-  const candGp = String(cand.panchayat || u.panchayat || u.allowed_panchayats || '').trim().toLowerCase();
-  if (!candGp || candGp === 'all' || candGp === 'समस्त 30 पंचायतें') return true;
+  // Check GP match using getAllowedGps()
+  const allowed = getAllowedGps();
+  if (allowed.length === 0 || allowed.some(p => p.code === 'ALL')) return true;
 
-  const voterGpCode = String(voter.panchayat_code || '').trim().toLowerCase();
-  const voterGpHi = String(voter.gram_panchayat || '').trim().toLowerCase();
-  const voterGpEn = String(voter.panchayat_en || '').trim().toLowerCase();
+  const voterGpCode = String(voter.panchayat_code || '').trim();
+  const voterGpHi = String(voter.gram_panchayat || '').trim();
+  const voterGpEn = String(voter.panchayat_en || '').trim();
 
-  return (candGp === voterGpCode || candGp === voterGpHi || candGp === voterGpEn);
+  const matchGp = allowed.some(p => p.code === voterGpCode || p.name_hi === voterGpHi || (p.name_en && p.name_en.toLowerCase() === voterGpEn.toLowerCase()));
+  if (!matchGp) return false;
+
+  // Check Ward match if candidate is assigned specific ward(s)
+  const allowedWards = getAllowedWardsList(voterGpCode);
+  if (allowedWards !== 'ALL' && Array.isArray(allowedWards) && allowedWards.length > 0) {
+    if (!allowedWards.includes(String(voter.ward_no))) return false;
+  }
+
+  return true;
 }
 
 function openVoterSlipModal(voter) {
@@ -3046,15 +3135,25 @@ async function onAlphaGpChanged() {
     wardSelect.innerHTML = '<option value="ALL">-- सभी वार्ड --</option>';
 
     if (gpCode && gpCode !== 'ALL') {
-      const gp = State.panchayats.find(p => p.code === gpCode);
+      const gp = (State.panchayats || []).find(p => p.code === gpCode || p.name_hi === gpCode || p.name_en === gpCode);
       if (gp) {
         const wards = (gp.wards && gp.wards.length > 0) ? gp.wards : getGpWards(gp);
+        const allowedWards = getAllowedWardsList(gp.code);
         wards.forEach(w => {
-          const opt = document.createElement('option');
-          opt.value = w.ward_no;
-          opt.textContent = `वार्ड नं. ${w.ward_no}`;
-          wardSelect.appendChild(opt);
+          if (allowedWards === 'ALL' || allowedWards.includes(String(w.ward_no))) {
+            const opt = document.createElement('option');
+            opt.value = w.ward_no;
+            opt.textContent = `वार्ड नं. ${w.ward_no}`;
+            wardSelect.appendChild(opt);
+          }
         });
+
+        if (allowedWards !== 'ALL' && allowedWards.length === 1) {
+          wardSelect.value = allowedWards[0];
+          wardSelect.disabled = true;
+        } else {
+          wardSelect.disabled = false;
+        }
       }
     }
   }
@@ -3080,7 +3179,23 @@ function renderAlphabeticalList() {
   const scrollerBar = document.getElementById('alphaIndexScroller');
   if (!listContainer || !scrollerBar) return;
 
-  const gpCode = document.getElementById('alphaGpSelect') ? document.getElementById('alphaGpSelect').value : '';
+  const u = State.currentUser;
+  const isPrivileged = (!u || u.role === 'SUPER_ADMIN' || u.role === 'INCHARGE' || u.role === 'VYAVASTHAPAK' || u.role === 'BLOCK_PRABHARI');
+  const allowedGps = getAllowedGps();
+
+  const alphaSel = document.getElementById('alphaGpSelect');
+  let gpCode = alphaSel ? alphaSel.value : '';
+
+  // Auto-select and load GP for non-privileged single-GP user
+  if (!isPrivileged && allowedGps.length > 0 && (!gpCode || gpCode === 'ALL')) {
+    gpCode = allowedGps[0].code;
+    if (alphaSel) {
+      alphaSel.value = gpCode;
+      onAlphaGpChanged();
+      return;
+    }
+  }
+
   if (!gpCode || gpCode === 'ALL') {
     listContainer.innerHTML = `
       <div class="empty-state card" style="padding: 3rem 1.5rem; text-align: center; max-width: 650px; margin: 2rem auto; border: 2px dashed #93c5fd; background: #f8fafc; border-radius: 12px;">
@@ -3100,11 +3215,12 @@ function renderAlphabeticalList() {
   const statusFilter = document.getElementById('alphaStatusFilter') ? document.getElementById('alphaStatusFilter').value : 'ALL';
   const searchFilter = (document.getElementById('alphaSearchFilter') ? document.getElementById('alphaSearchFilter').value : '').trim().toLowerCase();
 
-  const allowedGps = getAllowedGps().map(p => p.code);
+  const allowedWards = getAllowedWardsList(gpCode);
   let voters = State.voters.filter(v => {
-    if (!allowedGps.includes(v.panchayat_code)) return false;
+    if (!allowedGps.some(p => p.code === v.panchayat_code || p.name_hi === v.gram_panchayat || p.name_en === v.panchayat_en)) return false;
     if (gpCode !== 'ALL' && v.panchayat_code !== gpCode) return false;
     if (wardNo !== 'ALL' && String(v.ward_no) !== String(wardNo)) return false;
+    if (allowedWards !== 'ALL' && !allowedWards.includes(String(v.ward_no))) return false;
 
     if (statusFilter === 'PENDING' && isVoterDelivered(v)) return false;
     if (statusFilter === 'DELIVERED' && !isVoterDelivered(v)) return false;
@@ -3246,30 +3362,42 @@ function renderAlphabeticalList() {
 // TAB: BULK VOTER SLIP GENERATOR (9, 12, 15 SLIPS PER A4 & 58MM THERMAL)
 // ==========================================================================
 async function onBulkGpChanged() {
-  const gpCode = document.getElementById('bulkGpSelect').value;
+  const gpCode = document.getElementById('bulkGpSelect') ? document.getElementById('bulkGpSelect').value : '';
   const wardSelect = document.getElementById('bulkWardSelect');
   if (!wardSelect) return;
   wardSelect.innerHTML = '<option value="ALL">-- सभी वार्ड --</option>';
 
-  const gp = State.panchayats.find(p => p.code === gpCode);
+  const gp = (State.panchayats || []).find(p => p.code === gpCode || p.name_hi === gpCode);
   if (gp) {
     const wards = (gp.wards && gp.wards.length > 0) ? gp.wards : getGpWards(gp);
+    const allowedWards = getAllowedWardsList(gp.code);
     wards.forEach(w => {
-      const opt = document.createElement('option');
-      opt.value = w.ward_no;
-      opt.textContent = `वार्ड नं. ${w.ward_no} (${w.village || gp.name_hi})`;
-      wardSelect.appendChild(opt);
+      if (allowedWards === 'ALL' || allowedWards.includes(String(w.ward_no))) {
+        const opt = document.createElement('option');
+        opt.value = w.ward_no;
+        opt.textContent = `वार्ड नं. ${w.ward_no} (${w.village || gp.name_hi})`;
+        wardSelect.appendChild(opt);
+      }
     });
+
+    if (allowedWards !== 'ALL' && allowedWards.length === 1) {
+      wardSelect.value = allowedWards[0];
+      wardSelect.disabled = true;
+    } else {
+      wardSelect.disabled = false;
+    }
   }
 
-  await ensurePanchayatVotersLoaded(gpCode);
+  if (gpCode) {
+    await ensurePanchayatVotersLoaded(gpCode);
+  }
   State.bulkPage = 1;
   updateBulkGenerator();
 }
 
 function selectBulkLayout(layout) {
   State.bulkLayout = layout;
-  ['layoutCard9', 'layoutCard10', 'layoutCard12', 'layoutCard15', 'layoutCard18', 'layoutCard20', 'layoutCardThermal'].forEach(id => {
+  ['layoutCard9', 'layoutCard10', 'layoutCard12', 'layoutCard15', 'layoutCard18', 'layoutCard20', 'layoutCard21', 'layoutCardThermal'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.classList.remove('active');
   });
@@ -3281,6 +3409,7 @@ function selectBulkLayout(layout) {
     15: 'layoutCard15',
     18: 'layoutCard18',
     20: 'layoutCard20',
+    21: 'layoutCard21',
     'thermal': 'layoutCardThermal'
   };
   const activeCardId = cardMap[layout];
@@ -3320,11 +3449,16 @@ function updateBulkGenerator() {
   const scope = document.getElementById('bulkDeliveryScope') ? document.getElementById('bulkDeliveryScope').value : 'PENDING';
   const houseFilter = (document.getElementById('bulkHouseFilter') ? document.getElementById('bulkHouseFilter').value : '').trim().toLowerCase();
 
+  const allowedGps = getAllowedGps();
+  const allowedWards = getAllowedWardsList(gpCode);
+
   let voters = State.voters.filter(v => {
     // Strictly skip deleted voters from bulk slips
     if (v.status === 'निरस्त') return false;
+    if (!allowedGps.some(p => p.code === v.panchayat_code || p.name_hi === v.gram_panchayat || p.name_en === v.panchayat_en)) return false;
     if (gpCode && v.panchayat_code !== gpCode) return false;
     if (wardNo !== 'ALL' && String(v.ward_no) !== String(wardNo)) return false;
+    if (allowedWards !== 'ALL' && !allowedWards.includes(String(v.ward_no))) return false;
 
     if (scope === 'PENDING' && isVoterDelivered(v)) return false;
     if (scope === 'DELIVERED' && !isVoterDelivered(v)) return false;
@@ -3432,7 +3566,7 @@ function printBulkSlips() {
     printBox.appendChild(pageSheet);
   }
 
-  document.body.className = `printing-bulk layout-${State.bulkLayout} theme-${State.bulkTheme}`;
+  document.body.className = `printing-bulk ${State.bulkLayout === 'thermal' ? 'printing-thermal layout-thermal' : 'layout-' + State.bulkLayout} theme-${State.bulkTheme}`;
   window.print();
   setTimeout(() => {
     document.body.className = '';
@@ -4660,6 +4794,8 @@ function initCandidateProfileTab() {
     if (mobileInput) mobileInput.value = cand.mobile || u.mobile || '';
     if (postSelect) postSelect.value = cand.post || 'सरपंच';
     if (gpSelect && cand.panchayat) gpSelect.value = cand.panchayat;
+    const electionDateInput = document.getElementById('candidateElectionDateInput');
+    if (electionDateInput) electionDateInput.value = cand.election_date || '15 अक्टूबर 2026';
     if (electionTimeInput) electionTimeInput.value = cand.election_time || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक';
     if (sloganText) sloganText.value = cand.slogan || '';
     if (photoPreview && cand.photo_url) photoPreview.src = cand.photo_url;
@@ -4675,6 +4811,8 @@ function initCandidateProfileTab() {
     // Default prefill
     if (nameInput) nameInput.value = u.full_name || '';
     if (mobileInput) mobileInput.value = u.mobile || '';
+    const electionDateInput = document.getElementById('candidateElectionDateInput');
+    if (electionDateInput) electionDateInput.value = '15 अक्टूबर 2026';
     if (electionTimeInput) electionTimeInput.value = 'प्रातः 7:00 बजे से सायं 5:00 बजे तक';
     if (gpSelect && u.allowed_panchayats && u.allowed_panchayats !== 'ALL') {
       gpSelect.value = u.allowed_panchayats;
@@ -4831,6 +4969,7 @@ async function handleSaveCandidateProfile(event) {
   const post = document.getElementById('candidatePostSelect').value;
   const gp = document.getElementById('candidateGpSelect').value;
   const ward = (post === 'वार्ड पंच' && document.getElementById('candidateWardSelect')) ? document.getElementById('candidateWardSelect').value : '';
+  const electionDate = (document.getElementById('candidateElectionDateInput') ? document.getElementById('candidateElectionDateInput').value : '').trim() || '15 अक्टूबर 2026';
   const electionTime = (document.getElementById('candidateElectionTimeInput') ? document.getElementById('candidateElectionTimeInput').value : '').trim() || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक';
   const slogan = (document.getElementById('candidateSloganTextarea').value || '').trim();
   const showBanner = document.getElementById('candidateShowBannerSlip').checked;
@@ -4849,6 +4988,7 @@ async function handleSaveCandidateProfile(event) {
     post: post,
     panchayat: gp,
     ward: ward,
+    election_date: electionDate,
     election_time: electionTime,
     symbol_name: symObj.name_hi,
     symbol_icon: symObj.id,
@@ -4889,6 +5029,7 @@ function renderLiveSpecimenSlip() {
   const post = document.getElementById('candidatePostSelect') ? document.getElementById('candidatePostSelect').value : 'सरपंच';
   const gp = document.getElementById('candidateGpSelect') ? document.getElementById('candidateGpSelect').value : 'बूबकिया';
   const ward = (post === 'वार्ड पंच' && document.getElementById('candidateWardSelect')) ? document.getElementById('candidateWardSelect').value : '';
+  const electionDate = (document.getElementById('candidateElectionDateInput') ? document.getElementById('candidateElectionDateInput').value : '').trim() || '15 अक्टूबर 2026';
   const electionTime = (document.getElementById('candidateElectionTimeInput') ? document.getElementById('candidateElectionTimeInput').value : '').trim() || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक';
   const slogan = document.getElementById('candidateSloganTextarea') ? document.getElementById('candidateSloganTextarea').value : '।। समस्त ग्रामवासियों से विनम्र अपील ।।\nअपने कर्मठ एवं ईमानदार प्रत्याशी को विजयी बनावें।';
   const photo = document.getElementById('candidatePhotoPreview') ? document.getElementById('candidatePhotoPreview').src : 'https://api.dicebear.com/7.x/identicon/svg?seed=candidate';
@@ -4920,6 +5061,7 @@ function renderLiveSpecimenSlip() {
     post: post,
     panchayat: gp || 'ग्राम पंचायत',
     ward: ward,
+    election_date: electionDate,
     election_time: electionTime,
     symbol_name: symObj.name_hi,
     symbol_svg: symObj.svg,
@@ -4943,6 +5085,7 @@ function buildDetachableCandidateSlipHtml(voter, candidateData) {
   const bInfo = getBoothForVoter(voter);
   const boothName = (bInfo && (bInfo.name || bInfo.name_hi)) || voter.polling_station_name || 'राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-01 भिनाय';
   const boothNo = (bInfo && bInfo.booth_no) || voter.polling_station_no || '1';
+  const electionDate = candidateData.election_date || '15 अक्टूबर 2026';
   const electionTime = candidateData.election_time || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक';
 
   const cName = candidateData.candidate_name || 'प्रत्याशी';
@@ -4968,7 +5111,7 @@ function buildDetachableCandidateSlipHtml(voter, candidateData) {
             <span class="candidate-banner-post">${cPost} प्रत्याशी</span>
           </div>
           <div class="candidate-banner-gp">ग्राम पंचायत: <strong>${cGp}</strong> ${cWard ? `• वार्ड नं.: ${cWard}` : ''}</div>
-          <div class="candidate-banner-time" style="font-size:0.72rem; font-weight:700; color:#1e293b; background:#fef3c7; border:1px solid #f59e0b; border-radius:4px; padding:2px 6px; margin:3px 0; display:inline-block;">⏰ मतदान समय: ${electionTime}</div>
+          <div class="candidate-banner-time" style="font-size:0.72rem; font-weight:700; color:#1e293b; background:#fef3c7; border:1px solid #f59e0b; border-radius:4px; padding:2px 6px; margin:3px 0; display:inline-block;">📅 मतदान दिनांक: <strong>${electionDate}</strong> | ⏰ समय: <strong>${electionTime}</strong></div>
           <div class="candidate-banner-slogan">${cSlogan}</div>
         </div>
         <div class="candidate-banner-symbol-col">
@@ -5010,7 +5153,7 @@ function buildDetachableCandidateSlipHtml(voter, candidateData) {
 
         <div class="bw-footer">
           <span>*मतदान हेतु अधिकृत पहचान पत्र साथ लावें</span>
-          <span>दिनांक: 15-10-2026 | समय: ${electionTime}</span>
+          <span>दिनांक: ${electionDate} | समय: ${electionTime}</span>
         </div>
       </div>
     </div>
@@ -5088,13 +5231,19 @@ function buildExactOfficialSlipInnerHtml(voter) {
 window.buildOfficialSlipHtml = function(voter, layout, theme) {
   // Candidate photo slip ONLY permitted when logged in as candidate for their allotted panchayat
   if (isCandidateSlipAllowedForVoter(voter)) {
-    const cand = State.currentCandidate;
-    if (cand && cand.show_banner_on_slip && cand.candidate_name) {
+    let cand = State.currentCandidate;
+    if (!cand) {
+      try {
+        cand = JSON.parse(localStorage.getItem('candidate_profile_' + (State.currentUser.id || State.currentUser.username)) || 'null');
+      } catch(e) {}
+    }
+    if (cand && (cand.show_banner_on_slip !== false)) {
       const symbols = window.OFFICIAL_ELECTION_SYMBOLS || [];
-      const symObj = symbols.find(s => s.id === cand.symbol_icon || s.name_hi.includes(cand.symbol_name)) || symbols[0];
+      const symObj = symbols.find(s => s.id === cand.symbol_icon || (cand.symbol_name && s.name_hi.includes(cand.symbol_name))) || symbols[0];
       return buildDetachableCandidateSlipHtml(voter, {
         ...cand,
-        symbol_svg: symObj ? symObj.svg : ''
+        candidate_name: cand.candidate_name || State.currentUser.full_name || 'उम्मीदवार',
+        symbol_svg: (symObj && symObj.svg) ? symObj.svg : (cand.symbol_svg || '')
       });
     }
   }

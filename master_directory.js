@@ -3536,7 +3536,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 1,
       "old_part_no": "329",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बडगांव"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-2 बडगांव"
     },
     {
       "id": "blo_2",
@@ -3573,7 +3573,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 2,
       "old_part_no": "330",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-10 बडगांव"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-10 बडगांव"
     },
     {
       "id": "blo_3",
@@ -3588,8 +3588,8 @@ window.MASTER_DIRECTORY = {
       "mobile": "9460966310",
       "email": "blo.332@bhinai.election.in",
       "post": "अध्यापक",
-      "school": "राउमावि बड़गांव",
-      "school_office": "राउमावि बड़गांव",
+      "school": "राउमावि बडगांव",
+      "school_office": "राउमावि बडगांव",
       "panchayat": "बड़गांव",
       "booth_no": "3",
       "wards": "6, 7, 8",
@@ -3610,7 +3610,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 3,
       "old_part_no": "332",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 बडगांव"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-11 बडगांव"
     },
     {
       "id": "blo_4",
@@ -3625,8 +3625,8 @@ window.MASTER_DIRECTORY = {
       "mobile": "9694969961",
       "email": "blo.333@bhinai.election.in",
       "post": "अध्यापक",
-      "school": "राउमावि बड़गांव",
-      "school_office": "राउमावि बड़गांव",
+      "school": "राउमावि बडगांव",
+      "school_office": "राउमावि बडगांव",
       "panchayat": "बड़गांव",
       "booth_no": "4",
       "wards": "5, 9, 10",
@@ -3647,7 +3647,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 4,
       "old_part_no": "333",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 बडगांव"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-12 बडगांव"
     },
     {
       "id": "blo_5",
@@ -3684,7 +3684,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 5,
       "old_part_no": "331",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-15 बडगांव"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-15 बडगांव"
     },
     {
       "id": "blo_6",
@@ -3694,55 +3694,18 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्रीमती अहिल्या शर्मा",
-      "full_name": "श्रीमती अहिल्या शर्मा",
+      "name": "श्री अहिल्या शर्मा",
+      "full_name": "श्री अहिल्या शर्मा",
       "mobile": "9610976472",
       "email": "blo.225@bhinai.election.in",
       "post": "पंचायत शिक्षक",
-      "school": "राउमावि बड़ली",
-      "school_office": "राउमावि बड़ली",
-      "panchayat": "बड़ली",
-      "booth_no": "7",
-      "wards": "3, 4, 5",
-      "assigned_wards": "3, 4, 5",
-      "area_display": "बूथ सं. 7 | ग्रा.पं. बड़ली | वार्ड: 3, 4, 5",
-      "status": "ACTIVE",
-      "allowed_tabs": [
-        "searchTab",
-        "alphaTab",
-        "directoryTab"
-      ],
-      "can_print_bulk": false,
-      "can_download_single": true,
-      "can_login": true,
-      "can_search": true,
-      "can_view": true,
-      "can_print": false,
-      "can_download": true,
-      "official_booth_no": 7,
-      "old_part_no": "225",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 बड़ली"
-    },
-    {
-      "id": "blo_7",
-      "user_id": "blo_new_7",
-      "username": "blo_new_7",
-      "password": "123",
-      "type": "BLO",
-      "role": "बी.एल.ओ.",
-      "category": "BLO",
-      "name": "श्री सहदेव चौधरी",
-      "full_name": "श्री सहदेव चौधरी",
-      "mobile": "8769007668",
-      "email": "blo.नया@bhinai.election.in",
-      "post": "अध्यापक",
-      "school": "राउमावि बड़ली",
-      "school_office": "राउमावि बड़ली",
+      "school": "राउमावि बड़ली",
+      "school_office": "राउमावि बड़ली",
       "panchayat": "बड़ली",
       "booth_no": "6",
-      "wards": "1, 6",
-      "assigned_wards": "1, 6",
-      "area_display": "बूथ सं. 6 | ग्रा.पं. बड़ली | वार्ड: 1, 6",
+      "wards": "3, 4, 5",
+      "assigned_wards": "3, 4, 5",
+      "area_display": "बूथ सं. 6 | ग्रा.पं. बड़ली | वार्ड: 3, 4, 5",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3757,8 +3720,45 @@ window.MASTER_DIRECTORY = {
       "can_print": false,
       "can_download": true,
       "official_booth_no": 6,
+      "old_part_no": "225",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-7 बड़ली"
+    },
+    {
+      "id": "blo_7",
+      "user_id": "blo_new_7",
+      "username": "blo_new_7",
+      "password": "123",
+      "type": "BLO",
+      "role": "बी.एल.ओ.",
+      "category": "BLO",
+      "name": "श्री सहदेव चैधरी",
+      "full_name": "श्री सहदेव चैधरी",
+      "mobile": "8769007668",
+      "email": "blo.नया@bhinai.election.in",
+      "post": "अध्यापक",
+      "school": "राउमावि बड़ली",
+      "school_office": "राउमावि बड़ली",
+      "panchayat": "बड़ली",
+      "booth_no": "7",
+      "wards": "1, 6",
+      "assigned_wards": "1, 6",
+      "area_display": "बूथ सं. 7 | ग्रा.पं. बड़ली | वार्ड: 1, 6",
+      "status": "ACTIVE",
+      "allowed_tabs": [
+        "searchTab",
+        "alphaTab",
+        "directoryTab"
+      ],
+      "can_print_bulk": false,
+      "can_download_single": true,
+      "can_login": true,
+      "can_search": true,
+      "can_view": true,
+      "can_print": false,
+      "can_download": true,
+      "official_booth_no": 7,
       "old_part_no": "नया",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 बड़ली"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-12 बड़ली"
     },
     {
       "id": "blo_8",
@@ -3773,8 +3773,8 @@ window.MASTER_DIRECTORY = {
       "mobile": "9950228331",
       "email": "blo.227@bhinai.election.in",
       "post": "अध्यापक",
-      "school": "राउमावि बड़ली",
-      "school_office": "राउमावि बड़ली",
+      "school": "राउमावि बड़ली",
+      "school_office": "राउमावि बड़ली",
       "panchayat": "बड़ली",
       "booth_no": "8",
       "wards": "2, 7, 8",
@@ -3795,7 +3795,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 8,
       "old_part_no": "227",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 बड़ली"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-13 बड़ली"
     },
     {
       "id": "blo_9",
@@ -3810,8 +3810,8 @@ window.MASTER_DIRECTORY = {
       "mobile": "9784195646",
       "email": "blo.226@bhinai.election.in",
       "post": "पंचायत शिक्षक",
-      "school": "राउमावि बड़ली",
-      "school_office": "राउमावि बड़ली",
+      "school": "राउमावि बड़ली",
+      "school_office": "राउमावि बड़ली",
       "panchayat": "बड़ली",
       "booth_no": "9",
       "wards": "9, 10, 11",
@@ -3832,7 +3832,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 9,
       "old_part_no": "226",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 बड़ली"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-14 बड़ली"
     },
     {
       "id": "blo_10",
@@ -3869,7 +3869,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 10,
       "old_part_no": "236",
-      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 बगराई"
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा न-3 बगराई"
     },
     {
       "id": "blo_11",
@@ -3906,7 +3906,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 11,
       "old_part_no": "237",
-      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 बगराई"
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा न-4 बगराई"
     },
     {
       "id": "blo_12",
@@ -3921,13 +3921,13 @@ window.MASTER_DIRECTORY = {
       "mobile": "9269074489",
       "email": "blo.281@bhinai.election.in",
       "post": "अध्यापक",
-      "school": "राउमावि बांदनवाड़ा",
-      "school_office": "राउमावि बांदनवाड़ा",
+      "school": "राउमावि बान्दनवाडा",
+      "school_office": "राउमावि बान्दनवाडा",
       "panchayat": "बांदनवाड़ा",
-      "booth_no": "13",
+      "booth_no": "12",
       "wards": "1, 5, 6",
       "assigned_wards": "1, 5, 6",
-      "area_display": "बूथ सं. 13 | ग्रा.पं. बांदनवाड़ा | वार्ड: 1, 5, 6",
+      "area_display": "बूथ सं. 12 | ग्रा.पं. बांदनवाड़ा | वार्ड: 1, 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3941,9 +3941,9 @@ window.MASTER_DIRECTORY = {
       "can_view": true,
       "can_print": false,
       "can_download": true,
-      "official_booth_no": 13,
+      "official_booth_no": 12,
       "old_part_no": "281",
-      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-15 बांदनवाड़ा"
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा न-14 बान्दनवाड़ा"
     },
     {
       "id": "blo_13",
@@ -3961,10 +3961,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि रेल्वे काॅलोनी, बांदनवाडा",
       "school_office": "राउमावि रेल्वे काॅलोनी, बांदनवाडा",
       "panchayat": "बांदनवाड़ा",
-      "booth_no": "12",
+      "booth_no": "13",
       "wards": "2, 3, 4",
       "assigned_wards": "2, 3, 4",
-      "area_display": "बूथ सं. 12 | ग्रा.पं. बांदनवाड़ा | वार्ड: 2, 3, 4",
+      "area_display": "बूथ सं. 13 | ग्रा.पं. बांदनवाड़ा | वार्ड: 2, 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -3978,9 +3978,9 @@ window.MASTER_DIRECTORY = {
       "can_view": true,
       "can_print": false,
       "can_download": true,
-      "official_booth_no": 12,
+      "official_booth_no": 13,
       "old_part_no": "280",
-      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-14 बांदनवाड़ा"
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा न-15 बान्दनवाड़ा"
     },
     {
       "id": "blo_14",
@@ -3995,8 +3995,8 @@ window.MASTER_DIRECTORY = {
       "mobile": "7742356796",
       "email": "blo.282@bhinai.election.in",
       "post": "अध्यापक",
-      "school": "मगांरावि बांदनवाड़ा",
-      "school_office": "मगांरावि बांदनवाड़ा",
+      "school": "मगांरावि बान्दनवाडा",
+      "school_office": "मगांरावि बान्दनवाडा",
       "panchayat": "बांदनवाड़ा",
       "booth_no": "14",
       "wards": "8, 9",
@@ -4017,7 +4017,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 14,
       "old_part_no": "282",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बांदनवाड़ा़(प्राथमिक अनुभाग)"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-2 बान्दनवाड़ा़(प्रा.अनुभाग)"
     },
     {
       "id": "blo_15",
@@ -4032,50 +4032,13 @@ window.MASTER_DIRECTORY = {
       "mobile": "9829649846",
       "email": "blo.279@bhinai.election.in",
       "post": "विद्यालय सहायक",
-      "school": "राउमावि बांदनवाड़ा",
-      "school_office": "राउमावि बांदनवाड़ा",
-      "panchayat": "बांदनवाड़ा",
-      "booth_no": "14",
-      "wards": "7, 10, 12",
-      "assigned_wards": "7, 10, 12",
-      "area_display": "बूथ सं. 14 | ग्रा.पं. बांदनवाड़ा | वार्ड: 7, 10, 12",
-      "status": "ACTIVE",
-      "allowed_tabs": [
-        "searchTab",
-        "alphaTab",
-        "directoryTab"
-      ],
-      "can_print_bulk": false,
-      "can_download_single": true,
-      "can_login": true,
-      "can_search": true,
-      "can_view": true,
-      "can_print": false,
-      "can_download": true,
-      "official_booth_no": 14,
-      "old_part_no": "279",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 बांदनवाड़ा़(प्राथमिक अनुभाग)"
-    },
-    {
-      "id": "blo_16",
-      "user_id": "blo_278",
-      "username": "blo_278",
-      "password": "123",
-      "type": "BLO",
-      "role": "बी.एल.ओ.",
-      "category": "BLO",
-      "name": "श्री भंवर लाल नायक",
-      "full_name": "श्री भंवर लाल नायक",
-      "mobile": "9636407387",
-      "email": "blo.278@bhinai.election.in",
-      "post": "अध्यापक",
-      "school": "राउमावि बांदनवाड़ा",
-      "school_office": "राउमावि बांदनवाड़ा",
+      "school": "राउमावि बान्दनवाडा",
+      "school_office": "राउमावि बान्दनवाडा",
       "panchayat": "बांदनवाड़ा",
       "booth_no": "15",
-      "wards": "11, 16, 17",
-      "assigned_wards": "11, 16, 17",
-      "area_display": "बूथ सं. 15 | ग्रा.पं. बांदनवाड़ा | वार्ड: 11, 16, 17",
+      "wards": "7, 10, 12",
+      "assigned_wards": "7, 10, 12",
+      "area_display": "बूथ सं. 15 | ग्रा.पं. बांदनवाड़ा | वार्ड: 7, 10, 12",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4090,8 +4053,45 @@ window.MASTER_DIRECTORY = {
       "can_print": false,
       "can_download": true,
       "official_booth_no": 15,
+      "old_part_no": "279",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-7 बान्दनवाड़ा़(प्रा.अनुभाग)"
+    },
+    {
+      "id": "blo_16",
+      "user_id": "blo_278",
+      "username": "blo_278",
+      "password": "123",
+      "type": "BLO",
+      "role": "बी.एल.ओ.",
+      "category": "BLO",
+      "name": "श्री भंवर लाल नायक",
+      "full_name": "श्री भंवर लाल नायक",
+      "mobile": "9636407387",
+      "email": "blo.278@bhinai.election.in",
+      "post": "अध्यापक",
+      "school": "राउमावि बान्दनवाडा",
+      "school_office": "राउमावि बान्दनवाडा",
+      "panchayat": "बांदनवाड़ा",
+      "booth_no": "16",
+      "wards": "11, 16, 17",
+      "assigned_wards": "11, 16, 17",
+      "area_display": "बूथ सं. 16 | ग्रा.पं. बांदनवाड़ा | वार्ड: 11, 16, 17",
+      "status": "ACTIVE",
+      "allowed_tabs": [
+        "searchTab",
+        "alphaTab",
+        "directoryTab"
+      ],
+      "can_print_bulk": false,
+      "can_download_single": true,
+      "can_login": true,
+      "can_search": true,
+      "can_view": true,
+      "can_print": false,
+      "can_download": true,
+      "official_booth_no": 16,
       "old_part_no": "278",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 बांदनवाड़ा़(प्राथमिक अनुभाग)"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-6 बान्दनवाड़ा"
     },
     {
       "id": "blo_17",
@@ -4106,8 +4106,8 @@ window.MASTER_DIRECTORY = {
       "mobile": "9649173100",
       "email": "blo.277@bhinai.election.in",
       "post": "विद्यालय सहायक",
-      "school": "राउमावि बांदनवाड़ा",
-      "school_office": "राउमावि बांदनवाड़ा",
+      "school": "राउमावि बान्दनवाडा",
+      "school_office": "राउमावि बान्दनवाडा",
       "panchayat": "बांदनवाड़ा",
       "booth_no": "17",
       "wards": "13, 14, 15",
@@ -4128,7 +4128,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 17,
       "old_part_no": "277",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-9 बांदनवाड़ा"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-9 बान्दनवाड़ा"
     },
     {
       "id": "blo_18",
@@ -4165,7 +4165,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 18,
       "old_part_no": "305",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-19 भिनाय"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-19 भिनाय"
     },
     {
       "id": "blo_19",
@@ -4202,7 +4202,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 19,
       "old_part_no": "306",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-33 भिनाय"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-33 भिनाय"
     },
     {
       "id": "blo_20",
@@ -4212,8 +4212,8 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्री धर्मेन्द्र कुमार वैष्णव",
-      "full_name": "श्री धर्मेन्द्र कुमार वैष्णव",
+      "name": "श्री धर्मेन्द्र कुमार वैंष्णव",
+      "full_name": "श्री धर्मेन्द्र कुमार वैंष्णव",
       "mobile": "9079219657",
       "email": "blo.303@bhinai.election.in",
       "post": "अध्यापक",
@@ -4239,7 +4239,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 20,
       "old_part_no": "303",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-37 भिनाय"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-37 भिनाय"
     },
     {
       "id": "blo_21",
@@ -4276,7 +4276,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 21,
       "old_part_no": "304",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-39 भिनाय"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-39 भिनाय"
     },
     {
       "id": "blo_22",
@@ -4291,8 +4291,8 @@ window.MASTER_DIRECTORY = {
       "mobile": "7073649458",
       "email": "blo.301@bhinai.election.in",
       "post": "अध्यापक",
-      "school": "राजकीय वरिष्ठ उपाध्याय संस्कृत विद्यालय भिनाय",
-      "school_office": "राजकीय वरिष्ठ उपाध्याय संस्कृत विद्यालय भिनाय",
+      "school": "रा0व0उ0संस्कृत विद्यालय भिनाय",
+      "school_office": "रा0व0उ0संस्कृत विद्यालय भिनाय",
       "panchayat": "भिनाय",
       "booth_no": "22",
       "wards": "14, 15",
@@ -4313,7 +4313,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 22,
       "old_part_no": "301",
-      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-4 भिनाय"
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा न-4 भिनाय"
     },
     {
       "id": "blo_23",
@@ -4350,7 +4350,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 23,
       "old_part_no": "300",
-      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-5 भिनाय"
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा न-5 भिनाय"
     },
     {
       "id": "blo_24",
@@ -4387,7 +4387,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 24,
       "old_part_no": "302",
-      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-09 भिनाय"
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा न-9 भिनाय"
     },
     {
       "id": "blo_25",
@@ -4405,10 +4405,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि भिनाय",
       "school_office": "राउमावि भिनाय",
       "panchayat": "भिनाय",
-      "booth_no": "18",
+      "booth_no": "25",
       "wards": "1, 20",
       "assigned_wards": "1, 20",
-      "area_display": "बूथ सं. 18 | ग्रा.पं. भिनाय | वार्ड: 1, 20",
+      "area_display": "बूथ सं. 25 | ग्रा.पं. भिनाय | वार्ड: 1, 20",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4422,9 +4422,9 @@ window.MASTER_DIRECTORY = {
       "can_view": true,
       "can_print": false,
       "can_download": true,
-      "official_booth_no": 18,
+      "official_booth_no": 25,
       "old_part_no": "299",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-19 भिनाय"
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा न-10 भिनाय"
     },
     {
       "id": "blo_26",
@@ -4609,7 +4609,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 30,
       "old_part_no": "248",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 चापानेरी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-2 चापानेरी"
     },
     {
       "id": "blo_31",
@@ -4627,10 +4627,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि चापानेरी",
       "school_office": "राउमावि चापानेरी",
       "panchayat": "चापानेरी",
-      "booth_no": "30",
+      "booth_no": "31",
       "wards": "2, 4, 11",
       "assigned_wards": "2, 4, 11",
-      "area_display": "बूथ सं. 30 | ग्रा.पं. चापानेरी | वार्ड: 2, 4, 11",
+      "area_display": "बूथ सं. 31 | ग्रा.पं. चापानेरी | वार्ड: 2, 4, 11",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4644,9 +4644,9 @@ window.MASTER_DIRECTORY = {
       "can_view": true,
       "can_print": false,
       "can_download": true,
-      "official_booth_no": 30,
+      "official_booth_no": 31,
       "old_part_no": "251",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 चापानेरी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-3 चापानेरी"
     },
     {
       "id": "blo_32",
@@ -4664,10 +4664,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि चापानेरी",
       "school_office": "राउमावि चापानेरी",
       "panchayat": "चापानेरी",
-      "booth_no": "31",
+      "booth_no": "32",
       "wards": "5, 8, 10",
       "assigned_wards": "5, 8, 10",
-      "area_display": "बूथ सं. 31 | ग्रा.पं. चापानेरी | वार्ड: 5, 8, 10",
+      "area_display": "बूथ सं. 32 | ग्रा.पं. चापानेरी | वार्ड: 5, 8, 10",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4681,9 +4681,9 @@ window.MASTER_DIRECTORY = {
       "can_view": true,
       "can_print": false,
       "can_download": true,
-      "official_booth_no": 31,
+      "official_booth_no": 32,
       "old_part_no": "249",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 चापानेरी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-4 चापानेरी"
     },
     {
       "id": "blo_33",
@@ -4701,10 +4701,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउमावि चापानेरी",
       "school_office": "राउमावि चापानेरी",
       "panchayat": "चापानेरी",
-      "booth_no": "31",
+      "booth_no": "33",
       "wards": "3, 7",
       "assigned_wards": "3, 7",
-      "area_display": "बूथ सं. 31 | ग्रा.पं. चापानेरी | वार्ड: 3, 7",
+      "area_display": "बूथ सं. 33 | ग्रा.पं. चापानेरी | वार्ड: 3, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4718,9 +4718,9 @@ window.MASTER_DIRECTORY = {
       "can_view": true,
       "can_print": false,
       "can_download": true,
-      "official_booth_no": 31,
+      "official_booth_no": 33,
       "old_part_no": "250",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 चापानेरी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-5 चापानेरी"
     },
     {
       "id": "blo_34",
@@ -4757,7 +4757,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 34,
       "old_part_no": "नया",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 छछुन्दरा"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-3 छछुन्दरा"
     },
     {
       "id": "blo_35",
@@ -4831,7 +4831,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 35,
       "old_part_no": "307",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 छछुन्दरा"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-4 छछुन्दरा"
     },
     {
       "id": "blo_37",
@@ -4868,7 +4868,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 36,
       "old_part_no": "289",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 छछुन्दरा"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-7 छछुन्दरा"
     },
     {
       "id": "blo_38",
@@ -4905,7 +4905,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 37,
       "old_part_no": "288",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 छछुन्दरा"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-8 छछुन्दरा"
     },
     {
       "id": "blo_39",
@@ -4942,7 +4942,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 38,
       "old_part_no": "235",
-      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 देवलियाकलां"
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा न-1 देवलियाकलां"
     },
     {
       "id": "blo_40",
@@ -4952,18 +4952,18 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्री साजन सिंह चौहान",
-      "full_name": "श्री साजन सिंह चौहान",
+      "name": "श्री साजन सिंह चोेहान",
+      "full_name": "श्री साजन सिंह चोेहान",
       "mobile": "9079245438",
       "email": "blo.230@bhinai.election.in",
       "post": "पंचायत शिक्षक",
       "school": "पीएमश्री राउमावि देवलिया कलां",
       "school_office": "पीएमश्री राउमावि देवलिया कलां",
       "panchayat": "देवलियाकलां",
-      "booth_no": "38",
+      "booth_no": "39",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "बूथ सं. 38 | ग्रा.पं. देवलियाकलां | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 39 | ग्रा.पं. देवलियाकलां | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -4977,9 +4977,9 @@ window.MASTER_DIRECTORY = {
       "can_view": true,
       "can_print": false,
       "can_download": true,
-      "official_booth_no": 38,
+      "official_booth_no": 39,
       "old_part_no": "230",
-      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 देवलियाकलां"
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा न-2 देवलियाकलां"
     },
     {
       "id": "blo_41",
@@ -4997,10 +4997,10 @@ window.MASTER_DIRECTORY = {
       "school": "मगांरावि देवलिया कलां",
       "school_office": "मगांरावि देवलिया कलां",
       "panchayat": "देवलियाकलां",
-      "booth_no": "39",
+      "booth_no": "40",
       "wards": "5, 6",
       "assigned_wards": "5, 6",
-      "area_display": "बूथ सं. 39 | ग्रा.पं. देवलियाकलां | वार्ड: 5, 6",
+      "area_display": "बूथ सं. 40 | ग्रा.पं. देवलियाकलां | वार्ड: 5, 6",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5014,9 +5014,9 @@ window.MASTER_DIRECTORY = {
       "can_view": true,
       "can_print": false,
       "can_download": true,
-      "official_booth_no": 39,
+      "official_booth_no": 40,
       "old_part_no": "232",
-      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 देवलियाकलां"
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा न-3 देवलियाकलां"
     },
     {
       "id": "blo_42",
@@ -5053,7 +5053,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 41,
       "old_part_no": "233",
-      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-20 देवलियाकलां"
+      "booth_name": "पीएमश्री राजकीय उच्च माध्यमिक विद्यालय कमरा न-20 देवलियाकलां"
     },
     {
       "id": "blo_43",
@@ -5063,8 +5063,8 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्री कशिन लाल बैरवा",
-      "full_name": "श्री कशिन लाल बैरवा",
+      "name": "श्री किशन लाल बेेरवा",
+      "full_name": "श्री किशन लाल बेेरवा",
       "mobile": "9784970296",
       "email": "blo.231@bhinai.election.in",
       "post": "पंचायत शिक्षक",
@@ -5090,7 +5090,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 42,
       "old_part_no": "231",
-      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-2 देवलियाकला"
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा न-2 देवलियाकलां"
     },
     {
       "id": "blo_44",
@@ -5127,7 +5127,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 43,
       "old_part_no": "234",
-      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा नं.-3 देवलियाकला"
+      "booth_name": "महात्मा गांधी राजकीय विद्यालय कमरा न-3 देवलियाकलां"
     },
     {
       "id": "blo_45",
@@ -5141,7 +5141,7 @@ window.MASTER_DIRECTORY = {
       "full_name": "श्री विनोद कुमार वर्मा",
       "mobile": "9929183463",
       "email": "blo.273@bhinai.election.in",
-      "post": "वरिष्ठ अध्यापक",
+      "post": "व0 अध्यापक",
       "school": "राउमावि देवरिया",
       "school_office": "राउमावि देवरिया",
       "panchayat": "देवपुरा",
@@ -5164,7 +5164,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 44,
       "old_part_no": "273",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 देवपुरा(देवपुरा)"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-2 देवपुरा(देवरिया)"
     },
     {
       "id": "blo_46",
@@ -5201,7 +5201,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 45,
       "old_part_no": "274",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 देवपुरा(देवपुरा)"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-3 देवपुरा(देवरिया)"
     },
     {
       "id": "blo_47",
@@ -5238,7 +5238,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 46,
       "old_part_no": "275",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 देवपुरा(देवपुरा)"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-5 देवपुरा(देवरिया)"
     },
     {
       "id": "blo_48",
@@ -5248,8 +5248,8 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्री राकेश चौधरी",
-      "full_name": "श्री राकेश चौधरी",
+      "name": "श्री राकेश चैधरी",
+      "full_name": "श्री राकेश चैधरी",
       "mobile": "8559910535",
       "email": "blo.276@bhinai.election.in",
       "post": "अध्यापक",
@@ -5275,7 +5275,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 47,
       "old_part_no": "276",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 देवपुरा(देवपुरा)"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-7 देवपुरा(देवरिया)"
     },
     {
       "id": "blo_49",
@@ -5312,7 +5312,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 48,
       "old_part_no": "309",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 धांतोल"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-3 धांतोल"
     },
     {
       "id": "blo_50",
@@ -5349,7 +5349,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 49,
       "old_part_no": "308",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 धांतोल"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-4 धांतोल"
     },
     {
       "id": "blo_51",
@@ -5386,7 +5386,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 50,
       "old_part_no": "311",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 धांतोल"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-7 धांतोल"
     },
     {
       "id": "blo_52",
@@ -5423,7 +5423,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 51,
       "old_part_no": "255",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 एकलसिंहा़"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-1 एकलसिंहा़"
     },
     {
       "id": "blo_53",
@@ -5433,13 +5433,13 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्री रजनीश",
-      "full_name": "श्री रजनीश",
+      "name": "श्री पुखराज बैरवा",
+      "full_name": "श्री पुखराज बैरवा",
       "mobile": "7014346762",
       "email": "blo.256@bhinai.election.in",
       "post": "अध्यापक",
-      "school": "राउमावि एकलसिंहा",
-      "school_office": "राउमावि एकलसिंहा",
+      "school": "ुराप्रावि ढ़ाणी, एकलसिंहा",
+      "school_office": "ुराप्रावि ढ़ाणी, एकलसिंहा",
       "panchayat": "एकलसिंहा",
       "booth_no": "52",
       "wards": "4, 5, 6",
@@ -5460,7 +5460,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 52,
       "old_part_no": "256",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 एकलसिंहा़"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-2 एकलसिंहा़"
     },
     {
       "id": "blo_54",
@@ -5497,7 +5497,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 53,
       "old_part_no": "261",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 एकलसिंहा़"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-3 एकलसिंहा़"
     },
     {
       "id": "blo_55",
@@ -5534,7 +5534,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 54,
       "old_part_no": "254",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 घणा"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-1 घणा"
     },
     {
       "id": "blo_56",
@@ -5552,10 +5552,10 @@ window.MASTER_DIRECTORY = {
       "school": "राप्रावि गुर्जरों का झोंपड़ा(घणा)",
       "school_office": "राप्रावि गुर्जरों का झोंपड़ा(घणा)",
       "panchayat": "घणा",
-      "booth_no": "54",
+      "booth_no": "55",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "बूथ सं. 54 | ग्रा.पं. घणा | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 55 | ग्रा.पं. घणा | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -5569,9 +5569,9 @@ window.MASTER_DIRECTORY = {
       "can_view": true,
       "can_print": false,
       "can_download": true,
-      "official_booth_no": 54,
+      "official_booth_no": 55,
       "old_part_no": "252",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 घणा"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-2 घणा"
     },
     {
       "id": "blo_57",
@@ -5645,7 +5645,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 56,
       "old_part_no": "246",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 घणा"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-3 घणा"
     },
     {
       "id": "blo_59",
@@ -5682,7 +5682,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 57,
       "old_part_no": "241",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 गुढाखुर्द"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-1 गुढाखुर्द"
     },
     {
       "id": "blo_60",
@@ -5719,7 +5719,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 58,
       "old_part_no": "239",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 गुढाखुर्द"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-3 गुढाखुर्द"
     },
     {
       "id": "blo_61",
@@ -5756,7 +5756,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 59,
       "old_part_no": "238",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 गुढाखुर्द"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-6 गुढाखुर्द"
     },
     {
       "id": "blo_62",
@@ -5793,7 +5793,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 60,
       "old_part_no": "240",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 गुढाखुर्द"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-7 गुढाखुर्द"
     },
     {
       "id": "blo_63",
@@ -5830,7 +5830,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 61,
       "old_part_no": "257",
-      "booth_name": "राजकीय उच्च पर्राथमिक विद्यालय कमरा नं.-3 हियालिया"
+      "booth_name": "राजकीय उच्च पर्राथमिक विद्यालय कमरा न-3 हियालिया"
     },
     {
       "id": "blo_64",
@@ -5840,8 +5840,8 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्री बलराम चौधरी",
-      "full_name": "श्री बलराम चौधरी",
+      "name": "श्री बलराम चैधरी",
+      "full_name": "श्री बलराम चैधरी",
       "mobile": "8003754501",
       "email": "blo.258@bhinai.election.in",
       "post": "अध्यापक",
@@ -5867,7 +5867,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 62,
       "old_part_no": "258",
-      "booth_name": "राजकीय उच्च पर्राथमिक विद्यालय कमरा नं.-4 हियालिया"
+      "booth_name": "राजकीय उच्च पर्राथमिक विद्यालय कमरा न-4 हियालिया"
     },
     {
       "id": "blo_65",
@@ -5882,8 +5882,8 @@ window.MASTER_DIRECTORY = {
       "mobile": "9783203620",
       "email": "blo.337@bhinai.election.in",
       "post": "अध्यापक",
-      "school": "राउमावि कनईकला",
-      "school_office": "राउमावि कनईकला",
+      "school": "राउमावि कनेईकंला",
+      "school_office": "राउमावि कनेईकंला",
       "panchayat": "कनईकला",
       "booth_no": "63",
       "wards": "1, 2",
@@ -5904,7 +5904,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 63,
       "old_part_no": "337",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कनेईकलां"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-2 कनेईकलां"
     },
     {
       "id": "blo_66",
@@ -5978,7 +5978,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 64,
       "old_part_no": "340",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 कनेईकलां"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-3 कनेईकलां"
     },
     {
       "id": "blo_68",
@@ -6015,7 +6015,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 65,
       "old_part_no": "339",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 कनेईकलां"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-4 कनेईकलां"
     },
     {
       "id": "blo_69",
@@ -6052,7 +6052,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 66,
       "old_part_no": "296",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 करांटी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-2 करांटी"
     },
     {
       "id": "blo_70",
@@ -6089,7 +6089,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 67,
       "old_part_no": "297",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 करांटी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-4 करांटी"
     },
     {
       "id": "blo_71",
@@ -6126,7 +6126,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 68,
       "old_part_no": "298",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 करांटी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-7 करांटी"
     },
     {
       "id": "blo_72",
@@ -6141,8 +6141,8 @@ window.MASTER_DIRECTORY = {
       "mobile": "9079825200",
       "email": "blo.344@bhinai.election.in",
       "post": "पंचायत शिक्षक",
-      "school": "राउमावि कैरोंट",
-      "school_office": "राउमावि कैरोंट",
+      "school": "राउमावि कैरोट",
+      "school_office": "राउमावि कैरोट",
       "panchayat": "कैरोंट",
       "booth_no": "69",
       "wards": "1, 2, 3",
@@ -6163,7 +6163,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 69,
       "old_part_no": "344",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-10 कैरोट"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-10 कैरोट"
     },
     {
       "id": "blo_73",
@@ -6200,7 +6200,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 70,
       "old_part_no": "345",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 कैरोट"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-11 कैरोट"
     },
     {
       "id": "blo_74",
@@ -6237,7 +6237,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 71,
       "old_part_no": "343",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 कैरोट"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-12 कैरोट"
     },
     {
       "id": "blo_75",
@@ -6274,7 +6274,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 72,
       "old_part_no": "342",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 कैरोट"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-14 कैरोट"
     },
     {
       "id": "blo_76",
@@ -6311,7 +6311,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 73,
       "old_part_no": "291",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 8- खेडी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 8- खेड़ी"
     },
     {
       "id": "blo_77",
@@ -6348,7 +6348,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 74,
       "old_part_no": "292",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 9- खेडी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 9- खेड़ी"
     },
     {
       "id": "blo_78",
@@ -6366,10 +6366,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि गोवलिया",
       "school_office": "राउप्रावि गोवलिया",
       "panchayat": "खेडी",
-      "booth_no": "74",
+      "booth_no": "75",
       "wards": "6, 7",
       "assigned_wards": "6, 7",
-      "area_display": "बूथ सं. 74 | ग्रा.पं. खेडी | वार्ड: 6, 7",
+      "area_display": "बूथ सं. 75 | ग्रा.पं. खेडी | वार्ड: 6, 7",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6383,9 +6383,9 @@ window.MASTER_DIRECTORY = {
       "can_view": true,
       "can_print": false,
       "can_download": true,
-      "official_booth_no": 74,
+      "official_booth_no": 75,
       "old_part_no": "294",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 9- खेडी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 10- खेड़ी"
     },
     {
       "id": "blo_79",
@@ -6395,8 +6395,8 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्री रंगलाल गुर्जर",
-      "full_name": "श्री रंगलाल गुर्जर",
+      "name": "श्री गिरीराज चैधरी",
+      "full_name": "श्री गिरीराज चैधरी",
       "mobile": "9829014609",
       "email": "blo.295@bhinai.election.in",
       "post": "अध्यापक",
@@ -6459,7 +6459,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 76,
       "old_part_no": "290",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 11- खेडी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न 11- खेड़ी"
     },
     {
       "id": "blo_81",
@@ -6474,8 +6474,8 @@ window.MASTER_DIRECTORY = {
       "mobile": "9829981055",
       "email": "blo.283@bhinai.election.in",
       "post": "अध्यापक",
-      "school": "राप्रावि हाथीपुरा",
-      "school_office": "राप्रावि हाथीपुरा",
+      "school": "राप्रावि हाथीपुुरा",
+      "school_office": "राप्रावि हाथीपुुरा",
       "panchayat": "कुम्हारिया",
       "booth_no": "77",
       "wards": "1, 2",
@@ -6496,7 +6496,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 77,
       "old_part_no": "283",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कुम्हारिया"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-2 कुम्हारिया"
     },
     {
       "id": "blo_82",
@@ -6514,10 +6514,10 @@ window.MASTER_DIRECTORY = {
       "school": "राउप्रावि किटाप",
       "school_office": "राउप्रावि किटाप",
       "panchayat": "कुम्हारिया",
-      "booth_no": "77",
+      "booth_no": "78",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "बूथ सं. 77 | ग्रा.पं. कुम्हारिया | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 78 | ग्रा.पं. कुम्हारिया | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6531,9 +6531,9 @@ window.MASTER_DIRECTORY = {
       "can_view": true,
       "can_print": false,
       "can_download": true,
-      "official_booth_no": 77,
+      "official_booth_no": 78,
       "old_part_no": "287",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 कुम्हारिया"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-3 कुम्हारिया"
     },
     {
       "id": "blo_83",
@@ -6607,7 +6607,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 79,
       "old_part_no": "285",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 कुम्हारिया"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-6 कुम्हारिया"
     },
     {
       "id": "blo_85",
@@ -6617,18 +6617,18 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्री कशिन गोपाल छिपा",
-      "full_name": "श्री कशिन गोपाल छिपा",
+      "name": "श्री किशन गोपाल छीपा",
+      "full_name": "श्री किशन गोपाल छीपा",
       "mobile": "9460546296",
       "email": "blo.284@bhinai.election.in",
       "post": "पंचायत शिक्षक",
       "school": "राउमावि कुम्हारिया",
       "school_office": "राउमावि कुम्हारिया",
       "panchayat": "कुम्हारिया",
-      "booth_no": "79",
+      "booth_no": "80",
       "wards": "9, 10",
       "assigned_wards": "9, 10",
-      "area_display": "बूथ सं. 79 | ग्रा.पं. कुम्हारिया | वार्ड: 9, 10",
+      "area_display": "बूथ सं. 80 | ग्रा.पं. कुम्हारिया | वार्ड: 9, 10",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -6642,9 +6642,9 @@ window.MASTER_DIRECTORY = {
       "can_view": true,
       "can_print": false,
       "can_download": true,
-      "official_booth_no": 79,
+      "official_booth_no": 80,
       "old_part_no": "284",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 कुम्हारिया"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-7 कुम्हारिया"
     },
     {
       "id": "blo_86",
@@ -6681,7 +6681,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 81,
       "old_part_no": "229",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 लामगरा"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-2 लामगरा"
     },
     {
       "id": "blo_87",
@@ -6718,7 +6718,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 82,
       "old_part_no": "नया",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 लामगरा"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-8 लामगरा"
     },
     {
       "id": "blo_88",
@@ -6755,7 +6755,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 83,
       "old_part_no": "228",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-9 लामगरा"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-9 लामगरा"
     },
     {
       "id": "blo_89",
@@ -6792,7 +6792,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 84,
       "old_part_no": "247",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-11 लामगरा"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-11 लामगरा"
     },
     {
       "id": "blo_90",
@@ -6829,7 +6829,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 85,
       "old_part_no": "319",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 नागोला"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-1 नागोला"
     },
     {
       "id": "blo_91",
@@ -6876,8 +6876,8 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्री दिलखुश वैष्णव",
-      "full_name": "श्री दिलखुश वैष्णव",
+      "name": "श्री दीलखुश वैष्णव",
+      "full_name": "श्री दीलखुश वैष्णव",
       "mobile": "9602408532",
       "email": "blo.327@bhinai.election.in",
       "post": "विद्यालय सहायक",
@@ -6903,7 +6903,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 86,
       "old_part_no": "327",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 नागोला"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-2 नागोला"
     },
     {
       "id": "blo_93",
@@ -6940,7 +6940,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 87,
       "old_part_no": "325",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 नागोला"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-3 नागोला"
     },
     {
       "id": "blo_94",
@@ -6950,8 +6950,8 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्रीमती कौशल्या भांबी",
-      "full_name": "श्रीमती कौशल्या भांबी",
+      "name": "कौशल्या भाम्बी",
+      "full_name": "कौशल्या भाम्बी",
       "mobile": "8690383076",
       "email": "blo.328@bhinai.election.in",
       "post": "अध्यापक",
@@ -6977,7 +6977,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 88,
       "old_part_no": "328",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 नागोला"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-4 नागोला"
     },
     {
       "id": "blo_95",
@@ -7051,7 +7051,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 89,
       "old_part_no": "244",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 नान्दसी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-3 नान्दसी"
     },
     {
       "id": "blo_97",
@@ -7061,8 +7061,8 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्री बनवारी लाल गोस्वामी",
-      "full_name": "श्री बनवारी लाल गोस्वामी",
+      "name": "श्री बलवारी लाल गोस्वामी",
+      "full_name": "श्री बलवारी लाल गोस्वामी",
       "mobile": "9929447843",
       "email": "blo.245@bhinai.election.in",
       "post": "पंचायत शिक्षक",
@@ -7088,7 +7088,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 90,
       "old_part_no": "245",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 नान्दसी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-5 नान्दसी"
     },
     {
       "id": "blo_98",
@@ -7125,7 +7125,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 91,
       "old_part_no": "242",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-6 नान्दसी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-6 नान्दसी"
     },
     {
       "id": "blo_99",
@@ -7139,7 +7139,7 @@ window.MASTER_DIRECTORY = {
       "full_name": "श्री पृथ्वीराज मीणा",
       "mobile": "8696157366",
       "email": "blo.243@bhinai.election.in",
-      "post": "शारीरिक शिक्षक (PTI)",
+      "post": "शा0शि0",
       "school": "राउमावि कुरथल",
       "school_office": "राउमावि कुरथल",
       "panchayat": "नान्दसी",
@@ -7162,7 +7162,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 92,
       "old_part_no": "243",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-7 नान्दसी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-7 नान्दसी"
     },
     {
       "id": "blo_100",
@@ -7199,7 +7199,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 93,
       "old_part_no": "341",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-8 नान्दसी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-8 नान्दसी"
     },
     {
       "id": "blo_101",
@@ -7236,7 +7236,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 94,
       "old_part_no": "272",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 10 पड़ागा"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 10 पड़ांगा"
     },
     {
       "id": "blo_102",
@@ -7251,50 +7251,13 @@ window.MASTER_DIRECTORY = {
       "mobile": "8432781245",
       "email": "blo.269@bhinai.election.in",
       "post": "विद्यालय सहायक",
-      "school": "राउमावि पड़ांगा",
-      "school_office": "राउमावि पड़ांगा",
-      "panchayat": "पड़ांगा",
-      "booth_no": "94",
-      "wards": "3, 4",
-      "assigned_wards": "3, 4",
-      "area_display": "बूथ सं. 94 | ग्रा.पं. पड़ांगा | वार्ड: 3, 4",
-      "status": "ACTIVE",
-      "allowed_tabs": [
-        "searchTab",
-        "alphaTab",
-        "directoryTab"
-      ],
-      "can_print_bulk": false,
-      "can_download_single": true,
-      "can_login": true,
-      "can_search": true,
-      "can_view": true,
-      "can_print": false,
-      "can_download": true,
-      "official_booth_no": 94,
-      "old_part_no": "269",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 10 पड़ागा"
-    },
-    {
-      "id": "blo_103",
-      "user_id": "blo_270",
-      "username": "blo_270",
-      "password": "123",
-      "type": "BLO",
-      "role": "बी.एल.ओ.",
-      "category": "BLO",
-      "name": "श्री हंसराज गुर्जर",
-      "full_name": "श्री हंसराज गुर्जर",
-      "mobile": "9649918501",
-      "email": "blo.270@bhinai.election.in",
-      "post": "कम्प्यूटर अनुदेशक",
-      "school": "राउमावि पड़ांगा",
-      "school_office": "राउमावि पड़ांगा",
+      "school": "राउमावि पड़ागा",
+      "school_office": "राउमावि पड़ागा",
       "panchayat": "पड़ांगा",
       "booth_no": "95",
-      "wards": "5, 6",
-      "assigned_wards": "5, 6",
-      "area_display": "बूथ सं. 95 | ग्रा.पं. पड़ांगा | वार्ड: 5, 6",
+      "wards": "3, 4",
+      "assigned_wards": "3, 4",
+      "area_display": "बूथ सं. 95 | ग्रा.पं. पड़ांगा | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7309,8 +7272,45 @@ window.MASTER_DIRECTORY = {
       "can_print": false,
       "can_download": true,
       "official_booth_no": 95,
+      "old_part_no": "269",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 13 पड़ांगा"
+    },
+    {
+      "id": "blo_103",
+      "user_id": "blo_270",
+      "username": "blo_270",
+      "password": "123",
+      "type": "BLO",
+      "role": "बी.एल.ओ.",
+      "category": "BLO",
+      "name": "श्री हंसराज गुर्जर",
+      "full_name": "श्री हंसराज गुर्जर",
+      "mobile": "9649918501",
+      "email": "blo.270@bhinai.election.in",
+      "post": "कम्पयूटर अनुुदेशक",
+      "school": "राउमावि पड़ागा",
+      "school_office": "राउमावि पड़ागा",
+      "panchayat": "पड़ांगा",
+      "booth_no": "96",
+      "wards": "5, 6",
+      "assigned_wards": "5, 6",
+      "area_display": "बूथ सं. 96 | ग्रा.पं. पड़ांगा | वार्ड: 5, 6",
+      "status": "ACTIVE",
+      "allowed_tabs": [
+        "searchTab",
+        "alphaTab",
+        "directoryTab"
+      ],
+      "can_print_bulk": false,
+      "can_download_single": true,
+      "can_login": true,
+      "can_search": true,
+      "can_view": true,
+      "can_print": false,
+      "can_download": true,
+      "official_booth_no": 96,
       "old_part_no": "270",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर- 13 पड़ागा"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नम्बर-14 पड़ांगा"
     },
     {
       "id": "blo_104",
@@ -7384,7 +7384,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 97,
       "old_part_no": "336",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 पाडलिया"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-1 पाडलिया"
     },
     {
       "id": "blo_106",
@@ -7421,7 +7421,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 98,
       "old_part_no": "334",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-4 पाडलिया"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-4 पाडलिया"
     },
     {
       "id": "blo_107",
@@ -7495,7 +7495,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 99,
       "old_part_no": "नया",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 पाडलिया"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-5 पाडलिया"
     },
     {
       "id": "blo_109",
@@ -7505,8 +7505,8 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्री प्रेमचंद उदय",
-      "full_name": "श्री प्रेमचंद उदय",
+      "name": "श्री पे्रमचन्द उदय",
+      "full_name": "श्री पे्रमचन्द उदय",
       "mobile": "7597814008",
       "email": "blo.312@bhinai.election.in",
       "post": "पंचायत शिक्षक",
@@ -7532,7 +7532,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 100,
       "old_part_no": "312",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 राममालिया"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-5 राममालिया"
     },
     {
       "id": "blo_110",
@@ -7542,18 +7542,18 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्री रघुनाथ चौधरी",
-      "full_name": "श्री रघुनाथ चौधरी",
+      "name": "श्री रघुनाथ चैधरी",
+      "full_name": "श्री रघुनाथ चैधरी",
       "mobile": "9799295594",
       "email": "blo.313@bhinai.election.in",
       "post": "पंचायत शिक्षक",
       "school": "राउमावि राममालिया",
       "school_office": "राउमावि राममालिया",
       "panchayat": "राममालिया",
-      "booth_no": "100",
+      "booth_no": "101",
       "wards": "3, 4",
       "assigned_wards": "3, 4",
-      "area_display": "बूथ सं. 100 | ग्रा.पं. राममालिया | वार्ड: 3, 4",
+      "area_display": "बूथ सं. 101 | ग्रा.पं. राममालिया | वार्ड: 3, 4",
       "status": "ACTIVE",
       "allowed_tabs": [
         "searchTab",
@@ -7567,9 +7567,9 @@ window.MASTER_DIRECTORY = {
       "can_view": true,
       "can_print": false,
       "can_download": true,
-      "official_booth_no": 100,
+      "official_booth_no": 101,
       "old_part_no": "313",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 राममालिया"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-6 राममालिया"
     },
     {
       "id": "blo_111",
@@ -7579,8 +7579,8 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्री ललित कशिोर शर्मा",
-      "full_name": "श्री ललित कशिोर शर्मा",
+      "name": "श्री ललित किशोर शर्मा",
+      "full_name": "श्री ललित किशोर शर्मा",
       "mobile": "8104466893",
       "email": "blo.315@bhinai.election.in",
       "post": "अध्यापक",
@@ -7606,7 +7606,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 102,
       "old_part_no": "315",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 राममालिया"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-13 राममालिया"
     },
     {
       "id": "blo_112",
@@ -7658,8 +7658,8 @@ window.MASTER_DIRECTORY = {
       "mobile": "8769453569",
       "email": "blo.268@bhinai.election.in",
       "post": "अध्यापक",
-      "school": "राउमावि झींपिया",
-      "school_office": "राउमावि झींपिया",
+      "school": "राउमावि झीपीयां",
+      "school_office": "राउमावि झीपीयां",
       "panchayat": "राताकोट",
       "booth_no": "103",
       "wards": "1, 2, 3",
@@ -7680,7 +7680,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 103,
       "old_part_no": "268",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-12 राताकोट"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-12 राताकोट"
     },
     {
       "id": "blo_114",
@@ -7717,21 +7717,21 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 104,
       "old_part_no": "266",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-14 राताकोट"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-14 राताकोट"
     },
     {
       "id": "blo_115",
-      "user_id": "blo_new_115",
-      "username": "blo_new_115",
+      "user_id": "blo_267",
+      "username": "blo_267",
       "password": "123",
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्री हरीश कुमार वैष्णव",
-      "full_name": "श्री हरीश कुमार वैष्णव",
+      "name": "श्री भंवर लाल जाट",
+      "full_name": "श्री भंवर लाल जाट",
       "mobile": "9799266968",
       "email": "blo.नया@bhinai.election.in",
-      "post": "अध्यापक",
+      "post": "पंचायत शिक्षक",
       "school": "राउमावि राताकोट",
       "school_office": "राउमावि राताकोट",
       "panchayat": "राताकोट",
@@ -7753,8 +7753,8 @@ window.MASTER_DIRECTORY = {
       "can_print": false,
       "can_download": true,
       "official_booth_no": 105,
-      "old_part_no": "नया",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-17 राताकोट"
+      "old_part_no": "267",
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-17 राताकोट"
     },
     {
       "id": "blo_116",
@@ -7764,11 +7764,11 @@ window.MASTER_DIRECTORY = {
       "type": "BLO",
       "role": "बी.एल.ओ.",
       "category": "BLO",
-      "name": "श्री भंवर लाल जाट",
-      "full_name": "श्री भंवर लाल जाट",
+      "name": "श्री हरीश वैष्णव",
+      "full_name": "श्री हरीश वैष्णव",
       "mobile": "9602067373",
       "email": "blo.267@bhinai.election.in",
-      "post": "पंचायत शिक्षक",
+      "post": "अध्यापक",
       "school": "राउमावि राताकोट",
       "school_office": "राउमावि राताकोट",
       "panchayat": "राताकोट",
@@ -7791,7 +7791,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 106,
       "old_part_no": "267",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 राताकोट"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-1 राताकोट"
     },
     {
       "id": "blo_117",
@@ -7828,7 +7828,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 107,
       "old_part_no": "265",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-13 सिंगावल"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-13 सिंगावल"
     },
     {
       "id": "blo_118",
@@ -7865,7 +7865,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 108,
       "old_part_no": "262",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 सिंगावल"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-1 सिंगावल"
     },
     {
       "id": "blo_119",
@@ -7902,7 +7902,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 109,
       "old_part_no": "264",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 सिंगावल"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-2 सिंगावल"
     },
     {
       "id": "blo_120",
@@ -7939,7 +7939,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 110,
       "old_part_no": "263",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-3 सिंगावल"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-3 सिंगावल"
     },
     {
       "id": "blo_121",
@@ -7976,7 +7976,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 111,
       "old_part_no": "260",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-1 सोबडी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-1 सोबडी"
     },
     {
       "id": "blo_122",
@@ -8013,7 +8013,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 112,
       "old_part_no": "259",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-2 सोबडी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-2 सोबडी"
     },
     {
       "id": "blo_123",
@@ -8050,7 +8050,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 113,
       "old_part_no": "322",
-      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा नं.-5 सोबडी"
+      "booth_name": "राजकीय उच्च माध्यमिक विद्यालय कमरा न-5 सोबडी"
     },
     {
       "id": "blo_124",
@@ -8087,7 +8087,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 114,
       "old_part_no": "323",
-      "booth_name": "राजकीय प्राथमिक विद्यालय कमरा नं.-1 सोलखुर्द"
+      "booth_name": "राजकीय प्राथमिक विद्यालय कमरा न-1 सोलखुर्द"
     },
     {
       "id": "blo_125",
@@ -8124,7 +8124,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 115,
       "old_part_no": "324",
-      "booth_name": "राजकीय प्राथमिक विद्यालय कमरा नं.-2 सोलखुर्द"
+      "booth_name": "राजकीय प्राथमिक विद्यालय कमरा न-2 सोलखुर्द"
     },
     {
       "id": "blo_126",
@@ -8161,7 +8161,7 @@ window.MASTER_DIRECTORY = {
       "can_download": true,
       "official_booth_no": 116,
       "old_part_no": "320",
-      "booth_name": "राजकीय प्राथमिक विद्यालय कमरा नं.-3 सोलखुर्द"
+      "booth_name": "राजकीय प्राथमिक विद्यालय कमरा न-3 सोलखुर्द"
     }
   ],
   "peeo_list": [

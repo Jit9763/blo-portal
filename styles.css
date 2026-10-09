@@ -2291,6 +2291,27 @@ body {
   gap: 5px;
 }
 
+/* 18 Slips (3 cols x 6 rows) */
+.a4-grid-18 {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 4px;
+}
+
+/* 20 Slips (4 cols x 5 rows) */
+.a4-grid-20 {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  gap: 4px;
+}
+
+/* 21 Slips (3 cols x 7 rows) */
+.a4-grid-21 {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+  gap: 3px;
+}
+
 /* 58mm Thermal Preview */
 .a4-thermal {
   max-width: 320px;
@@ -3424,6 +3445,31 @@ html, body {
   padding: 1px 2px !important;
 }
 
+/* 21 Slips Print Layout (3 cols x 7 rows) */
+.printing-bulk.layout-21 .print-page-sheet {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  grid-template-rows: repeat(7, 1fr) !important;
+  gap: 1mm !important;
+  width: 100% !important;
+  height: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.a4-grid-21 .official-mini-slip {
+  padding: 2px 3px !important;
+}
+.a4-grid-21 .mini-slip-gov-title {
+  font-size: 5.8pt !important;
+}
+.a4-grid-21 .mini-details-table {
+  font-size: 5.0pt !important;
+}
+.a4-grid-21 .mini-booth-box {
+  font-size: 4.6pt !important;
+  padding: 1px 2px !important;
+}
+
 /* Expand 15-slip layout to use full page without empty bottom */
 .a4-grid-15,
 .printing-bulk.layout-15 .print-page-sheet {
@@ -3896,6 +3942,60 @@ html, body {
   .official-bottom-bw-slip {
     background: #ffffff !important;
     color: #000000 !important;
+  }
+
+  /* Candidate slip in BW theme or printing: only photo is in color, details in black and white */
+  .theme-bw .candidate-banner-top,
+  .printing-bulk.theme-bw .candidate-banner-top {
+    background: #ffffff !important;
+    border-bottom: 1.5px solid #000000 !important;
+  }
+  .theme-bw .candidate-banner-header,
+  .printing-bulk.theme-bw .candidate-banner-header {
+    color: #000000 !important;
+  }
+  .theme-bw .candidate-banner-name,
+  .printing-bulk.theme-bw .candidate-banner-name {
+    color: #000000 !important;
+    font-weight: 900 !important;
+  }
+  .theme-bw .candidate-banner-post,
+  .printing-bulk.theme-bw .candidate-banner-post {
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: 1px solid #000000 !important;
+  }
+  .theme-bw .candidate-banner-gp,
+  .printing-bulk.theme-bw .candidate-banner-gp {
+    color: #000000 !important;
+  }
+  .theme-bw .candidate-banner-time,
+  .printing-bulk.theme-bw .candidate-banner-time {
+    background: #ffffff !important;
+    border: 1px solid #000000 !important;
+    color: #000000 !important;
+  }
+  .theme-bw .candidate-banner-slogan,
+  .printing-bulk.theme-bw .candidate-banner-slogan {
+    color: #000000 !important;
+  }
+  .theme-bw .candidate-banner-symbol-col,
+  .printing-bulk.theme-bw .candidate-banner-symbol-col {
+    border: 1.5px solid #000000 !important;
+    background: #ffffff !important;
+  }
+  .theme-bw .candidate-banner-symbol-label,
+  .printing-bulk.theme-bw .candidate-banner-symbol-label {
+    color: #000000 !important;
+  }
+  .theme-bw .candidate-banner-photo-col,
+  .printing-bulk.theme-bw .candidate-banner-photo-col {
+    border: 1.5px solid #000000 !important;
+  }
+  .candidate-banner-photo-col img {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    filter: none !important;
   }
 }
 
