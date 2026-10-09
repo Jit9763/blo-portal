@@ -1698,8 +1698,8 @@ async function ensurePanchayatVotersLoaded(gpCode) {
               relative_name: r.r || r.relative_name || '',
               relative_name_en: r.re || r.relative_name_en || '',
               relative_relation: r.rt || r.relative_relation || 'पिता',
-              house_no: r.h !== undefined ? r.h : (r.house_no || '-'),
-              age: r.a !== undefined ? r.a : (r.age || 0),
+              house_no: (r.h !== undefined && r.h !== '' && r.h !== '.' && r.h !== '-') ? r.h : (r.house_no || '-'),
+              age: (r.a !== undefined && r.a !== '' && r.a !== '.' && r.a !== 0 && r.a !== '0') ? r.a : (r.age || ''),
               gender: r.g || r.gender || 'पुरुष',
               status: r.st || r.status || 'सक्रिय',
               deletion_code: r.dc || r.deletion_code || '',
@@ -2745,7 +2745,7 @@ function renderVoterCards(votersList) {
           </div>
           <div class="meta-row">
             <span class="meta-label">मकान नं. / आयु / लिंग:</span>
-            <span class="meta-val">म.नं. ${voter.house_no} • ${voter.age} वर्ष • ${isFemale ? 'महिला' : 'पुरुष'}</span>
+            <span class="meta-val">म.नं. ${voter.house_no || '-'} • ${voter.age ? voter.age + ' वर्ष' : '-'} • ${isFemale ? 'महिला' : 'पुरुष'}</span>
           </div>
           <div class="meta-row">
             <span class="meta-label">पहचान पत्र (EPIC):</span>
@@ -2895,7 +2895,7 @@ function openVoterSlipModal(voter) {
 
   const isFemale = voter.gender === 'F' || voter.gender === 'महिला';
   setTxt('slipGender', isFemale ? 'महिला (Female)' : 'पुरुष (Male)');
-  setTxt('slipAge', `${voter.age} वर्ष`);
+  setTxt('slipAge', voter.age ? `${voter.age} वर्ष` : '-');
   setTxt('slipHouseNo', voter.house_no || '-');
   setTxt('slipEpicNo', voter.epic_no || 'N/A');
   setTxt('slipVillageName', voter.revenue_village || voter.gram_panchayat);
@@ -3008,8 +3008,8 @@ function shareVoterSlipWhatsApp() {
 🔢 *सरल क्रमांक (Serial No.):* ${v.serial_no}
 🏢 *ग्राम पंचायत:* ${v.gram_panchayat}
 🚪 *वार्ड संख्या:* ${v.ward_no}
-🏡 *मकान संख्या:* ${v.house_no} | *ग्राम:* ${v.revenue_village || v.gram_panchayat}
-🎂 *आयु / लिंग:* ${v.age} वर्ष | ${v.gender === 'F' ? 'महिला' : 'पुरुष'}
+🏡 *मकान संख्या:* ${v.house_no || '-'} | *ग्राम:* ${v.revenue_village || v.gram_panchayat}
+🎂 *आयु / लिंग:* ${v.age ? v.age + ' वर्ष' : '-'} | ${v.gender === 'F' ? 'महिला' : 'पुरुष'}
 🪪 *EPIC पहचान पत्र:* ${v.epic_no}
 🏫 *मतदान केंद्र:* ${boothFullName}
 ---------------------------------------
@@ -3213,7 +3213,7 @@ function renderAlphabeticalList() {
             </div>
             <div class="alpha-voter-sub" style="font-size:0.82rem; color:#475569; margin-top:3px;">
               ${voter.relative_relation || 'पिता/पति'}: <strong>${voter.relative_name || '-'}</strong> • 
-              म.नं. <strong>${voter.house_no || '-'}</strong> • ${voter.age} वर्ष (${isFemale ? 'महिला' : 'पुरुष'}) • 
+              म.नं. <strong>${voter.house_no || '-'}</strong> • ${voter.age ? voter.age + ' वर्ष' : '-'} (${isFemale ? 'महिला' : 'पुरुष'}) • 
               🏫 <strong style="color:#1e3a8a;">बूथ ${boothNoVal}:</strong> ${boothNameVal}
             </div>
           </div>
@@ -3609,7 +3609,7 @@ function renderDirectoryTable(votersList) {
       </td>
       <td>${voter.relative_relation || 'पिता'}: ${voter.relative_name || '-'}</td>
       <td><strong>${voter.house_no || '-'}</strong></td>
-      <td>${voter.age} / ${voter.gender === 'F' ? '<span class="text-pink">F</span>' : '<span class="text-blue">M</span>'}</td>
+      <td>${voter.age ? voter.age : '-'} / ${voter.gender === 'F' ? '<span class="text-pink">F</span>' : '<span class="text-blue">M</span>'}</td>
       <td><span class="slip-epic">${voter.epic_no || '-'}</span></td>
       <td><span class="text-sm">${voter.polling_station_name || 'बूथ ' + voter.polling_station_no}</span></td>
       <td class="text-center">
@@ -4495,7 +4495,7 @@ function executeVoterListPrint(sortMode, scope, context) {
           <td class="col-name">${v.voter_name} ${enVoter}</td>
           <td class="col-rel">${v.relative_name || '-'} ${enRel}</td>
           <td class="col-house">${v.house_no || '-'}</td>
-          <td class="col-age">${v.age}</td>
+          <td class="col-age">${v.age ? v.age : '-'}</td>
           <td class="col-gender">${isFemale ? 'स्त्री' : 'पुरुष'}</td>
           <td class="col-epic">${v.epic_no || '-'}</td>
         </tr>
@@ -4999,7 +4999,7 @@ function buildDetachableCandidateSlipHtml(voter, candidateData) {
           <div><strong>वार्ड संख्या:</strong> ${voter.ward_no}</div>
           <div class="bw-row-full"><strong>मतदाता का नाम:</strong> ${voter.voter_name} ${voter.voter_name_en ? `(${voter.voter_name_en})` : ''}</div>
           <div class="bw-row-full"><strong>${relLabel} का नाम:</strong> ${voter.relative_name || '-'}</div>
-          <div><strong>आयु/लिंग:</strong> ${voter.age} वर्ष, ${isFemale ? 'स्त्री' : 'पुरुष'}</div>
+          <div><strong>आयु/लिंग:</strong> ${voter.age ? voter.age + ' वर्ष' : '-'}, ${isFemale ? 'स्त्री' : 'पुरुष'}</div>
           <div><strong>मकान संख्या:</strong> ${voter.house_no || '-'}</div>
           <div class="bw-row-full"><strong>पहचान पत्र क्र. (EPIC):</strong> ${voter.epic_no || 'RJ/12/098/...'}</div>
         </div>
@@ -5058,7 +5058,7 @@ function buildExactOfficialSlipInnerHtml(voter) {
           </div>
           <div class="mini-detail-row">
             <span class="mini-lbl">आयु/लिंग:</span>
-            <span class="mini-val">${voter.age} वर्ष, ${isFemale ? 'स्त्री' : 'पुरुष'}</span>
+            <span class="mini-val">${voter.age ? voter.age + ' वर्ष' : '-'}, ${isFemale ? 'स्त्री' : 'पुरुष'}</span>
           </div>
           <div class="mini-detail-row">
             <span class="mini-lbl">मकान:</span>
