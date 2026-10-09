@@ -2251,17 +2251,21 @@ function renderDashboard() {
   const elDeleted = document.getElementById('kpiDeletedCount');
   const elEffective = document.getElementById('kpiEffectiveCount');
 
-  // Verified Official Statistics from master_data (30 Gram Panchayats Verified)
-  const officialTotalVoters = allowedGps.reduce((s, p) => s + (p.total_voters || 0), 0) || 107314;
-  const officialActiveVoters = allowedGps.reduce((s, p) => s + (p.active_voters || 0), 0) || 100882;
-  const officialDeletedVoters = allowedGps.reduce((s, p) => s + (p.deleted_voters || 0), 0) || 6432;
-  const officialSupplementVoters = officialDeletedVoters; // Additions/Deletions balance
+  // Verified Official Statistics from master_data (30 Gram Panchayats Verified from data.xls)
+  const officialInitialVoters = allowedGps.reduce((s, p) => s + (p.total_voters || 0), 0) || 101701;
+  const officialActiveVoters = allowedGps.reduce((s, p) => s + (p.active_voters || 0), 0) || 100479;
+  const officialDeletedVoters = allowedGps.reduce((s, p) => s + (p.deleted_voters || 0), 0) || 6513;
+  const officialSupplementVoters = allowedGps.reduce((s, p) => s + (p.added_voters || 0), 0) || 5291;
+  const officialModifiedVoters = allowedGps.reduce((s, p) => s + (p.modified_voters || 0), 0) || 901;
+  const officialMaleVoters = allowedGps.reduce((s, p) => s + (p.male_voters || 0), 0) || 51073;
+  const officialFemaleVoters = allowedGps.reduce((s, p) => s + (p.female_voters || 0), 0) || 49404;
   const officialTotalWards = allowedGps.reduce((s, p) => s + (p.total_wards || 0), 0) || 312;
+  const officialTotalBooths = allowedGps.reduce((s, p) => s + (p.booths ? p.booths.length : (p.wards ? new Set(p.wards.map(w => w.booth_no)).size : 0)), 0) || 116;
 
-  if (elMainRoll) elMainRoll.textContent = `${officialActiveVoters.toLocaleString('hi-IN')} (94.0%)`;
-  if (elSupplement) elSupplement.textContent = `${officialSupplementVoters.toLocaleString('hi-IN')} (6.0%)`;
-  if (elDeleted) elDeleted.textContent = officialDeletedVoters.toLocaleString('hi-IN');
-  if (elEffective) elEffective.textContent = officialActiveVoters.toLocaleString('hi-IN');
+  if (elMainRoll) elMainRoll.textContent = `${officialInitialVoters.toLocaleString('hi-IN')}`;
+  if (elSupplement) elSupplement.textContent = `${officialSupplementVoters.toLocaleString('hi-IN')}`;
+  if (elDeleted) elDeleted.textContent = `${officialDeletedVoters.toLocaleString('hi-IN')}`;
+  if (elEffective) elEffective.textContent = `${officialActiveVoters.toLocaleString('hi-IN')}`;
 
   // Overall totals
   const kpiGps = document.getElementById('kpiTotalGps');
@@ -2271,8 +2275,8 @@ function renderDashboard() {
 
   if (kpiGps) kpiGps.textContent = allowedGps.length;
   if (kpiWards) kpiWards.textContent = officialTotalWards;
-  if (kpiBooths) kpiBooths.textContent = allowedGps.reduce((s, p) => s + (p.booths ? p.booths.length : 0), 0) || 75;
-  if (kpiVoters) kpiVoters.textContent = officialTotalVoters.toLocaleString('hi-IN');
+  if (kpiBooths) kpiBooths.textContent = officialTotalBooths;
+  if (kpiVoters) kpiVoters.textContent = officialActiveVoters.toLocaleString('hi-IN');
 
   // Ward-wise Delivery Tracker Grid
   const wardContainer = document.getElementById('wardProgressGridContainer');
