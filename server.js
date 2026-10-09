@@ -218,14 +218,19 @@ function executeGithubPush(reason = 'update', callback = null) {
   isPushing = true;
   const { exec } = require('node:child_process');
   const deployScript = path.join(path.dirname(__dirname), 'deploy_tri_portals.py');
-  console.log(`[AUTO-SYNC] Running deployment script: python "${deployScript}" ...`);
+  console.log(`[AUTO-SYNC] [${new Date().toLocaleTimeString('en-IN')}] Running deployment script (Reason: ${reason}): python "${deployScript}" ...`);
   exec(`python "${deployScript}"`, { cwd: path.dirname(__dirname) }, (error, stdout, stderr) => {
     isPushing = false;
     if (error) {
       console.error('[AUTO-SYNC] Push failed:', error.message);
+      if (stderr) console.error(stderr);
       if (callback) callback(error);
     } else {
-      console.log('[AUTO-SYNC] Push SUCCESS! All 3 repositories live on GitHub.');
+      console.log('[AUTO-SYNC] Push SUCCESS! All 3 repositories live on GitHub (pan, blo-portal, voter-portal).');
+      if (stdout) {
+        const lines = stdout.trim().split('\n').filter(l => l.includes('DEPLOYING') || l.includes('FINISHED') || l.includes('->'));
+        lines.forEach(l => console.log('   ' + l.trim()));
+      }
       if (callback) callback(null, stdout);
     }
   });
@@ -550,16 +555,18 @@ const server = http.createServer(async (req, res) => {
     if (pathname === '/api/users' && req.method === 'POST') {
       try {
         const u = await parseJsonBody(req);
-        if (!u.username || !u.password) {
+        if (!u.username) {
           res.writeHead(400);
-          res.end(JSON.stringify({ success: false, error: 'यूजरनेम और पासवर्ड अनिवार्य हैं।' }));
+          res.end(JSON.stringify({ success: false, error: 'यूजरनेम अनिवार्य है।' }));
           return;
         }
 
         const userId = u.id || u.username.trim().toLowerCase().replace(/\s+/g, '_');
         const tabsJson = Array.isArray(u.allowed_tabs) ? JSON.stringify(u.allowed_tabs) : JSON.stringify(['searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab']);
 
-        const existing = db.prepare('SELECT id FROM users WHERE id = ? OR username = ?').get(userId, u.username.trim());
+        const existing = db.prepare('SELECT * FROM users WHERE id = ? OR username = ?').get(userId, u.username.trim());
+        const passwordToUse = (u.password && String(u.password).trim()) || (existing ? existing.password : '123');
+
         if (existing) {
           db.prepare(`
             UPDATE users SET
@@ -568,15 +575,15 @@ const server = http.createServer(async (req, res) => {
             WHERE id = ?
           `).run(
             u.username.trim(),
-            u.password.trim(),
-            u.full_name || u.fullName || u.username,
-            u.mobile || '',
-            u.role || 'PANCHAYAT_AGENT',
-            u.status || 'ACTIVE',
-            u.allowed_panchayats || u.panchayat || 'ALL',
-            u.allowed_wards || u.ward || 'ALL',
+            passwordToUse,
+            u.full_name || u.fullName || existing.full_name || u.username,
+            (u.mobile !== undefined ? u.mobile : existing.mobile) || '',
+            u.role || existing.role || 'PANCHAYAT_AGENT',
+            u.status || existing.status || 'ACTIVE',
+            u.allowed_panchayats || u.panchayat || existing.allowed_panchayats || 'ALL',
+            u.allowed_wards || u.ward || existing.allowed_wards || 'ALL',
             tabsJson,
-            u.candidate_mode || 'user_edit',
+            u.candidate_mode || existing.candidate_mode || 'user_edit',
             new Date().toISOString(),
             existing.id
           );

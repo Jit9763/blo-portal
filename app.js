@@ -48,10 +48,15 @@ function saveUserOverride(userId, key, value) {
   overrides[userId][key] = value;
   localStorage.setItem('portal_user_overrides', JSON.stringify(overrides));
   
-  // Also sync in State.adminControlUsers
+  // Also sync in State.adminControlUsers and push to server
   if (State.adminControlUsers) {
     const u = State.adminControlUsers.find(x => (x.id || x.username) === userId);
-    if (u) u[key] = value;
+    if (u) {
+      u[key] = value;
+      if (typeof saveAdminUserToServer === 'function') {
+        saveAdminUserToServer(u);
+      }
+    }
   }
 }
 
@@ -66,6 +71,15 @@ function updateUserScope(userId, scopeVal) {
     return;
   }
   saveUserOverride(userId, 'allowed_panchayats', scopeVal);
+  if (State.adminControlUsers) {
+    const u = State.adminControlUsers.find(x => (x.id || x.username) === userId);
+    if (u) {
+      u.allowed_panchayats = scopeVal;
+      if (typeof saveAdminUserToServer === 'function') {
+        saveAdminUserToServer(u);
+      }
+    }
+  }
   showToast(`🌐 कार्यक्षेत्र अद्यतन: ${userId} -> ${scopeVal}`);
 }
 
@@ -361,6 +375,9 @@ function saveCustomScopeAllotment(event) {
       u.can_download = canDownload;
       u.password = pass;
       u.status = status;
+      if (typeof saveAdminUserToServer === 'function') {
+        saveAdminUserToServer(u);
+      }
     }
   }
 
@@ -386,7 +403,12 @@ function toggleUserStatus(userId, explicitStatus) {
   
   if (State.adminControlUsers) {
     const u = State.adminControlUsers.find(x => (x.id || x.username) === userId);
-    if (u) u.status = newStatus;
+    if (u) {
+      u.status = newStatus;
+      if (typeof saveAdminUserToServer === 'function') {
+        saveAdminUserToServer(u);
+      }
+    }
   }
   
   if (typeof renderAdminCellTab === 'function' && activeHubSubTab === 'cell') renderAdminCellTab();
