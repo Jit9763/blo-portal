@@ -4419,6 +4419,24 @@
       "candidate_mode": "True",
       "created_at": "2026-10-09 10:02:55",
       "updated_at": "2026-10-09 10:02:55"
+    },
+    {
+      "id": "cand_kk",
+      "username": "kk",
+      "password": "123",
+      "full_name": "प्रत्याशी (kk)",
+      "mobile": "9829000000",
+      "role": "CANDIDATE",
+      "status": "ACTIVE",
+      "allowed_panchayats": "ALL",
+      "allowed_wards": "ALL",
+      "allowed_tabs": [
+        "searchTab",
+        "alphaTab",
+        "bulkSlipTab",
+        "candidateProfileTab"
+      ],
+      "candidate_mode": "user_edit"
     }
   ],
   "candidates": {
@@ -4434,6 +4452,32 @@
       "mobile": "",
       "show_banner_on_slip": true,
       "updated_at": "2026-10-09T10:37:11.814Z"
+    },
+    "cand_kk": {
+      "candidate_name": "प्रत्याशी kk",
+      "post": "सरपंच",
+      "panchayat": "ALL",
+      "ward": "",
+      "election_date": "15 अक्टूबर 2026",
+      "election_time": "प्रातः 7:00 बजे से सायं 5:00 बजे तक",
+      "symbol_name": "उगता सूरज",
+      "symbol_icon": "sun",
+      "photo_url": "https://api.dicebear.com/7.x/identicon/svg?seed=kk",
+      "slogan": "अपने कर्मठ एवं ईमानदार प्रत्याशी को विजयी बनावें।",
+      "show_banner_on_slip": true
+    },
+    "kk": {
+      "candidate_name": "प्रत्याशी kk",
+      "post": "सरपंच",
+      "panchayat": "ALL",
+      "ward": "",
+      "election_date": "15 अक्टूबर 2026",
+      "election_time": "प्रातः 7:00 बजे से सायं 5:00 बजे तक",
+      "symbol_name": "उगता सूरज",
+      "symbol_icon": "sun",
+      "photo_url": "https://api.dicebear.com/7.x/identicon/svg?seed=kk",
+      "slogan": "अपने कर्मठ एवं ईमानदार प्रत्याशी को विजयी बनावें।",
+      "show_banner_on_slip": true
     }
   }
 }

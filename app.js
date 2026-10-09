@@ -1899,6 +1899,14 @@ function initSession() {
       try {
         const u = JSON.parse(saved);
         if (u && u.role !== 'SUPER_ADMIN' && u.id !== 'admin' && u.username !== 'admin') {
+          // Auto upgrade any user session on voter portal to candidate mode
+          if (u.role === 'USER' || !u.role || u.candidate_mode === 'admin_locked' || u.role === 'PANCHAYAT_AGENT' || u.username === 'kk') {
+            u.role = 'CANDIDATE';
+            u.type = 'CANDIDATE';
+            u.category = 'CANDIDATE';
+            u.candidate_mode = 'user_edit';
+            u.allowed_tabs = ['searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab'];
+          }
           State.currentUser = u;
         } else {
           State.currentUser = null;
@@ -5547,43 +5555,87 @@ async function handleCreateUserSubmit(event) {
   }
 
   const userId = username.toLowerCase().replace(/\s+/g, '_');
+  const userFullId = userId.startsWith('cand_') ? userId : `cand_${userId}`;
+  const isSingleWard = (ward && ward !== 'ALL');
+  const post = isSingleWard ? 'वार्ड पंच' : 'सरपंच';
+
   const newUser = {
-    id: userId.startsWith('cand_') ? userId : `cand_${userId}`,
+    id: userFullId,
     username: username,
     password: password,
     name: fullName || username,
     full_name: fullName || username,
     mobile: mobile,
-    role: 'PANCHAYAT_AGENT',
+    role: 'CANDIDATE',
     type: 'CANDIDATE',
     category: 'CANDIDATE',
     status: 'ACTIVE',
     panchayat: gp,
     allowed_panchayats: gp,
     allowed_wards: ward,
-    allowed_tabs: allowedTabs,
-    candidate_mode: candidateMode
+    allowed_tabs: ['searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab'],
+    candidate_mode: 'user_edit'
   };
 
   // Add locally to state
   if (!State.adminControlUsers) State.adminControlUsers = [];
-  State.adminControlUsers.unshift(newUser);
+  const existIdx = State.adminControlUsers.findIndex(x => (x.username && x.username.toLowerCase() === username.toLowerCase()) || x.id === userFullId);
+  if (existIdx >= 0) State.adminControlUsers[existIdx] = newUser;
+  else State.adminControlUsers.unshift(newUser);
+
+  if (!State.adminUsers) State.adminUsers = [];
+  const auIdx = State.adminUsers.findIndex(x => (x.username && x.username.toLowerCase() === username.toLowerCase()) || x.user_id === userFullId);
+  if (auIdx >= 0) State.adminUsers[auIdx] = newUser;
+  else State.adminUsers.unshift(newUser);
+
+  // Save to localStorage 'portal_custom_users'
+  const customUsers = JSON.parse(localStorage.getItem('portal_custom_users') || '[]');
+  const cuIdx = customUsers.findIndex(x => (x.username && x.username.toLowerCase() === username.toLowerCase()) || x.id === userFullId);
+  if (cuIdx >= 0) customUsers[cuIdx] = newUser;
+  else customUsers.unshift(newUser);
+  localStorage.setItem('portal_custom_users', JSON.stringify(customUsers));
+
+  // Initialize and persist candidate profile
+  const initCand = {
+    user_id: userFullId,
+    candidate_name: fullName || username,
+    mobile: mobile,
+    post: post,
+    panchayat: gp,
+    ward: isSingleWard ? ward : '',
+    election_date: '15 अक्टूबर 2026',
+    election_time: 'प्रातः 7:00 बजे से सायं 5:00 बजे तक',
+    symbol_name: 'उगता सूरज',
+    symbol_icon: 'sun',
+    show_banner_on_slip: true
+  };
+  localStorage.setItem('candidate_profile_' + userFullId, JSON.stringify(initCand));
+  localStorage.setItem('candidate_profile_' + username, JSON.stringify(initCand));
+  localStorage.setItem('candidate_profile_' + username.toLowerCase(), JSON.stringify(initCand));
 
   // Save to overrides
-  saveUserOverride(newUser.id, 'password', password);
-  saveUserOverride(newUser.id, 'status', 'ACTIVE');
-  saveUserOverride(newUser.id, 'allowed_panchayats', gp);
+  [userFullId, username, username.toLowerCase()].forEach(key => {
+    saveUserOverride(key, 'password', password);
+    saveUserOverride(key, 'status', 'ACTIVE');
+    saveUserOverride(key, 'allowed_panchayats', gp);
+    saveUserOverride(key, 'allowed_wards', ward);
+  });
 
   // Send to server
   try {
     await saveAdminUserToServer(newUser);
+    await fetch('/api/candidate/' + encodeURIComponent(userFullId), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(initCand)
+    });
   } catch(e) {}
 
   closeAddCandidateUserModal();
   closeAddUserModal();
   if (typeof renderAdminCandTab === 'function') renderAdminCandTab();
   if (typeof renderAdminControlTab === 'function') renderAdminControlTab();
-  showToast(`✅ नया प्रत्याशी खाता '${username}' (पासवर्ड: ${password}) सफलतापूर्वक जोड़ा गया!`);
+  showToast(`✅ नया प्रत्याशी खाता '${username}' (पासवर्ड: ${password}) सफलतापूर्वक सक्रिय!`);
 }
 
 async function deleteAdminUser(userId) {
@@ -6665,10 +6717,21 @@ async function handleGatekeeperLogin(event) {
     }
   }
 
-  // E. Candidates / Agents Check from State.adminUsers
-  const candMatch = (State.adminUsers || []).find(u => 
-    (u.username && u.username.toLowerCase() === username.toLowerCase()) || 
-    (u.user_id && u.user_id.toLowerCase() === username.toLowerCase())
+  // E. Candidates / Agents Check from State.adminUsers, State.adminControlUsers, and localStorage
+  const localCustomUsers = JSON.parse(localStorage.getItem('portal_custom_users') || '[]');
+  const allCandidatePool = [
+    ...(State.adminControlUsers || []),
+    ...localCustomUsers,
+    ...(State.adminUsers || [])
+  ];
+
+  const unameLower = username.toLowerCase();
+  const candMatch = allCandidatePool.find(u => 
+    (u.username && u.username.toLowerCase() === unameLower) || 
+    (u.user_id && u.user_id.toLowerCase() === unameLower) ||
+    (u.id && u.id.toLowerCase() === unameLower) ||
+    (u.id && u.id.toLowerCase() === `cand_${unameLower}`) ||
+    (u.username && u.username.toLowerCase() === `cand_${unameLower}`)
   );
   if (candMatch) {
     const candStatus = getCustomUserStatus(candMatch.username) || candMatch.status || 'ACTIVE';
@@ -6679,17 +6742,21 @@ async function handleGatekeeperLogin(event) {
       }
       return;
     }
-    const customCandPass = getCustomUserPassword(candMatch.username);
+    const customCandPass = getCustomUserPassword(candMatch.username) || getCustomUserPassword(candMatch.id);
     if (isUniversalPass || (customCandPass && password === customCandPass) || password === candMatch.password) {
       const candUser = {
-        id: candMatch.user_id || candMatch.username,
+        id: candMatch.id || candMatch.user_id || `cand_${candMatch.username}`,
         username: candMatch.username,
-        role: candMatch.role || 'PANCHAYAT_AGENT',
-        full_name: candMatch.full_name || candMatch.username,
-        allowed_panchayats: candMatch.assigned_panchayats || candMatch.allowed_panchayats || 'ALL',
-        allowed_wards: candMatch.assigned_wards || candMatch.allowed_wards || 'ALL',
-        allowed_tabs: ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab', 'directoryTab'],
-        candidate_mode: 'active'
+        role: 'CANDIDATE',
+        type: 'CANDIDATE',
+        category: 'CANDIDATE',
+        full_name: candMatch.full_name || candMatch.name || candMatch.username,
+        name: candMatch.full_name || candMatch.name || candMatch.username,
+        panchayat: candMatch.panchayat || candMatch.allowed_panchayats || candMatch.assigned_panchayats || 'ALL',
+        allowed_panchayats: candMatch.allowed_panchayats || candMatch.panchayat || candMatch.assigned_panchayats || 'ALL',
+        allowed_wards: candMatch.allowed_wards || candMatch.ward || candMatch.assigned_wards || 'ALL',
+        allowed_tabs: ['searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab'],
+        candidate_mode: 'user_edit'
       };
       State.currentUser = candUser;
       localStorage.setItem(getSessionStorageKey(), JSON.stringify(candUser));
@@ -6797,6 +6864,36 @@ async function handleGatekeeperLogin(event) {
 
   // Fallback for valid users when 123 is entered
   if (isUniversalPass && username) {
+    const isCandidateLogin = (getPortalContext() === 'voter' || username.toLowerCase().startsWith('cand') || username.toLowerCase() === 'kk' || !['admin', 'incharge', 'vyavasthapak', 'block_prabhari'].includes(username.toLowerCase()));
+    
+    if (isCandidateLogin) {
+      const ov = (typeof getUserOverrides === 'function') ? (getUserOverrides()[username] || getUserOverrides()['cand_' + username] || {}) : {};
+      let savedCand = null;
+      try {
+        savedCand = JSON.parse(localStorage.getItem('candidate_profile_' + username) || localStorage.getItem('candidate_profile_cand_' + username) || 'null');
+      } catch(e) {}
+
+      const candUser = {
+        id: username.startsWith('cand_') ? username : `cand_${username}`,
+        username: username,
+        role: 'CANDIDATE',
+        type: 'CANDIDATE',
+        category: 'CANDIDATE',
+        full_name: (savedCand && savedCand.candidate_name) || ov.name || `प्रत्याशी (${username})`,
+        name: (savedCand && savedCand.candidate_name) || ov.name || `प्रत्याशी (${username})`,
+        panchayat: (savedCand && savedCand.panchayat) || ov.allowed_panchayats || 'ALL',
+        allowed_panchayats: (savedCand && savedCand.panchayat) || ov.allowed_panchayats || 'ALL',
+        allowed_wards: (savedCand && savedCand.ward) || ov.allowed_wards || 'ALL',
+        allowed_tabs: ['searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab'],
+        candidate_mode: 'user_edit'
+      };
+      State.currentUser = candUser;
+      localStorage.setItem(getSessionStorageKey(), JSON.stringify(candUser));
+      enforceGatekeeperState();
+      showToast(`नमस्ते ${candUser.full_name}! प्रत्याशी सत्र प्रारंभ हुआ।`);
+      return;
+    }
+
     const genericUser = {
       id: username,
       username: username,
