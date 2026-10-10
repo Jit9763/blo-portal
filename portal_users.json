@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "last_updated": "2026-10-10T14:38:21.943Z",
+  "last_updated": "2026-10-10T14:39:13.139Z",
   "users": [
     {
       "id": "admin",
@@ -2299,14 +2299,11 @@
       "allowed_panchayats": "एकलसिंहा",
       "allowed_wards": "1, 2, 3",
       "allowed_tabs": [
-        "dashboardTab",
-        "searchTab",
-        "alphaTab",
-        "directoryTab"
+        "searchTab"
       ],
       "candidate_mode": "user_edit",
       "created_at": "2026-10-10T14:37:51.591Z",
-      "updated_at": "2026-10-10T14:37:51.591Z"
+      "updated_at": "2026-10-10T14:39:13.126Z"
     },
     {
       "id": "blo_256",
