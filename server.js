@@ -153,6 +153,14 @@ function exportToJson() {
       candidates
     };
     fs.writeFileSync(JSON_PATH, JSON.stringify(payload, null, 2), 'utf8');
+    const altDir = __dirname.includes('panchyt order') 
+      ? 'C:\\Users\\jiten\\Desktop\\panchayat chunav\\voter_portal'
+      : 'C:\\Users\\jiten\\Desktop\\panchyt order\\voter_portal';
+    if (fs.existsSync(altDir)) {
+      try {
+        fs.writeFileSync(path.join(altDir, 'portal_users.json'), JSON.stringify(payload, null, 2), 'utf8');
+      } catch(e) {}
+    }
     if (typeof scheduleAutoPushToGithub === 'function') {
       scheduleAutoPushToGithub('database_json_export');
     }
@@ -349,32 +357,6 @@ const server = http.createServer(async (req, res) => {
         const dirPath = path.join(__dirname, 'master_directory.json');
         if (fs.existsSync(dirPath)) {
           const dirData = JSON.parse(fs.readFileSync(dirPath, 'utf8'));
-              // 0. Check Block Prabhari (Suresh Jangid)
-              if (uname === 'block_prabhari' || uname === 'suresh_jangid') {
-                user = {
-                  id: 'incharge', username: 'incharge', password: '123', full_name: 'ब्लॉक इनचार्ज (पर्यवेक्षक)', mobile: '9950705221', role: 'INCHARGE', status: 'ACTIVE', allowed_panchayats: 'ALL', allowed_wards: 'ALL', allowed_tabs: JSON.stringify(['dashboardTab', 'searchTab', 'alphaTab', 'directoryTab']), candidate_mode: 'admin_locked' },
-        { id: 'vyavasthapak', username: 'vyavasthapak', password: '123', full_name: 'व्यवस्थापक (प्रिंट व डाउनलोड)', mobile: '9950705221', role: 'VYAVASTHAPAK', status: 'ACTIVE', allowed_panchayats: 'ALL', allowed_wards: 'ALL', allowed_tabs: JSON.stringify(['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab']), candidate_mode: 'admin_locked' },
-        { id: 'block_prabhari',
-                  username: 'block_prabhari',
-                  password: 'BHINAI123',
-                  full_name: 'श्री सुरेश चन्द्र जांगिड (ब्लॉक प्रभारी - शिक्षक)',
-                  mobile: '9950705221',
-                  role: 'BLOCK_PRABHARI',
-                  status: 'ACTIVE',
-                  allowed_panchayats: 'ALL',
-                  allowed_wards: 'ALL',
-                  allowed_tabs: JSON.stringify(['dashboardTab', 'searchTab', 'alphaTab', 'directoryTab']),
-                  candidate_mode: 'admin_locked',
-                  created_at: new Date().toISOString(),
-                  updated_at: new Date().toISOString()
-                };
-                try {
-                  db.prepare(`INSERT OR REPLACE INTO users (id, username, password, full_name, mobile, role, status, allowed_panchayats, allowed_wards, allowed_tabs, candidate_mode, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`).run(
-                    user.id, user.username, user.password, user.full_name, user.mobile, user.role, user.status, user.allowed_panchayats, user.allowed_wards, user.allowed_tabs, user.candidate_mode, user.created_at, user.updated_at
-                  );
-                } catch(e) {}
-              }
-
           let updated = false;
           if (dirData.all_contacts) {
             const item = dirData.all_contacts.find(c => c.id === editData.id);
@@ -570,11 +552,20 @@ const server = http.createServer(async (req, res) => {
           return;
         }
 
-        const userId = u.id || u.username.trim().toLowerCase().replace(/\s+/g, '_');
-        const tabsJson = Array.isArray(u.allowed_tabs) ? JSON.stringify(u.allowed_tabs) : JSON.stringify(['searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab']);
+        const toStr = (val, def = '') => {
+          if (val === null || val === undefined) return def;
+          if (typeof val === 'object') return JSON.stringify(val);
+          return String(val);
+        };
 
-        const existing = db.prepare('SELECT * FROM users WHERE id = ? OR username = ?').get(userId, u.username.trim());
-        const passwordToUse = (u.password && String(u.password).trim()) || (existing ? existing.password : '123');
+        const userId = toStr(u.id || u.username).trim().toLowerCase().replace(/\s+/g, '_');
+        const usernameStr = toStr(u.username).trim();
+        const tabsJson = Array.isArray(u.allowed_tabs)
+          ? JSON.stringify(u.allowed_tabs)
+          : (typeof u.allowed_tabs === 'string' ? u.allowed_tabs : JSON.stringify(['searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab']));
+
+        const existing = db.prepare('SELECT * FROM users WHERE id = ? OR username = ?').get(userId, usernameStr);
+        const passwordToUse = toStr((u.password && String(u.password).trim()) || (existing ? existing.password : '123'));
 
         if (existing) {
           db.prepare(`
@@ -583,16 +574,16 @@ const server = http.createServer(async (req, res) => {
               allowed_panchayats = ?, allowed_wards = ?, allowed_tabs = ?, candidate_mode = ?, updated_at = ?
             WHERE id = ?
           `).run(
-            u.username.trim(),
+            usernameStr,
             passwordToUse,
-            u.full_name || u.fullName || existing.full_name || u.username,
-            (u.mobile !== undefined ? u.mobile : existing.mobile) || '',
-            u.role || existing.role || 'PANCHAYAT_AGENT',
-            u.status || existing.status || 'ACTIVE',
-            u.allowed_panchayats || u.panchayat || existing.allowed_panchayats || 'ALL',
-            u.allowed_wards || u.ward || existing.allowed_wards || 'ALL',
-            tabsJson,
-            u.candidate_mode || existing.candidate_mode || 'user_edit',
+            toStr(u.full_name || u.fullName || existing.full_name || usernameStr),
+            toStr((u.mobile !== undefined ? u.mobile : existing.mobile) || ''),
+            toStr(u.role || existing.role || 'PANCHAYAT_AGENT'),
+            toStr(u.status || existing.status || 'ACTIVE'),
+            toStr(u.allowed_panchayats || u.panchayat || existing.allowed_panchayats || 'ALL'),
+            toStr(u.allowed_wards || u.ward || existing.allowed_wards || 'ALL'),
+            toStr(tabsJson),
+            toStr(u.candidate_mode || existing.candidate_mode || 'user_edit'),
             new Date().toISOString(),
             existing.id
           );
@@ -602,16 +593,16 @@ const server = http.createServer(async (req, res) => {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
           `).run(
             userId,
-            u.username.trim(),
-            u.password.trim(),
-            u.full_name || u.fullName || u.username,
-            u.mobile || '',
-            u.role || 'PANCHAYAT_AGENT',
-            u.status || 'ACTIVE',
-            u.allowed_panchayats || u.panchayat || 'ALL',
-            u.allowed_wards || u.ward || 'ALL',
-            tabsJson,
-            u.candidate_mode || 'user_edit',
+            usernameStr,
+            toStr(u.password || '123'),
+            toStr(u.full_name || u.fullName || usernameStr),
+            toStr(u.mobile || ''),
+            toStr(u.role || 'PANCHAYAT_AGENT'),
+            toStr(u.status || 'ACTIVE'),
+            toStr(u.allowed_panchayats || u.panchayat || 'ALL'),
+            toStr(u.allowed_wards || u.ward || 'ALL'),
+            toStr(tabsJson),
+            toStr(u.candidate_mode || 'user_edit'),
             new Date().toISOString(),
             new Date().toISOString()
           );
@@ -620,6 +611,7 @@ const server = http.createServer(async (req, res) => {
         exportToJson();
         res.end(JSON.stringify({ success: true, message: 'उपयोगकर्ता सफलतापूर्वक सुरक्षित!' }));
       } catch (err) {
+        console.error('Save user error:', err);
         res.writeHead(500);
         res.end(JSON.stringify({ success: false, error: err.message }));
       }

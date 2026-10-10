@@ -6540,6 +6540,11 @@ async function handleGatekeeperLogin(event) {
   const errorDiv = document.getElementById('gatekeeperError');
   if (errorDiv) { errorDiv.style.display = 'none'; errorDiv.textContent = ''; }
 
+  // Ensure freshest admin users and permissions are loaded before login validation
+  if (!State.adminControlUsers || State.adminControlUsers.length === 0) {
+    try { await loadAdminUsersList(); } catch(e) {}
+  }
+
   const uInput = document.getElementById('gatekeeperUsername');
   let username = uInput ? uInput.value.trim() : '';
 
