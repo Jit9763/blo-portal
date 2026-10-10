@@ -35,10 +35,28 @@ function switchMasterHubSubTab(tabName) {
 }
 
 function getUserOverrides() {
+  const overrides = {};
+  if (State.adminControlUsers && State.adminControlUsers.length > 0) {
+    State.adminControlUsers.forEach(u => {
+      const uid = u.id || u.username;
+      overrides[uid] = {
+        status: u.status,
+        password: u.password,
+        allowed_panchayats: u.allowed_panchayats,
+        allowed_wards: u.allowed_wards,
+        allowed_tabs: u.allowed_tabs,
+        can_print: (u.can_print === true || u.can_print === 1),
+        can_download: (u.can_download === true || u.can_download === 1),
+        can_search: (u.can_search === true || u.can_search === 1),
+        can_view: (u.can_view === true || u.can_view === 1)
+      };
+    });
+  }
   try {
-    return JSON.parse(localStorage.getItem('portal_user_overrides') || '{}');
+    const local = JSON.parse(localStorage.getItem('portal_user_overrides') || '{}');
+    return Object.assign({}, overrides, local);
   } catch(e) {
-    return {};
+    return overrides;
   }
 }
 
@@ -862,16 +880,21 @@ function canUserPrint() {
   if (!State.currentUser) return false;
   const u = State.currentUser;
   if (u.role === 'SUPER_ADMIN' || u.role === 'VYAVASTHAPAK') return true;
+  if (Array.isArray(u.allowed_tabs) && !u.allowed_tabs.includes('bulkSlipTab')) return false;
+  if (u.can_print !== undefined) return (u.can_print === true || u.can_print === 1);
   const ov = getUserOverrides()[u.id || u.username] || {};
-  return (ov.can_print !== undefined) ? ov.can_print : (u.can_print === true);
+  if (ov.can_print !== undefined) return (ov.can_print === true || ov.can_print === 1);
+  return false;
 }
 
 function canUserDownload() {
   if (!State.currentUser) return false;
   const u = State.currentUser;
   if (u.role === 'SUPER_ADMIN' || u.role === 'VYAVASTHAPAK' || u.role === 'INCHARGE' || u.role === 'BLOCK_PRABHARI') return true;
+  if (u.can_download !== undefined) return (u.can_download === true || u.can_download === 1);
   const ov = getUserOverrides()[u.id || u.username] || {};
-  return (ov.can_download !== undefined) ? ov.can_download : (u.can_download !== false);
+  if (ov.can_download !== undefined) return (ov.can_download === true || ov.can_download === 1);
+  return true;
 }
 
 // -------------------------------------------------------------------------
@@ -1380,6 +1403,13 @@ function configureLoginUiForPortal() {
 // USER SCOPE & SEARCH PERMISSION ENGINE (SUPER ADMIN CONTROL)
 // ==========================================================================
 function getCustomUserScope(userId) {
+  if (State.adminControlUsers && State.adminControlUsers.length > 0) {
+    const u = State.adminControlUsers.find(x => 
+      (x.id && String(x.id).toLowerCase() === String(userId).toLowerCase()) ||
+      (x.username && String(x.username).toLowerCase() === String(userId).toLowerCase())
+    );
+    if (u && u.allowed_panchayats) return u.allowed_panchayats;
+  }
   try {
     const sc = JSON.parse(localStorage.getItem('portal_user_scopes') || '{}');
     if (sc && sc[userId]) return sc[userId];
@@ -1434,6 +1464,13 @@ async function adminUpdateUserScope(userId, scopeVal) {
 // BLOCK PRABHARI & SUPER ADMIN LOCAL OVERRIDES ENGINE
 // ==========================================================================
 function getCustomUserPassword(username) {
+  if (State.adminControlUsers && State.adminControlUsers.length > 0) {
+    const u = State.adminControlUsers.find(x => 
+      (x.id && String(x.id).toLowerCase() === String(username).toLowerCase()) ||
+      (x.username && String(x.username).toLowerCase() === String(username).toLowerCase())
+    );
+    if (u && u.password) return u.password;
+  }
   try {
     const ov = JSON.parse(localStorage.getItem('portal_passwords_override') || '{}');
     if (ov && ov[username]) return ov[username];
@@ -1442,6 +1479,13 @@ function getCustomUserPassword(username) {
 }
 
 function getCustomUserStatus(username) {
+  if (State.adminControlUsers && State.adminControlUsers.length > 0) {
+    const u = State.adminControlUsers.find(x => 
+      (x.id && String(x.id).toLowerCase() === String(username).toLowerCase()) ||
+      (x.username && String(x.username).toLowerCase() === String(username).toLowerCase())
+    );
+    if (u && u.status) return u.status;
+  }
   try {
     const st = JSON.parse(localStorage.getItem('portal_status_override') || '{}');
     if (st && st[username]) return st[username];
@@ -1892,6 +1936,55 @@ function getSessionStorageKey() {
   return `panchayat_session_${getPortalContext()}`;
 }
 
+
+function syncCurrentUserWithConfiguredUsers() {
+  if (!State.currentUser) return;
+  const uId = String(State.currentUser.id || State.currentUser.username || '').toLowerCase();
+  if (!State.adminControlUsers || State.adminControlUsers.length === 0) return;
+  const matched = State.adminControlUsers.find(x => 
+    (x.id && String(x.id).toLowerCase() === uId) || 
+    (x.username && String(x.username).toLowerCase() === uId)
+  );
+  if (matched) {
+    const statusUpper = String(matched.status || 'ACTIVE').toUpperCase();
+    if (statusUpper === 'INACTIVE' || statusUpper === 'DISABLED' || statusUpper === 'BLOCKED') {
+      State.currentUser = null;
+      const sk = getSessionStorageKey();
+      localStorage.removeItem(sk);
+      sessionStorage.removeItem(sk);
+      localStorage.removeItem('panchayat_user_session');
+      sessionStorage.removeItem('panchayat_user_session');
+      enforceGatekeeperState();
+      const errEl = document.getElementById('gatekeeperError');
+      if (errEl) {
+        errEl.textContent = 'आपका खाता मुख्य व्यवस्थापक द्वारा निष्क्रिय (Inactive) किया गया है।';
+        errEl.style.display = 'block';
+      }
+      return;
+    }
+    if (Array.isArray(matched.allowed_tabs)) {
+      State.currentUser.allowed_tabs = matched.allowed_tabs;
+    }
+    if (matched.allowed_panchayats) {
+      State.currentUser.allowed_panchayats = matched.allowed_panchayats;
+      State.currentUser.panchayat = matched.allowed_panchayats;
+    }
+    if (matched.allowed_wards) {
+      State.currentUser.allowed_wards = matched.allowed_wards;
+    }
+    if (matched.can_print !== undefined) State.currentUser.can_print = (matched.can_print === true || matched.can_print === 1);
+    if (matched.can_download !== undefined) State.currentUser.can_download = (matched.can_download === true || matched.can_download === 1);
+    if (matched.can_search !== undefined) State.currentUser.can_search = (matched.can_search === true || matched.can_search === 1);
+    if (matched.can_view !== undefined) State.currentUser.can_view = (matched.can_view === true || matched.can_view === 1);
+    if (matched.candidate_mode) State.currentUser.candidate_mode = matched.candidate_mode;
+
+    const sk = getSessionStorageKey();
+    if (localStorage.getItem(sk)) localStorage.setItem(sk, JSON.stringify(State.currentUser));
+    if (sessionStorage.getItem(sk)) sessionStorage.setItem(sk, JSON.stringify(State.currentUser));
+    enforceGatekeeperState();
+  }
+}
+
 function initSession() {
   const ctx = getPortalContext();
   const sessionKey = getSessionStorageKey();
@@ -1958,6 +2051,7 @@ function initSession() {
   configureLoginUiForPortal();
   populateLoginUserDropdown();
   syncLatestActiveUsersFromAppsScript();
+  syncCurrentUserWithConfiguredUsers();
   enforceGatekeeperState();
 }
 
@@ -3902,7 +3996,7 @@ async function syncWithGoogleSheet(silent = false) {
                 user_id: r[0] || `USR${i}`,
                 username: r[1],
                 password: r[2],
-                full_name: r[3] || r[1],
+          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
                 role: r[4] || 'BOOTH_AGENT',
                 panchayat_code: r[5] || 'ALL',
                 gram_panchayat: r[6] || '',
@@ -4254,7 +4348,7 @@ function handleCreateUser(e) {
     user_id: `USR${State.adminUsers.length + 1}`,
     username: username,
     password: password,
-    full_name: fullName,
+          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
     mobile: mobile,
     role: role,
     assigned_panchayats: panchayat,
@@ -4512,7 +4606,7 @@ async function syncLatestActiveUsersFromAppsScript() {
         user_id: u.userId || u.user_id || `USR${u.rowIndex || ''}`,
         username: u.username,
         password: u.password,
-        full_name: u.fullName || u.full_name || u.username,
+          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
         fullName: u.fullName || u.full_name || u.username,
         mobile: u.mobile || '',
         role: u.role || 'PANCHAYAT_AGENT',
@@ -5351,6 +5445,7 @@ async function loadAdminUsersList() {
       const data = await res.json();
       if (data && data.success && Array.isArray(data.users)) {
         State.adminControlUsers = data.users;
+        syncCurrentUserWithConfiguredUsers();
         return;
       }
     }
@@ -5368,6 +5463,7 @@ async function loadAdminUsersList() {
           ...u,
           candidate: (data.candidates && data.candidates[u.id || u.username]) || null
         }));
+        syncCurrentUserWithConfiguredUsers();
         return;
       }
     }
@@ -5381,7 +5477,7 @@ async function loadAdminUsersList() {
       id: u.user_id || u.username,
       username: u.username,
       password: u.password,
-      full_name: u.full_name || u.fullName || u.username,
+          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
       mobile: u.mobile || '',
       status: u.status || 'ACTIVE',
       allowed_panchayats: u.assigned_panchayats || 'ALL',
@@ -5397,7 +5493,7 @@ async function loadAdminUsersList() {
       id: 'block_prabhari',
       username: 'block_prabhari',
       password: 'BHINAI123',
-      full_name: 'श्री सुरेश चन्द्र जांगिड (ब्लॉक प्रभारी - शिक्षक)',
+          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
       mobile: '9950705221',
       status: 'ACTIVE',
       allowed_panchayats: 'ALL',
@@ -5637,7 +5733,7 @@ async function handleCreateUserSubmit(event) {
     username: username,
     password: password,
     name: fullName || username,
-    full_name: fullName || username,
+          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
     mobile: mobile,
     role: 'CANDIDATE',
     type: 'CANDIDATE',
@@ -6648,7 +6744,7 @@ async function handleGatekeeperLogin(event) {
         id: 'admin',
         username: 'admin',
         role: 'SUPER_ADMIN',
-        full_name: 'मुख्य व्यवस्थापक (Super Admin)',
+          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
         allowed_panchayats: 'ALL',
         allowed_wards: 'ALL',
         allowed_tabs: ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab', 'candidateProfileTab', 'adminControlTab', 'settingsTab'],
@@ -6680,7 +6776,7 @@ async function handleGatekeeperLogin(event) {
         id: 'incharge',
         username: 'incharge',
         role: 'INCHARGE',
-        full_name: 'ब्लॉक इनचार्ज (पर्यवेक्षक)',
+          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
         name: 'ब्लॉक इनचार्ज',
         allowed_panchayats: 'ALL',
         allowed_wards: 'ALL',
@@ -6721,7 +6817,7 @@ async function handleGatekeeperLogin(event) {
         id: 'vyavasthapak',
         username: 'vyavasthapak',
         role: 'VYAVASTHAPAK',
-        full_name: 'व्यवस्थापक (प्रिंट व डाउनलोड)',
+          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
         name: 'व्यवस्थापक',
         allowed_panchayats: 'ALL',
         allowed_wards: 'ALL',
@@ -6762,7 +6858,7 @@ async function handleGatekeeperLogin(event) {
         id: 'block_prabhari',
         username: 'block_prabhari',
         role: 'BLOCK_PRABHARI',
-        full_name: 'श्री सुरेश चन्द्र जांगिड (ब्लॉक प्रभारी - शिक्षक)',
+          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
         name: 'श्री सुरेश चन्द्र जांगिड',
         post: 'अध्यापक',
         designation: 'अध्यापक / शिक्षक',
@@ -6828,7 +6924,7 @@ async function handleGatekeeperLogin(event) {
         role: 'CANDIDATE',
         type: 'CANDIDATE',
         category: 'CANDIDATE',
-        full_name: candMatch.full_name || candMatch.name || candMatch.username,
+          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
         name: candMatch.full_name || candMatch.name || candMatch.username,
         panchayat: candMatch.allowed_panchayats || candMatch.panchayat || candMatch.assigned_panchayats || '',
         allowed_panchayats: candMatch.allowed_panchayats || candMatch.panchayat || candMatch.assigned_panchayats || '',
@@ -6877,7 +6973,7 @@ async function handleGatekeeperLogin(event) {
     }
   }
 
-  // F. BLO & Cell Members lookup
+  // F. BLO & Cell Members lookup (Synchronized with Super Admin configuration)
   const dir = getMasterDirectory();
   if (dir) {
     // 1. Check in BLO list
@@ -6888,28 +6984,28 @@ async function handleGatekeeperLogin(event) {
       (b.old_part_no && String(b.old_part_no) === username.replace('blo_', ''))
     );
     if (bloMatch) {
-      const bloUname = bloMatch.username || bloMatch.id || `blo_${bloMatch.booth_no}`;
-      const bloPass = getCustomUserPassword(bloUname) || bloMatch.password || '123';
-      const bloStatus = getCustomUserStatus(bloUname) || 'ACTIVE';
-      if (bloStatus === 'INACTIVE') {
+      const bloUname = bloMatch.username || bloMatch.id || ('blo_' + bloMatch.booth_no);
+      const cfgUser = (State.adminControlUsers || []).find(u => 
+        (u.id && String(u.id).toLowerCase() === bloUname.toLowerCase()) || 
+        (u.username && String(u.username).toLowerCase() === bloUname.toLowerCase())
+      );
+      
+      const bloStatus = cfgUser?.status || getCustomUserStatus(bloUname) || 'ACTIVE';
+      if (String(bloStatus).toUpperCase() === 'INACTIVE') {
         if (errorDiv) {
-          errorDiv.textContent = 'यह बी.एल.ओ. खाता सुपर एडमिन द्वारा निष्क्रिय किया गया है!';
+          errorDiv.textContent = 'यह बी.एल.ओ. खाता मुख्य व्यवस्थापक द्वारा निष्क्रिय (Inactive) किया गया है!';
           errorDiv.style.display = 'block';
         }
         return;
       }
+      
+      const bloPass = cfgUser?.password || getCustomUserPassword(bloUname) || bloMatch.password || '123';
       if (isUniversalPass || password === bloPass) {
-        const customScope = getCustomUserScope(bloUname) || 'BOOTH';
-        let allowedGps = [bloMatch.panchayat];
-        let allowedWards = bloMatch.wards ? bloMatch.wards.split(',').map(w => w.trim()) : 'ALL';
-        
-        if (customScope === 'ALL_30_GP') {
-          allowedGps = 'ALL';
-          allowedWards = 'ALL';
-        } else if (customScope === 'PANCHAYAT') {
-          allowedGps = [bloMatch.panchayat];
-          allowedWards = 'ALL';
-        }
+        let allowedTabs = (cfgUser && Array.isArray(cfgUser.allowed_tabs))
+          ? cfgUser.allowed_tabs
+          : ['searchTab', 'alphaTab', 'directoryTab'];
+        let allowedGps = cfgUser?.allowed_panchayats || [bloMatch.panchayat];
+        let allowedWards = cfgUser?.allowed_wards || (bloMatch.wards ? bloMatch.wards.split(',').map(w => w.trim()) : 'ALL');
 
         const bloUser = {
           id: bloUname,
@@ -6917,16 +7013,20 @@ async function handleGatekeeperLogin(event) {
           role: 'BLO',
           full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
           booth_no: bloMatch.booth_no,
-          panchayat: bloMatch.panchayat,
-          allowed_panchayats: allowedGps === 'ALL' ? 'ALL' : JSON.stringify(allowedGps),
-          allowed_wards: allowedWards === 'ALL' ? 'ALL' : (typeof allowedWards === 'string' ? allowedWards : JSON.stringify(allowedWards)),
-          allowed_tabs: ['searchTab', 'alphaTab', 'directoryTab'],
+          panchayat: typeof allowedGps === 'string' ? allowedGps : bloMatch.panchayat,
+          allowed_panchayats: typeof allowedGps === 'string' ? allowedGps : JSON.stringify(allowedGps),
+          allowed_wards: typeof allowedWards === 'string' ? allowedWards : (Array.isArray(allowedWards) ? JSON.stringify(allowedWards) : allowedWards),
+          allowed_tabs: allowedTabs,
+          can_print: (cfgUser && cfgUser.can_print !== undefined) ? (cfgUser.can_print === true || cfgUser.can_print === 1) : false,
+          can_download: (cfgUser && cfgUser.can_download !== undefined) ? (cfgUser.can_download === true || cfgUser.can_download === 1) : true,
+          can_search: (cfgUser && cfgUser.can_search !== undefined) ? (cfgUser.can_search === true || cfgUser.can_search === 1) : true,
+          can_view: (cfgUser && cfgUser.can_view !== undefined) ? (cfgUser.can_view === true || cfgUser.can_view === 1) : true,
           candidate_mode: 'admin_locked'
         };
         State.currentUser = bloUser;
         localStorage.setItem(getSessionStorageKey(), JSON.stringify(bloUser));
         enforceGatekeeperState();
-        showToast(`नमस्ते ${bloMatch.name}! बी.एल.ओ. सत्र प्रारंभ हुआ [अधिकार: ${customScope === 'ALL_30_GP' ? 'समस्त 30 ग्रा.पं.' : (customScope === 'PANCHAYAT' ? 'पूरी ग्रा.पं.' : 'भाग ' + bloMatch.booth_no)}]।`);
+        showToast(`नमस्ते ${bloMatch.name}! बी.एल.ओ. सत्र प्रारंभ हुआ।`);
         return;
       } else {
         if (errorDiv) {
@@ -6943,37 +7043,47 @@ async function handleGatekeeperLogin(event) {
     const cellMatch = allCells.find(c => c.id === username || c.username === username);
     if (cellMatch) {
       const cellUname = cellMatch.username || cellMatch.id;
-      const cellPass = getCustomUserPassword(cellUname) || cellMatch.password || '123';
-      const cellStatus = getCustomUserStatus(cellUname) || 'ACTIVE';
-      if (cellStatus === 'INACTIVE') {
+      const cfgUser = (State.adminControlUsers || []).find(u => 
+        (u.id && String(u.id).toLowerCase() === cellUname.toLowerCase()) || 
+        (u.username && String(u.username).toLowerCase() === cellUname.toLowerCase())
+      );
+      
+      const cellStatus = cfgUser?.status || getCustomUserStatus(cellUname) || 'ACTIVE';
+      if (String(cellStatus).toUpperCase() === 'INACTIVE') {
         if (errorDiv) {
-          errorDiv.textContent = 'यह प्रकोष्ठ कार्मिक खाता सुपर एडमिन द्वारा निष्क्रिय किया गया है!';
+          errorDiv.textContent = 'यह प्रकोष्ठ कार्मिक खाता मुख्य व्यवस्थापक द्वारा निष्क्रिय (Inactive) किया गया है!';
           errorDiv.style.display = 'block';
         }
         return;
       }
+      
+      const cellPass = cfgUser?.password || getCustomUserPassword(cellUname) || cellMatch.password || '123';
       if (isUniversalPass || password === cellPass) {
-        const customScope = getCustomUserScope(cellUname) || 'DIR_ONLY';
-        let allowedTabs = ['directoryTab'];
-        if (customScope === 'SEARCH_30_GP') {
-          allowedTabs = ['dashboardTab', 'searchTab', 'alphaTab', 'directoryTab'];
-        }
+        let allowedTabs = (cfgUser && Array.isArray(cfgUser.allowed_tabs))
+          ? cfgUser.allowed_tabs
+          : (getCustomUserScope(cellUname) === 'SEARCH_30_GP' ? ['dashboardTab', 'searchTab', 'alphaTab', 'directoryTab'] : ['directoryTab']);
+        let allowedGps = cfgUser?.allowed_panchayats || 'ALL';
+        let allowedWards = cfgUser?.allowed_wards || 'ALL';
 
         const cellUser = {
           id: cellUname,
           username: cellUname,
           role: 'CELL_MEMBER',
-          full_name: `${cellMatch.name} (${cellMatch.cell_name})`,
+          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
           cell_name: cellMatch.cell_name,
-          allowed_panchayats: 'ALL',
-          allowed_wards: 'ALL',
+          allowed_panchayats: allowedGps,
+          allowed_wards: allowedWards,
           allowed_tabs: allowedTabs,
+          can_print: (cfgUser && cfgUser.can_print !== undefined) ? (cfgUser.can_print === true || cfgUser.can_print === 1) : false,
+          can_download: (cfgUser && cfgUser.can_download !== undefined) ? (cfgUser.can_download === true || cfgUser.can_download === 1) : true,
+          can_search: (cfgUser && cfgUser.can_search !== undefined) ? (cfgUser.can_search === true || cfgUser.can_search === 1) : true,
+          can_view: (cfgUser && cfgUser.can_view !== undefined) ? (cfgUser.can_view === true || cfgUser.can_view === 1) : true,
           candidate_mode: 'admin_locked'
         };
         State.currentUser = cellUser;
         localStorage.setItem(getSessionStorageKey(), JSON.stringify(cellUser));
         enforceGatekeeperState();
-        showToast(`नमस्ते ${cellMatch.name}! प्रकोष्ठ सत्र प्रारंभ हुआ [मतदाता खोज: ${customScope === 'SEARCH_30_GP' ? '🟢 सक्रिय' : '🔒 केवल डायरेक्टरी'}]।`);
+        showToast(`नमस्ते ${cellMatch.name}! प्रकोष्ठ सत्र प्रारंभ हुआ।`);
         return;
       } else {
         if (errorDiv) {

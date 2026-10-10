@@ -217,9 +217,18 @@ function executeGithubPush(reason = 'update', callback = null) {
   }
   isPushing = true;
   const { exec } = require('node:child_process');
-  const deployScript = path.join(path.dirname(__dirname), 'deploy_tri_portals.py');
+  let deployScript = path.join(path.dirname(__dirname), 'deploy_tri_portals.py');
+  if (!fs.existsSync(deployScript)) {
+    deployScript = path.join(__dirname, 'deploy_tri_portals.py');
+  }
+  if (!fs.existsSync(deployScript)) {
+    deployScript = 'C:\\Users\\jiten\\Desktop\\panchayat chunav\\deploy_tri_portals.py';
+  }
+  if (!fs.existsSync(deployScript)) {
+    deployScript = 'C:\\Users\\jiten\\Desktop\\panchyt order\\deploy_tri_portals.py';
+  }
   console.log(`[AUTO-SYNC] [${new Date().toLocaleTimeString('en-IN')}] Running deployment script (Reason: ${reason}): python "${deployScript}" ...`);
-  exec(`python "${deployScript}"`, { cwd: path.dirname(__dirname) }, (error, stdout, stderr) => {
+  exec(`python "${deployScript}"`, { cwd: path.dirname(deployScript) }, (error, stdout, stderr) => {
     isPushing = false;
     if (error) {
       console.error('[AUTO-SYNC] Push failed:', error.message);
