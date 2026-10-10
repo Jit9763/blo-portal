@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "last_updated": "2026-10-10T14:39:13.139Z",
+  "last_updated": "2026-10-10T14:41:55.795Z",
   "users": [
     {
       "id": "admin",
@@ -1201,14 +1201,13 @@
       "allowed_panchayats": "ALL",
       "allowed_wards": "ALL",
       "allowed_tabs": [
-        "dashboardTab",
         "searchTab",
         "alphaTab",
         "directoryTab"
       ],
       "candidate_mode": "user_edit",
       "created_at": "2026-10-10T14:37:50.960Z",
-      "updated_at": "2026-10-10T14:37:50.960Z"
+      "updated_at": "2026-10-10T14:41:55.778Z"
     },
     {
       "id": "cell_duty_service_3",
