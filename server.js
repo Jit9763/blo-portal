@@ -458,7 +458,7 @@ const server = http.createServer(async (req, res) => {
                   status: 'ACTIVE',
                   allowed_panchayats: JSON.stringify([bloMatch.panchayat]),
                   allowed_wards: bloMatch.wards ? JSON.stringify(bloMatch.wards.split(',').map(w => w.trim())) : 'ALL',
-                  allowed_tabs: JSON.stringify(['searchTab', 'alphaTab', 'directoryTab']),
+                  allowed_tabs: JSON.stringify(['searchTab']),
                   candidate_mode: 'admin_locked',
                   created_at: new Date().toISOString(),
                   updated_at: new Date().toISOString()
@@ -488,7 +488,7 @@ const server = http.createServer(async (req, res) => {
                     status: 'ACTIVE',
                     allowed_panchayats: 'ALL',
                     allowed_wards: 'ALL',
-                    allowed_tabs: JSON.stringify(['dashboardTab', 'searchTab', 'directoryTab']),
+                    allowed_tabs: JSON.stringify(['searchTab']),
                     candidate_mode: 'admin_locked',
                     created_at: new Date().toISOString(),
                     updated_at: new Date().toISOString()
