@@ -1190,7 +1190,6 @@ function onLoginPrimarySelectChanged(val) {
   if (uInput) uInput.value = '';
 
   if (!val) {
-    if (offGroup) offGroup.style.display = 'none';
     if (offSelect) {
       offSelect.innerHTML = '<option value="">-- पहले ऊपर प्रकोष्ठ या पंचायत चुनें --</option>';
       offSelect.disabled = true;
@@ -1230,7 +1229,7 @@ function onLoginPrimarySelectChanged(val) {
     return;
   }
 
-  // 3. VYAVASTHAPAK (व्यवस्थापक - प्रिंट व डाउनलोड) - 2nd dropdown is HIDDEN! ("VAVSTHAPAK KA NAAM MAT DO")
+  // 3. VYAVASTHAPAK (व्यवस्थापक - प्रिंट व डाउनलोड) - 2nd dropdown is HIDDEN!
   if (val === 'VYAVASTHAPAK') {
     if (offGroup) offGroup.style.display = 'none';
     if (uInput) uInput.value = 'vyavasthapak';
@@ -1245,17 +1244,27 @@ function onLoginPrimarySelectChanged(val) {
     return;
   }
 
-  // 4. BLOCK_PRABHARI (सुरेश जांगिड़ - शिक्षक) - 2nd dropdown is HIDDEN!
+  // 4. BLOCK_PRABHARI (सुरेश जांगिड़ - शिक्षक)
   if (val === 'BLOCK_PRABHARI') {
-    if (offGroup) offGroup.style.display = 'none';
+    if (offGroup) offGroup.style.display = 'block';
+    if (offLabel) offLabel.innerHTML = '<strong>2. अधिकृत ब्लॉक प्रभारी *:</strong>';
+    if (offSelect) {
+      offSelect.innerHTML = `
+        <option value="block_prabhari" data-name="श्री सुरेश चन्द्र जांगिड" data-role="ब्लॉक प्रभारी (शिक्षक)" data-office="उपखण्ड कार्यालय भिनाय" data-mobile="9950705221" data-cell="समस्त 30 ग्राम पंचायतें">🌟 श्री सुरेश चन्द्र जांगिड - शिक्षक (मो. 9950705221) [ब्लॉक प्रभारी]</option>
+      `;
+      offSelect.disabled = false;
+      offSelect.value = 'block_prabhari';
+    }
     if (uInput) uInput.value = 'block_prabhari';
     if (detailsBadge) {
-      detailsBadge.innerHTML = '🌟 <strong>श्री सुरेश चन्द्र जांगिड (शिक्षक)</strong> | ब्लॉक प्रभारी | समस्त 30 ग्राम पंचायतें (वोटर खोज अधिकार) | मो.: 9950705221';
+      detailsBadge.innerHTML = '🌟 <strong>श्री सुरेश चन्द्र जांगिड</strong> (शिक्षक) | <strong>ब्लॉक प्रभारी</strong> | समस्त 30 ग्राम पंचायतें (पूर्ण वोटर खोज अधिकार) | मो.: 9950705221';
       detailsBadge.style.background = '#ccfbf1';
       detailsBadge.style.color = '#0f766e';
       detailsBadge.style.border = '1px solid #99f6e4';
       detailsBadge.style.display = 'block';
     }
+    const hint = document.getElementById('defaultPassHint');
+    if (hint) { hint.textContent = 'पासवर्ड: BHINAI123'; hint.style.color = '#0f766e'; }
     document.getElementById('gatekeeperPassword')?.focus();
     return;
   }
@@ -1301,7 +1310,10 @@ function onLoginPrimarySelectChanged(val) {
     const vClean = val.trim();
     const matched = bloList.filter(b => {
       const bGp = (b.panchayat || '').trim();
-      return bGp === vClean || bGp.includes(vClean) || vClean.includes(bGp);
+      if (bGp === vClean || bGp.includes(vClean) || vClean.includes(bGp)) return true;
+      const n1 = bGp.replace(/[\s\-_]/g, '');
+      const n2 = vClean.replace(/[\s\-_]/g, '');
+      return n1 === n2 || n1.includes(n2) || n2.includes(n1);
     });
 
     if (matched.length === 0) {
@@ -1309,6 +1321,8 @@ function onLoginPrimarySelectChanged(val) {
       offSelect.disabled = true;
       return;
     }
+
+    matched.sort((a, b) => (parseInt(a.booth_no, 10) || 0) - (parseInt(b.booth_no, 10) || 0));
 
     matched.forEach(blo => {
       const opt = document.createElement('option');
@@ -1326,21 +1340,29 @@ function onLoginPrimarySelectChanged(val) {
   }
 }
 
+function onLoginPanchayatSelected(val) {
+  return onLoginPrimarySelectChanged(val);
+}
+
 function onLoginOfficerChanged(officerId) {
   const offSelect = document.getElementById('loginOfficerSelect');
   const detailsBadge = document.getElementById('loginSelectedDetailsBadge');
   const uInput = document.getElementById('gatekeeperUsername');
 
-  if (uInput) uInput.value = officerId;
+  if (uInput) uInput.value = officerId || '';
 
   if (officerId && offSelect && offSelect.selectedIndex >= 0) {
     const selectedOpt = offSelect.options[offSelect.selectedIndex];
-    const name = selectedOpt.getAttribute('data-name');
-    const booth = selectedOpt.getAttribute('data-booth');
-    const school = selectedOpt.getAttribute('data-school');
-    const mobile = selectedOpt.getAttribute('data-mobile');
-    const cell = selectedOpt.getAttribute('data-cell');
-    const role = selectedOpt.getAttribute('data-role');
+    if (!selectedOpt || !selectedOpt.value) {
+      if (detailsBadge) detailsBadge.style.display = 'none';
+      return;
+    }
+    const name = selectedOpt.getAttribute('data-name') || '';
+    const booth = selectedOpt.getAttribute('data-booth') || '';
+    const school = selectedOpt.getAttribute('data-school') || '';
+    const mobile = selectedOpt.getAttribute('data-mobile') || '';
+    const cell = selectedOpt.getAttribute('data-cell') || '';
+    const role = selectedOpt.getAttribute('data-role') || '';
 
     if (detailsBadge) {
       if (cell) {
@@ -1361,6 +1383,13 @@ function onLoginOfficerChanged(officerId) {
     if (detailsBadge) detailsBadge.style.display = 'none';
   }
 }
+
+if (typeof window !== 'undefined') {
+  window.onLoginPanchayatSelected = onLoginPrimarySelectChanged;
+  window.onLoginPrimarySelectChanged = onLoginPrimarySelectChanged;
+  window.onLoginOfficerChanged = onLoginOfficerChanged;
+}
+
 
 function toggleManualUsername() {
   const mDiv = document.getElementById('manualUsernameDiv');
@@ -4605,9 +4634,8 @@ async function syncLatestActiveUsersFromAppsScript() {
       State.adminUsers = data.users.map(u => ({
         user_id: u.userId || u.user_id || `USR${u.rowIndex || ''}`,
         username: u.username,
-        password: u.password,
-          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
         fullName: u.fullName || u.full_name || u.username,
+        full_name: u.fullName || u.full_name || u.username,
         mobile: u.mobile || '',
         role: u.role || 'PANCHAYAT_AGENT',
         assigned_panchayats: u.assignedPanchayats || u.assigned_panchayats || 'ALL',
@@ -5966,134 +5994,7 @@ function populateLoginPrimaryDropdown() {
   configureLoginUiForPortal();
 }
 
-async function onLoginPrimarySelectChanged(val) {
-  const offSelect = document.getElementById('loginOfficerSelect');
-  const offLabel = document.getElementById('loginOfficerLabel');
-  const detailsBadge = document.getElementById('loginSelectedDetailsBadge');
-  const uInput = document.getElementById('gatekeeperUsername');
-
-  if (detailsBadge) detailsBadge.style.display = 'none';
-  if (uInput) uInput.value = '';
-
-  if (!val) {
-    if (offSelect) {
-      offSelect.innerHTML = '<option value="">-- पहले पद, प्रकोष्ठ या पंचायत चुनें --</option>';
-      offSelect.disabled = true;
-    }
-    return;
-  }
-
-  const dir = getMasterDirectory();
-
-  if (val === 'BLOCK_PRABHARI') {
-    if (offLabel) offLabel.innerHTML = '<strong>2. अधिकृत ब्लॉक प्रभारी *:</strong>';
-    if (offSelect) {
-      offSelect.innerHTML = `
-        <option value="block_prabhari" data-name="श्री सुरेश चन्द्र जांगिड" data-role="ब्लॉक प्रभारी (शिक्षक)" data-office="उपखण्ड कार्यालय भिनाय" data-mobile="9950705221" data-cell="समस्त 30 ग्राम पंचायतें">🌟 श्री सुरेश चन्द्र जांगिड - शिक्षक (मो. 9950705221) [ब्लॉक प्रभारी]</option>
-      `;
-      offSelect.disabled = false;
-      offSelect.value = 'block_prabhari';
-    }
-    if (uInput) uInput.value = 'block_prabhari';
-    if (detailsBadge) {
-      detailsBadge.innerHTML = '🌟 <strong>श्री सुरेश चन्द्र जांगिड</strong> (शिक्षक) | <strong>ब्लॉक प्रभारी</strong> | समस्त 30 ग्राम पंचायतें (पूर्ण वोटर खोज अधिकार) | मो.: 9950705221';
-      detailsBadge.style.background = '#ccfbf1';
-      detailsBadge.style.color = '#0f766e';
-      detailsBadge.style.border = '1px solid #99f6e4';
-      detailsBadge.style.display = 'block';
-    }
-    const hint = document.getElementById('defaultPassHint');
-    if (hint) { hint.textContent = 'पासवर्ड: BHINAI123'; hint.style.color = '#0f766e'; }
-    document.getElementById('gatekeeperPassword')?.focus();
-    return;
-  }
-
-  if (val === 'CELL') {
-    if (offLabel) offLabel.innerHTML = '<strong>2. अधिकृत चुनाव प्रकोष्ठ कार्मिक चुनें *:</strong>';
-    if (offSelect) {
-      offSelect.innerHTML = '<option value="">-- अधिकृत प्रकोष्ठ कार्मिक चुनें --</option>';
-      const cellList = (dir && dir.cell_personnel) ? dir.cell_personnel : [];
-      cellList.forEach(cp => {
-        const opt = document.createElement('option');
-        opt.value = cp.username || cp.id;
-        opt.setAttribute('data-name', cp.name || '');
-        opt.setAttribute('data-role', cp.designation || cp.role || '');
-        opt.setAttribute('data-office', cp.office || cp.school_office || '');
-        opt.setAttribute('data-mobile', cp.mobile || '');
-        opt.setAttribute('data-cell', cp.cell_name || '');
-        opt.textContent = `[${cp.cell_name || 'प्रकोष्ठ'}] ${cp.name} - ${cp.designation} (${cp.mobile})`;
-        offSelect.appendChild(opt);
-      });
-      offSelect.disabled = false;
-    }
-    return;
-  }
-
-  // Gram Panchayat Selected -> Show BLOs of that Panchayat
-  if (offLabel) offLabel.innerHTML = `<strong>2. बी.एल.ओ. (BLO) चुनें [ग्रा.पं. ${val}] *:</strong>`;
-  if (offSelect) {
-    offSelect.innerHTML = '<option value="">-- बी.एल.ओ. (BLO) चुनें --</option>';
-    const bloList = (dir && dir.blo_list) ? dir.blo_list : [];
-    const vClean = val.trim();
-    const matched = bloList.filter(b => {
-      const bGp = (b.panchayat || '').trim();
-      return bGp === vClean || bGp.includes(vClean) || vClean.includes(bGp);
-    });
-
-    if (matched.length === 0) {
-      offSelect.innerHTML = `<option value="">-- ग्रा.पं. ${val} में कोई BLO दर्ज नहीं है --</option>`;
-      offSelect.disabled = true;
-      return;
-    }
-
-    matched.forEach(blo => {
-      const opt = document.createElement('option');
-      opt.value = blo.username || blo.id || `blo_${blo.booth_no}`;
-      opt.setAttribute('data-name', blo.name || '');
-      opt.setAttribute('data-booth', blo.booth_no || '');
-      opt.setAttribute('data-school', blo.school || '');
-      opt.setAttribute('data-mobile', blo.mobile || '');
-      opt.textContent = `बूथ ${blo.booth_no} - ${blo.name} (${blo.school || 'मतदान केंद्र'})`;
-      offSelect.appendChild(opt);
-    });
-    offSelect.disabled = false;
-  }
-}
-
-function onLoginOfficerChanged(officerId) {
-  const offSelect = document.getElementById('loginOfficerSelect');
-  const detailsBadge = document.getElementById('loginSelectedDetailsBadge');
-  const uInput = document.getElementById('gatekeeperUsername');
-
-  if (uInput) uInput.value = officerId;
-
-  if (officerId && offSelect && offSelect.selectedIndex > 0) {
-    const opt = offSelect.options[offSelect.selectedIndex];
-    const name = opt.getAttribute('data-name');
-    const mobile = opt.getAttribute('data-mobile');
-    const booth = opt.getAttribute('data-booth');
-    const school = opt.getAttribute('data-school');
-    const cell = opt.getAttribute('data-cell');
-    const role = opt.getAttribute('data-role');
-
-    if (detailsBadge) {
-      if (cell) {
-        detailsBadge.innerHTML = `🏢 <strong>${name}</strong> (${role}) | ${cell} | मो.: ${mobile}`;
-        detailsBadge.style.background = '#eff6ff';
-        detailsBadge.style.color = '#1e40af';
-        detailsBadge.style.border = '1px solid #bfdbfe';
-      } else if (booth) {
-        detailsBadge.innerHTML = `📍 <strong>${name}</strong> | बूथ क्र.: <strong>${booth}</strong> | ${school} | मो.: ${mobile}`;
-        detailsBadge.style.background = '#f0fdf4';
-        detailsBadge.style.color = '#047857';
-        detailsBadge.style.border = '1px solid #bbf7d0';
-      }
-      detailsBadge.style.display = 'block';
-    }
-  } else {
-    if (detailsBadge) detailsBadge.style.display = 'none';
-  }
-}
+// Primary select handler is canonically defined and exposed as onLoginPrimarySelectChanged & onLoginPanchayatSelected
 
 // Self Password Reset Modal
 function openSelfPasswordModal() {
