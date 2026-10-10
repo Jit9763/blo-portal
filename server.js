@@ -349,6 +349,25 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
+    // Fetch Remote Settings from GitHub Endpoint
+    if (pathname === '/api/fetch-remote-settings' && req.method === 'POST') {
+      const { exec } = require('node:child_process');
+      exec('git fetch origin main && git merge origin/main', { cwd: __dirname }, (error, stdout, stderr) => {
+        try {
+          seedDatabase();
+          res.end(JSON.stringify({ 
+            success: true, 
+            message: 'रिमोट सेटिंग्स (GitHub) से सफलतापूर्वक फेच व लागू कर दी गईं!',
+            output: stdout || stderr 
+          }));
+        } catch(e) {
+          res.writeHead(500);
+          res.end(JSON.stringify({ success: false, error: e.message }));
+        }
+      });
+      return;
+    }
+
     // Master Directory API Endpoint
     // Directory Update Endpoint
     if (pathname === '/api/directory/update' && req.method === 'POST') {

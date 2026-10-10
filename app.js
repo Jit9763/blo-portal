@@ -492,8 +492,8 @@ function renderAdminCellTab() {
     const pass = ov.password || c.password || '123';
     const status = ov.status || c.status || 'ACTIVE';
     const isActive = (status === 'ACTIVE');
-    const canSearch = (ov.can_search !== undefined) ? ov.can_search : (c.can_search !== false);
-    const canView = (ov.can_view !== undefined) ? ov.can_view : (c.can_view !== false);
+    const ovTabs = ov.allowed_tabs || c.allowed_tabs;
+    const allowedTabs = Array.isArray(ovTabs) ? ovTabs : ['dashboardTab', 'searchTab', 'directoryTab'];
     const canPrint = (ov.can_print !== undefined) ? ov.can_print : (c.can_print === true);
     const canDownload = (ov.can_download !== undefined) ? ov.can_download : (c.can_download !== false);
     const scope = ov.allowed_panchayats || c.allowed_panchayats || 'ALL';
@@ -527,22 +527,27 @@ function renderAdminCellTab() {
         </div>
       </td>
       <td>
-        <div class="d-flex flex-wrap gap-1 align-items-center">
-          <label class="perm-check-item ${canSearch ? 'active' : ''}">
-            <input type="checkbox" ${canSearch ? 'checked' : ''} onchange="toggleUserPermission('${cid}', 'can_search', this.checked)">
+        <div class="mb-1" style="font-size:0.75rem; font-weight:700; color:#334155;">अनुमत टैब (Tabs):</div>
+        <div class="d-flex flex-wrap gap-1 align-items-center mb-1">
+          <label class="perm-check-item ${allowedTabs.includes('dashboardTab') ? 'active' : ''}" title="डैशबोर्ड">
+            <input type="checkbox" ${allowedTabs.includes('dashboardTab') ? 'checked' : ''} onchange="toggleUserTab('${cid}', 'dashboardTab', this.checked)">
+            <span>📊 डैशबोर्ड</span>
+          </label>
+          <label class="perm-check-item ${allowedTabs.includes('searchTab') ? 'active' : ''}" title="खोज">
+            <input type="checkbox" ${allowedTabs.includes('searchTab') ? 'checked' : ''} onchange="toggleUserTab('${cid}', 'searchTab', this.checked)">
             <span>🔍 खोज</span>
           </label>
-          <label class="perm-check-item ${canView ? 'active' : ''}">
-            <input type="checkbox" ${canView ? 'checked' : ''} onchange="toggleUserPermission('${cid}', 'can_view', this.checked)">
-            <span>📄 दर्शन</span>
+          <label class="perm-check-item ${allowedTabs.includes('alphaTab') ? 'active' : ''}" title="वर्णमाला">
+            <input type="checkbox" ${allowedTabs.includes('alphaTab') ? 'checked' : ''} onchange="toggleUserTab('${cid}', 'alphaTab', this.checked)">
+            <span>🔤 वर्णमाला</span>
           </label>
-          <label class="perm-check-item ${canPrint ? 'active' : ''}">
-            <input type="checkbox" ${canPrint ? 'checked' : ''} onchange="toggleUserPermission('${cid}', 'can_print', this.checked)">
-            <span>🖨️ प्रिंट</span>
+          <label class="perm-check-item ${allowedTabs.includes('directoryTab') ? 'active' : ''}" title="वार्ड/डायरेक्टरी">
+            <input type="checkbox" ${allowedTabs.includes('directoryTab') ? 'checked' : ''} onchange="toggleUserTab('${cid}', 'directoryTab', this.checked)">
+            <span>📖 वार्ड</span>
           </label>
-          <label class="perm-check-item ${canDownload ? 'active' : ''}">
-            <input type="checkbox" ${canDownload ? 'checked' : ''} onchange="toggleUserPermission('${cid}', 'can_download', this.checked)">
-            <span>📥 डाउनलोड</span>
+          <label class="perm-check-item ${allowedTabs.includes('bulkSlipTab') ? 'active' : ''}" title="पर्ची">
+            <input type="checkbox" ${allowedTabs.includes('bulkSlipTab') ? 'checked' : ''} onchange="toggleUserTab('${cid}', 'bulkSlipTab', this.checked)">
+            <span>🖨️ पर्ची</span>
           </label>
         </div>
         <div class="d-flex align-items-center gap-1 mt-1" style="min-height:36px;">
@@ -616,8 +621,8 @@ function renderAdminBloTab() {
     const pass = ov.password || b.password || '123';
     const status = ov.status || b.status || 'ACTIVE';
     const isActive = (status === 'ACTIVE');
-    const canSearch = (ov.can_search !== undefined) ? ov.can_search : (b.can_search !== false);
-    const canView = (ov.can_view !== undefined) ? ov.can_view : (b.can_view !== false);
+    const ovTabs = ov.allowed_tabs || b.allowed_tabs;
+    const allowedTabs = Array.isArray(ovTabs) ? ovTabs : ['searchTab', 'alphaTab', 'directoryTab'];
     const canPrint = (ov.can_print !== undefined) ? ov.can_print : (b.can_print === true);
     const canDownload = (ov.can_download !== undefined) ? ov.can_download : (b.can_download !== false);
     const scope = ov.allowed_panchayats || b.panchayat || 'BOOTH';
@@ -649,26 +654,31 @@ function renderAdminBloTab() {
         </div>
       </td>
       <td>
-        <div class="d-flex flex-wrap gap-1 align-items-center">
-          <label class="perm-check-item ${canSearch ? 'active' : ''}">
-            <input type="checkbox" ${canSearch ? 'checked' : ''} onchange="toggleUserPermission('${bid}', 'can_search', this.checked)">
+        <div class="mb-1" style="font-size:0.75rem; font-weight:700; color:#334155;">अनुमत टैब (BLO Tabs):</div>
+        <div class="d-flex flex-wrap gap-1 align-items-center mb-1">
+          <label class="perm-check-item ${allowedTabs.includes('searchTab') ? 'active' : ''}" title="मतदाता खोज">
+            <input type="checkbox" ${allowedTabs.includes('searchTab') ? 'checked' : ''} onchange="toggleUserTab('${bid}', 'searchTab', this.checked)">
             <span>🔍 खोज</span>
           </label>
-          <label class="perm-check-item ${canView ? 'active' : ''}">
-            <input type="checkbox" ${canView ? 'checked' : ''} onchange="toggleUserPermission('${bid}', 'can_view', this.checked)">
-            <span>📄 दर्शन</span>
+          <label class="perm-check-item ${allowedTabs.includes('alphaTab') ? 'active' : ''}" title="वर्णमाला सूची">
+            <input type="checkbox" ${allowedTabs.includes('alphaTab') ? 'checked' : ''} onchange="toggleUserTab('${bid}', 'alphaTab', this.checked)">
+            <span>🔤 वर्णमाला</span>
           </label>
-          <label class="perm-check-item ${canPrint ? 'active' : ''}">
-            <input type="checkbox" ${canPrint ? 'checked' : ''} onchange="toggleUserPermission('${bid}', 'can_print', this.checked)">
-            <span>🖨️ प्रिंट</span>
+          <label class="perm-check-item ${allowedTabs.includes('directoryTab') ? 'active' : ''}" title="वार्ड व डायरेक्टरी">
+            <input type="checkbox" ${allowedTabs.includes('directoryTab') ? 'checked' : ''} onchange="toggleUserTab('${bid}', 'directoryTab', this.checked)">
+            <span>📖 वार्ड/डायरेक्टरी</span>
           </label>
-          <label class="perm-check-item ${canDownload ? 'active' : ''}">
-            <input type="checkbox" ${canDownload ? 'checked' : ''} onchange="toggleUserPermission('${bid}', 'can_download', this.checked)">
-            <span>📥 डाउनलोड</span>
+          <label class="perm-check-item ${allowedTabs.includes('bulkSlipTab') ? 'active' : ''}" title="पर्ची प्रिंट">
+            <input type="checkbox" ${allowedTabs.includes('bulkSlipTab') ? 'checked' : ''} onchange="toggleUserTab('${bid}', 'bulkSlipTab', this.checked)">
+            <span>🖨️ पर्ची</span>
+          </label>
+          <label class="perm-check-item ${allowedTabs.includes('dashboardTab') ? 'active' : ''}" title="डैशबोर्ड सारांश">
+            <input type="checkbox" ${allowedTabs.includes('dashboardTab') ? 'checked' : ''} onchange="toggleUserTab('${bid}', 'dashboardTab', this.checked)">
+            <span>📊 डैशबोर्ड</span>
           </label>
         </div>
-        <div class="d-flex align-items-center gap-1 mt-1" style="min-height:36px;">
-          <select class="form-select admin-scope-select" onchange="updateUserScope('${bid}', this.value)">
+        <div class="d-flex align-items-center gap-1 mt-1" style="min-height:34px;">
+          <select class="form-select admin-scope-select" onchange="updateUserScope('${bid}', this.value)" style="font-size:0.78rem;">
             <option value="${b.panchayat}" ${scope === b.panchayat ? 'selected' : ''}>🏛️ केवल ${b.panchayat}</option>
             <option value="ALL" ${scope === 'ALL' ? 'selected' : ''}>🌐 समस्त 30 पं.</option>
           </select>
@@ -2127,7 +2137,7 @@ function enforceGatekeeperState() {
   let allowedTabs = ['searchTab', 'alphaTab', 'directoryTab'];
   if (isSuperAdmin) {
     allowedTabs = ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab', 'candidateProfileTab', 'adminControlTab', 'settingsTab'];
-  } else if (Array.isArray(u.allowed_tabs) && u.allowed_tabs.length > 0) {
+  } else if (Array.isArray(u.allowed_tabs)) {
     allowedTabs = u.allowed_tabs;
   } else if (isIncharge) {
     // Incharge has view rights across all normal tabs for all 30 GPs (NO EDIT)
@@ -5651,14 +5661,70 @@ function togglePassVisibility(inputId) {
   el.type = el.type === 'password' ? 'text' : 'password';
 }
 
+function findOrInitAdminUser(userId) {
+  if (!State.adminControlUsers) State.adminControlUsers = [];
+  const uIdLower = String(userId || '').toLowerCase();
+  let u = State.adminControlUsers.find(x => 
+    (x.id && String(x.id).toLowerCase() === uIdLower) ||
+    (x.username && String(x.username).toLowerCase() === uIdLower)
+  );
+  if (!u) {
+    const dir = getMasterDirectory();
+    const bloMatch = (dir?.blo_list || []).find(b => 
+      (b.id && String(b.id).toLowerCase() === uIdLower) ||
+      (b.username && String(b.username).toLowerCase() === uIdLower) ||
+      (`blo_${b.booth_no}`.toLowerCase() === uIdLower) ||
+      (String(b.booth_no) === uIdLower)
+    );
+    const cellMatch = (dir?.cell_personnel || []).find(c => 
+      (c.id && String(c.id).toLowerCase() === uIdLower) ||
+      (c.username && String(c.username).toLowerCase() === uIdLower)
+    );
+    if (bloMatch) {
+      const bid = bloMatch.id || `blo_${bloMatch.booth_no}`;
+      u = {
+        id: bid,
+        username: bloMatch.username || bid,
+        password: bloMatch.password || '123',
+        full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
+        mobile: bloMatch.mobile || '',
+        role: 'BLO',
+        status: 'ACTIVE',
+        allowed_panchayats: JSON.stringify([bloMatch.panchayat]),
+        allowed_wards: bloMatch.wards ? JSON.stringify(bloMatch.wards.split(',').map(w => w.trim())) : 'ALL',
+        allowed_tabs: ['searchTab', 'alphaTab', 'directoryTab'],
+        candidate_mode: 'admin_locked'
+      };
+      State.adminControlUsers.push(u);
+    } else if (cellMatch) {
+      u = {
+        id: cellMatch.id,
+        username: cellMatch.username || cellMatch.id,
+        password: cellMatch.password || '123',
+        full_name: `${cellMatch.name} (${cellMatch.cell_name})`,
+        mobile: cellMatch.mobile || '',
+        role: 'CELL_MEMBER',
+        status: 'ACTIVE',
+        allowed_panchayats: 'ALL',
+        allowed_wards: 'ALL',
+        allowed_tabs: ['dashboardTab', 'searchTab', 'directoryTab'],
+        candidate_mode: 'admin_locked'
+      };
+      State.adminControlUsers.push(u);
+    }
+  }
+  return u;
+}
+
 async function updateUserField(userId, field, value) {
-  const u = State.adminControlUsers.find(x => (x.id || x.username) === userId);
+  const u = findOrInitAdminUser(userId);
   if (!u) return;
 
   u[field] = value;
   if (field === 'password') setCustomUserPassword(userId, value);
   if (field === 'status') setCustomUserStatus(userId, value);
-  
+  saveUserOverride(userId, field, value);
+
   try {
     localStorage.setItem('portal_admin_users_overrides', JSON.stringify(State.adminControlUsers));
   } catch(e) {}
@@ -5669,10 +5735,14 @@ async function updateUserField(userId, field, value) {
 }
 
 async function toggleUserStatus(userId, newStatus) {
-  setCustomUserStatus(userId, newStatus);
-  const u = (State.adminControlUsers || []).find(x => (x.id || x.username) === userId);
+  const u = findOrInitAdminUser(userId);
   if (u) {
+    if (!newStatus) {
+      newStatus = (String(u.status || 'ACTIVE').toUpperCase() === 'ACTIVE') ? 'INACTIVE' : 'ACTIVE';
+    }
     u.status = newStatus;
+    setCustomUserStatus(userId, newStatus);
+    saveUserOverride(userId, 'status', newStatus);
     try { localStorage.setItem('portal_admin_users_overrides', JSON.stringify(State.adminControlUsers)); } catch(e) {}
     await saveAdminUserToServer(u);
   }
@@ -5682,18 +5752,38 @@ async function toggleUserStatus(userId, newStatus) {
 }
 
 async function toggleUserTab(userId, tabName, isChecked) {
-  const u = State.adminControlUsers.find(x => (x.id || x.username) === userId);
+  const u = findOrInitAdminUser(userId);
   if (!u) return;
 
-  if (!Array.isArray(u.allowed_tabs)) u.allowed_tabs = [];
+  if (!Array.isArray(u.allowed_tabs)) {
+    try {
+      u.allowed_tabs = typeof u.allowed_tabs === 'string' ? JSON.parse(u.allowed_tabs) : ['searchTab', 'alphaTab', 'directoryTab'];
+    } catch(e) {
+      u.allowed_tabs = ['searchTab', 'alphaTab', 'directoryTab'];
+    }
+  }
+
   if (isChecked) {
     if (!u.allowed_tabs.includes(tabName)) u.allowed_tabs.push(tabName);
   } else {
     u.allowed_tabs = u.allowed_tabs.filter(t => t !== tabName);
   }
 
+  saveUserOverride(userId, 'allowed_tabs', u.allowed_tabs);
+  try {
+    localStorage.setItem('portal_admin_users_overrides', JSON.stringify(State.adminControlUsers));
+  } catch(e) {}
+
   await saveAdminUserToServer(u);
-  showToast('टैब अनुमति अपडेट!');
+  const tabHiNames = {
+    searchTab: 'मतदाता खोज',
+    alphaTab: 'वर्णमाला सूची',
+    directoryTab: 'वार्ड/डायरेक्टरी',
+    bulkSlipTab: 'पर्ची प्रिंट',
+    dashboardTab: 'डैशबोर्ड'
+  };
+  const tName = tabHiNames[tabName] || tabName;
+  showToast(`टैब अनुमति अपडेट (${userId}): ${tName} = ${isChecked ? '🟢 अनुमत (Allowed)' : '🔴 वर्जित (Revoked)'}`);
 }
 
 async function saveAdminUserToServer(userObj) {
@@ -7125,6 +7215,33 @@ async function savePortalModuleSettings() {
       body: JSON.stringify(triPortalSettings)
     });
   } catch(e) {}
+}
+
+async function fetchRemoteSettings() {
+  showToast('📥 रिमोट/ऑनलाइन से सेटिंग्स फेच की जा रही हैं...');
+  try {
+    const isLocalServer = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    if (isLocalServer) {
+      const res = await fetch('/api/fetch-remote-settings', { method: 'POST' });
+      const data = await res.json();
+      await loadAdminUsersList();
+      if (typeof renderAdminControlTab === 'function') renderAdminControlTab();
+      showToast(data.message || '✅ रिमोट सेटिंग्स सफलतापूर्वक फेच व लागू कर दी गईं!');
+    } else {
+      const res = await fetch('portal_users.json?v=' + Date.now());
+      if (res.ok) {
+        const data = await res.json();
+        if (data && Array.isArray(data.users)) {
+          State.adminControlUsers = data.users;
+          if (typeof renderAdminControlTab === 'function') renderAdminControlTab();
+          showToast('✅ ऑनलाइन नवीनतम सेटिंग्स लोड हो गईं!');
+        }
+      }
+    }
+  } catch(e) {
+    console.error('Fetch remote error:', e);
+    showToast('रिमोट सेटिंग्स फेच करने में त्रुटि: ' + e.message);
+  }
 }
 
 async function triggerTriPortalSync() {
