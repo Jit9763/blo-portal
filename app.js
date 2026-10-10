@@ -4025,7 +4025,8 @@ async function syncWithGoogleSheet(silent = false) {
                 user_id: r[0] || `USR${i}`,
                 username: r[1],
                 password: r[2],
-          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
+                full_name: r[3] || r[1],
+                fullName: r[3] || r[1],
                 role: r[4] || 'BOOTH_AGENT',
                 panchayat_code: r[5] || 'ALL',
                 gram_panchayat: r[6] || '',
@@ -4372,13 +4373,12 @@ function handleCreateUser(e) {
     showToast('कृपया यूजरनेम व पासवर्ड दर्ज करें!');
     return;
   }
-
   const newUser = {
     user_id: `USR${State.adminUsers.length + 1}`,
     username: username,
     password: password,
-          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
-    mobile: mobile,
+    fullName: fullName || username,
+    full_name: fullName || username,
     role: role,
     assigned_panchayats: panchayat,
     assigned_wards: wards,
@@ -5505,7 +5505,8 @@ async function loadAdminUsersList() {
       id: u.user_id || u.username,
       username: u.username,
       password: u.password,
-          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
+      fullName: u.fullName || u.full_name || u.username,
+      full_name: u.full_name || u.fullName || u.username,
       mobile: u.mobile || '',
       status: u.status || 'ACTIVE',
       allowed_panchayats: u.assigned_panchayats || 'ALL',
@@ -5521,7 +5522,8 @@ async function loadAdminUsersList() {
       id: 'block_prabhari',
       username: 'block_prabhari',
       password: 'BHINAI123',
-          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
+      name: 'श्री सुरेश चन्द्र जांगिड (शिक्षक)',
+      full_name: 'श्री सुरेश चन्द्र जांगिड (शिक्षक)',
       mobile: '9950705221',
       status: 'ACTIVE',
       allowed_panchayats: 'ALL',
@@ -5761,7 +5763,7 @@ async function handleCreateUserSubmit(event) {
     username: username,
     password: password,
     name: fullName || username,
-          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
+    full_name: fullName || username,
     mobile: mobile,
     role: 'CANDIDATE',
     type: 'CANDIDATE',
@@ -6645,7 +6647,8 @@ async function handleGatekeeperLogin(event) {
         id: 'admin',
         username: 'admin',
         role: 'SUPER_ADMIN',
-          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
+        name: 'मुख्य व्यवस्थापक',
+        full_name: 'मुख्य व्यवस्थापक (Super Admin)',
         allowed_panchayats: 'ALL',
         allowed_wards: 'ALL',
         allowed_tabs: ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab', 'candidateProfileTab', 'adminControlTab', 'settingsTab'],
@@ -6677,8 +6680,8 @@ async function handleGatekeeperLogin(event) {
         id: 'incharge',
         username: 'incharge',
         role: 'INCHARGE',
-          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
         name: 'ब्लॉक इनचार्ज',
+        full_name: 'ब्लॉक इनचार्ज',
         allowed_panchayats: 'ALL',
         allowed_wards: 'ALL',
         allowed_tabs: ['dashboardTab', 'searchTab', 'alphaTab', 'directoryTab'],
@@ -6718,8 +6721,8 @@ async function handleGatekeeperLogin(event) {
         id: 'vyavasthapak',
         username: 'vyavasthapak',
         role: 'VYAVASTHAPAK',
-          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
         name: 'व्यवस्थापक',
+        full_name: 'व्यवस्थापक',
         allowed_panchayats: 'ALL',
         allowed_wards: 'ALL',
         allowed_tabs: ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab'],
@@ -6759,8 +6762,8 @@ async function handleGatekeeperLogin(event) {
         id: 'block_prabhari',
         username: 'block_prabhari',
         role: 'BLOCK_PRABHARI',
-          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
         name: 'श्री सुरेश चन्द्र जांगिड',
+        full_name: 'श्री सुरेश चन्द्र जांगिड (शिक्षक)',
         post: 'अध्यापक',
         designation: 'अध्यापक / शिक्षक',
         office: 'उपखण्ड कार्यालय भिनाय',
@@ -6801,13 +6804,16 @@ async function handleGatekeeperLogin(event) {
   ];
 
   const unameLower = username.toLowerCase();
-  const candMatch = allCandidatePool.find(u => 
-    (u.username && u.username.toLowerCase() === unameLower) || 
-    (u.user_id && u.user_id.toLowerCase() === unameLower) ||
-    (u.id && u.id.toLowerCase() === unameLower) ||
-    (u.id && u.id.toLowerCase() === `cand_${unameLower}`) ||
-    (u.username && u.username.toLowerCase() === `cand_${unameLower}`)
-  );
+  const candMatch = allCandidatePool.find(u => {
+    if (u.role === 'BLO' || u.role === 'बी.एल.ओ.' || u.role === 'CELL_MEMBER' || u.category === 'CELL' || u.role === 'BLOCK_PRABHARI') {
+      return false;
+    }
+    return (u.username && u.username.toLowerCase() === unameLower) || 
+           (u.user_id && u.user_id.toLowerCase() === unameLower) ||
+           (u.id && u.id.toLowerCase() === unameLower) ||
+           (u.id && u.id.toLowerCase() === `cand_${unameLower}`) ||
+           (u.username && u.username.toLowerCase() === `cand_${unameLower}`);
+  });
   if (candMatch) {
     const candStatus = getCustomUserStatus(candMatch.username) || candMatch.status || 'ACTIVE';
     if (candStatus === 'INACTIVE') {
@@ -6825,8 +6831,8 @@ async function handleGatekeeperLogin(event) {
         role: 'CANDIDATE',
         type: 'CANDIDATE',
         category: 'CANDIDATE',
-          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
-        name: candMatch.full_name || candMatch.name || candMatch.username,
+        name: candMatch.full_name || candMatch.fullName || candMatch.name || candMatch.username,
+        full_name: candMatch.full_name || candMatch.fullName || candMatch.name || candMatch.username,
         panchayat: candMatch.allowed_panchayats || candMatch.panchayat || candMatch.assigned_panchayats || '',
         allowed_panchayats: candMatch.allowed_panchayats || candMatch.panchayat || candMatch.assigned_panchayats || '',
         allowed_wards: candMatch.allowed_wards || candMatch.ward || candMatch.assigned_wards || 'ALL',
@@ -6970,7 +6976,8 @@ async function handleGatekeeperLogin(event) {
           id: cellUname,
           username: cellUname,
           role: 'CELL_MEMBER',
-          full_name: `${bloMatch.name} (BLO भाग ${bloMatch.booth_no})`,
+          name: cellMatch.name,
+          full_name: `${cellMatch.name} (${cellMatch.designation || 'प्रकोष्ठ कार्मिक'})`,
           cell_name: cellMatch.cell_name,
           allowed_panchayats: allowedGps,
           allowed_wards: allowedWards,
