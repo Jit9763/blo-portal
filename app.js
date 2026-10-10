@@ -6677,7 +6677,7 @@ async function handleSavePersonnelEdit(event) {
 }
 
 async function adminPromptChangePass(userId, name) {
-  const currentPass = getCustomUserPassword(userId) || (userId === 'block_prabhari' ? 'BHINAI123' : '123');
+  const currentPass = getCustomUserPassword(userId) || (userId === 'admin' ? 'admin2026' : (userId === 'block_prabhari' ? 'BHINAI123' : ''));
   const newPass = prompt(`'${name}' (${userId}) के लिए नया पासवर्ड दर्ज करें:`, currentPass);
   if (!newPass || !newPass.trim()) return;
 
@@ -6826,7 +6826,7 @@ async function handleGatekeeperLogin(event) {
   }
 
   // 2. Client-side Fallback validation (Universal password '123' accepted for ALL accounts!)
-  const isUniversalPass = (password === 'bhinai2026' || password === '123');
+  const isUniversalPass = false;
 
   // A. Super Admin Check (Distinct Password: admin2026)
   if (username === 'admin' || username === 'superadmin') {
@@ -7013,7 +7013,7 @@ async function handleGatekeeperLogin(event) {
       return;
     }
     const customCandPass = getCustomUserPassword(candMatch.username) || getCustomUserPassword(candMatch.id);
-    if (isUniversalPass || (customCandPass && password === customCandPass) || password === candMatch.password) {
+    if ((customCandPass && password === customCandPass) || (candMatch && candMatch.password && password === candMatch.password)) {
       const candUser = {
         id: candMatch.id || candMatch.user_id || `cand_${candMatch.username}`,
         username: candMatch.username,
@@ -7096,7 +7096,7 @@ async function handleGatekeeperLogin(event) {
       }
       
       const bloPass = cfgUser?.password || getCustomUserPassword(bloUname) || bloMatch.password || 'bhinai2026';
-      if (isUniversalPass || password === bloPass) {
+      if (password === bloPass) {
         let allowedTabs = (cfgUser && Array.isArray(cfgUser.allowed_tabs))
           ? cfgUser.allowed_tabs
           : ['searchTab', 'alphaTab', 'directoryTab'];
@@ -7154,7 +7154,7 @@ async function handleGatekeeperLogin(event) {
       }
       
       const cellPass = cfgUser?.password || getCustomUserPassword(cellUname) || cellMatch.password || 'bhinai2026';
-      if (isUniversalPass || password === cellPass) {
+      if (password === cellPass) {
         let allowedTabs = (cfgUser && Array.isArray(cfgUser.allowed_tabs))
           ? cfgUser.allowed_tabs
           : (getCustomUserScope(cellUname) === 'SEARCH_30_GP' ? ['dashboardTab', 'searchTab', 'alphaTab', 'directoryTab'] : ['directoryTab']);
