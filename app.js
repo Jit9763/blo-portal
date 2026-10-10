@@ -7388,3 +7388,102 @@ function exportDatabaseBackup() {
   a.click();
   showToast('✅ मास्टर डेटाबेस बैकअप डाउनलोड हुआ!');
 }
+
+
+// ==========================================================================
+// BLO & OFFICER ADD/EDIT MODAL HANDLERS (AUDIT RESOLUTION)
+// ==========================================================================
+
+function openAddBloModal() {
+  const modal = document.getElementById('addEditBloModal');
+  if (!modal) return;
+  const form = document.getElementById('bloEditForm');
+  if (form) form.reset();
+  const targetId = document.getElementById('bloEditTargetId');
+  if (targetId) targetId.value = '';
+  
+  const gpSelect = document.getElementById('bloEditGp');
+  if (gpSelect) {
+    gpSelect.innerHTML = '<option value="">-- ग्राम पंचायत चुनें --</option>';
+    const panchayats = State.panchayats || (window.MASTER_DATA && window.MASTER_DATA.panchayats) || [];
+    panchayats.forEach(p => {
+      const pName = p.name_hi || p.name || '';
+      gpSelect.innerHTML += `<option value="${pName}">${pName}</option>`;
+    });
+  }
+  
+  const passInp = document.getElementById('bloEditPassword');
+  if (passInp) passInp.value = 'blo@2026';
+  modal.style.display = 'flex';
+}
+
+function closeAddEditBloModal() {
+  const modal = document.getElementById('addEditBloModal');
+  if (modal) modal.style.display = 'none';
+}
+
+async function handleSaveBloSubmit(event) {
+  if (event) event.preventDefault();
+  const name = (document.getElementById('bloEditName')?.value || '').trim();
+  const mobile = (document.getElementById('bloEditMobile')?.value || '').trim();
+  const gp = (document.getElementById('bloEditGp')?.value || '').trim();
+  const boothNo = (document.getElementById('bloEditBoothNo')?.value || '').trim();
+  const post = (document.getElementById('bloEditPost')?.value || '').trim() || 'अध्यापक';
+  const wards = (document.getElementById('bloEditWards')?.value || '').trim();
+  const school = (document.getElementById('bloEditSchool')?.value || '').trim();
+  const email = (document.getElementById('bloEditEmail')?.value || '').trim();
+  const pass = (document.getElementById('bloEditPassword')?.value || '').trim() || `blo${boothNo}@${mobile ? mobile.slice(-4) : '2026'}`;
+  
+  if (!name || !mobile || !gp || !boothNo) {
+    showToast('⚠️ नाम, मोबाइल, ग्राम पंचायत एवं बूथ सं. अनिवार्य हैं!');
+    return;
+  }
+  
+  const bloId = `blo_${boothNo}`;
+  const dir = getMasterDirectory() || { blo_list: [] };
+  if (!dir.blo_list) dir.blo_list = [];
+  
+  const newBlo = {
+    id: bloId,
+    username: bloId,
+    user_id: bloId,
+    name: name,
+    full_name: name,
+    mobile: mobile,
+    panchayat: gp,
+    booth_no: boothNo,
+    post: post,
+    wards: wards,
+    school: school,
+    email: email,
+    password: pass,
+    status: 'ACTIVE'
+  };
+  
+  const existIdx = dir.blo_list.findIndex(b => String(b.booth_no) === String(boothNo) || b.id === bloId);
+  if (existIdx >= 0) dir.blo_list[existIdx] = { ...dir.blo_list[existIdx], ...newBlo };
+  else dir.blo_list.push(newBlo);
+  
+  saveUserOverride(bloId, 'password', pass);
+  saveUserOverride(bloId, 'status', 'ACTIVE');
+  
+  closeAddEditBloModal();
+  if (typeof renderAdminBloTab === 'function') renderAdminBloTab();
+  showToast(`✅ बी.एल.ओ. '${name}' (बूथ सं. ${boothNo}) विवरण सफलतापूर्वक सुरक्षित!`);
+}
+
+function openAddOfficerModal() {
+  if (typeof openAddCellModal === 'function') {
+    openAddCellModal();
+  } else {
+    const modal = document.getElementById('addEditCellModal');
+    if (modal) modal.style.display = 'flex';
+  }
+}
+
+function onNewUserGpChanged(gpName) {
+  const wardInp = document.getElementById('newUserWardInput') || document.getElementById('newWards');
+  if (wardInp) {
+    wardInp.value = (gpName === 'ALL') ? 'ALL' : '1';
+  }
+}
