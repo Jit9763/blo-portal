@@ -152,7 +152,10 @@ function exportToJson() {
       users,
       candidates
     };
+    isInternalExport = true;
     fs.writeFileSync(JSON_PATH, JSON.stringify(payload, null, 2), 'utf8');
+    setTimeout(() => { isInternalExport = false; }, 800);
+
     const altDir = __dirname.includes('panchyt order') 
       ? 'C:\\Users\\jiten\\Desktop\\panchayat chunav\\voter_portal'
       : 'C:\\Users\\jiten\\Desktop\\panchyt order\\voter_portal';
@@ -167,6 +170,19 @@ function exportToJson() {
   } catch (err) {
     console.error('JSON export error:', err);
   }
+}
+
+// Watch portal_users.json for external edits so settings/users change takes effect immediately without restart
+let isInternalExport = false;
+try {
+  fs.watchFile(JSON_PATH, { interval: 1000 }, (curr, prev) => {
+    if (curr.mtimeMs > prev.mtimeMs && !isInternalExport) {
+      console.log('🔄 Disk file portal_users.json modified! Auto-syncing to SQLite database...');
+      seedDatabase();
+    }
+  });
+} catch(e) {
+  console.log('File watcher not supported:', e);
 }
 
 // Request Body Parser Helper
@@ -277,8 +293,18 @@ const server = http.createServer(async (req, res) => {
   if (pathname.startsWith('/api/')) {
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
-    // Health Check
-        // Password Change Endpoint (Self BLO or User password reset)
+    // Version & Heartbeat Endpoint (For Instant Live Permission Sync across tabs)
+    if (pathname === '/api/version' && req.method === 'GET') {
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+      res.end(JSON.stringify({
+        success: true,
+        version: Date.now(),
+        users_count: db.prepare('SELECT COUNT(*) AS c FROM users').get().c
+      }));
+      return;
+    }
+
+    // Password Change Endpoint (Self BLO or User password reset)
     if (pathname === '/api/change-password' && req.method === 'POST') {
       try {
         const { username, currentPassword, newPassword } = await parseJsonBody(req);
@@ -797,7 +823,12 @@ const server = http.createServer(async (req, res) => {
 
   try {
     const content = fs.readFileSync(filePath);
-    res.writeHead(200, { 'Content-Type': contentType });
+    res.writeHead(200, {
+      'Content-Type': contentType,
+      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
+      'Pragma': 'no-cache',
+      'Expires': '0'
+    });
     res.end(content);
   } catch (e) {
     res.writeHead(500);

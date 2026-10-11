@@ -612,7 +612,7 @@ function renderAdminCellTab() {
       </td>
       <td>
         <div class="admin-pass-box">
-          <input type="password" class="admin-pass-input" value="${pass}" id="pass_input_${cid}" onchange="quickUpdatePassword('${cid}', this.value)">
+          <input type="password" class="admin-pass-input" value="${pass}" id="pass_input_${cid}" onchange="quickUpdatePassword('${cid}', this.value)" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true">
           <button type="button" class="admin-pass-btn" onclick="togglePassVisibility('pass_input_${cid}')" title="पासवर्ड देखें / छिपाएं">👁️</button>
           <button type="button" class="admin-pass-btn admin-pass-btn-save" onclick="quickUpdatePassword('${cid}', document.getElementById('pass_input_${cid}').value)" title="पासवर्ड सुरक्षित करें">💾</button>
         </div>
@@ -740,7 +740,7 @@ function renderAdminBloTab() {
       </td>
       <td>
         <div class="admin-pass-box">
-          <input type="password" class="admin-pass-input" value="${pass}" id="pass_input_${bid}" onchange="quickUpdatePassword('${bid}', this.value)">
+          <input type="password" class="admin-pass-input" value="${pass}" id="pass_input_${bid}" onchange="quickUpdatePassword('${bid}', this.value)" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true">
           <button type="button" class="admin-pass-btn" onclick="togglePassVisibility('pass_input_${bid}')" title="पासवर्ड देखें / छिपाएं">👁️</button>
           <button type="button" class="admin-pass-btn admin-pass-btn-save" onclick="quickUpdatePassword('${bid}', document.getElementById('pass_input_${bid}').value)" title="पासवर्ड सुरक्षित करें">💾</button>
         </div>
@@ -872,7 +872,7 @@ function renderAdminCandTab() {
       </td>
       <td>
         <div class="admin-pass-box">
-          <input type="password" class="admin-pass-input" value="${pass}" id="pass_input_${cid}" onchange="quickUpdatePassword('${cid}', this.value)">
+          <input type="password" class="admin-pass-input" value="${pass}" id="pass_input_${cid}" onchange="quickUpdatePassword('${cid}', this.value)" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true">
           <button type="button" class="admin-pass-btn" onclick="togglePassVisibility('pass_input_${cid}')" title="पासवर्ड देखें / छिपाएं">👁️</button>
           <button type="button" class="admin-pass-btn admin-pass-btn-save" onclick="quickUpdatePassword('${cid}', document.getElementById('pass_input_${cid}').value)" title="पासवर्ड सुरक्षित करें">💾</button>
         </div>
@@ -1006,7 +1006,7 @@ function renderAdminTopAdminsTab() {
       </td>
       <td>
         <div class="admin-pass-box">
-          <input type="password" class="admin-pass-input" value="${pass}" id="pass_input_${aid}" onchange="quickUpdatePassword('${aid}', this.value)">
+          <input type="password" class="admin-pass-input" value="${pass}" id="pass_input_${aid}" onchange="quickUpdatePassword('${aid}', this.value)" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true">
           <button type="button" class="admin-pass-btn" onclick="togglePassVisibility('pass_input_${aid}')" title="पासवर्ड देखें / छिपाएं">👁️</button>
           <button type="button" class="admin-pass-btn admin-pass-btn-save" onclick="quickUpdatePassword('${aid}', document.getElementById('pass_input_${aid}').value)" title="पासवर्ड सुरक्षित करें">💾</button>
         </div>
@@ -1938,9 +1938,10 @@ const State = {
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', async () => {
   initMasterData();
-  try { await loadAdminUsersList(); } catch(e) {}
+  try { await loadAdminUsersList(true); } catch(e) {}
   initSession();
   initUiElements();
+  startLivePermissionSyncWatcher();
 });
 
 
@@ -2183,8 +2184,12 @@ function syncCurrentUserWithConfiguredUsers() {
       }
       return;
     }
-    if (Array.isArray(matched.allowed_tabs)) {
-      State.currentUser.allowed_tabs = matched.allowed_tabs;
+    let parsedTabs = matched.allowed_tabs;
+    if (typeof parsedTabs === 'string') {
+      try { parsedTabs = JSON.parse(parsedTabs); } catch(e) { parsedTabs = parsedTabs.split(',').map(s=>s.trim()); }
+    }
+    if (Array.isArray(parsedTabs)) {
+      State.currentUser.allowed_tabs = parsedTabs;
     }
     if (matched.allowed_panchayats) {
       State.currentUser.allowed_panchayats = matched.allowed_panchayats;
@@ -2242,7 +2247,9 @@ function initSession() {
             u.type = 'CANDIDATE';
             u.category = 'CANDIDATE';
             u.candidate_mode = 'user_edit';
-            u.allowed_tabs = ['searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab'];
+            if (!u.allowed_tabs || !Array.isArray(u.allowed_tabs) || u.allowed_tabs.length === 0) {
+              u.allowed_tabs = ['searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab'];
+            }
           }
           State.currentUser = u;
         } else {
@@ -2317,20 +2324,31 @@ function enforceGatekeeperState() {
 
   // Enforce Allowed Tabs (Super Admin configuration has priority)
   let allowedTabs = ['searchTab'];
+  let userConfiguredTabs = u.allowed_tabs;
+  if (typeof userConfiguredTabs === 'string') {
+    try { userConfiguredTabs = JSON.parse(userConfiguredTabs); } catch(e) { userConfiguredTabs = userConfiguredTabs.split(',').map(s=>s.trim()); }
+  }
+
   if (isSuperAdmin) {
     allowedTabs = ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab', 'candidateProfileTab', 'adminControlTab', 'settingsTab'];
-  } else if (Array.isArray(u.allowed_tabs)) {
-    allowedTabs = u.allowed_tabs;
+  } else if (Array.isArray(userConfiguredTabs) && userConfiguredTabs.length > 0) {
+    // If Admin explicitly assigned custom tabs to this user, ALWAYS RESPECT IT!
+    allowedTabs = userConfiguredTabs;
   } else if (isIncharge) {
-    // Incharge has view rights across all normal tabs for all 30 GPs (NO EDIT)
+    // Incharge default view rights across all normal tabs for all 30 GPs (NO EDIT)
     allowedTabs = ['dashboardTab', 'searchTab', 'alphaTab', 'directoryTab'];
   } else if (isVyavasthapak) {
-    // Vyavasthapak has view, download & bulk/single slip print rights for all 30 GPs
+    // Vyavasthapak default view, download & bulk/single slip print rights for all 30 GPs
     allowedTabs = ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab'];
   } else if (isCandidateUser) {
-    allowedTabs = ['searchTab'];
+    allowedTabs = ['searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab'];
   } else if (u.role === 'BLO') {
     allowedTabs = ['searchTab'];
+  }
+
+  // Ensure candidate profile tab is visible if allowed
+  if (candidateNavTab) {
+    candidateNavTab.style.display = (isSuperAdmin || (isCandidateUser && allowedTabs.includes('candidateProfileTab'))) ? 'flex' : 'none';
   }
 
   document.querySelectorAll('.nav-tab').forEach(tab => {
@@ -5693,10 +5711,11 @@ async function initAdminControlTab() {
   renderAdminControlTab();
 }
 
-async function loadAdminUsersList() {
-  // 1. Try Node.js + SQLite API
+async function loadAdminUsersList(force = false) {
+  const bust = Date.now();
+  // 1. Try Node.js + SQLite API (with explicit cache-busting & no-store)
   try {
-    const res = await fetch('/api/users');
+    const res = await fetch(`/api/users?_t=${bust}`, { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       if (data && data.success && Array.isArray(data.users)) {
@@ -5706,12 +5725,12 @@ async function loadAdminUsersList() {
       }
     }
   } catch (e) {
-    console.log('Admin users fetch from API error:', e);
+    // API server not reachable, fallback to static JSON
   }
 
-  // 2. Try portal_users.json
+  // 2. Try portal_users.json (with explicit cache-busting & no-store)
   try {
-    const jsonRes = await fetch('portal_users.json?v=' + Date.now());
+    const jsonRes = await fetch(`portal_users.json?_t=${bust}`, { cache: 'no-store' });
     if (jsonRes.ok) {
       const data = await jsonRes.json();
       if (data && Array.isArray(data.users)) {
@@ -5825,7 +5844,7 @@ function renderAdminControlTab() {
       </td>
       <td>
         <div class="d-flex align-items-center gap-1">
-          <input type="password" id="passInput_${uId}" class="form-input form-input-sm" value="${u.password || ''}" onchange="updateUserField('${uId}', 'password', this.value)" style="font-weight:700; width:90px;">
+          <input type="password" id="passInput_${uId}" class="form-input form-input-sm" value="${u.password || ''}" onchange="updateUserField('${uId}', 'password', this.value)" autocomplete="one-time-code" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore="true" style="font-weight:700; width:90px;">
           <button type="button" class="btn btn-sm btn-outline-secondary" onclick="togglePassVisibility('passInput_${uId}')" title="पासवर्ड देखें">👁️</button>
         </div>
       </td>
@@ -5992,13 +6011,30 @@ async function toggleUserTab(userId, tabName, isChecked) {
     localStorage.setItem('portal_admin_users_overrides', JSON.stringify(State.adminControlUsers));
   } catch(e) {}
 
+  // 1. Immediately update active session if current logged in user was modified
+  if (State.currentUser) {
+    const curId = String(State.currentUser.id || State.currentUser.username || '').toLowerCase();
+    const tgtId = String(userId).toLowerCase();
+    if (curId === tgtId) {
+      State.currentUser.allowed_tabs = [...u.allowed_tabs];
+      const sk = getSessionStorageKey();
+      if (localStorage.getItem(sk)) localStorage.setItem(sk, JSON.stringify(State.currentUser));
+      if (sessionStorage.getItem(sk)) sessionStorage.setItem(sk, JSON.stringify(State.currentUser));
+      enforceGatekeeperState();
+    }
+  }
+
+  // 2. Broadcast to all open tabs/windows immediately
+  broadcastAdminUpdate({ type: 'PERMISSIONS_UPDATED', userId, allowed_tabs: u.allowed_tabs });
+
   await saveAdminUserToServer(u);
   const tabHiNames = {
     searchTab: 'मतदाता खोज',
     alphaTab: 'वर्णमाला सूची',
     directoryTab: 'वार्ड/डायरेक्टरी',
     bulkSlipTab: 'पर्ची प्रिंट',
-    dashboardTab: 'डैशबोर्ड'
+    dashboardTab: 'डैशबोर्ड',
+    candidateProfileTab: 'उम्मीदवार प्रोफाइल'
   };
   const tName = tabHiNames[tabName] || tabName;
   showToast(`टैब अनुमति अपडेट (${userId}): ${tName} = ${isChecked ? '🟢 अनुमत (Allowed)' : '🔴 वर्जित (Revoked)'}`);
@@ -6011,10 +6047,74 @@ async function saveAdminUserToServer(userObj) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(userObj)
     });
+    broadcastAdminUpdate({ type: 'USER_UPDATED', userId: userObj.id || userObj.username });
   } catch (e) {
     console.log('Server save fallback:', e);
   }
 }
+
+// Instant Live Permission & Settings Sync Engine across tabs & background
+function broadcastAdminUpdate(payload) {
+  try {
+    if (window.BroadcastChannel) {
+      const bc = new BroadcastChannel('panchayat_admin_sync');
+      bc.postMessage(payload);
+    }
+    localStorage.setItem('panchayat_last_admin_sync', JSON.stringify({ ...payload, timestamp: Date.now() }));
+  } catch(e) {}
+}
+
+function startLivePermissionSyncWatcher() {
+  // A. BroadcastChannel cross-tab instant sync
+  try {
+    if (window.BroadcastChannel) {
+      const bc = new BroadcastChannel('panchayat_admin_sync');
+      bc.onmessage = () => {
+        loadAdminUsersList(true);
+      };
+    }
+  } catch(e) {}
+
+  // B. Storage event sync for multi-tab
+  window.addEventListener('storage', (ev) => {
+    if (ev.key === 'panchayat_last_admin_sync' || ev.key === 'portal_admin_users_overrides') {
+      loadAdminUsersList(true);
+    }
+  });
+
+  // C. Tab focus / visibility change (instantly refresh permissions when returning to tab)
+  window.addEventListener('focus', () => {
+    loadAdminUsersList(true);
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      loadAdminUsersList(true);
+    }
+  });
+
+  // D. Background live sync loop every 4 seconds (so changes apply instantly without hard refresh)
+  setInterval(async () => {
+    if (document.visibilityState === 'hidden') return;
+    try {
+      await loadAdminUsersList(false);
+    } catch(e) {}
+  }, 4000);
+}
+
+function togglePasswordVisibility(inputId, btn) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  if (input.type === 'password') {
+    input.type = 'text';
+    if (btn) btn.textContent = '🙈';
+  } else {
+    input.type = 'password';
+    if (btn) btn.textContent = '👁️';
+  }
+}
+window.togglePasswordVisibility = togglePasswordVisibility;
+window.broadcastAdminUpdate = broadcastAdminUpdate;
+window.startLivePermissionSyncWatcher = startLivePermissionSyncWatcher;
 
 // removed duplicate openAddUserModal
 
@@ -7041,9 +7141,7 @@ async function handleGatekeeperLogin(event) {
   if (errorDiv) { errorDiv.style.display = 'none'; errorDiv.textContent = ''; }
 
   // Ensure freshest admin users and permissions are loaded before login validation
-  if (!State.adminControlUsers || State.adminControlUsers.length === 0) {
-    try { await loadAdminUsersList(); } catch(e) {}
-  }
+  try { await loadAdminUsersList(true); } catch(e) {}
 
   const uInput = document.getElementById('gatekeeperUsername');
   let username = uInput ? uInput.value.trim() : '';
@@ -7118,12 +7216,13 @@ async function handleGatekeeperLogin(event) {
         const data = await res.json();
         if (data && data.success && data.user) {
           State.currentUser = data.user;
+          syncCurrentUserWithConfiguredUsers();
           const sk = getSessionStorageKey();
           if (document.getElementById('gatekeeperRememberMe')?.checked) {
-            localStorage.setItem(sk, JSON.stringify(data.user));
-            if (getPortalContext() === 'master') localStorage.setItem('panchayat_user_session', JSON.stringify(data.user));
+            localStorage.setItem(sk, JSON.stringify(State.currentUser));
+            if (getPortalContext() === 'master') localStorage.setItem('panchayat_user_session', JSON.stringify(State.currentUser));
           } else {
-            sessionStorage.setItem(sk, JSON.stringify(data.user));
+            sessionStorage.setItem(sk, JSON.stringify(State.currentUser));
           }
           enforceGatekeeperState();
           showToast(`नमस्ते ${data.user.full_name || data.user.name || data.user.username}! स्वागत है।`);
