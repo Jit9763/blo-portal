@@ -841,6 +841,7 @@ function renderAdminCandTab() {
         cand = JSON.parse(localStorage.getItem('candidate_profile_' + cid) || localStorage.getItem('candidate_profile_' + (c.username || '')) || 'null');
       } catch(e) {}
     }
+    if (!cand) cand = {};
     const candName = (cand && cand.candidate_name) || c.full_name || c.name || cid;
     const candMobile = (cand && cand.mobile) || c.mobile || '-';
     const candSymbol = (cand && cand.symbol_name) || '';
