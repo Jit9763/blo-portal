@@ -837,12 +837,12 @@ function renderAdminCandTab() {
   const gpFilter = document.getElementById('adminCandGpFilter') ? document.getElementById('adminCandGpFilter').value : 'ALL';
 
   const filtered = candUsers.filter(c => {
-    const cid = c.id || c.username;
+    const cid = String(c.id || c.username || '');
     if (gpFilter !== 'ALL' && c.panchayat !== gpFilter) return false;
     if (searchVal) {
-      const match = (c.name && c.name.toLowerCase().includes(searchVal)) ||
-                    (c.panchayat && c.panchayat.toLowerCase().includes(searchVal)) ||
-                    (c.mobile && c.mobile.includes(searchVal)) ||
+      const match = (c.name && String(c.name).toLowerCase().includes(searchVal)) ||
+                    (c.panchayat && String(c.panchayat).toLowerCase().includes(searchVal)) ||
+                    (c.mobile && String(c.mobile).includes(searchVal)) ||
                     (cid && cid.toLowerCase().includes(searchVal));
       if (!match) return false;
     }
