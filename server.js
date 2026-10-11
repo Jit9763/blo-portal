@@ -54,6 +54,10 @@ db.exec(`
   );
 `);
 try { db.prepare("ALTER TABLE candidates ADD COLUMN election_time TEXT").run(); } catch(e) {}
+try { db.prepare("ALTER TABLE users ADD COLUMN can_print INTEGER DEFAULT 1").run(); } catch(e) {}
+try { db.prepare("ALTER TABLE users ADD COLUMN can_download INTEGER DEFAULT 1").run(); } catch(e) {}
+try { db.prepare("ALTER TABLE users ADD COLUMN can_search INTEGER DEFAULT 1").run(); } catch(e) {}
+try { db.prepare("ALTER TABLE users ADD COLUMN can_view INTEGER DEFAULT 1").run(); } catch(e) {}
 
 // Seed from portal_users.json if empty
 // Sync & Seed from portal_users.json
@@ -63,8 +67,8 @@ function seedDatabase() {
       const data = JSON.parse(fs.readFileSync(JSON_PATH, 'utf8'));
       const userList = Array.isArray(data) ? data : (data.users || []);
       const insertUser = db.prepare(`
-        INSERT OR REPLACE INTO users (id, username, password, full_name, mobile, role, status, allowed_panchayats, allowed_wards, allowed_tabs, candidate_mode, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        INSERT OR REPLACE INTO users (id, username, password, full_name, mobile, role, status, allowed_panchayats, allowed_wards, allowed_tabs, candidate_mode, can_print, can_download, can_search, can_view, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `);
 
       const toStr = (val, def = '') => {
@@ -86,6 +90,10 @@ function seedDatabase() {
           toStr(u.allowed_wards || u.assigned_wards || u.wards || 'ALL'),
           toStr(Array.isArray(u.allowed_tabs) ? JSON.stringify(u.allowed_tabs) : (u.allowed_tabs || '[]')),
           toStr(u.candidate_mode || 'user_edit'),
+          (u.can_print !== undefined && u.can_print !== null) ? (u.can_print ? 1 : 0) : 1,
+          (u.can_download !== undefined && u.can_download !== null) ? (u.can_download ? 1 : 0) : 1,
+          (u.can_search !== undefined && u.can_search !== null) ? (u.can_search ? 1 : 0) : 1,
+          (u.can_view !== undefined && u.can_view !== null) ? (u.can_view ? 1 : 0) : 1,
           new Date().toISOString(),
           new Date().toISOString()
         );
@@ -128,6 +136,10 @@ function exportToJson() {
     const rawUsers = db.prepare('SELECT * FROM users').all();
     const users = rawUsers.map(u => ({
       ...u,
+      can_print: (u.can_print !== undefined && u.can_print !== null) ? Boolean(u.can_print) : true,
+      can_download: (u.can_download !== undefined && u.can_download !== null) ? Boolean(u.can_download) : true,
+      can_search: (u.can_search !== undefined && u.can_search !== null) ? Boolean(u.can_search) : true,
+      can_view: (u.can_view !== undefined && u.can_view !== null) ? Boolean(u.can_view) : true,
       allowed_tabs: (() => { try { return JSON.parse(u.allowed_tabs); } catch(e) { return ['searchTab']; } })()
     }));
 
@@ -615,11 +627,17 @@ const server = http.createServer(async (req, res) => {
         const existing = db.prepare('SELECT * FROM users WHERE id = ? OR username = ?').get(userId, usernameStr);
         const passwordToUse = toStr((u.password && String(u.password).trim()) || (existing ? existing.password : '123'));
 
+        const canPrintVal = (u.can_print !== undefined && u.can_print !== null) ? (u.can_print ? 1 : 0) : (existing && existing.can_print !== undefined ? existing.can_print : 1);
+        const canDownloadVal = (u.can_download !== undefined && u.can_download !== null) ? (u.can_download ? 1 : 0) : (existing && existing.can_download !== undefined ? existing.can_download : 1);
+        const canSearchVal = (u.can_search !== undefined && u.can_search !== null) ? (u.can_search ? 1 : 0) : (existing && existing.can_search !== undefined ? existing.can_search : 1);
+        const canViewVal = (u.can_view !== undefined && u.can_view !== null) ? (u.can_view ? 1 : 0) : (existing && existing.can_view !== undefined ? existing.can_view : 1);
+
         if (existing) {
           db.prepare(`
             UPDATE users SET
               username = ?, password = ?, full_name = ?, mobile = ?, role = ?, status = ?,
-              allowed_panchayats = ?, allowed_wards = ?, allowed_tabs = ?, candidate_mode = ?, updated_at = ?
+              allowed_panchayats = ?, allowed_wards = ?, allowed_tabs = ?, candidate_mode = ?,
+              can_print = ?, can_download = ?, can_search = ?, can_view = ?, updated_at = ?
             WHERE id = ?
           `).run(
             usernameStr,
@@ -632,13 +650,17 @@ const server = http.createServer(async (req, res) => {
             toStr(u.allowed_wards || u.ward || existing.allowed_wards || 'ALL'),
             toStr(tabsJson),
             toStr(u.candidate_mode || existing.candidate_mode || 'user_edit'),
+            canPrintVal,
+            canDownloadVal,
+            canSearchVal,
+            canViewVal,
             new Date().toISOString(),
             existing.id
           );
         } else {
           db.prepare(`
-            INSERT INTO users (id, username, password, full_name, mobile, role, status, allowed_panchayats, allowed_wards, allowed_tabs, candidate_mode, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO users (id, username, password, full_name, mobile, role, status, allowed_panchayats, allowed_wards, allowed_tabs, candidate_mode, can_print, can_download, can_search, can_view, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
           `).run(
             userId,
             usernameStr,
@@ -651,6 +673,10 @@ const server = http.createServer(async (req, res) => {
             toStr(u.allowed_wards || u.ward || 'ALL'),
             toStr(tabsJson),
             toStr(u.candidate_mode || 'user_edit'),
+            canPrintVal,
+            canDownloadVal,
+            canSearchVal,
+            canViewVal,
             new Date().toISOString(),
             new Date().toISOString()
           );

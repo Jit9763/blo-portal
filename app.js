@@ -84,9 +84,50 @@ function saveUserOverride(userId, key, value) {
   }
 }
 
-function toggleUserPermission(userId, permKey, isChecked) {
+async function toggleUserPermission(userId, permKey, isChecked) {
   saveUserOverride(userId, permKey, isChecked);
-  showToast(`✅ अनुमति अद्यतन: ${userId} -> ${permKey} = ${isChecked ? 'हाँ' : 'नहीं'}`);
+  
+  const uIdLower = String(userId || '').toLowerCase();
+  let targetUser = null;
+  if (State.adminControlUsers) {
+    targetUser = State.adminControlUsers.find(x => 
+      (x.id && String(x.id).toLowerCase() === uIdLower) ||
+      (x.username && String(x.username).toLowerCase() === uIdLower)
+    );
+    if (targetUser) {
+      targetUser[permKey] = isChecked;
+    }
+  }
+
+  try {
+    localStorage.setItem('portal_admin_users_overrides', JSON.stringify(State.adminControlUsers));
+  } catch(e) {}
+
+  if (targetUser && typeof saveAdminUserToServer === 'function') {
+    await saveAdminUserToServer(targetUser);
+  }
+
+  if (State.currentUser) {
+    const curId = String(State.currentUser.id || State.currentUser.username || '').toLowerCase();
+    if (curId === uIdLower) {
+      State.currentUser[permKey] = isChecked;
+      const sk = getSessionStorageKey();
+      if (localStorage.getItem(sk)) localStorage.setItem(sk, JSON.stringify(State.currentUser));
+      if (sessionStorage.getItem(sk)) sessionStorage.setItem(sk, JSON.stringify(State.currentUser));
+      enforceGatekeeperState();
+    }
+  }
+
+  broadcastAdminUpdate({ type: 'PERMISSIONS_UPDATED', userId, [permKey]: isChecked });
+
+  const labelMap = {
+    can_print: 'प्रिंट',
+    can_download: 'डाउनलोड',
+    can_search: 'खोज',
+    can_view: 'दर्शन'
+  };
+  const label = labelMap[permKey] || permKey;
+  showToast(`✅ ${label} अनुमति: ${userId} -> ${isChecked ? 'सक्रिय' : 'वर्जित'}`);
 }
 
 function updateUserScope(userId, scopeVal) {
@@ -862,10 +903,10 @@ function renderAdminCandTab() {
     const pass = ov.password || c.password || 'bhinai2026';
     const status = ov.status || c.status || 'ACTIVE';
     const isActive = (status === 'ACTIVE');
-    const canSearch = (ov.can_search !== undefined) ? ov.can_search : true;
-    const canView = (ov.can_view !== undefined) ? ov.can_view : true;
-    const canPrint = (ov.can_print !== undefined) ? ov.can_print : true;
-    const canDownload = (ov.can_download !== undefined) ? ov.can_download : true;
+    const canSearch = (ov.can_search !== undefined) ? ov.can_search : (c.can_search !== undefined ? (c.can_search === true || c.can_search === 1) : true);
+    const canView = (ov.can_view !== undefined) ? ov.can_view : (c.can_view !== undefined ? (c.can_view === true || c.can_view === 1) : true);
+    const canPrint = (ov.can_print !== undefined) ? ov.can_print : (c.can_print !== undefined ? (c.can_print === true || c.can_print === 1) : true);
+    const canDownload = (ov.can_download !== undefined) ? ov.can_download : (c.can_download !== undefined ? (c.can_download === true || c.can_download === 1) : true);
     const scope = ov.allowed_panchayats || c.panchayat || 'ALL';
 
     let cand = c.candidate;
@@ -1108,10 +1149,28 @@ function canUserPrint() {
   if (!State.currentUser) return false;
   const u = State.currentUser;
   if (u.role === 'SUPER_ADMIN' || u.role === 'VYAVASTHAPAK') return true;
-  if (Array.isArray(u.allowed_tabs) && !u.allowed_tabs.includes('bulkSlipTab')) return false;
-  if (u.can_print !== undefined) return (u.can_print === true || u.can_print === 1);
+
+  // 1. Direct explicit permission takes highest priority
+  if (u.can_print !== undefined && u.can_print !== null) {
+    return (u.can_print === true || u.can_print === 1 || u.can_print === 'true');
+  }
+
+  // 2. Local override check
   const ov = getUserOverrides()[u.id || u.username] || {};
-  if (ov.can_print !== undefined) return (ov.can_print === true || ov.can_print === 1);
+  if (ov.can_print !== undefined && ov.can_print !== null) {
+    return (ov.can_print === true || ov.can_print === 1 || ov.can_print === 'true');
+  }
+
+  // 3. Candidate & Agent: default to allowed unless explicitly disabled
+  if (u.role === 'CANDIDATE' || u.category === 'CANDIDATE' || String(u.id || '').startsWith('cand_')) {
+    return true;
+  }
+
+  // 4. Tab-based permission: if user has bulkSlipTab allowed, allow printing
+  if (Array.isArray(u.allowed_tabs) && u.allowed_tabs.includes('bulkSlipTab')) {
+    return true;
+  }
+
   return false;
 }
 
@@ -1119,9 +1178,13 @@ function canUserDownload() {
   if (!State.currentUser) return false;
   const u = State.currentUser;
   if (u.role === 'SUPER_ADMIN' || u.role === 'VYAVASTHAPAK' || u.role === 'INCHARGE' || u.role === 'BLOCK_PRABHARI') return true;
-  if (u.can_download !== undefined) return (u.can_download === true || u.can_download === 1);
+  if (u.can_download !== undefined && u.can_download !== null) {
+    return (u.can_download === true || u.can_download === 1 || u.can_download === 'true');
+  }
   const ov = getUserOverrides()[u.id || u.username] || {};
-  if (ov.can_download !== undefined) return (ov.can_download === true || ov.can_download === 1);
+  if (ov.can_download !== undefined && ov.can_download !== null) {
+    return (ov.can_download === true || ov.can_download === 1 || ov.can_download === 'true');
+  }
   return true;
 }
 
