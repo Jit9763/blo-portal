@@ -6669,6 +6669,12 @@ function initDirectoryTab() {
   const dir = getMasterDirectory();
   if (!dir) return;
 
+  const isSuperAdmin = State.currentUser && (State.currentUser.role === 'SUPER_ADMIN' || State.currentUser.role === 'admin' || String(State.currentUser.id || State.currentUser.username || '').toLowerCase() === 'admin');
+  const adminDirActions = document.getElementById('adminDirectoryActions');
+  if (adminDirActions) {
+    adminDirActions.style.display = isSuperAdmin ? 'flex' : 'none';
+  }
+
   // Initialize Category Dropdown
   const catSelect = document.getElementById('dirCategoryFilterSelect');
   if (catSelect) catSelect.value = activeDirCategory;
@@ -6914,10 +6920,12 @@ function renderDirectoryList() {
   }
 
   // STANDARD VIEW (Sorted & Displayed in Grid)
+  const isSuperAdmin = State.currentUser && (State.currentUser.role === 'SUPER_ADMIN' || State.currentUser.role === 'admin' || String(State.currentUser.id || State.currentUser.username || '').toLowerCase() === 'admin');
+
   let html = `
     <div class="d-flex justify-content-between align-items-center mb-2">
       <span style="font-size:0.85rem; color:#64748b; font-weight:600;">प्रदर्शित संपर्क: <strong>${contacts.length}</strong></span>
-      <span style="font-size:0.8rem; color:#047857; font-weight:600;">⚡ वन-क्लिक कॉल, व्हाट्सएप एवं संपादन उपलब्ध</span>
+      <span style="font-size:0.8rem; color:#047857; font-weight:600;">⚡ वन-क्लिक कॉल एवं व्हाट्सएप सुविधा उपलब्ध</span>
     </div>
     <div class="dir-cards-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:12px;">
       ${contacts.map(c => renderContactCard(c)).join('')}
@@ -6927,6 +6935,8 @@ function renderDirectoryList() {
 }
 
 function renderContactCard(c) {
+  const isSuperAdmin = State.currentUser && (State.currentUser.role === 'SUPER_ADMIN' || State.currentUser.role === 'admin' || String(State.currentUser.id || State.currentUser.username || '').toLowerCase() === 'admin');
+
   const getBadgeStyle = (cat) => {
     switch(cat) {
       case 'PATWARI': return { bg: '#fef3c7', col: '#b45309', label: `🏛️ ${c.charge ? c.charge : 'मूल'} पटवारी` };
@@ -6969,22 +6979,24 @@ function renderContactCard(c) {
           📞 ${c.mobile || 'मो. अनुल्लेखित'}
         </span>
         
-        <div class="d-flex gap-1">
+        <div class="d-flex gap-1 align-items-center">
           ${cleanMobile ? `
-            <a href="tel:${cleanMobile}" class="btn-icon-sm" style="background:#eff6ff; color:#2563eb; padding:5px 8px; border-radius:6px; text-decoration:none; font-size:0.8rem; font-weight:600;" title="कॉल करें">
-              📞
+            <a href="tel:${cleanMobile}" class="btn-icon-sm" style="background:#eff6ff; border:1px solid #bfdbfe; color:#2563eb; padding:6px 10px; border-radius:6px; text-decoration:none; font-size:0.82rem; font-weight:700; display:inline-flex; align-items:center; gap:4px;" title="कॉल करें">
+              📞 कॉल
             </a>
-            <a href="https://wa.me/91${cleanMobile}" target="_blank" class="btn-icon-sm" style="background:#f0fdf4; color:#16a34a; padding:5px 8px; border-radius:6px; text-decoration:none; font-size:0.8rem; font-weight:600;" title="व्हाट्सएप संदेश">
-              💬
+            <a href="https://wa.me/91${cleanMobile}" target="_blank" class="btn-icon-sm" style="background:#f0fdf4; border:1px solid #bbf7d0; color:#16a34a; padding:6px 10px; border-radius:6px; text-decoration:none; font-size:0.82rem; font-weight:700; display:inline-flex; align-items:center; gap:4px;" title="व्हाट्सएप संदेश भेजें">
+              💬 व्हाट्सएप
             </a>
           ` : ''}
-          <button type="button" class="btn-icon-sm" onclick="openEditPersonnelModal('${c.id}')" style="background:#f8fafc; border:1px solid #cbd5e1; color:#334155; padding:5px 8px; border-radius:6px; cursor:pointer; font-size:0.8rem; font-weight:600;" title="विवरण संपादित करें">
-            ✏️ एडिट
-          </button>
-          ${c.can_login ? `
-            <button type="button" class="btn-icon-sm" onclick="adminPromptChangePass('${c.username || c.id}', '${c.name}')" style="background:#fef3c7; border:1px solid #fde68a; color:#b45309; padding:5px 8px; border-radius:6px; cursor:pointer; font-size:0.8rem; font-weight:600;" title="पासवर्ड बदलें">
-              🔑
+          ${isSuperAdmin ? `
+            <button type="button" class="btn-icon-sm" onclick="openEditPersonnelModal('${c.id}')" style="background:#f8fafc; border:1px solid #cbd5e1; color:#334155; padding:6px 9px; border-radius:6px; cursor:pointer; font-size:0.8rem; font-weight:600; display:inline-flex; align-items:center; gap:3px;" title="विवरण संपादित करें">
+              ✏️ एडिट
             </button>
+            ${c.can_login ? `
+              <button type="button" class="btn-icon-sm" onclick="adminPromptChangePass('${c.username || c.id}', '${c.name}')" style="background:#fef3c7; border:1px solid #fde68a; color:#b45309; padding:6px 9px; border-radius:6px; cursor:pointer; font-size:0.8rem; font-weight:600; display:inline-flex; align-items:center; gap:3px;" title="पासवर्ड बदलें">
+                🔑
+              </button>
+            ` : ''}
           ` : ''}
         </div>
       </div>
@@ -6997,6 +7009,12 @@ function renderContactCard(c) {
 // ==========================================================================
 
 function openEditPersonnelModal(id) {
+  const isSuperAdmin = State.currentUser && (State.currentUser.role === 'SUPER_ADMIN' || State.currentUser.role === 'admin' || String(State.currentUser.id || State.currentUser.username || '').toLowerCase() === 'admin');
+  if (!isSuperAdmin) {
+    showToast('⚠️ केवल मुख्य व्यवस्थापक (Super Admin) को संपादन का अधिकार है!');
+    return;
+  }
+
   const dir = getMasterDirectory();
   if (!dir) return;
 
@@ -7031,6 +7049,12 @@ function closeEditPersonnelModal() {
 
 async function handleSavePersonnelEdit(event) {
   if (event) event.preventDefault();
+
+  const isSuperAdmin = State.currentUser && (State.currentUser.role === 'SUPER_ADMIN' || State.currentUser.role === 'admin' || String(State.currentUser.id || State.currentUser.username || '').toLowerCase() === 'admin');
+  if (!isSuperAdmin) {
+    showToast('⚠️ केवल मुख्य व्यवस्थापक (Super Admin) को संपादन का अधिकार है!');
+    return;
+  }
 
   const id = document.getElementById('editPersId').value;
   const name = document.getElementById('editPersName').value.trim();
@@ -7093,6 +7117,12 @@ async function handleSavePersonnelEdit(event) {
 }
 
 async function adminPromptChangePass(userId, name) {
+  const isSuperAdmin = State.currentUser && (State.currentUser.role === 'SUPER_ADMIN' || State.currentUser.role === 'admin' || String(State.currentUser.id || State.currentUser.username || '').toLowerCase() === 'admin');
+  if (!isSuperAdmin) {
+    showToast('⚠️ केवल मुख्य व्यवस्थापक (Super Admin) को पासवर्ड बदलने का अधिकार है!');
+    return;
+  }
+
   const currentPass = getCustomUserPassword(userId) || (userId === 'admin' ? 'admin2026' : (userId === 'block_prabhari' ? 'BHINAI123' : ''));
   const newPass = prompt(`'${name}' (${userId}) के लिए नया पासवर्ड दर्ज करें:`, currentPass);
   if (!newPass || !newPass.trim()) return;
@@ -7810,6 +7840,11 @@ function exportDatabaseBackup() {
 // ==========================================================================
 
 function openAddBloModal() {
+  const isSuperAdmin = State.currentUser && (State.currentUser.role === 'SUPER_ADMIN' || State.currentUser.role === 'admin' || String(State.currentUser.id || State.currentUser.username || '').toLowerCase() === 'admin');
+  if (!isSuperAdmin) {
+    showToast('⚠️ केवल मुख्य व्यवस्थापक (Super Admin) को यह अधिकार है!');
+    return;
+  }
   const modal = document.getElementById('addEditBloModal');
   if (!modal) return;
   const form = document.getElementById('bloEditForm');
