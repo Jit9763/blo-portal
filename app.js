@@ -835,21 +835,39 @@ function renderAdminCandTab() {
     const canDownload = (ov.can_download !== undefined) ? ov.can_download : true;
     const scope = ov.allowed_panchayats || c.panchayat || 'ALL';
 
+    let cand = c.candidate;
+    if (!cand) {
+      try {
+        cand = JSON.parse(localStorage.getItem('candidate_profile_' + cid) || localStorage.getItem('candidate_profile_' + (c.username || '')) || 'null');
+      } catch(e) {}
+    }
+    const candName = (cand && cand.candidate_name) || c.full_name || c.name || cid;
+    const candMobile = (cand && cand.mobile) || c.mobile || '-';
+    const candSymbol = (cand && cand.symbol_name) || '';
+    const candPhoto = (cand && cand.photo_url) || '';
+    const agentName = (cand && cand.agent_name) || '';
+
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>
         <strong style="color:#d97706;">${cid}</strong>
       </td>
       <td>
-        <div style="font-weight:700; color:#0f172a;">${c.name}</div>
-        <div style="font-size:0.75rem; color:#64748b;">${c.designation || 'प्रत्याशी'}</div>
+        <div style="display:flex; align-items:center; gap:8px;">
+          ${candPhoto ? `<img src="${candPhoto}" style="width:28px; height:28px; border-radius:50%; object-fit:cover; border:1.5px solid #d97706; flex-shrink:0;">` : `<span style="font-size:1.1rem; flex-shrink:0;">👤</span>`}
+          <div>
+            <div style="font-weight:700; color:#0f172a;">${candName}</div>
+            <div style="font-size:0.75rem; color:#64748b;">${c.designation || cand.post || 'प्रत्याशी'} ${agentName ? `• एजेंट: ${agentName}` : ''}</div>
+          </div>
+        </div>
       </td>
       <td>
-        <div style="font-weight:700; color:#1e40af;">🏛️ ${c.panchayat || '-'}</div>
-        <div style="font-size:0.75rem; color:#d97706; font-weight:700;">वार्ड: ${c.allowed_wards || 'समस्त'}</div>
+        <div style="font-weight:700; color:#1e40af;">🏛️ ${c.panchayat || (cand && cand.panchayat) || '-'}</div>
+        <div style="font-size:0.75rem; color:#d97706; font-weight:700;">वार्ड: ${c.allowed_wards || (cand && cand.ward) || 'समस्त'}</div>
+        ${candSymbol ? `<span class="badge" style="background:#fef3c7; color:#92400e; font-size:0.72rem; padding:2px 6px; border-radius:4px; margin-top:2px; display:inline-block;">🗳️ ${candSymbol}</span>` : ''}
       </td>
       <td>
-        <a href="tel:${c.mobile}" style="font-weight:700; color:#0284c7; text-decoration:none;">📞 ${c.mobile || '-'}</a>
+        <a href="tel:${candMobile}" style="font-weight:700; color:#0284c7; text-decoration:none;">📞 ${candMobile}</a>
       </td>
       <td>
         <div class="admin-pass-box">
@@ -891,7 +909,10 @@ function renderAdminCandTab() {
         </button>
       </td>
       <td style="text-align:center;">
-        <button type="button" class="admin-pass-btn admin-pass-btn-reset" onclick="resetUserPasswordToDefault('${cid}')" title="डिफ़ॉल्ट पासवर्ड (bhinai2026) करें">🔄 डिफ़ॉल्ट</button>
+        <div class="d-flex justify-content-center gap-1">
+          <button type="button" class="btn btn-xs btn-primary" onclick="openAdminCandidateModal('${cid}')" title="प्रत्याशी विवरण, फोटो व चुनाव चिन्ह संपादित करें" style="font-weight:700; padding:3px 7px;">✏️ संपादन</button>
+          <button type="button" class="admin-pass-btn admin-pass-btn-reset" onclick="resetUserPasswordToDefault('${cid}')" title="डिफ़ॉल्ट पासवर्ड करें">🔄 डिफ़ॉल्ट</button>
+        </div>
       </td>
     `;
     tbody.appendChild(tr);
@@ -900,6 +921,7 @@ function renderAdminCandTab() {
 
 // -------------------------------------------------------------------------
 // 4. RENDER TOP ADMINS TAB (SUPER ADMIN, INCHARGE, VYAVASTHAPAK, BLOCK PRABHARI)
+// FULL SUPER ADMIN COMMAND & GRANULAR PERMISSIONS AS REQUESTED
 // -------------------------------------------------------------------------
 function renderAdminTopAdminsTab() {
   const tbody = document.getElementById('adminTopAdminsTableBody');
@@ -911,32 +933,36 @@ function renderAdminTopAdminsTab() {
       name: 'मुख्य व्यवस्थापक (Super Admin)',
       role_title: '👑 मुख्य व्यवस्थापक',
       mobile: '7023293283',
-      scope: 'सम्पूर्ण नियंत्रण - समस्त 30 पंचायतें, डेटा संपादन, यूजर प्रबंधन',
-      default_pass: 'admin2026'
+      scope: 'ALL',
+      default_pass: 'admin2026',
+      default_tabs: ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab', 'candidateProfileTab', 'adminControlTab', 'settingsTab']
     },
     {
       id: 'incharge',
       name: 'ब्लॉक इनचार्ज (Incharge)',
       role_title: '👁️ ब्लॉक इनचार्ज',
       mobile: '7023293283',
-      scope: 'समस्त 30 ग्राम पंचायतें (केवल अवलोकन / View Only - नो एडिट)',
-      default_pass: 'incharge2026'
+      scope: 'ALL',
+      default_pass: 'incharge2026',
+      default_tabs: ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab']
     },
     {
       id: 'vyavasthapak',
       name: 'व्यवस्थापक (Vyavasthapak)',
       role_title: '🖨️ व्यवस्थापक',
       mobile: '9950705221',
-      scope: 'समस्त 30 ग्राम पंचायतें (मतदाता सूची अवलोकन, पर्ची डाउनलोड एवं प्रिंट)',
-      default_pass: 'vyavastha2026'
+      scope: 'ALL',
+      default_pass: 'vyavastha2026',
+      default_tabs: ['dashboardTab', 'searchTab', 'alphaTab', 'bulkSlipTab', 'directoryTab']
     },
     {
       id: 'block_prabhari',
       name: 'ब्लॉक प्रभारी',
       role_title: '🌟 ब्लॉक प्रभारी',
       mobile: '9950705221',
-      scope: 'समस्त 30 ग्राम पंचायतें (मतदाता खोज, डायरेक्टरी एवं समग्र नियंत्रण)',
-      default_pass: 'BHINAI123'
+      scope: 'ALL',
+      default_pass: 'BHINAI123',
+      default_tabs: ['dashboardTab', 'searchTab', 'alphaTab', 'directoryTab']
     }
   ];
 
@@ -944,33 +970,94 @@ function renderAdminTopAdminsTab() {
   tbody.innerHTML = '';
 
   topAdmins.forEach(adm => {
-    const ov = overrides[adm.id] || {};
-    const pass = ov.password || adm.default_pass;
+    const aid = adm.id;
+    const ov = overrides[aid] || {};
+    const userInDb = (State.adminControlUsers || []).find(u => (u.id || u.username) === aid) || {};
+
+    const pass = ov.password || userInDb.password || adm.default_pass;
+    const status = ov.status || userInDb.status || 'ACTIVE';
+    const isActive = (status === 'ACTIVE');
+    const fullName = userInDb.full_name || userInDb.fullName || ov.full_name || adm.name;
+    const mobile = userInDb.mobile || ov.mobile || adm.mobile;
+    const ovTabs = ov.allowed_tabs || userInDb.allowed_tabs || adm.default_tabs;
+    const allowedTabs = Array.isArray(ovTabs) ? ovTabs : adm.default_tabs;
+    const canPrint = (ov.can_print !== undefined) ? ov.can_print : (userInDb.can_print !== undefined ? userInDb.can_print : true);
+    const canDownload = (ov.can_download !== undefined) ? ov.can_download : (userInDb.can_download !== undefined ? userInDb.can_download : true);
+    const scope = ov.allowed_panchayats || userInDb.allowed_panchayats || adm.scope;
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td><strong style="color:#1e40af;">${adm.id}</strong></td>
       <td>
-        <div style="font-weight:700; color:#0f172a;">${adm.name}</div>
+        <strong style="color:#1e40af; font-size:0.95rem;">${aid}</strong>
+        <div style="margin-top:2px;">
+          <span class="badge" style="background:#fef3c7; color:#92400e; font-weight:700; font-size:0.75rem; border:1px solid #fde68a;">
+            ${adm.role_title}
+          </span>
+        </div>
       </td>
       <td>
-        <span class="badge" style="background:#fef3c7; color:#92400e; font-weight:700; font-size:0.82rem; border:1px solid #fde68a;">
-          ${adm.role_title}
-        </span>
+        <input type="text" class="form-input form-input-sm" value="${fullName}" onchange="updateUserField('${aid}', 'full_name', this.value)" style="font-weight:700; font-size:0.82rem; margin-bottom:2px;" title="नाम संपादित करें">
+        <div style="font-size:0.75rem; color:#64748b;">${adm.role_title}</div>
       </td>
       <td>
-        <a href="tel:${adm.mobile}" style="font-weight:700; color:#0284c7; text-decoration:none;">📞 ${adm.mobile}</a>
+        <input type="tel" class="form-input form-input-sm" value="${mobile}" placeholder="मोबाइल नं." onchange="updateUserField('${aid}', 'mobile', this.value)" style="font-size:0.78rem; font-weight:600; margin-bottom:2px;">
+        <a href="tel:${mobile}" style="font-size:0.72rem; color:#0284c7; text-decoration:none; font-weight:700;">📞 कॉल करें</a>
       </td>
       <td>
         <div class="admin-pass-box">
-          <input type="password" class="admin-pass-input" value="${pass}" id="pass_input_${adm.id}" onchange="quickUpdatePassword('${adm.id}', this.value)">
-          <button type="button" class="admin-pass-btn" onclick="togglePassVisibility('pass_input_${adm.id}')" title="पासवर्ड देखें / छिपाएं">👁️</button>
-          <button type="button" class="admin-pass-btn admin-pass-btn-save" onclick="quickUpdatePassword('${adm.id}', document.getElementById('pass_input_${adm.id}').value)" title="पासवर्ड सुरक्षित करें">💾</button>
+          <input type="password" class="admin-pass-input" value="${pass}" id="pass_input_${aid}" onchange="quickUpdatePassword('${aid}', this.value)">
+          <button type="button" class="admin-pass-btn" onclick="togglePassVisibility('pass_input_${aid}')" title="पासवर्ड देखें / छिपाएं">👁️</button>
+          <button type="button" class="admin-pass-btn admin-pass-btn-save" onclick="quickUpdatePassword('${aid}', document.getElementById('pass_input_${aid}').value)" title="पासवर्ड सुरक्षित करें">💾</button>
         </div>
       </td>
-      <td><div style="font-size:0.82rem; color:#475569;">${adm.scope}</div></td>
+      <td>
+        <div class="mb-1" style="font-size:0.75rem; font-weight:700; color:#334155;">अनुमत टैब एवं अधिकार:</div>
+        <div class="d-flex flex-wrap gap-1 align-items-center mb-1">
+          <label class="perm-check-item ${allowedTabs.includes('searchTab') ? 'active' : ''}" title="मतदाता खोज">
+            <input type="checkbox" ${allowedTabs.includes('searchTab') ? 'checked' : ''} onchange="toggleUserTab('${aid}', 'searchTab', this.checked)">
+            <span>🔍 खोज</span>
+          </label>
+          <label class="perm-check-item ${allowedTabs.includes('alphaTab') ? 'active' : ''}" title="वर्णमाला सूची">
+            <input type="checkbox" ${allowedTabs.includes('alphaTab') ? 'checked' : ''} onchange="toggleUserTab('${aid}', 'alphaTab', this.checked)">
+            <span>🔤 वर्णमाला</span>
+          </label>
+          <label class="perm-check-item ${allowedTabs.includes('directoryTab') ? 'active' : ''}" title="वार्ड व डायरेक्टरी">
+            <input type="checkbox" ${allowedTabs.includes('directoryTab') ? 'checked' : ''} onchange="toggleUserTab('${aid}', 'directoryTab', this.checked)">
+            <span>📖 वार्ड</span>
+          </label>
+          <label class="perm-check-item ${allowedTabs.includes('bulkSlipTab') ? 'active' : ''}" title="पर्ची प्रिंट">
+            <input type="checkbox" ${allowedTabs.includes('bulkSlipTab') ? 'checked' : ''} onchange="toggleUserTab('${aid}', 'bulkSlipTab', this.checked)">
+            <span>🖨️ पर्ची</span>
+          </label>
+          <label class="perm-check-item ${canDownload ? 'active' : ''}" title="डाउनलोड अनुमति">
+            <input type="checkbox" ${canDownload ? 'checked' : ''} onchange="toggleUserPermission('${aid}', 'can_download', this.checked)">
+            <span>📥 डाउनलोड</span>
+          </label>
+          <label class="perm-check-item ${allowedTabs.includes('dashboardTab') ? 'active' : ''}" title="डैशबोर्ड">
+            <input type="checkbox" ${allowedTabs.includes('dashboardTab') ? 'checked' : ''} onchange="toggleUserTab('${aid}', 'dashboardTab', this.checked)">
+            <span>📊 डैशबोर्ड</span>
+          </label>
+        </div>
+      </td>
+      <td>
+        <div class="d-flex align-items-center gap-1" style="min-height:36px;">
+          <select class="form-select admin-scope-select" onchange="updateUserScope('${aid}', this.value)">
+            <option value="ALL" ${scope === 'ALL' ? 'selected' : ''}>🌐 समस्त 30 पं.</option>
+            <option value="CUSTOM" ${scope !== 'ALL' ? 'selected' : ''}>📍 विशिष्ट दायरा</option>
+          </select>
+          <button type="button" class="btn btn-scope-allot" onclick="openCustomScopeModal('${aid}')" title="कस्टम आवंटन">🎯</button>
+        </div>
+      </td>
       <td style="text-align:center;">
-        <button type="button" class="admin-pass-btn admin-pass-btn-reset" onclick="resetUserPasswordToDefault('${adm.id}')" title="डिफ़ॉल्ट पासवर्ड (bhinai2026) करें">🔄 डिफ़ॉल्ट</button>
+        <button type="button" class="btn btn-xs ${isActive ? 'btn-success' : 'btn-danger'}" onclick="toggleUserStatus('${aid}')" style="font-weight:700; font-size:0.75rem; min-width:65px;">
+          ${isActive ? '🟢 सक्रिय' : '🔴 निष्क्रिय'}
+        </button>
+      </td>
+      <td style="text-align:center;">
+        <div class="d-flex justify-content-center gap-1">
+          <button type="button" class="btn btn-scope-allot" onclick="openCustomScopeModal('${aid}')" title="कस्टम आवंटन व अधिकार">🎯 दायरा</button>
+          <button type="button" class="admin-pass-btn admin-pass-btn-reset" onclick="resetUserPasswordToDefault('${aid}')" title="डिफ़ॉल्ट पासवर्ड करें">🔄 डिफ़ॉल्ट</button>
+        </div>
       </td>
     `;
     tbody.appendChild(tr);
@@ -6028,6 +6115,7 @@ async function handleCreateUserSubmit(event) {
     symbol_icon: 'sun',
     show_banner_on_slip: true
   };
+  newUser.candidate = initCand;
   localStorage.setItem('candidate_profile_' + userFullId, JSON.stringify(initCand));
   localStorage.setItem('candidate_profile_' + username, JSON.stringify(initCand));
   localStorage.setItem('candidate_profile_' + username.toLowerCase(), JSON.stringify(initCand));
@@ -6073,35 +6161,77 @@ async function deleteAdminUser(userId) {
 }
 
 function openAdminCandidateModal(userId) {
-  const u = State.adminControlUsers.find(x => (x.id || x.username) === userId);
-  if (!u) return;
+  const u = (State.adminControlUsers || []).find(x => (x.id || x.username) === userId) || { id: userId, username: userId };
 
   const titleEl = document.getElementById('adminCandidateModalUserTitle');
-  if (titleEl) titleEl.textContent = `${u.full_name || u.username} (${userId})`;
+  if (titleEl) titleEl.textContent = `${u.full_name || u.name || u.username} (${userId})`;
 
   document.getElementById('adminCandTargetUserId').value = userId;
 
+  // Populate 30 Gram Panchayats dropdown
+  const gpSelect = document.getElementById('adminCandGpSelect');
+  if (gpSelect) {
+    gpSelect.innerHTML = '';
+    const panchayats = State.panchayats || (window.MASTER_DATA && window.MASTER_DATA.panchayats) || [];
+    panchayats.forEach(p => {
+      const pName = p.name_hi || p.name || '';
+      const pCode = p.code || p.name_en || '';
+      const opt = document.createElement('option');
+      opt.value = pName;
+      opt.textContent = `🏛️ ${pName} (${pCode})`;
+      gpSelect.appendChild(opt);
+    });
+  }
+
+  // Populate Symbols dropdown
   const symbols = window.OFFICIAL_ELECTION_SYMBOLS || [];
   const symSelect = document.getElementById('adminCandSymbol');
   if (symSelect && symSelect.options.length === 0) {
     symbols.forEach(s => {
       const opt = document.createElement('option');
       opt.value = s.id;
-      opt.textContent = s.name_hi;
+      opt.textContent = `${s.name_hi}`;
       symSelect.appendChild(opt);
     });
   }
 
-  const cand = u.candidate || {};
-  document.getElementById('adminCandName').value = cand.candidate_name || u.full_name || '';
-  document.getElementById('adminCandPost').value = cand.post || 'सरपंच';
-  document.getElementById('adminCandGp').value = cand.panchayat || (u.allowed_panchayats !== 'ALL' ? u.allowed_panchayats : 'बूबकिया');
-  document.getElementById('adminCandWard').value = cand.ward || '';
+  let cand = u.candidate;
+  if (!cand) {
+    try {
+      cand = JSON.parse(localStorage.getItem('candidate_profile_' + userId) || localStorage.getItem('candidate_profile_' + (u.username || '')) || 'null');
+    } catch(e) {}
+  }
+  if (!cand) cand = {};
+
+  document.getElementById('adminCandName').value = cand.candidate_name || u.full_name || u.name || '';
+  document.getElementById('adminCandMobile').value = cand.mobile || u.mobile || '';
+  document.getElementById('adminCandAgentName').value = cand.agent_name || '';
+  document.getElementById('adminCandPost').value = cand.post || (u.allowed_wards && u.allowed_wards !== 'ALL' ? 'वार्ड पंच' : 'सरपंच');
+  
+  const targetGp = cand.panchayat || u.panchayat || (u.allowed_panchayats !== 'ALL' ? u.allowed_panchayats : 'बूबकिया');
+  if (gpSelect) gpSelect.value = targetGp;
+
+  document.getElementById('adminCandWard').value = cand.ward || (u.allowed_wards !== 'ALL' ? u.allowed_wards : '');
+  
   if (document.getElementById('adminCandElectionTime')) {
     document.getElementById('adminCandElectionTime').value = cand.election_time || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक';
   }
   document.getElementById('adminCandSlogan').value = cand.slogan || '';
   document.getElementById('adminCandPhotoUrl').value = cand.photo_url || '';
+  
+  if (document.getElementById('adminCandPhotoFile')) {
+    document.getElementById('adminCandPhotoFile').value = '';
+  }
+
+  const symId = cand.symbol_icon || 'sun';
+  if (symSelect) symSelect.value = symId;
+  document.getElementById('adminCandCustomSymbol').value = cand.symbol_name || '';
+
+  const showBannerCb = document.getElementById('adminCandShowBanner');
+  if (showBannerCb) showBannerCb.checked = (cand.show_banner_on_slip !== false);
+
+  updateAdminCandPhotoPreview();
+  updateAdminCandSymbolPreview();
 
   const modal = document.getElementById('adminCandidateModal');
   if (modal) modal.style.display = 'flex';
@@ -6112,39 +6242,183 @@ function closeAdminCandidateModal() {
   if (modal) modal.style.display = 'none';
 }
 
+function handleAdminCandPhotoFile(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const base64 = e.target.result;
+    document.getElementById('adminCandPhotoUrl').value = base64;
+    updateAdminCandPhotoPreview();
+  };
+  reader.readAsDataURL(file);
+}
+
+function updateAdminCandPhotoPreview() {
+  const url = (document.getElementById('adminCandPhotoUrl')?.value || '').trim();
+  const img = document.getElementById('adminCandPhotoPreviewImg');
+  const placeholder = document.getElementById('adminCandPhotoPlaceholder');
+  if (url && img) {
+    img.src = url;
+    img.style.display = 'block';
+    if (placeholder) placeholder.style.display = 'none';
+  } else if (img) {
+    img.src = '';
+    img.style.display = 'none';
+    if (placeholder) placeholder.style.display = 'block';
+  }
+}
+
+function clearAdminCandPhoto() {
+  const fileInp = document.getElementById('adminCandPhotoFile');
+  if (fileInp) fileInp.value = '';
+  const urlInp = document.getElementById('adminCandPhotoUrl');
+  if (urlInp) urlInp.value = '';
+  updateAdminCandPhotoPreview();
+}
+
+function onAdminCandSymbolChanged() {
+  const symId = document.getElementById('adminCandSymbol')?.value;
+  const symbols = window.OFFICIAL_ELECTION_SYMBOLS || [];
+  const symObj = symbols.find(s => s.id === symId);
+  if (symObj) {
+    document.getElementById('adminCandCustomSymbol').value = symObj.name_hi;
+  }
+  updateAdminCandSymbolPreview();
+}
+
+function onAdminCandCustomSymbolInput(val) {
+  const nameEl = document.getElementById('adminCandSymbolPreviewName');
+  if (nameEl) nameEl.textContent = val || 'उगता सूरज';
+}
+
+function updateAdminCandSymbolPreview() {
+  const symId = document.getElementById('adminCandSymbol')?.value || 'sun';
+  const customName = document.getElementById('adminCandCustomSymbol')?.value?.trim();
+  const symbols = window.OFFICIAL_ELECTION_SYMBOLS || [];
+  const symObj = symbols.find(s => s.id === symId) || symbols[0];
+
+  const svgBox = document.getElementById('adminCandSymbolPreviewSvg');
+  const nameEl = document.getElementById('adminCandSymbolPreviewName');
+  if (svgBox && symObj) svgBox.innerHTML = symObj.svg || '🗳️';
+  if (nameEl) nameEl.textContent = customName || (symObj ? symObj.name_hi : 'उगता सूरज');
+}
+
 async function handleAdminSaveCandidate(event) {
   if (event) event.preventDefault();
 
   const userId = document.getElementById('adminCandTargetUserId').value;
   const name = document.getElementById('adminCandName').value.trim();
+  const mobile = document.getElementById('adminCandMobile').value.trim();
+  const agentName = document.getElementById('adminCandAgentName').value.trim();
   const post = document.getElementById('adminCandPost').value;
-  const gp = document.getElementById('adminCandGp').value.trim();
+  const gp = document.getElementById('adminCandGpSelect')?.value || 'बूबकिया';
   const ward = document.getElementById('adminCandWard').value.trim();
   const electionTime = (document.getElementById('adminCandElectionTime')?.value || '').trim() || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक';
   const slogan = document.getElementById('adminCandSlogan').value.trim();
   const photo = document.getElementById('adminCandPhotoUrl').value.trim();
+  const showBanner = document.getElementById('adminCandShowBanner')?.checked !== false;
 
   const symbolId = document.getElementById('adminCandSymbol').value;
+  const customSymbol = document.getElementById('adminCandCustomSymbol').value.trim();
   const symbols = window.OFFICIAL_ELECTION_SYMBOLS || [];
   const symObj = symbols.find(s => s.id === symbolId) || symbols[0];
 
   const candData = {
     user_id: userId,
     candidate_name: name,
+    mobile: mobile,
+    agent_name: agentName,
     post: post,
     panchayat: gp,
     ward: ward,
     election_time: electionTime,
-    symbol_name: symObj.name_hi,
+    symbol_name: customSymbol || symObj.name_hi,
     symbol_icon: symObj.id,
+    symbol_svg: symObj.svg || '',
     photo_url: photo,
     slogan: slogan,
-    show_banner_on_slip: 1
+    show_banner_on_slip: showBanner,
+    updated_at: new Date().toISOString()
   };
 
-  const u = State.adminControlUsers.find(x => (x.id || x.username) === userId);
-  if (u) u.candidate = candData;
+  // 1. Update in State.adminControlUsers
+  if (!State.adminControlUsers) State.adminControlUsers = [];
+  let u = State.adminControlUsers.find(x => (x.id || x.username) === userId);
+  if (u) {
+    u.name = name;
+    u.full_name = name;
+    u.mobile = mobile;
+    u.panchayat = gp;
+    u.allowed_panchayats = gp;
+    u.allowed_wards = ward || 'ALL';
+    u.candidate = candData;
+  }
 
+  // 2. Update in State.adminUsers
+  if (State.adminUsers) {
+    let au = State.adminUsers.find(x => (x.id || x.username || x.user_id) === userId);
+    if (au) {
+      au.name = name;
+      au.full_name = name;
+      au.mobile = mobile;
+      au.panchayat = gp;
+      au.allowed_panchayats = gp;
+      au.allowed_wards = ward || 'ALL';
+      au.candidate = candData;
+    }
+  }
+
+  // 3. Persist to localStorage across all aliases so candidate login reflects immediately
+  const aliasKeys = [userId, (u && u.username), (u && u.id)].filter(Boolean);
+  aliasKeys.forEach(k => {
+    localStorage.setItem('candidate_profile_' + k, JSON.stringify(candData));
+    localStorage.setItem('candidate_profile_' + k.toLowerCase(), JSON.stringify(candData));
+    saveUserOverride(k, 'candidate', candData);
+    saveUserOverride(k, 'mobile', mobile);
+    saveUserOverride(k, 'full_name', name);
+    saveUserOverride(k, 'allowed_panchayats', gp);
+    saveUserOverride(k, 'allowed_wards', ward || 'ALL');
+  });
+
+  // 4. Update portal_admin_users_overrides in localStorage
+  try {
+    localStorage.setItem('portal_admin_users_overrides', JSON.stringify(State.adminControlUsers));
+  } catch(e) {}
+
+  // 5. Update portal_custom_users in localStorage
+  try {
+    const customUsers = JSON.parse(localStorage.getItem('portal_custom_users') || '[]');
+    const cIdx = customUsers.findIndex(x => (x.id || x.username) === userId);
+    if (cIdx >= 0) {
+      customUsers[cIdx].name = name;
+      customUsers[cIdx].full_name = name;
+      customUsers[cIdx].mobile = mobile;
+      customUsers[cIdx].panchayat = gp;
+      customUsers[cIdx].allowed_panchayats = gp;
+      customUsers[cIdx].allowed_wards = ward || 'ALL';
+      customUsers[cIdx].candidate = candData;
+      localStorage.setItem('portal_custom_users', JSON.stringify(customUsers));
+    }
+  } catch(e) {}
+
+  // 6. If currently logged in user is this candidate, apply live immediately
+  if (State.currentUser && (State.currentUser.id === userId || State.currentUser.username === userId)) {
+    State.currentCandidate = candData;
+    State.currentUser.full_name = name;
+    State.currentUser.name = name;
+    State.currentUser.mobile = mobile;
+    State.currentUser.panchayat = gp;
+    State.currentUser.allowed_panchayats = gp;
+    State.currentUser.allowed_wards = ward || 'ALL';
+    State.currentUser.candidate = candData;
+    localStorage.setItem('panchayat_current_user', JSON.stringify(State.currentUser));
+  }
+
+  // 7. Save to Node.js backend & SQLite (which exports to portal_users.json and syncs both workspaces)
+  if (u) {
+    await saveAdminUserToServer(u);
+  }
   try {
     await fetch('/api/candidate/' + encodeURIComponent(userId), {
       method: 'POST',
@@ -6155,9 +6429,14 @@ async function handleAdminSaveCandidate(event) {
     console.log('Candidate save fallback:', e);
   }
 
+  // 8. Close modal, refresh tables & UI
   closeAdminCandidateModal();
-  renderAdminControlTab();
-  showToast('✅ प्रत्याशी विवरण सुरक्षित!');
+  if (typeof renderAdminCandTab === 'function') renderAdminCandTab();
+  if (typeof renderAdminControlTab === 'function') renderAdminControlTab();
+  if (typeof renderCandidateProfileForm === 'function' && State.activeTab === 'candidateProfileTab') {
+    renderCandidateProfileForm();
+  }
+  showToast(`✅ प्रत्याशी / एजेंट '${name}' (${userId}) का विवरण, चुनाव चिन्ह व फोटो सफलतापूर्वक सुरक्षित व लागू!`);
 }
 
 async function syncAllAdminStateToCloud() {

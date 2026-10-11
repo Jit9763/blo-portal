@@ -627,8 +627,56 @@ const server = http.createServer(async (req, res) => {
           );
         }
 
+        // Atomically upsert candidate details if provided
+        if (u.candidate && typeof u.candidate === 'object') {
+          const c = u.candidate;
+          const candId = existing ? existing.id : userId;
+          const existCand = db.prepare('SELECT user_id FROM candidates WHERE user_id = ?').get(candId);
+          if (existCand) {
+            db.prepare(`
+              UPDATE candidates SET
+                candidate_name = ?, post = ?, panchayat = ?, ward = ?, symbol_name = ?, symbol_icon = ?,
+                photo_url = ?, slogan = ?, election_time = ?, mobile = ?, show_banner_on_slip = ?, updated_at = ?
+              WHERE user_id = ?
+            `).run(
+              c.candidate_name || u.full_name || '',
+              c.post || 'सरपंच',
+              c.panchayat || u.allowed_panchayats || '',
+              c.ward || u.allowed_wards || '',
+              c.symbol_name || 'उगता सूरज',
+              c.symbol_icon || 'sun',
+              c.photo_url || '',
+              c.slogan || '',
+              c.election_time || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक',
+              c.mobile || u.mobile || '',
+              c.show_banner_on_slip ? 1 : 0,
+              new Date().toISOString(),
+              candId
+            );
+          } else {
+            db.prepare(`
+              INSERT INTO candidates (user_id, candidate_name, post, panchayat, ward, symbol_name, symbol_icon, photo_url, slogan, election_time, mobile, show_banner_on_slip, updated_at)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            `).run(
+              candId,
+              c.candidate_name || u.full_name || '',
+              c.post || 'सरपंच',
+              c.panchayat || u.allowed_panchayats || '',
+              c.ward || u.allowed_wards || '',
+              c.symbol_name || 'उगता सूरज',
+              c.symbol_icon || 'sun',
+              c.photo_url || '',
+              c.slogan || '',
+              c.election_time || 'प्रातः 7:00 बजे से सायं 5:00 बजे तक',
+              c.mobile || u.mobile || '',
+              c.show_banner_on_slip ? 1 : 0,
+              new Date().toISOString()
+            );
+          }
+        }
+
         exportToJson();
-        res.end(JSON.stringify({ success: true, message: 'उपयोगकर्ता सफलतापूर्वक सुरक्षित!' }));
+        res.end(JSON.stringify({ success: true, message: 'उपयोगकर्ता एवं प्रत्याशी विवरण सफलतापूर्वक सुरक्षित!' }));
       } catch (err) {
         console.error('Save user error:', err);
         res.writeHead(500);
