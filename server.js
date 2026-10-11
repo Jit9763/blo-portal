@@ -7,7 +7,10 @@
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
+const zlib = require('node:zlib');
 const { DatabaseSync } = require('node:sqlite');
+
+const staticCache = new Map();
 
 const PORT = process.env.PORT || 3000;
 const DB_PATH = path.join(__dirname, 'db.sqlite');
@@ -808,7 +811,7 @@ const server = http.createServer(async (req, res) => {
   }
 
   // =========================================================================
-  // STATIC FILE SERVING
+  // HIGH-SPEED STATIC FILE SERVING WITH GZIP COMPRESSION & MEMORY CACHE
   // =========================================================================
   let safePath = path.normalize(pathname).replace(/^(\.\.[\/\\])+/, '');
   if (safePath === '/' || safePath === '\\') safePath = '/index.html';
@@ -820,16 +823,38 @@ const server = http.createServer(async (req, res) => {
 
   const ext = path.extname(filePath).toLowerCase();
   const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+  const isHtmlOrJson = (ext === '.html' || ext === '.json');
+  const acceptGzip = Boolean(req.headers['accept-encoding'] && req.headers['accept-encoding'].includes('gzip'));
+  const isCompressible = ['.html', '.css', '.js', '.json', '.svg', '.txt'].includes(ext);
 
   try {
-    const content = fs.readFileSync(filePath);
-    res.writeHead(200, {
-      'Content-Type': contentType,
-      'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
-      'Pragma': 'no-cache',
-      'Expires': '0'
-    });
-    res.end(content);
+    let cached = !isHtmlOrJson ? staticCache.get(filePath) : null;
+    if (!cached) {
+      const rawBuffer = fs.readFileSync(filePath);
+      const gzipBuffer = isCompressible ? zlib.gzipSync(rawBuffer, { level: 6 }) : null;
+      cached = { rawBuffer, gzipBuffer };
+      if (!isHtmlOrJson && (ext === '.js' || ext === '.css')) {
+        staticCache.set(filePath, cached);
+      }
+    }
+
+    if (acceptGzip && cached.gzipBuffer) {
+      res.writeHead(200, {
+        'Content-Type': contentType,
+        'Content-Encoding': 'gzip',
+        'Vary': 'Accept-Encoding',
+        'Cache-Control': isHtmlOrJson ? 'no-cache, must-revalidate' : 'public, max-age=3600',
+        'Content-Length': cached.gzipBuffer.length
+      });
+      res.end(cached.gzipBuffer);
+    } else {
+      res.writeHead(200, {
+        'Content-Type': contentType,
+        'Cache-Control': isHtmlOrJson ? 'no-cache, must-revalidate' : 'public, max-age=3600',
+        'Content-Length': cached.rawBuffer.length
+      });
+      res.end(cached.rawBuffer);
+    }
   } catch (e) {
     res.writeHead(500);
     res.end('Server Error: ' + e.message);
