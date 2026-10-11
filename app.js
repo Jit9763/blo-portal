@@ -2268,8 +2268,12 @@ function enforceGatekeeperState() {
     switchTab(firstAllowed);
   }
 
-  // Candidate Bulk Slip options: keep 9 slips, 21 slips, and Thermal (hide others for candidate)
-  if (isCandidateUser) {
+  // Candidate Bulk Slip options on voter-portal: keep 9, 21, and Thermal
+  // On other portals (PAN, BLO): KEEP ALL LAYOUTS (12, 15, 18, 20, 21, 9, 10, Thermal) VISIBLE AND SELECTABLE!
+  const isVoterRepo = (window.PORTAL_TYPE === 'voter') || 
+                      (window.location && window.location.href && window.location.href.toLowerCase().includes('/voter-portal'));
+
+  if (isVoterRepo && isCandidateUser) {
     ['layoutCard10', 'layoutCard12', 'layoutCard15', 'layoutCard18', 'layoutCard20'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.style.display = 'none';
@@ -3190,6 +3194,14 @@ function shareVoterSlipWhatsAppByIndex(index) {
 // OFFICIAL VOTER SLIP MODAL (Candidate vs Official Determination)
 // ==========================================================================
 function isCandidateSlipAllowedForVoter(voter) {
+  // STRICT REQUIREMENT: Candidate branding is strictly limited to voter-portal repo!
+  // On all other repositories (PAN / Master Admin, BLO Portal), candidate details must NEVER appear.
+  const isVoterRepo = (window.PORTAL_TYPE === 'voter') || 
+                      (window.location && window.location.href && window.location.href.toLowerCase().includes('/voter-portal'));
+  if (!isVoterRepo) {
+    return false;
+  }
+
   if (!State.currentUser || !voter) return false;
   const u = State.currentUser;
   const isCandidateRole = (u.role === 'CANDIDATE' || u.type === 'CANDIDATE' || (u.id && String(u.id).startsWith('cand_')) || u.candidate_mode === 'user_edit' || u.candidate_mode === 'active');
@@ -4352,10 +4364,25 @@ function printFilteredResults() {
   window.print();
 }
 
+function closeAllOpenModals() {
+  const modalIds = [
+    'customScopeModal', 'adminCandidateModal', 'addNewUserModal', 'addUserModal',
+    'addEditBloModal', 'addEditCellModal', 'editPersonnelModal', 'selfChangePasswordModal',
+    'changePasswordModal', 'printVoterListModal', 'portalPreviewModal', 'voterSlipModal',
+    'slipCutViewerModal'
+  ];
+  modalIds.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.style.display !== 'none') {
+      el.style.display = 'none';
+    }
+  });
+}
+
 function initUiElements() {
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      closeVoterSlipModal();
+      closeAllOpenModals();
     }
   });
 }
@@ -5531,7 +5558,16 @@ function buildExactOfficialSlipInnerHtml(voter) {
 }
 
 window.buildOfficialSlipHtml = function(voter, layout, theme) {
-  // Requirement: 21 slips on A4 page must display ONLY the official voter slip without candidate details!
+  // STRICT RULE: On all other portals (PAN, BLO, etc.), candidate details NEVER appear on any layout (9, 10, 12, 15, 18, 20, 21, thermal)!
+  // Always render pure clean official voter slip (identical to 21-slip format).
+  const isVoterRepo = (window.PORTAL_TYPE === 'voter') || 
+                      (window.location && window.location.href && window.location.href.toLowerCase().includes('/voter-portal'));
+
+  if (!isVoterRepo) {
+    return buildExactOfficialSlipInnerHtml(voter);
+  }
+
+  // Requirement on voter-portal: 21 slips on A4 page must display ONLY the official voter slip without candidate details!
   if (String(layout) === '21') {
     return buildExactOfficialSlipInnerHtml(voter);
   }

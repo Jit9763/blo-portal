@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
+  <script>window.PORTAL_TYPE = "pan";</script>
+  <script>window.PORTAL_TYPE = "pan";</script>
+  <script>window.PORTAL_TYPE = "pan";</script>
+  <script>window.PORTAL_TYPE = "pan";</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
@@ -53,13 +57,19 @@
 
         <!-- Simplified Unified Login Form -->
         <form id="gatekeeperLoginForm" onsubmit="handleGatekeeperLogin(event)" style="margin-top:12px;">
-          <!-- DIRECT USER ID INPUT -->
+          <input type="hidden" id="gatekeeperUsername" value="admin">
+
+          <!-- SINGLE DROPDOWN: पद चुनें -->
           <div class="form-group mb-3">
-            <label for="gatekeeperUsername" style="font-size:0.9rem; color:#0f172a; font-weight:700;"><strong>यूजर आईडी (User ID) *:</strong></label>
-            <div class="input-with-icon">
-              <span class="input-icon">👤</span>
-              <input type="text" id="gatekeeperUsername" class="form-input" placeholder="यूजर आईडी दर्ज करें (उदा. cand_gp01, blo_1)" required autocomplete="username" style="font-weight:700; height:44px; background:#ffffff; color:#0f172a; border:1.5px solid #cbd5e1;">
-            </div>
+            <label for="panAdminSelect" style="font-size:0.9rem; color:#0f172a; font-weight:700;">
+              <strong>1. अधिकृत पद चुनें *:</strong>
+            </label>
+            <select id="panAdminSelect" class="form-select" onchange="document.getElementById('gatekeeperUsername').value = this.value; document.getElementById('gatekeeperPassword').focus();" style="font-weight:700; cursor:pointer; font-size:0.95rem; height:44px; border:2px solid #cbd5e1; background:#ffffff; color:#0f172a;">
+              <option value="admin">👑 मुख्य व्यवस्थापक (Super Admin - पूर्ण नियंत्रण)</option>
+              <option value="incharge">👁️ ब्लॉक इनचार्ज (Incharge - केवल अवलोकन/All Tabs View)</option>
+              <option value="vyavasthapak">🖨️ व्यवस्थापक (Vyavasthapak - प्रिंट व डाउनलोड)</option>
+              <option value="block_prabhari">🌟 ब्लॉक प्रभारी</option>
+            </select>
           </div>
 
           <!-- PASSWORD FIELD -->
@@ -82,7 +92,7 @@
           <div id="gatekeeperError" class="alert-error" style="display:none; margin-bottom:12px;"></div>
 
           <button type="submit" class="btn btn-login-submit btn-block" style="height:44px; font-size:1rem; font-weight:700;">
-            <span>मतदाता पोर्टल में प्रवेश करें (Login & Access)</span>
+            <span>मास्टर एडमिन पोर्टल में प्रवेश करें (Login)</span>
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </form>
@@ -389,14 +399,9 @@
           <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
             <div>
               <span class="gatekeeper-badge">📍 भिनाय ब्लॉक (Bhinai Block), जिला अजमेर</span>
-              <h2 class="section-title mt-1">🖨️ मतदाता सूचना पर्ची बल्क जनरेटर एवं डाउनलोड</h2>
-              <p class="section-subtitle">9, 12, 15 पर्चियाँ प्रति A4 पेज अथवा 58mm थर्मल ब्लूटूथ प्रिंटर फॉर्मेट में डाउनलोड एवं प्रिंट करें</p>
+              <h2 class="section-title mt-1">🖨️ मतदाता पर्ची प्रिंट एवं डाउनलोड</h2>
+              <p class="section-subtitle">12, 15, 18, 21 पर्चियाँ प्रति A4 पेज अथवा 58mm थर्मल ब्लूटूथ प्रिंटर फॉर्मेट में डाउनलोड एवं प्रिंट करें</p>
             </div>
-          </div>
-
-          <!-- Official Administrative Notice Banner -->
-          <div style="background:#eff6ff; border-left:4px solid #1e3a8a; padding:0.75rem 1rem; border-radius:0 var(--radius-md) var(--radius-md) 0; margin:1rem 0; font-size:0.85rem; color:#1e3a8a; line-height:1.4;">
-            <strong>⚖️ आधिकारिक रूप से मान्य प्रारूप:</strong> यह पर्ची उपखंड अधिकारी (SDM) / राज्य निर्वाचन आयोग द्वारा प्राधिकृत <strong>आधिकारिक मतदाता सूचना पर्ची (Official Voter Information Slip)</strong> है। इसमें किसी भी चुनाव लड़ने वाले उम्मीदवार, फोटो या चुनाव चिन्ह का उल्लेख नहीं है। यह सीधे मतदान केंद्र में प्रवेश व पहचान सत्यापन हेतु प्रयुक्त होती है।
           </div>
 
           <!-- Top Filter Selection Row -->
@@ -800,8 +805,8 @@
           <div class="candidate-header-row mb-3">
             <div>
               <span class="gatekeeper-badge" style="background:#ecfdf5; color:#047857; border-color:#a7f3d0;">🗳️ राजस्थान पंचायती राज चुनाव - 2026</span>
-              <h2 class="section-title mt-1">👤 प्रत्याशी प्रोफाइल एवं आधिकारिक चुनाव चिन्ह</h2>
-              <p class="section-subtitle">अपनी रंगीन फोटो, पद, ग्राम पंचायत, वार्ड एवं राज्य निर्वाचन आयोग द्वारा स्वीकृत चुनाव चिन्ह चुनें। यही विवरण आपकी मतदाता पर्ची के शीर्ष पर रंगीन प्रचार बैनर के रूप में प्रिंट होगा।</p>
+              <h2 class="section-title mt-1">👤 प्रत्याशी प्रोफाइल एवं चुनाव चिन्ह</h2>
+              <p class="section-subtitle">अपनी फोटो, पद, ग्राम पंचायत, वार्ड एवं चुनाव चिन्ह चुनें। यही विवरण आपकी मतदाता पर्ची के शीर्ष पर प्रचार बैनर के रूप में प्रिंट होगा।</p>
             </div>
             <div id="candidateModeBadge">
               <span class="badge" style="background:#e0f2fe; color:#0369a1; padding: 6px 14px; border-radius: 20px; font-weight:700; font-size:0.85rem;">🟢 लाइव एक्टिव</span>
@@ -826,14 +831,14 @@
 
               <!-- Symbol Picker Box -->
               <div class="form-group symbol-picker-box mt-3">
-                <label><strong>🚩 चुनाव चिन्ह चुनें (Official SEC Symbol) *:</strong></label>
+                <label><strong>🚩 चुनाव चिन्ह चुनें (Election Symbol) *:</strong></label>
                 <div class="selected-symbol-display" id="selectedSymbolPreviewBox">
                   <div id="currentSymbolSvgWrapper" class="symbol-svg-wrapper">
                     <!-- SVG gets inserted here -->
                   </div>
                   <div>
                     <h4 id="currentSymbolNameText" style="margin:0; font-size:1.15rem; color:#1e293b; font-weight:800;">उगता सूरज</h4>
-                    <span style="font-size:0.75rem; color:#64748b;">राज्य निर्वाचन आयोग आधिकारिक प्रतीक</span>
+                    <span style="font-size:0.75rem; color:#64748b;">मानक चुनाव प्रतीक</span>
                   </div>
                 </div>
 
@@ -1843,7 +1848,7 @@
 
   <!-- Single-Row Compact Voter List Print Options Modal -->
   <div id="printVoterListModal" class="modal-overlay no-print" style="display:none;" onclick="if(event.target===this) closePrintListModal()">
-    <div class="modal-container" style="max-width: 500px; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);">
+    <div class="modal-container" style="max-width: 500px;">
       <div class="modal-header" style="background:#1e3a8a; color:#ffffff; padding: 1rem 1.25rem;">
         <div class="modal-header-left">
           <span class="modal-badge" style="background:rgba(255,255,255,0.2); color:#ffffff;">🖨️ मतदाता सूची प्रिंटर</span>
@@ -1996,12 +2001,12 @@
        MODAL: CUSTOM SCOPE & ALLOTMENT MODAL (कस्टम कार्यक्षेत्र एवं बूथ/वार्ड आवंटन)
        ============================================================== -->
   <div id="customScopeModal" class="modal-overlay" style="display:none;" onclick="if(event.target===this) closeCustomScopeModal()">
-    <div class="modal-card" style="max-width:640px; background:#ffffff; color:#0f172a; border-radius:12px; box-shadow:0 25px 50px -12px rgba(0,0,0,0.25); border:1px solid #cbd5e1; overflow:hidden;">
+    <div class="modal-card" style="max-width:640px;">
       <div class="modal-header" style="background:#1e3a8a; color:#ffffff; padding:16px 20px; display:flex; justify-content:space-between; align-items:center;">
         <h3 class="modal-title" style="color:#ffffff; margin:0; font-size:1.2rem; font-weight:800;" id="customScopeModalTitle">🎯 कार्यक्षेत्र एवं अधिकार आवंटन</h3>
         <button class="modal-close" style="color:#ffffff; background:transparent; border:none; font-size:1.4rem; cursor:pointer;" onclick="closeCustomScopeModal()">✕</button>
       </div>
-      <form id="customScopeForm" onsubmit="saveCustomScopeAllotment(event)" style="padding:22px; background:#ffffff;">
+      <form id="customScopeForm" onsubmit="saveCustomScopeAllotment(event)">
         <input type="hidden" id="scopeTargetUserId">
         
         <!-- User Profile Summary Banner -->

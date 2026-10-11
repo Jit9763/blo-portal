@@ -4148,23 +4148,37 @@ p, span, h1, h2, h3, h4, h5, h6, td, th, div, label, a, strong, small {
     padding-bottom: 76px !important;
   }
 
-  /* Modals on Mobile: Perfectly sized, zero edge spill */
+  /* Modals on Mobile: Perfectly sized, zero edge spill with scrollable content */
   .modal-overlay {
-    padding: 6px !important;
+    padding: 8px 6px !important;
     align-items: center !important;
     justify-content: center !important;
   }
 
   .modal-card,
   .modal-container {
-    width: 96% !important;
-    max-width: 96vw !important;
-    max-height: 90vh !important;
+    width: 98% !important;
+    max-width: 98vw !important;
+    max-height: 94vh !important;
+    max-height: 94dvh !important;
     margin: auto !important;
-    padding: 14px 12px !important;
+    padding: 0 !important;
     border-radius: 12px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .modal-card > form,
+  .modal-card form,
+  .modal-container > form,
+  .modal-container form,
+  .modal-body {
+    padding: 14px 12px !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
   }
 
   /* Gatekeeper on small devices */
@@ -4388,40 +4402,174 @@ input::placeholder {
 /* ==============================================================
    HIGH CONTRAST & LIGHT BACKGROUND FORM STYLES
    ============================================================== */
+/* ==============================================================
+   UNIVERSAL MODAL & FORM SCROLLING ENGINE (SUPER ADMIN & ALL DIALOGS)
+   Ensures every modal, edit form, scope dialog, personnel edit,
+   and super admin form scrolls smoothly on all desktop and mobile devices.
+   ============================================================== */
 .modal-overlay {
-  background: rgba(15, 23, 42, 0.75) !important;
-  backdrop-filter: blur(4px) !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
+  background: rgba(15, 23, 42, 0.8) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  z-index: 10000 !important;
+  padding: 20px 14px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  box-sizing: border-box !important;
 }
 
-.modal-card {
+.modal-card,
+.modal-container,
+.modal-content,
+.modal-box,
+.custom-modal-content {
   background: #ffffff !important;
   color: #0f172a !important;
   border: 1px solid #cbd5e1 !important;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25) !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35) !important;
   border-radius: 12px !important;
-  overflow: hidden;
+  width: 100% !important;
+  max-width: 680px;
+  max-height: calc(100vh - 40px) !important;
+  max-height: calc(100dvh - 40px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  margin: auto !important;
+  box-sizing: border-box !important;
+  position: relative !important;
 }
 
 .modal-header {
   background: #1e3a8a !important;
   color: #ffffff !important;
   padding: 14px 20px !important;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  border-top-left-radius: 11px !important;
+  border-top-right-radius: 11px !important;
+  z-index: 10 !important;
 }
 
-.modal-title {
+.modal-title,
+.modal-header h3,
+.modal-header h2 {
   color: #ffffff !important;
   font-weight: 800 !important;
   margin: 0 !important;
-  font-size: 1.2rem !important;
+  font-size: 1.15rem !important;
+  line-height: 1.3 !important;
+}
+
+.modal-close,
+.modal-close-btn {
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  font-size: 1.1rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  transition: all 0.15s ease !important;
+  flex-shrink: 0 !important;
+}
+
+.modal-close:hover,
+.modal-close-btn:hover {
+  background: rgba(239, 68, 68, 0.9) !important;
+  border-color: #ef4444 !important;
+  color: #ffffff !important;
+  transform: scale(1.05) !important;
+}
+
+/* Scrollable Form & Body Area - Ensures inputs and entire content can be scrolled */
+.modal-body,
+.modal-card > form,
+.modal-card form,
+.modal-container > form,
+.modal-container form {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior: contain !important;
+  padding: 18px 20px !important;
+  background: #ffffff !important;
+  color: #0f172a !important;
+  box-sizing: border-box !important;
+}
+
+/* Modal Bottom Action Buttons (Always Visible & Accessible at the bottom) */
+.modal-footer,
+.modal-card form > .d-flex.justify-content-end:last-child,
+.modal-container form > .d-flex.justify-content-end:last-child {
+  flex-shrink: 0 !important;
+  position: sticky !important;
+  bottom: 0 !important;
+  background: #ffffff !important;
+  padding: 12px 18px !important;
+  margin-top: 16px !important;
+  border-top: 1.5px solid #e2e8f0 !important;
+  z-index: 8 !important;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Custom Visible Scrollbars for Modal Forms */
+.modal-card form::-webkit-scrollbar,
+.modal-container form::-webkit-scrollbar,
+.modal-body::-webkit-scrollbar,
+.modal-overlay::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+.modal-card form::-webkit-scrollbar-track,
+.modal-container form::-webkit-scrollbar-track,
+.modal-body::-webkit-scrollbar-track,
+.modal-overlay::-webkit-scrollbar-track {
+  background: #f1f5f9 !important;
+  border-radius: 4px !important;
+}
+
+.modal-card form::-webkit-scrollbar-thumb,
+.modal-container form::-webkit-scrollbar-thumb,
+.modal-body::-webkit-scrollbar-thumb,
+.modal-overlay::-webkit-scrollbar-thumb {
+  background: #94a3b8 !important;
+  border-radius: 4px !important;
+}
+
+.modal-card form::-webkit-scrollbar-thumb:hover,
+.modal-container form::-webkit-scrollbar-thumb:hover,
+.modal-body::-webkit-scrollbar-thumb:hover,
+.modal-overlay::-webkit-scrollbar-thumb:hover {
+  background: #64748b !important;
+}
+
+.modal-card form,
+.modal-container form,
+.modal-body,
+.modal-overlay {
+  scrollbar-width: thin !important;
+  scrollbar-color: #94a3b8 #f1f5f9 !important;
 }
 
 .form-input, .form-select {
