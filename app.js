@@ -578,6 +578,7 @@ function renderAdminCellTab() {
   }
 
   tbody.innerHTML = '';
+  const frag = document.createDocumentFragment();
   filtered.forEach((c, idx) => {
     const cid = c.id || c.username;
     const cidLower = String(cid).toLowerCase();
@@ -675,8 +676,9 @@ function renderAdminCellTab() {
         </div>
       </td>
     `;
-    tbody.appendChild(tr);
+    frag.appendChild(tr);
   });
+  tbody.appendChild(frag);
 }
 
 // -------------------------------------------------------------------------
@@ -720,6 +722,7 @@ function renderAdminBloTab() {
   }
 
   tbody.innerHTML = '';
+  const frag = document.createDocumentFragment();
   filtered.forEach(b => {
     const bid = b.username || b.id || b.user_id;
     const bidLower = String(bid).toLowerCase();
@@ -814,8 +817,9 @@ function renderAdminBloTab() {
         <button type="button" class="admin-pass-btn admin-pass-btn-reset" onclick="resetUserPasswordToDefault('${bid}')" title="डिफ़ॉल्ट पासवर्ड (bhinai2026) करें">🔄 डिफ़ॉल्ट</button>
       </td>
     `;
-    tbody.appendChild(tr);
+    frag.appendChild(tr);
   });
+  tbody.appendChild(frag);
 }
 
 // -------------------------------------------------------------------------
@@ -851,6 +855,7 @@ function renderAdminCandTab() {
   }
 
   tbody.innerHTML = '';
+  const frag = document.createDocumentFragment();
   filtered.forEach(c => {
     const cid = c.id || c.username;
     const ov = overrides[cid] || {};
@@ -886,7 +891,7 @@ function renderAdminCandTab() {
           ${candPhoto ? `<img src="${candPhoto}" style="width:28px; height:28px; border-radius:50%; object-fit:cover; border:1.5px solid #d97706; flex-shrink:0;">` : `<span style="font-size:1.1rem; flex-shrink:0;">👤</span>`}
           <div>
             <div style="font-weight:700; color:#0f172a;">${candName}</div>
-            <div style="font-size:0.75rem; color:#64748b;">${c.designation || cand.post || 'प्रत्याशी'} ${agentName ? `• एजेंट: ${agentName}` : ''}</div>
+            <div style="font-size:0.75rem; color:#64748b;">${c.designation || (cand && cand.post) || 'प्रत्याशी'} ${agentName ? `• एजेंट: ${agentName}` : ''}</div>
           </div>
         </div>
       </td>
@@ -944,8 +949,9 @@ function renderAdminCandTab() {
         </div>
       </td>
     `;
-    tbody.appendChild(tr);
+    frag.appendChild(tr);
   });
+  tbody.appendChild(frag);
 }
 
 // -------------------------------------------------------------------------
@@ -997,6 +1003,7 @@ function renderAdminTopAdminsTab() {
 
   const overrides = getUserOverrides();
   tbody.innerHTML = '';
+  const frag = document.createDocumentFragment();
 
   topAdmins.forEach(adm => {
     const aid = adm.id;
@@ -1089,8 +1096,9 @@ function renderAdminTopAdminsTab() {
         </div>
       </td>
     `;
-    tbody.appendChild(tr);
+    frag.appendChild(tr);
   });
+  tbody.appendChild(frag);
 }
 
 // -------------------------------------------------------------------------
@@ -2077,9 +2085,6 @@ async function ensurePanchayatVotersLoaded(gpCode) {
 
 function initMasterData() {
   setTimeout(populateGpFilterDropdowns, 50);
-  setTimeout(populateGpFilterDropdowns, 50);
-  setTimeout(populateGpFilterDropdowns, 50);
-  setTimeout(populateGpFilterDropdowns, 50);
   if (window.MASTER_DATA) {
     State.panchayats = window.MASTER_DATA.panchayats || [];
     State.adminUsers = window.MASTER_DATA.admin_users || [];
@@ -2212,6 +2217,16 @@ function syncCurrentUserWithConfiguredUsers() {
       }
       return;
     }
+    const prevSnapshot = JSON.stringify({
+      tabs: State.currentUser.allowed_tabs,
+      gp: State.currentUser.allowed_panchayats,
+      wards: State.currentUser.allowed_wards,
+      cp: State.currentUser.can_print,
+      cd: State.currentUser.can_download,
+      cs: State.currentUser.can_search,
+      cv: State.currentUser.can_view
+    });
+
     let parsedTabs = matched.allowed_tabs;
     if (typeof parsedTabs === 'string') {
       try { parsedTabs = JSON.parse(parsedTabs); } catch(e) { parsedTabs = parsedTabs.split(',').map(s=>s.trim()); }
@@ -2232,10 +2247,22 @@ function syncCurrentUserWithConfiguredUsers() {
     if (matched.can_view !== undefined) State.currentUser.can_view = (matched.can_view === true || matched.can_view === 1);
     if (matched.candidate_mode) State.currentUser.candidate_mode = matched.candidate_mode;
 
-    const sk = getSessionStorageKey();
-    if (localStorage.getItem(sk)) localStorage.setItem(sk, JSON.stringify(State.currentUser));
-    if (sessionStorage.getItem(sk)) sessionStorage.setItem(sk, JSON.stringify(State.currentUser));
-    enforceGatekeeperState();
+    const newSnapshot = JSON.stringify({
+      tabs: State.currentUser.allowed_tabs,
+      gp: State.currentUser.allowed_panchayats,
+      wards: State.currentUser.allowed_wards,
+      cp: State.currentUser.can_print,
+      cd: State.currentUser.can_download,
+      cs: State.currentUser.can_search,
+      cv: State.currentUser.can_view
+    });
+
+    if (prevSnapshot !== newSnapshot) {
+      const sk = getSessionStorageKey();
+      if (localStorage.getItem(sk)) localStorage.setItem(sk, JSON.stringify(State.currentUser));
+      if (sessionStorage.getItem(sk)) sessionStorage.setItem(sk, JSON.stringify(State.currentUser));
+      enforceGatekeeperState();
+    }
   }
 }
 
@@ -3185,6 +3212,7 @@ function renderVoterCards(votersList) {
   if (!container) return;
   container.innerHTML = '';
   window._currentRenderedCards = votersList;
+  const fragment = document.createDocumentFragment();
 
   votersList.forEach((voter, index) => {
     const card = document.createElement('div');
@@ -3289,8 +3317,9 @@ function renderVoterCards(votersList) {
     `;
 
     card.voterData = voter;
-    container.appendChild(card);
+    fragment.appendChild(card);
   });
+  container.appendChild(fragment);
 }
 
 function openVoterSlipModalByIndex(index) {
@@ -6141,13 +6170,13 @@ function startLivePermissionSyncWatcher() {
     }
   });
 
-  // D. Background live sync loop every 4 seconds (so changes apply instantly without hard refresh)
+  // D. Background live sync safety loop every 45 seconds (cross-tab sync is already handled instantly via BroadcastChannel & storage events)
   setInterval(async () => {
     if (document.visibilityState === 'hidden') return;
     try {
       await loadAdminUsersList(false);
     } catch(e) {}
-  }, 4000);
+  }, 45000);
 }
 
 function togglePasswordVisibility(inputId, btn) {
