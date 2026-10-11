@@ -20,6 +20,12 @@ function Free-Port3000 {
 
 function Run-FetchRemote {
     Write-Host "`n[📥 FETCH] गिटहब से नवीनतम सेटिंग्स फेच की जा रही हैं..." -ForegroundColor Cyan
+    $status = git -C "$portalDir" status --porcelain 2>$null
+    if ($status) {
+        Write-Host "[⚠️ LOCAL EDITS] लोकल बदलाव पहले सुरक्षित किए जा रहे हैं..." -ForegroundColor Yellow
+        git -C "$portalDir" add -A 2>$null
+        git -C "$portalDir" commit -m "Auto-save local changes before fetch" 2>$null
+    }
     git -C "$portalDir" fetch origin main --quiet 2>$null
     git -C "$portalDir" merge origin/main --no-edit -m "merge: auto sync remote" --quiet 2>$null
     python "$baseDir\build_tri_portal_repos.py" *>$null
@@ -28,8 +34,6 @@ function Run-FetchRemote {
 
 function Run-DeployTriPortals {
     Write-Host "`n[⚡ DEPLOY] तीनों पोर्टल्स (pan, blo-portal, voter-portal) पर डिप्लॉय किया जा रहा है..." -ForegroundColor Yellow
-    git -C "$portalDir" fetch origin main --quiet 2>$null
-    git -C "$portalDir" merge origin/main --no-edit -m "merge: auto sync remote" --quiet 2>$null
     python "$baseDir\deploy_tri_portals.py"
     Write-Host "`n[✓ SUCCESS] तीनों पोर्टल्स गिटहब पर लाइव अपडेट हो चुके हैं!`n" -ForegroundColor Green
 }

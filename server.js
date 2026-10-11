@@ -119,6 +119,38 @@ function seedDatabase() {
 }
 seedDatabase();
 
+// Auto push debounced helper
+let autoPushTimer = null;
+function scheduleAutoPushToGithub(reason) {
+  if (autoPushTimer) clearTimeout(autoPushTimer);
+  autoPushTimer = setTimeout(() => {
+    try {
+      console.log(`[⚡ AUTO-PUSH] Triggering automatic sync & push to GitHub (reason: ${reason})...`);
+      const candidates = [
+        path.join(__dirname, '..', 'deploy_tri_portals.py'),
+        path.join(__dirname, 'deploy_tri_portals.py'),
+        'C:\\Users\\jiten\\Desktop\\panchayat chunav\\deploy_tri_portals.py',
+        'C:\\Users\\jiten\\Desktop\\panchyt order\\deploy_tri_portals.py'
+      ];
+      let scriptPath = null;
+      for (const p of candidates) {
+        if (fs.existsSync(p)) { scriptPath = p; break; }
+      }
+      if (scriptPath) {
+        const { spawn } = require('child_process');
+        const child = spawn('python', [scriptPath], {
+          detached: true,
+          stdio: 'ignore'
+        });
+        child.unref();
+        console.log('[⚡ AUTO-PUSH] Deployed process spawned in background:', scriptPath);
+      }
+    } catch(e) {
+      console.error('[AUTO-PUSH] Execution error:', e.message);
+    }
+  }, 4000);
+}
+
 // Sync SQLite back to portal_users.json so static GitHub Pages can also read it
 function exportToJson() {
   try {

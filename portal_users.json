@@ -263,7 +263,7 @@
       "allowed_wards": "ALL",
       "allowed_tabs": [
         "searchTab",
-        "alphaTab"
+        "directoryTab"
       ],
       "candidate_mode": "user_edit",
       "created_at": "2026-10-11T09:50:37.900Z",

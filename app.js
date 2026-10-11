@@ -53,12 +53,9 @@ function getUserOverrides() {
     });
   }
   try {
-    if (localStorage.getItem('portal_tabs_default_search_v3') !== 'true') {
-      localStorage.removeItem('portal_user_overrides');
-      localStorage.setItem('portal_tabs_default_search_v3', 'true');
-    }
     const local = JSON.parse(localStorage.getItem('portal_user_overrides') || '{}');
-    return Object.assign({}, overrides, local);
+    // Fresh server/State data in overrides MUST take precedence over stale local storage
+    return Object.assign({}, local, overrides);
   } catch(e) {
     return overrides;
   }
@@ -66,18 +63,23 @@ function getUserOverrides() {
 
 function saveUserOverride(userId, key, value) {
   const overrides = getUserOverrides();
+  const uIdLower = String(userId || '').toLowerCase();
   if (!overrides[userId]) overrides[userId] = {};
   overrides[userId][key] = value;
-  localStorage.setItem('portal_user_overrides', JSON.stringify(overrides));
+  if (!overrides[uIdLower]) overrides[uIdLower] = {};
+  overrides[uIdLower][key] = value;
+  try {
+    localStorage.setItem('portal_user_overrides', JSON.stringify(overrides));
+  } catch(e) {}
   
-  // Also sync in State.adminControlUsers and push to server
+  // Also sync in State.adminControlUsers
   if (State.adminControlUsers) {
-    const u = State.adminControlUsers.find(x => (x.id || x.username) === userId);
+    const u = State.adminControlUsers.find(x => 
+      (x.id && String(x.id).toLowerCase() === uIdLower) ||
+      (x.username && String(x.username).toLowerCase() === uIdLower)
+    );
     if (u) {
       u[key] = value;
-      if (typeof saveAdminUserToServer === 'function') {
-        saveAdminUserToServer(u);
-      }
     }
   }
 }
@@ -578,15 +580,27 @@ function renderAdminCellTab() {
   tbody.innerHTML = '';
   filtered.forEach((c, idx) => {
     const cid = c.id || c.username;
-    const ov = overrides[cid] || {};
-    const pass = ov.password || c.password || 'bhinai2026';
-    const status = ov.status || c.status || 'ACTIVE';
+    const cidLower = String(cid).toLowerCase();
+    const adminUser = (State.adminControlUsers || []).find(u => 
+      (u.id && String(u.id).toLowerCase() === cidLower) ||
+      (u.username && String(u.username).toLowerCase() === cidLower)
+    );
+    const ov = overrides[cid] || (adminUser ? overrides[adminUser.id || adminUser.username] : {}) || {};
+    const pass = (adminUser && adminUser.password) || ov.password || c.password || 'bhinai2026';
+    const status = (adminUser && adminUser.status) || ov.status || c.status || 'ACTIVE';
     const isActive = (status === 'ACTIVE');
-    const ovTabs = ov.allowed_tabs || c.allowed_tabs;
-    const allowedTabs = Array.isArray(ovTabs) ? ovTabs : ['searchTab'];
-    const canPrint = (ov.can_print !== undefined) ? ov.can_print : (c.can_print === true);
-    const canDownload = (ov.can_download !== undefined) ? ov.can_download : (c.can_download !== false);
-    const scope = ov.allowed_panchayats || c.allowed_panchayats || 'ALL';
+    
+    let allowedTabs = ['searchTab'];
+    if (adminUser && Array.isArray(adminUser.allowed_tabs)) {
+      allowedTabs = adminUser.allowed_tabs;
+    } else if (ov.allowed_tabs && Array.isArray(ov.allowed_tabs)) {
+      allowedTabs = ov.allowed_tabs;
+    } else if (Array.isArray(c.allowed_tabs)) {
+      allowedTabs = c.allowed_tabs;
+    }
+    const canPrint = (adminUser && adminUser.can_print !== undefined) ? (adminUser.can_print === true || adminUser.can_print === 1) : ((ov.can_print !== undefined) ? ov.can_print : (c.can_print === true));
+    const canDownload = (adminUser && adminUser.can_download !== undefined) ? (adminUser.can_download === true || adminUser.can_download === 1) : ((ov.can_download !== undefined) ? ov.can_download : (c.can_download !== false));
+    const scope = (adminUser && adminUser.allowed_panchayats) || ov.allowed_panchayats || c.allowed_panchayats || 'ALL';
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
@@ -708,15 +722,29 @@ function renderAdminBloTab() {
   tbody.innerHTML = '';
   filtered.forEach(b => {
     const bid = b.username || b.id || b.user_id;
-    const ov = overrides[bid] || {};
-    const pass = ov.password || b.password || 'bhinai2026';
-    const status = ov.status || b.status || 'ACTIVE';
+    const bidLower = String(bid).toLowerCase();
+    const adminUser = (State.adminControlUsers || []).find(u => 
+      (u.id && String(u.id).toLowerCase() === bidLower) ||
+      (u.username && String(u.username).toLowerCase() === bidLower) ||
+      (`blo_${b.booth_no}`.toLowerCase() === bidLower) ||
+      (String(b.booth_no) === bidLower)
+    );
+    const ov = overrides[bid] || (adminUser ? overrides[adminUser.id || adminUser.username] : {}) || {};
+    const pass = (adminUser && adminUser.password) || ov.password || b.password || 'bhinai2026';
+    const status = (adminUser && adminUser.status) || ov.status || b.status || 'ACTIVE';
     const isActive = (status === 'ACTIVE');
-    const ovTabs = ov.allowed_tabs || b.allowed_tabs;
-    const allowedTabs = Array.isArray(ovTabs) ? ovTabs : ['searchTab'];
-    const canPrint = (ov.can_print !== undefined) ? ov.can_print : (b.can_print === true);
-    const canDownload = (ov.can_download !== undefined) ? ov.can_download : (b.can_download !== false);
-    const scope = ov.allowed_panchayats || b.panchayat || 'BOOTH';
+    
+    let allowedTabs = ['searchTab'];
+    if (adminUser && Array.isArray(adminUser.allowed_tabs)) {
+      allowedTabs = adminUser.allowed_tabs;
+    } else if (ov.allowed_tabs && Array.isArray(ov.allowed_tabs)) {
+      allowedTabs = ov.allowed_tabs;
+    } else if (Array.isArray(b.allowed_tabs)) {
+      allowedTabs = b.allowed_tabs;
+    }
+    const canPrint = (adminUser && adminUser.can_print !== undefined) ? (adminUser.can_print === true || adminUser.can_print === 1) : ((ov.can_print !== undefined) ? ov.can_print : (b.can_print === true));
+    const canDownload = (adminUser && adminUser.can_download !== undefined) ? (adminUser.can_download === true || adminUser.can_download === 1) : ((ov.can_download !== undefined) ? ov.can_download : (b.can_download !== false));
+    const scope = (adminUser && adminUser.allowed_panchayats) || ov.allowed_panchayats || b.panchayat || 'BOOTH';
 
     const tr = document.createElement('tr');
     tr.innerHTML = `
@@ -2344,6 +2372,8 @@ function enforceGatekeeperState() {
     allowedTabs = ['searchTab', 'alphaTab', 'bulkSlipTab', 'candidateProfileTab'];
   } else if (u.role === 'BLO') {
     allowedTabs = ['searchTab'];
+  } else if (u.role === 'CELL_MEMBER' || u.role === 'CELL' || (u.id && String(u.id).startsWith('cell_'))) {
+    allowedTabs = ['searchTab', 'directoryTab'];
   }
 
   // Ensure candidate profile tab is visible if allowed
@@ -6006,16 +6036,30 @@ async function toggleUserTab(userId, tabName, isChecked) {
     u.allowed_tabs = u.allowed_tabs.filter(t => t !== tabName);
   }
 
+  // 1. Immediately sync in State.adminControlUsers
+  const uIdLower = String(userId || '').toLowerCase();
+  if (State.adminControlUsers) {
+    const idx = State.adminControlUsers.findIndex(x => 
+      (x.id && String(x.id).toLowerCase() === uIdLower) ||
+      (x.username && String(x.username).toLowerCase() === uIdLower)
+    );
+    if (idx >= 0) {
+      State.adminControlUsers[idx].allowed_tabs = [...u.allowed_tabs];
+    }
+  }
+
   saveUserOverride(userId, 'allowed_tabs', u.allowed_tabs);
   try {
     localStorage.setItem('portal_admin_users_overrides', JSON.stringify(State.adminControlUsers));
   } catch(e) {}
 
-  // 1. Immediately update active session if current logged in user was modified
+  // 2. Await server save first so DB and portal_users.json are updated before broadcast or re-fetch
+  await saveAdminUserToServer(u);
+
+  // 3. Immediately update active session if current logged in user was modified
   if (State.currentUser) {
     const curId = String(State.currentUser.id || State.currentUser.username || '').toLowerCase();
-    const tgtId = String(userId).toLowerCase();
-    if (curId === tgtId) {
+    if (curId === uIdLower) {
       State.currentUser.allowed_tabs = [...u.allowed_tabs];
       const sk = getSessionStorageKey();
       if (localStorage.getItem(sk)) localStorage.setItem(sk, JSON.stringify(State.currentUser));
@@ -6024,10 +6068,15 @@ async function toggleUserTab(userId, tabName, isChecked) {
     }
   }
 
-  // 2. Broadcast to all open tabs/windows immediately
+  // 4. Broadcast to all open tabs/windows immediately
   broadcastAdminUpdate({ type: 'PERMISSIONS_UPDATED', userId, allowed_tabs: u.allowed_tabs });
 
-  await saveAdminUserToServer(u);
+  // 5. Instantly re-render admin tables so checkboxes and badges visually update without page refresh
+  if (typeof renderAdminCellTab === 'function') renderAdminCellTab();
+  if (typeof renderAdminBloTab === 'function') renderAdminBloTab();
+  if (typeof renderAdminControlTab === 'function') renderAdminControlTab();
+  if (typeof renderBloPassTable === 'function') renderBloPassTable();
+
   const tabHiNames = {
     searchTab: 'मतदाता खोज',
     alphaTab: 'वर्णमाला सूची',
