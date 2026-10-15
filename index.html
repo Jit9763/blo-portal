@@ -53,63 +53,19 @@
 
         <!-- Simplified Unified Login Form -->
         <form id="gatekeeperLoginForm" onsubmit="handleGatekeeperLogin(event)" style="margin-top:12px;">
-          <input type="hidden" id="gatekeeperUsername" value="">
+          <input type="hidden" id="gatekeeperUsername" value="admin">
 
-          <!-- DROPDOWN 1: प्रकोष्ठ या 30 ग्राम पंचायतें -->
+          <!-- SINGLE DROPDOWN: पद चुनें -->
           <div class="form-group mb-3">
-            <label for="loginPanchayatSelect" style="font-size:0.9rem; color:#0f172a; font-weight:700;">
-              <strong>1. प्रकोष्ठ या ग्राम पंचायत चुनें *:</strong>
+            <label for="panAdminSelect" style="font-size:0.9rem; color:#0f172a; font-weight:700;">
+              <strong>1. अधिकृत पद चुनें *:</strong>
             </label>
-            <select id="loginPanchayatSelect" class="form-select" onchange="onLoginPanchayatSelected(this.value)" style="font-weight:700; cursor:pointer; font-size:0.95rem; height:44px; border:2px solid #cbd5e1; background:#ffffff; color:#0f172a; width:100%; border-radius:8px; padding:0 10px;">
-              <option value="">-- कृपया पहले यहाँ चुनें --</option>
-              <optgroup label="🌟 ब्लॉक प्रभारी एवं निर्वाचन प्रकोष्ठ">
-                <option value="BLOCK_PRABHARI">🌟 ब्लॉक प्रभारी</option>
-                <option value="CELL">📁 समस्त 13 निर्वाचन प्रकोष्ठ (भिनाय)</option>
-              </optgroup>
-              <optgroup label="🏛️ समस्त 30 ग्राम पंचायतें (बी.एल.ओ.)">
-                <option value="एकलसिंहा">🏛️ ग्राम पंचायत एकलसिंहा</option>
-                <option value="कनईकला">🏛️ ग्राम पंचायत कनईकला</option>
-                <option value="करांटी">🏛️ ग्राम पंचायत करांटी</option>
-                <option value="कुम्हारिया">🏛️ ग्राम पंचायत कुम्हारिया</option>
-                <option value="कैरोंट">🏛️ ग्राम पंचायत कैरोंट</option>
-                <option value="खेडी">🏛️ ग्राम पंचायत खेडी</option>
-                <option value="गुढाखुर्द">🏛️ ग्राम पंचायत गुढाखुर्द</option>
-                <option value="घणा">🏛️ ग्राम पंचायत घणा</option>
-                <option value="चापानेरी">🏛️ ग्राम पंचायत चापानेरी</option>
-                <option value="छछून्दरा">🏛️ ग्राम पंचायत छछून्दरा</option>
-                <option value="देवपुरा">🏛️ ग्राम पंचायत देवपुरा</option>
-                <option value="देवलियाकलां">🏛️ ग्राम पंचायत देवलियाकलां</option>
-                <option value="धांतोल">🏛️ ग्राम पंचायत धांतोल</option>
-                <option value="नागोला">🏛️ ग्राम पंचायत नागोला</option>
-                <option value="नान्दसी">🏛️ ग्राम पंचायत नान्दसी</option>
-                <option value="पड़ांगा">🏛️ ग्राम पंचायत पड़ांगा</option>
-                <option value="पाडलिया">🏛️ ग्राम पंचायत पाडलिया</option>
-                <option value="बगराई">🏛️ ग्राम पंचायत बगराई</option>
-                <option value="बड़गांव">🏛️ ग्राम पंचायत बड़गांव</option>
-                <option value="बड़ली">🏛️ ग्राम पंचायत बड़ली</option>
-                <option value="बांदनवाड़ा">🏛️ ग्राम पंचायत बांदनवाड़ा</option>
-                <option value="बूबकिया">🏛️ ग्राम पंचायत बूबकिया</option>
-                <option value="भिनाय">🏛️ ग्राम पंचायत भिनाय</option>
-                <option value="राताकोट">🏛️ ग्राम पंचायत राताकोट</option>
-                <option value="राममालिया">🏛️ ग्राम पंचायत राममालिया</option>
-                <option value="लामगरा">🏛️ ग्राम पंचायत लामगरा</option>
-                <option value="सिंगावल">🏛️ ग्राम पंचायत सिंगावल</option>
-                <option value="सोबडी">🏛️ ग्राम पंचायत सोबडी</option>
-                <option value="सोलखुर्द">🏛️ ग्राम पंचायत सोलखुर्द</option>
-                <option value="हियालिया">🏛️ ग्राम पंचायत हियालिया</option>
-              </optgroup>
+            <select id="panAdminSelect" class="form-select" onchange="document.getElementById('gatekeeperUsername').value = this.value; document.getElementById('gatekeeperPassword').focus();" style="font-weight:700; cursor:pointer; font-size:0.95rem; height:44px; border:2px solid #cbd5e1; background:#ffffff; color:#0f172a;">
+              <option value="admin">👑 मुख्य व्यवस्थापक (Super Admin - पूर्ण नियंत्रण)</option>
+              <option value="incharge">👁️ ब्लॉक इनचार्ज (Incharge - केवल अवलोकन/All Tabs View)</option>
+              <option value="vyavasthapak">🖨️ व्यवस्थापक (Vyavasthapak - प्रिंट व डाउनलोड)</option>
+              <option value="block_prabhari">🌟 ब्लॉक प्रभारी</option>
             </select>
-          </div>
-
-          <!-- DROPDOWN 2: कार्मिक / बी.एल.ओ. चुनें -->
-          <div class="form-group mb-3" id="loginSecondarySelectGroup">
-            <label for="loginOfficerSelect" id="loginOfficerLabel" style="font-size:0.9rem; color:#0f172a; font-weight:700;">
-              <strong>2. कार्मिक / बी.एल.ओ. चुनें *:</strong>
-            </label>
-            <select id="loginOfficerSelect" class="form-select" onchange="onLoginOfficerChanged(this.value)" style="font-weight:700; cursor:pointer; font-size:0.92rem; height:44px; border:2px solid #cbd5e1; background:#ffffff; color:#0f172a; width:100%; border-radius:8px; padding:0 10px;" disabled>
-              <option value="">-- पहले ऊपर प्रकोष्ठ या पंचायत चुनें --</option>
-            </select>
-            <div id="loginSelectedDetailsBadge" style="display:none; font-size:0.8rem; margin-top:6px; font-weight:700; padding:6px 10px; border-radius:6px;"></div>
           </div>
 
           <!-- PASSWORD FIELD -->
@@ -133,7 +89,7 @@
           <div id="gatekeeperError" class="alert-error" style="display:none; margin-bottom:12px;"></div>
 
           <button type="submit" class="btn btn-login-submit btn-block" style="height:44px; font-size:1rem; font-weight:700;">
-            <span>बी.एल.ओ. / प्रकोष्ठ पोर्टल में प्रवेश करें (Login)</span>
+            <span>मास्टर एडमिन पोर्टल में प्रवेश करें (Login)</span>
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
         </form>
@@ -857,17 +813,20 @@
           <form id="candidateProfileForm" onsubmit="handleSaveCandidateProfile(event)" class="candidate-form-grid">
             <!-- Left Column: Photo & Symbol -->
             <div class="candidate-form-col-left">
-                            <div class="form-group photo-upload-box">
-                <label><strong>📸 प्रत्याशी की रंगीन फोटो (Color Photo) *:</strong></label>
-                <div class="photo-preview-container">
-                  <img id="candidatePhotoPreview" src="https://api.dicebear.com/7.x/identicon/svg?seed=candidate" alt="प्रत्याशी फोटो" class="candidate-preview-img">
+                            <div class="form-group photo-upload-box" style="text-align:center; display:flex; flex-direction:column; align-items:center;">
+                <label style="text-align:center; width:100%; margin-bottom:6px;"><strong>📸 प्रत्याशी की रंगीन फोटो (Color Photo) *:</strong></label>
+                <div class="photo-preview-container" onclick="document.getElementById('candidatePhotoInput').click()" title="फोटो बदलने के लिए क्लिक करें" style="cursor:pointer; position:relative; margin:0 auto 10px auto; width:150px; height:180px; border:2px dashed #3b82f6; border-radius:8px; overflow:hidden; background:#f8fafc; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 6px rgba(0,0,0,0.08);">
+                  <img id="candidatePhotoPreview" src="https://api.dicebear.com/7.x/identicon/svg?seed=candidate" alt="प्रत्याशी फोटो" class="candidate-preview-img" style="width:100%; height:100%; object-fit:cover; display:block;">
+                  <div class="photo-overlay-badge" style="position:absolute; bottom:6px; left:50%; transform:translateX(-50%); background:rgba(15,23,42,0.8); color:#ffffff; font-size:0.75rem; font-weight:700; padding:3px 12px; border-radius:12px; pointer-events:none; white-space:nowrap;">
+                    📷 फोटो बदलें
+                  </div>
                 </div>
-                <div class="photo-controls-group">
-                  <label for="candidatePhotoInput" id="candidatePhotoBrowseBtn" class="btn btn-sm btn-primary" style="display:inline-flex; align-items:center; justify-content:center; gap:6px; font-weight:700; width:100%; max-width:180px; cursor:pointer;">
+                <div class="photo-controls-group" style="display:flex; flex-direction:column; align-items:center; justify-content:center; width:100%; gap:6px;">
+                  <label for="candidatePhotoInput" id="candidatePhotoBrowseBtn" class="btn btn-sm btn-primary" style="display:inline-flex; align-items:center; justify-content:center; gap:6px; font-weight:700; width:auto; min-width:160px; max-width:200px; margin:0 auto; cursor:pointer;">
                     📁 फोटो चुनें / बदलें
                   </label>
                   <input type="file" id="candidatePhotoInput" accept="image/*" style="display:none;" onchange="onCandidatePhotoSelected(event)">
-                  <button type="button" id="candidatePhotoRemoveBtn" class="btn btn-xs btn-outline-danger" onclick="clearCandidatePhoto()" style="display:none; font-size:0.75rem; border-radius:15px; padding:2px 12px;">
+                  <button type="button" id="candidatePhotoRemoveBtn" class="btn btn-xs btn-outline-danger" onclick="clearCandidatePhoto()" style="display:none; font-size:0.75rem; border-radius:15px; padding:2px 14px; margin:0 auto;">
                     ❌ फोटो हटाएं
                   </button>
                 </div>
@@ -927,11 +886,11 @@
               <div class="row-2col">
                 <div class="form-group">
                   <label for="candidateNameInput"><strong>प्रत्याशी का पूरा नाम (Candidate Name) *:</strong></label>
-                  <input type="text" id="candidateNameInput" class="form-input" placeholder="उदा. श्री रामेश्वर प्रसाद जाट" required style="font-weight:700; font-size:1.05rem;">
+                  <input type="text" id="candidateNameInput" class="form-input" placeholder="उदा. श्री रामेश्वर प्रसाद जाट" required oninput="renderLiveSpecimenSlip()" style="font-weight:700; font-size:1.05rem;">
                 </div>
                 <div class="form-group">
                   <label for="candidateMobileInput"><strong>सम्पर्क सूत्र / मोबाइल नं.:</strong></label>
-                  <input type="tel" id="candidateMobileInput" class="form-input" placeholder="उदा. 9829000000" maxlength="10" style="font-weight:600;">
+                  <input type="tel" id="candidateMobileInput" class="form-input" placeholder="उदा. 9829000000" maxlength="10" oninput="renderLiveSpecimenSlip()" style="font-weight:600;">
                 </div>
               </div>
 
@@ -963,17 +922,17 @@
               <div class="row-2col mt-2">
                 <div class="form-group">
                   <label for="candidateElectionDateInput"><strong>📅 मतदान की दिनांक (Election Date) *:</strong></label>
-                  <input type="text" id="candidateElectionDateInput" class="form-input" value="15 अक्टूबर 2026" placeholder="उदा. 15 अक्टूबर 2026" style="font-weight:700;">
+                  <input type="text" id="candidateElectionDateInput" class="form-input" value="15 अक्टूबर 2026" placeholder="उदा. 15 अक्टूबर 2026" oninput="renderLiveSpecimenSlip()" style="font-weight:700;">
                 </div>
                 <div class="form-group">
                   <label for="candidateElectionTimeInput"><strong>⏰ मतदान का समय (Voting Time) *:</strong></label>
-                  <input type="text" id="candidateElectionTimeInput" class="form-input" value="प्रातः 7:00 बजे से सायं 5:00 बजे तक" placeholder="उदा. प्रातः 7:00 बजे से सायं 5:00 बजे तक" style="font-weight:700;">
+                  <input type="text" id="candidateElectionTimeInput" class="form-input" value="प्रातः 7:00 बजे से सायं 5:00 बजे तक" placeholder="उदा. प्रातः 7:00 बजे से सायं 5:00 बजे तक" oninput="renderLiveSpecimenSlip()" style="font-weight:700;">
                 </div>
               </div>
 
               <div class="form-group mt-3">
                 <label for="candidateSloganTextarea"><strong>चुनाव प्रचार अपील / नारा (Campaign Appeal / Slogan):</strong></label>
-                <textarea id="candidateSloganTextarea" class="form-input" rows="3" placeholder="उदा. ।। समस्त ग्रामवासियों से विनम्र अपील ।।\nग्राम के सर्वांगीण विकास हेतु अपने जनप्रिय, कर्मठ एवं युवा प्रत्याशी को भारी मतों से विजयी बनावें।" style="font-weight:500;"></textarea>
+                <textarea id="candidateSloganTextarea" class="form-input" rows="3" placeholder="उदा. ।। समस्त ग्रामवासियों से विनम्र अपील ।।\nग्राम के सर्वांगीण विकास हेतु अपने जनप्रिय, कर्मठ एवं युवा प्रत्याशी को भारी मतों से विजयी बनावें।" oninput="renderLiveSpecimenSlip()" style="font-weight:500;"></textarea>
                 <div class="slogan-presets mt-1">
                   <span style="font-size:0.75rem; color:#64748b; font-weight:700;">त्वरित नारे:</span>
                   <button type="button" class="badge-chip" onclick="applySloganPreset(1)">सरपंच विकास अपील</button>
@@ -984,7 +943,7 @@
 
               <div class="form-check-card mt-3">
                 <label class="d-flex align-items-center gap-2" style="cursor:pointer;">
-                  <input type="checkbox" id="candidateShowBannerSlip" checked style="width:18px; height:18px;">
+                  <input type="checkbox" id="candidateShowBannerSlip" checked onchange="renderLiveSpecimenSlip()" style="width:18px; height:18px;">
                   <span><strong>मतदाता सूचना पर्चियों पर यह प्रत्याशी बैनर व कटिंग रेखा सक्रिय रखें</strong><br><small class="text-muted">शीर्ष भाग में प्रत्याशी का रंगीन प्रचार बैनर रहेगा, मध्य में काटने की रेखा `✂️` और नीचे 100% सादा ब्लैक एंड व्हाइट अधिकृत मतदाता पर्ची रहेगी।</small></span>
                 </label>
               </div>
